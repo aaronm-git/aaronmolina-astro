@@ -1,0 +1,16 @@
+{
+	"files.autoSave": "afterDelay",
+	"files.autoSaveDelay": 1000,
+	"prettier.enable": true,
+	"prettier.printWidth": 120,
+	"prettier.tabWidth": 2,
+	"prettier.useTabs": true,
+	"prettier.singleQuote": false,
+	"prettier.trailingComma": "es5",
+	"prettier.arrowParens": "avoid",
+	"prettier.bracketSpacing": true,
+	"prettier.endOfLine": "lf",
+	"prettier.htmlWhitespaceSensitivity": "css",
+	"prettier.insertPragma": false,
+	"prettier.jsxSingleQuote": false
+}

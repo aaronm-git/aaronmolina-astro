@@ -1,9 +1,19 @@
 ---
-title: "Building a Modern Portfolio with Astro and DecapCMS: A Senior Developer's Approach"
-slug: "2025-07-07-building-a-modern-portfolio-with-astro-and-decapcms"
+title: "Building a Modern Portfolio with Astro and DecapCMS: A Senior
+  Developer's Approach"
+slug: 2025-07-07-building-a-modern-portfolio-with-astro-and-decapcms
 date: 2025-07-07T10:00:00.000Z
-description: "Exploring the architecture and implementation of a modern portfolio site built with Astro, DecapCMS, TypeScript, and Tailwind CSS. A deep dive into the technical decisions and patterns that make this stack ideal for content-driven applications."
-tags: ["astro", "decapcms", "typescript", "tailwindcss", "frontend", "fullstack"]
+description: Exploring the architecture and implementation of a modern portfolio
+  site built with Astro, DecapCMS, TypeScript, and Tailwind CSS. A deep dive
+  into the technical decisions and patterns that make this stack ideal for
+  content-driven applications.
+tags:
+  - astro
+  - decapcms
+  - typescript
+  - frontend
+  - fullstack
+  - tailwindcss
 ---
 
 # Building a Modern Portfolio with Astro and DecapCMS: A Senior Developer's Approach

@@ -1,22 +1,32 @@
 {
-  "name": "-r",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "cms:dev": "npx decap-server"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.11.0",
-    "decap-cms-app": "^3.7.1",
-    "tailwindcss": "^4.1.11",
-    "yaml": "^2.8.0"
-  },
-  "devDependencies": {
-    "decap-server": "^3.3.0"
-  }
+	"name": "-r",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"cms:dev": "npx decap-server",
+		"cms:convert": "gulp convertConfig",
+		"cms:watch": "gulp watchConfig",
+		"images:webp": "gulp createWebp",
+		"images:watch": "gulp watchImages",
+		"images:check": "node scripts/image-size-check.js"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.1.11",
+		"astro": "^5.11.0",
+		"tailwindcss": "^4.1.11"
+	},
+	"devDependencies": {
+		"chalk": "^5.3.0",
+		"decap-cms-core": "^3.7.1",
+		"decap-server": "^3.3.0",
+		"gulp": "^5.0.1",
+		"gulp-imagemin": "^9.1.0",
+		"gulp-rename": "^2.0.0",
+		"imagemin-webp": "^8.0.0",
+		"js-yaml": "^4.1.0"
+	}
 }

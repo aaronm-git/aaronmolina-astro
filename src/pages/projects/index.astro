@@ -1,0 +1,137 @@
+---
+import MainLayout from "@/layouts/main-layout.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+// Sort projects by completion date (newest first), then by pinned status
+const sortedProjects = projects
+  .filter((project) => project.data.isActive)
+  .sort((a, b) => {
+    // First sort by pinned status
+    if (a.data.pinned && !b.data.pinned) return -1;
+    if (!a.data.pinned && b.data.pinned) return 1;
+
+    // Then by completion date
+    const aDate = a.data.completedOn
+      ? new Date(a.data.completedOn).getTime()
+      : 0;
+    const bDate = b.data.completedOn
+      ? new Date(b.data.completedOn).getTime()
+      : 0;
+    return bDate - aDate;
+  });
+---
+
+<MainLayout
+  title="Projects - Aaron Molina"
+  description="A showcase of my portfolio projects including web development, frontend engineering, and technical solutions."
+>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold text-primary-900 mb-4">Projects</h1>
+      <p class="text-xl text-primary-700">
+        A showcase of my portfolio projects including web development, frontend
+        engineering, and technical solutions.
+      </p>
+    </header>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {
+        sortedProjects.map((project) => (
+          <article class="bg-white rounded-lg border border-primary-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow flex flex-col">
+            <div class="aspect-video bg-primary-50 overflow-hidden">
+              {project.data.featuredImage ? (
+                <Image
+                  src={project.data.featuredImage}
+                  alt={project.data.title}
+                  class="w-full h-full object-cover"
+                  loading="eager"
+                  width={600}
+                  height={400}
+                />
+              ) : (
+                <div class="w-full h-full bg-primary-100 flex items-center justify-center">
+                  <span class="text-primary-500">No Image</span>
+                </div>
+              )}
+            </div>
+
+            <header class="p-6">
+              {project.data.pinned && (
+                <div class="flex items-center mb-2">
+                  <span class="px-2 py-1 bg-secondary-100 text-secondary-800 text-xs font-semibold rounded-full">
+                    Featured
+                  </span>
+                </div>
+              )}
+
+              <h2 class="text-xl font-semibold text-primary-900 mb-2">
+                <a
+                  href={`/projects/${project.data.slug}`}
+                  class="hover:text-secondary-600 transition-colors"
+                >
+                  {project.data.title}
+                </a>
+              </h2>
+
+              {project.data.completedOn && (
+                <div class="text-sm text-primary-600 mb-3">
+                  Completed:{" "}
+                  {project.data.completedOn.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                  })}
+                </div>
+              )}
+
+              {project.data.description && (
+                <p class="text-primary-700 mb-4 text-sm leading-relaxed">
+                  {project.data.description}
+                </p>
+              )}
+
+              {project.data.tags && project.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {project.data.tags.map((tag) => (
+                    <span class="px-2 py-1 bg-primary-100 text-primary-700 text-xs rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </header>
+
+            <footer class="flex justify-between items-center p-6 mt-auto">
+              <a
+                href={`/projects/${project.data.slug}`}
+                class="text-secondary-600 hover:text-secondary-800 text-sm font-medium"
+              >
+                View Details →
+              </a>
+
+              {project.data.link && (
+                <a
+                  href={project.data.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary-600 hover:text-primary-800 text-sm"
+                >
+                  Visit Site ↗
+                </a>
+              )}
+            </footer>
+          </article>
+        ))
+      }
+    </div>
+
+    {
+      projects.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-primary-600">No projects yet. Check back soon!</p>
+        </div>
+      )
+    }
+  </div>
+</MainLayout>

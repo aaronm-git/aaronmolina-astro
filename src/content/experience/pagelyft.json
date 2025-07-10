@@ -1,0 +1,23 @@
+{
+    "title": "PageLyft, LLC",
+    "slug": "pagelyft",
+    "location": "Miami, Florida, United States",
+    "date": "2023-10-01T00:00:00Z",
+    "endDate": null,
+    "role": "Owner / Full Stack Developer",
+    "responsibilities": [
+      "Built SEO-optimized WordPress websites using Elementor",
+      "Implemented local SEO and performance strategies",
+      "Built custom plugins and REST integrations",
+      "Managed client content architecture"
+    ],
+    "skills": ["WordPress", "PHP", "JavaScript", "SEO"],
+    "tools": ["Elementor Pro", "Google Business Profile", "REST API"],
+    "projects": [],
+    "achievements": [
+      "Improved local search visibility and performance metrics"
+    ],
+    "isActive": true
+  }
+
+  

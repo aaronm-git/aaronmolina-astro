@@ -1,0 +1,24 @@
+{
+    "title": "Azamara Cruises",
+    "slug": "azamara-cruises",
+    "location": "Miami, Florida, United States",
+    "date": "2022-01-01T00:00:00Z",
+    "endDate": "2024-04-01T00:00:00Z",
+    "role": "Lead Frontend Developer",
+    "responsibilities": [
+      "Led frontend architecture projects",
+      "Built reusable components with React and TypeScript",
+      "Integrated GraphQL and REST APIs",
+      "Collaborated with Figma design team",
+      "Maintained 99.9% uptime for deployments"
+    ],
+    "skills": ["React", "TypeScript", "GraphQL", "HTML", "CSS", "JavaScript"],
+    "tools": ["AWS", "AppSync", "CrafterCMS", "Python", "QA testing"],
+    "projects": [],
+    "achievements": [
+      "Reduced deployment time by 40%",
+      "Ensured stable launches"
+    ],
+    "isActive": false
+  }
+  

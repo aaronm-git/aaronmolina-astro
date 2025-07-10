@@ -11,41 +11,41 @@ const recentPosts = posts
 <MainLayout>
 	<div class="max-w-4xl mx-auto p-8">
 		<header class="mb-12 text-center">
-			<h1 class="text-5xl font-bold mb-4 text-gray-800">Aaron Molina</h1>
-			<p class="text-xl text-gray-600">Senior Frontend & Fullstack Developer</p>
-			<p class="text-lg text-gray-500 mt-2">Modern web technologies • Performance optimization • TypeScript • React</p>
+			<h1 class="text-5xl font-bold mb-4 text-primary-900">Aaron Molina</h1>
+			<p class="text-xl text-primary-700">Senior Frontend & Fullstack Developer</p>
+			<p class="text-lg text-primary-600 mt-2">Modern web technologies • Performance optimization • TypeScript • React</p>
 		</header>
 
 		<div class="grid md:grid-cols-2 gap-8 mb-12">
-			<div class="bg-white p-6 rounded-lg shadow-md border">
-				<h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-2">
-					<span data-feather="edit-3" class="text-blue-600"></span>
+			<div class="bg-white p-6 rounded-lg shadow-md border border-primary-100">
+				<h2 class="text-2xl font-semibold mb-4 text-primary-900 flex items-center gap-2">
+					<span data-feather="edit-3" class="text-secondary-600"></span>
 					Content Management
 				</h2>
-				<p class="text-gray-600 mb-4">
+				<p class="text-primary-600 mb-4">
 					Your site is now equipped with DecapCMS for easy content management. Edit pages and posts through a beautiful
 					web interface.
 				</p>
 				<a
 					href="/admin"
-					class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+					class="inline-flex items-center gap-2 bg-secondary-600 text-white px-6 py-3 rounded-lg hover:bg-secondary-700 transition-colors"
 				>
 					<span data-feather="external-link"></span>
 					Access CMS Admin
 				</a>
 			</div>
 
-			<div class="bg-white p-6 rounded-lg shadow-md border">
-				<h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-2">
-					<span data-feather="file-text" class="text-green-600"></span>
+			<div class="bg-white p-6 rounded-lg shadow-md border border-primary-100">
+				<h2 class="text-2xl font-semibold mb-4 text-primary-900 flex items-center gap-2">
+					<span data-feather="file-text" class="text-primary-600"></span>
 					Sample Content
 				</h2>
-				<p class="text-gray-600 mb-4">
+				<p class="text-primary-600 mb-4">
 					Check out the sample content page to see how DecapCMS-managed content is displayed in your Astro site.
 				</p>
 				<a
 					href="/about"
-					class="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
+					class="inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors"
 				>
 					<span data-feather="eye"></span>
 					View Sample Page
@@ -54,26 +54,26 @@ const recentPosts = posts
 		</div>
 
 		{recentPosts.length > 0 && (
-			<div class="bg-white p-6 rounded-lg shadow-md border mb-8">
+			<div class="bg-white p-6 rounded-lg shadow-md border border-primary-100 mb-8">
 				<div class="flex justify-between items-center mb-6">
-					<h2 class="text-2xl font-semibold text-gray-800 flex items-center gap-2">
-						<span data-feather="book-open" class="text-gray-600"></span>
+					<h2 class="text-2xl font-semibold text-primary-900 flex items-center gap-2">
+						<span data-feather="book-open" class="text-primary-600"></span>
 						Recent Blog Posts
 					</h2>
-					<a href="/blog" class="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
+					<a href="/blog" class="text-secondary-600 hover:text-secondary-800 font-medium flex items-center gap-1">
 						View all posts <span data-feather="arrow-right"></span>
 					</a>
 				</div>
 				
 				<div class="space-y-4">
 					{recentPosts.map((post) => (
-						<article class="border-b border-gray-100 pb-4 last:border-b-0">
-							<h3 class="text-lg font-semibold text-gray-900 mb-2">
-								<a href={`/blog/${post.data.slug}`} class="hover:text-blue-600 transition-colors">
+						<article class="border-b border-primary-100 pb-4 last:border-b-0">
+							<h3 class="text-lg font-semibold text-primary-900 mb-2">
+								<a href={`/blog/${post.data.slug}`} class="hover:text-secondary-600 transition-colors">
 									{post.data.title}
 								</a>
 							</h3>
-							<div class="flex items-center text-sm text-gray-600 mb-2">
+							<div class="flex items-center text-sm text-primary-600 mb-2">
 								<span data-feather="calendar" class="w-4 h-4 mr-1"></span>
 								<time datetime={post.data.date.toISOString()}>
 									{post.data.date.toLocaleDateString('en-US', {
@@ -84,7 +84,7 @@ const recentPosts = posts
 								</time>
 							</div>
 							{post.data.description && (
-								<p class="text-gray-700 text-sm">
+								<p class="text-primary-700 text-sm">
 									{post.data.description}
 								</p>
 							)}
@@ -94,42 +94,42 @@ const recentPosts = posts
 			</div>
 		)}
 
-		<div class="bg-gray-50 p-6 rounded-lg">
+		<div class="bg-primary-50 p-6 rounded-lg border border-primary-100">
 			<h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
-				<span data-feather="check-circle" class="text-green-600"></span>
+				<span data-feather="check-circle" class="text-secondary-600"></span>
 				What's Configured
 			</h3>
-			<ul class="space-y-2 text-gray-700">
+			<ul class="space-y-2 text-primary-700">
 				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-green-600"></span>
+					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
 					DecapCMS with JavaScript configuration (no YAML!)
 				</li>
 				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-green-600"></span>
+					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
 					Git-based content management
 				</li>
 				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-green-600"></span>
+					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
 					Pages and blog posts collections
 				</li>
 				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-green-600"></span>
+					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
 					Image upload support
 				</li>
 				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-green-600"></span>
+					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
 					Markdown editing with preview
 				</li>
 				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-green-600"></span>
+					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
 					Astro integration with Tailwind CSS
 				</li>
 				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-green-600"></span>
+					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
 					Dynamic blog post generation
 				</li>
 				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-green-600"></span>
+					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
 					SEO-optimized metadata
 				</li>
 			</ul>

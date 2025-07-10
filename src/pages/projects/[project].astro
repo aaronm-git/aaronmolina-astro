@@ -20,23 +20,23 @@ const { Content } = await render(project);
 		<!-- Project Header -->
 		<header class="mb-8">
 			<div class="flex items-center justify-between mb-4">
-				<h1 class="text-4xl font-bold text-gray-900">
+				<h1 class="text-4xl font-bold text-primary-900">
 					{project.data.title}
 				</h1>
 				{
 					project.data.pinned && (
-						<span class="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-semibold rounded-full flex-shrink-0">
+						<span class="px-3 py-1 bg-secondary-100 text-secondary-800 text-sm font-semibold rounded-full flex-shrink-0">
 							Featured Project
 						</span>
 					)
 				}
 			</div>
 
-			<div class="flex items-center justify-between text-gray-600 mb-6">
+			<div class="flex items-center justify-between text-primary-600 mb-6">
 				<div class="flex items-center gap-6">
 					<a
 						href="#project-details"
-						class="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
+						class="flex items-center gap-2 text-secondary-600 hover:text-secondary-800 transition-colors"
 					>
 						<span class="text-sm font-medium flex items-center gap-2"
 							><i data-feather="info" class="w-4 h-4"></i> Project Details</span
@@ -49,7 +49,7 @@ const { Content } = await render(project);
 								href={project.data.link}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
+								class="flex items-center gap-2 text-secondary-600 hover:text-secondary-800 transition-colors"
 							>
 								<span class="text-sm font-medium">Visit Project</span>
 								<svg
@@ -73,7 +73,7 @@ const { Content } = await render(project);
 
 			{
 				project.data.description && (
-					<p class="text-xl text-gray-700 mb-6 leading-relaxed">
+					<p class="text-xl text-primary-700 mb-6 leading-relaxed">
 						{project.data.description}
 					</p>
 				)
@@ -83,7 +83,7 @@ const { Content } = await render(project);
 				project.data.tags && project.data.tags.length > 0 && (
 					<div class="flex flex-wrap gap-2 mb-6">
 						{project.data.tags.map(tag => (
-							<span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
+							<span class="px-3 py-1 bg-secondary-100 text-secondary-800 text-sm font-medium rounded-full">
 								{tag}
 							</span>
 						))}
@@ -102,17 +102,17 @@ const { Content } = await render(project);
 		}
 
 		<!-- Project Details -->
-		<div class="bg-gray-50 rounded-lg p-6 mb-8" id="project-details">
-			<h2 class="text-lg font-semibold text-gray-900 mb-4">Project Details</h2>
+		<div class="bg-primary-50 rounded-lg p-6 mb-8 border border-primary-200" id="project-details">
+			<h2 class="text-lg font-semibold text-primary-900 mb-4">Project Details</h2>
 
 			<div class="grid gap-4 md:grid-cols-2">
 				{
 					project.data.completedOn && (
 						<div>
-							<dt class="text-sm font-medium text-gray-600 mb-1">
+							<dt class="text-sm font-medium text-primary-600 mb-1">
 								Completion Date
 							</dt>
-							<dd class="text-sm text-gray-900">
+							<dd class="text-sm text-primary-900">
 								{project.data.completedOn.toLocaleDateString("en-US", {
 									year: "numeric",
 									month: "long",
@@ -125,7 +125,7 @@ const { Content } = await render(project);
 				{
 					project.data.link && (
 						<div>
-							<dt class="text-sm font-medium text-gray-600 mb-1">
+							<dt class="text-sm font-medium text-primary-600 mb-1">
 								Project URL
 							</dt>
 							<dd class="text-sm">
@@ -133,7 +133,7 @@ const { Content } = await render(project);
 									href={project.data.link}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="text-blue-600 hover:text-blue-800 break-all"
+									class="text-secondary-600 hover:text-secondary-800 break-all"
 								>
 									{project.data.link}
 								</a>
@@ -145,12 +145,12 @@ const { Content } = await render(project);
 				{
 					project.data.tags && project.data.tags.length > 0 && (
 						<div class="md:col-span-2">
-							<dt class="text-sm font-medium text-gray-600 mb-2">
+							<dt class="text-sm font-medium text-primary-600 mb-2">
 								Technologies Used
 							</dt>
 							<dd class="flex flex-wrap gap-2">
 								{project.data.tags.map(tag => (
-									<span class="px-2 py-1 bg-white text-gray-700 text-xs rounded border">
+									<span class="px-2 py-1 bg-white text-primary-700 text-xs rounded border border-primary-200">
 										{tag}
 									</span>
 								))}
@@ -162,11 +162,11 @@ const { Content } = await render(project);
 		</div>
 
 		<!-- Project Footer -->
-		<footer class="pt-8 border-t border-gray-200">
+		<footer class="pt-8 border-t border-primary-200">
 			<div class="flex justify-between items-center">
 				<a
 					href="/projects"
-					class="text-blue-600 hover:text-blue-800 flex items-center gap-2"
+					class="text-secondary-600 hover:text-secondary-800 flex items-center gap-2"
 				>
 					<svg
 						class="w-4 h-4"
@@ -189,7 +189,7 @@ const { Content } = await render(project);
 							href={project.data.link}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+							class="bg-secondary-600 hover:bg-secondary-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
 						>
 							<span>View Live Project</span>
 							<svg

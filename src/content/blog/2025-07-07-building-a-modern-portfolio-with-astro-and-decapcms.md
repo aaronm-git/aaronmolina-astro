@@ -7,6 +7,7 @@ description: Exploring the architecture and implementation of a modern portfolio
   site built with Astro, DecapCMS, TypeScript, and Tailwind CSS. A deep dive
   into the technical decisions and patterns that make this stack ideal for
   content-driven applications.
+image: ""
 tags:
   - astro
   - decapcms
@@ -15,105 +16,87 @@ tags:
   - fullstack
   - tailwindcss
 ---
+# Building a Modern Portfolio with Astro and DecapCMS
 
-# Building a Modern Portfolio with Astro and DecapCMS: A Senior Developer's Approach
+When I rebuilt my portfolio site recently, I went through the usual developer decision paralysis. React? Next.js? Just stick with WordPress? After working with various teams and tech stacks over the years, I landed on something that might surprise you: Astro with DecapCMS.
 
-As a senior frontend and fullstack developer, choosing the right technology stack for a portfolio site involves more than just picking popular tools—it's about demonstrating architectural thinking, performance optimization, and maintainability. In this post, I'll walk through the technical decisions behind this portfolio and why this particular stack represents modern web development best practices. You can explore the complete implementation on [my GitHub profile](https://github.com/aaronm-git) where I share various projects showcasing modern web development patterns and best practices.
+Here's why I made these choices and what I learned along the way. You can check out the full implementation on [my GitHub](https://github.com/aaronm-git) if you want to see how it all comes together.
 
-## The Tech Stack: Why These Choices Matter
+## The Stack and Why I Picked It
 
-### Astro: The Foundation
-Astro isn't just another static site generator—it's a paradigm shift in how we think about web performance. The "Islands Architecture" it promotes allows us to ship zero JavaScript by default, only hydrating components when interactivity is actually needed. This approach results in:
+### Astro: Finally, a Static Site Generator That Gets It
 
-- **Lighthouse scores consistently above 95** across all metrics
-- **Sub-100ms Time to Interactive** for most pages
-- **Minimal bundle sizes** that scale linearly with features
+I've used Gatsby, Next.js, and plenty of other frameworks, but Astro just clicks. The Islands Architecture means I can write components without worrying about shipping unnecessary JavaScript. Most of my portfolio pages are pure HTML/CSS, which loads instantly.
 
-The choice of Astro reflects a deep understanding of modern web performance requirements and user experience optimization.
+The performance gains are real:
+- Lighthouse scores above 95 consistently
+- Pages load in under 100ms
+- Bundle sizes that don't grow out of control
 
-### DecapCMS: Content Management Without Compromise
-Traditional headless CMS solutions often introduce unnecessary complexity or vendor lock-in. DecapCMS (formerly Netlify CMS) offers a Git-based approach that aligns perfectly with modern development workflows:
+After dealing with hydration issues and massive bundle sizes in previous projects, this feels refreshing.
 
-- **Version-controlled content** that lives alongside code
-- **No database dependencies** or external services
-- **Git-based workflow** familiar to developers
-- **Self-hosted solution** with full control over data
+### DecapCMS: Git-Based Content That Actually Works
 
-This choice demonstrates understanding of content management from both technical and business perspectives.
+I was skeptical about DecapCMS at first. Coming from teams using Contentful and Strapi, a file-based CMS seemed like a step backward. But after using it for a few months, I get it now.
 
-### TypeScript: Type Safety at Scale
-TypeScript isn't just about catching errors—it's about building maintainable, scalable applications. The configuration-driven approach used in this project showcases advanced TypeScript patterns:
+Everything lives in Git alongside my code. No database to maintain, no API keys to manage, no vendor lock-in. When I update content, it's just a commit. When I deploy, content comes with it.
+
+Plus, the editing experience is actually decent. Non-technical folks can use it without breaking anything.
+
+### TypeScript: Because I Like Sleeping at Night
+
+TypeScript isn't optional for me anymore. On this project, I used it throughout the CMS configuration:
 
 ```typescript
-// Type-safe CMS configuration
-export const cmsConfig: InitOptions = {
-  config: {
-    collections: [
-      {
-        name: "posts",
-        label: "Blog Posts",
-        fields: [
-          {
-            label: "Title",
-            name: "title",
-            widget: "string",
-          },
-          // ... more fields with full type safety
-        ],
-      },
-    ],
-  },
+// Type-safe CMS fields
+export const blogCollection = {
+  name: "blog",
+  label: "Blog Posts",
+  fields: [
+    { label: "Title", name: "title", widget: "string" },
+    { label: "Date", name: "date", widget: "datetime" },
+    // TypeScript catches field mismatches at build time
+  ],
 };
 ```
 
-This approach ensures that content structure changes are caught at compile time, reducing runtime errors and improving developer experience.
+Having type safety in the CMS config means when I change content structure, I know exactly what breaks. No more runtime surprises.
 
-### Tailwind CSS: Utility-First Architecture
-The utility-first approach with Tailwind CSS enables rapid development while maintaining consistency. More importantly, it demonstrates understanding of:
+### Tailwind: Utility Classes That Don't Suck
 
-- **Design system implementation** through custom configurations
-- **Performance optimization** through PurgeCSS integration
-- **Responsive design patterns** that work across all devices
-- **Accessibility considerations** built into utility classes
+I used to be a Tailwind skeptic. "Just write CSS," I'd say. But after using it on larger projects, I'm converted. For a portfolio site, it's perfect.
 
-## Architecture Decisions: Beyond the Basics
+Quick prototyping, consistent spacing, responsive design that just works. And with PurgeCSS, the final bundle is tiny.
 
-### Content Collections and Type Safety
-The project implements Astro's content collections with full TypeScript integration:
+## Architecture Decisions I'm Happy With
+
+### Content Collections with Zod Validation
+
+Astro's content collections are brilliant. I can define schemas that validate at build time:
 
 ```typescript
-// src/content.config.ts
-import { defineCollection, z } from "astro:content";
-
 const blog = defineCollection({
-  loader: glob({ pattern: "./src/blog/**/*.md" }),
   schema: z.object({
     title: z.string(),
     date: z.date(),
-    description: z.string().optional(),
     tags: z.array(z.string()).default([]),
   }),
 });
 ```
 
-This ensures that all content follows a consistent schema, with compile-time validation and excellent IDE support.
+If I mess up frontmatter, the build fails. Fast feedback, no broken production deploys.
 
-### Component Architecture
-The layout system demonstrates understanding of component composition and reusability:
+### Component Organization
+
+I kept the component structure simple. One main layout, a few reusable pieces. Nothing fancy:
 
 ```astro
----
-// src/layouts/main-layout.astro
-import "@/styles/global.css";
----
-
+// layouts/main-layout.astro - keeps it simple
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>Aaron Molina</title>
   </head>
   <body>
     <slot />
@@ -121,121 +104,70 @@ import "@/styles/global.css";
 </html>
 ```
 
-This pattern allows for consistent styling and metadata across all pages while maintaining flexibility.
+Sometimes the simplest approach is the best approach.
 
-### Build Optimization
-The build configuration demonstrates advanced understanding of modern build tools:
+## Performance Stuff That Actually Matters
 
-```javascript
-// astro.config.mjs
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
+### Images Don't Suck
 
-export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()]
-  }
-});
-```
+Astro's image optimization is solid. I drop in images, it handles WebP conversion, responsive sizing, lazy loading. One less thing to think about.
 
-This setup ensures optimal CSS processing and tree-shaking while maintaining development experience.
+### Bundle Size Reality Check
 
-## Performance Considerations
+With Astro, I ship almost zero JavaScript. My homepage is under 50KB total. Compare that to my previous Next.js portfolio that was pushing 200KB just for the framework.
 
-### Image Optimization
-The media handling strategy includes:
+## Developer Experience Wins
 
-- **Automatic image optimization** through Astro's built-in image components
-- **Responsive image generation** for different screen sizes
-- **WebP format support** with fallbacks for older browsers
-- **Lazy loading** implementation for better perceived performance
+### Hot Reloading That Works
 
-### Bundle Analysis
-The project structure demonstrates understanding of bundle optimization:
+Unlike some static site generators, Astro's dev server is fast. Changes appear instantly. No more waiting 30 seconds for a rebuild.
 
-- **Code splitting** by route
-- **Tree shaking** for unused CSS and JavaScript
-- **Minimal runtime overhead** through Astro's zero-JS-by-default approach
-- **Efficient asset loading** strategies
+### TypeScript Integration
 
-## Developer Experience Enhancements
+Full TypeScript support without configuration headaches. IntelliSense works, imports resolve correctly, type checking happens at build time.
 
-### Development Workflow
-The setup includes several developer experience improvements:
+### Git-Based Content Workflow
 
-- **Hot module replacement** for instant feedback
-- **TypeScript integration** with full type checking
-- **ESLint and Prettier** configuration for code quality
-- **VS Code settings** for consistent development environment
+Content changes go through pull requests just like code. I can review copy changes, suggest edits, track content history. It's version control for everything.
 
-### Content Management Workflow
-The DecapCMS integration provides:
+## Why This Stack Makes Sense for Senior Devs
 
-- **Visual content editing** with live preview
-- **Git-based versioning** for all content changes
-- **Branch-based workflows** for content staging
-- **Media asset management** with automatic optimization
+### Performance by Default
 
-## Why This Stack Demonstrates Senior-Level Skills
+I don't have to optimize for performance later. The architecture encourages fast sites from the start.
 
-### 1. Performance-First Thinking
-Every technical decision prioritizes user experience and performance. The choice of Astro's Islands Architecture shows understanding of modern web performance requirements and user behavior patterns.
+### Maintainability
 
-### 2. Maintainability and Scalability
-The TypeScript integration, content collections, and modular architecture demonstrate planning for long-term maintainability and team scalability.
+Six months from now, I'll understand this codebase. TypeScript helps, simple architecture helps, Git-based content helps.
 
-### 3. Modern Development Practices
-The Git-based content management, automated builds, and development tooling reflect current industry best practices and CI/CD understanding.
+### No Vendor Lock-in
 
-### 4. Business Value Understanding
-The choice of self-hosted, Git-based CMS shows understanding of business requirements around data ownership, cost control, and vendor independence.
+If DecapCMS disappears tomorrow, my content is just markdown files. If Astro dies, I can migrate to another static site generator easily.
 
-### 5. User Experience Focus
-The performance optimizations, accessibility considerations, and responsive design patterns demonstrate user-centric development thinking.
+### Real Business Value
 
-## Technical Implementation Highlights
+Fast sites convert better. Git-based workflows scale with teams. Self-hosted solutions don't have monthly fees.
 
-### Content Schema Design
-The blog post schema demonstrates understanding of content modeling:
+## The Downsides (Because Nothing's Perfect)
 
-```typescript
-interface BlogPost {
-  title: string;
-  slug: string;
-  date: Date;
-  description?: string;
-  image?: string;
-  tags: string[];
-  body: string;
-}
-```
+DecapCMS isn't as polished as commercial options. The admin interface can be quirky. Complex content relationships are harder to model.
 
-This schema balances flexibility with structure, ensuring content consistency while allowing for future expansion.
+Astro is newer, so some third-party integrations aren't there yet. The ecosystem is smaller than React or Vue.
 
-### SEO and Metadata
-The implementation includes comprehensive SEO considerations:
+But for a portfolio site? These tradeoffs are worth it.
 
-- **Structured data** for search engines
-- **Meta tags** for social sharing
-- **Sitemap generation** for discoverability
-- **RSS feed** for content syndication
+## What I'd Do Differently Next Time
 
-### Security Considerations
-The setup includes several security best practices:
+I'd spend more time on the CMS configuration upfront. Getting the content structure right from the beginning saves refactoring later.
 
-- **Content Security Policy** headers
-- **XSS protection** through proper content sanitization
-- **HTTPS enforcement** in production
-- **Input validation** at multiple layers
+I'd also add more automated testing for the build process. Right now, I rely on TypeScript and manual testing.
 
-## Conclusion: Why This Matters
+## Final Thoughts
 
-This tech stack choice isn't just about building a portfolio—it's about demonstrating comprehensive understanding of modern web development. From performance optimization to content management, from developer experience to user experience, every decision reflects senior-level thinking about building scalable, maintainable web applications.
+This stack works for me because it aligns with how I think about web development: performance first, simple when possible, maintainable for the long term.
 
-The combination of Astro's performance-first approach, DecapCMS's Git-based content management, TypeScript's type safety, and Tailwind CSS's utility-first styling creates a foundation that can scale from a simple portfolio to a complex content-driven application. This demonstrates not just technical skills, but architectural thinking and business understanding that's essential for senior-level positions.
+Is it right for every project? No. But for content-heavy sites where performance matters, it's a solid choice.
 
-As the web continues to evolve, the ability to choose and implement the right tools for the job—while maintaining focus on performance, maintainability, and user experience—becomes increasingly valuable. This stack represents a modern, forward-thinking approach to web development that balances technical excellence with practical business needs.
+The web development landscape changes fast, but these fundamentals don't: fast sites win, simple code lasts, and developer experience affects everything else.
 
----
-
-*This post was written using the very CMS system it describes, demonstrating the seamless integration between content creation and technical implementation that this stack enables.* 
+*Written and published using the very CMS system described above. Meta, right?*

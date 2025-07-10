@@ -1,7 +1,0 @@
-{
-	"title": "AWS Cognito",
-	"slug": "cognito",
-	"description": "User authentication and authorization service",
-	"color": "#FF9900",
-	"category": "devops"
-} 

@@ -3,6 +3,7 @@ title: Azamara Cruises Website
 slug: azamara-website
 description: Custom frontend rebuild of Azamara.com, moving from Royal Caribbean
   infrastructure to a modern JAMstack site.
+featuredImage: /src/images/project-azamara.webp
 tags:
   - graphql
   - aws

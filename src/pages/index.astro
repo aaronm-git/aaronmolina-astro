@@ -3,6 +3,7 @@ import MainLayout from "@/layouts/main-layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import ExperienceCard from "@/components/ExperienceCard.astro";
 import { getCollection } from "astro:content";
+import tags from "@/content/tags";
 
 const posts = await getCollection("blog");
 const recentPosts = posts
@@ -28,9 +29,8 @@ const featuredProjects = projects
 	})
 	.slice(0, 3);
 
-// Get all tags and group by category
-const tags = await getCollection("tags");
-const tagMap = new Map(tags.map(tag => [tag.data.slug, tag.data]));
+// Create tag map
+const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 
 // Extract unique skills from experience and get their tag data
 const allSkills = experience.flatMap(exp => exp.data.skills);
@@ -40,7 +40,7 @@ const uniqueSkills = [...new Set(allSkills)];
 const skillsByCategory = uniqueSkills.reduce((acc, skillSlug) => {
 	const tag = tagMap.get(skillSlug);
 	if (tag) {
-		const category = tag.category;
+		const category = tag.category || 'uncategorized';
 		if (!acc[category]) {
 			acc[category] = [];
 		}

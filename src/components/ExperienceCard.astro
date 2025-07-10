@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import tags from "@/content/tags";
 
 interface Props {
   experience: {
@@ -22,9 +22,8 @@ interface Props {
 
 const { experience, showAllDetails = false } = Astro.props;
 
-// Get all tags to map skill slugs to titles
-const tags = await getCollection("tags");
-const tagMap = new Map(tags.map(tag => [tag.data.slug, tag.data]));
+// Create a map of skill slugs to tag data
+const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 
 // Calculate duration
 function calculateDuration(startDate: Date, endDate?: string): string {

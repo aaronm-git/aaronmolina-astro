@@ -2,7 +2,12 @@
 import { defineCollection, z } from "astro:content";
 
 // 2. Import loader(s)
-import { glob, file } from "astro/loaders";
+import { glob } from "astro/loaders";
+
+import tags from "@/content/tags";
+
+// Create tag slugs enum from tags data
+const tagSlugs = tags.map(tag => tag.slug) as [string, ...string[]];
 
 // 3. Define your collection(s)
 const blog = defineCollection({
@@ -13,18 +18,7 @@ const blog = defineCollection({
     date: z.date(),
     description: z.string().optional(),
     image: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-  }),
-});
-
-const tags = defineCollection({
-  loader: glob({ pattern: "./src/content/tags/**/*.json" }),
-  schema: z.object({
-    title: z.string(),
-    slug: z.string(),
-    description: z.string().optional(),
-    color: z.string().default("#000000"),
-    category: z.enum(["frontend", "backend", "tools", "design", "devops", "cms", "other"]).default("other"),
+    tags: z.array(z.enum(tagSlugs)).default([]),
   }),
 });
 
@@ -43,7 +37,8 @@ const experience = defineCollection({
     endDate: z.string().optional(),
     role: z.string(),
     responsibilities: z.array(z.string()).default([]),
-    skills: z.array(z.string()).default([]),
+    skills: z.array(z.enum(tagSlugs)).default([]),
+    tags: z.array(z.enum(tagSlugs)).default([]),
     projects: z.array(z.string()).default([]),
     achievements: z.array(z.string()).default([]),
     body: z.string().optional(),
@@ -58,7 +53,7 @@ const projects = defineCollection({
     title: z.string(),
     slug: z.string().optional(),
     description: z.string().optional(),
-    tags: z.array(z.string()).default([]),
+    tags: z.array(z.enum(tagSlugs)).default([]),
     featuredImage: z.string().optional(),
     link: z.string().optional(),
     body: z.string().optional(),
@@ -82,4 +77,4 @@ const projects = defineCollection({
 });
 
 // 4. Export a single `collections` object to register your collection(s)
-export const collections = { blog, tags, projects, experience };
+export const collections = { blog, projects, experience };

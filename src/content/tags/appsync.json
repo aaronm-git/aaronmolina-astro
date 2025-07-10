@@ -1,7 +1,0 @@
-{
-	"title": "AWS AppSync",
-	"slug": "appsync",
-	"description": "Managed GraphQL service for real-time data synchronization",
-	"color": "#FF9900",
-	"category": "devops"
-} 

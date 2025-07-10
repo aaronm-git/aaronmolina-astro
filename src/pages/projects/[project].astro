@@ -2,6 +2,7 @@
 import MainLayout from "@/layouts/main-layout.astro";
 import { Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
+import tags from "@/content/tags";
 
 export async function getStaticPaths() {
 	const projects = await getCollection("projects");
@@ -13,6 +14,9 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+
+// Create a map of tag slugs to tag data
+const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 ---
 
 <MainLayout title={project.data.title} description={project.data.description}>
@@ -82,11 +86,14 @@ const { Content } = await render(project);
 			{
 				project.data.tags && project.data.tags.length > 0 && (
 					<div class="flex flex-wrap gap-2 mb-6">
-						{project.data.tags.map(tag => (
-							<span class="px-3 py-1 bg-secondary-100 text-secondary-800 text-sm font-medium rounded-full">
-								{tag}
-							</span>
-						))}
+						{project.data.tags.map(tagSlug => {
+							const tag = tagMap.get(tagSlug);
+							return (
+								<span class="px-3 py-1 bg-secondary-100 text-secondary-800 text-sm font-medium rounded-full">
+									{tag?.title || tagSlug}
+								</span>
+							);
+						})}
 					</div>
 				)
 			}
@@ -149,11 +156,14 @@ const { Content } = await render(project);
 								Technologies Used
 							</dt>
 							<dd class="flex flex-wrap gap-2">
-								{project.data.tags.map(tag => (
-									<span class="px-2 py-1 bg-white text-primary-700 text-xs rounded border border-primary-200">
-										{tag}
-									</span>
-								))}
+								{project.data.tags.map(tagSlug => {
+									const tag = tagMap.get(tagSlug);
+									return (
+										<span class="px-2 py-1 bg-white text-primary-700 text-xs rounded border border-primary-200">
+											{tag?.title || tagSlug}
+										</span>
+									);
+								})}
 							</dd>
 						</div>
 					)

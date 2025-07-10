@@ -4,9 +4,11 @@ slug: azamara-website
 description: Custom frontend rebuild of Azamara.com, moving from Royal Caribbean
   infrastructure to a modern JAMstack site.
 tags:
-  - react
   - graphql
   - aws
+  - craftercms
+  - bootstrap
+  - css
 link: https://www.azamara.com
 completedOn: 2024-04-01T00:00:00.000Z
 isActive: true

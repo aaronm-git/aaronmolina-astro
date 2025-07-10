@@ -1,23 +1,33 @@
 {
-	"title": "CORSAIR Memory, Inc",
-	"slug": "corsair-memory",
-	"location": "Miami, Florida, United States",
-	"date": "2020-01-01T00:00:00Z",
-	"endDate": "2022-05-01T00:00:00Z",
-	"role": "Frontend Web Developer",
-	"responsibilities": [
-		"Created landing pages and e-commerce tools using React",
-		"Integrated 3DMark API into PC recommendation tool",
-		"Remediated ADA compliance issues across OriginPC.com",
-		"Collaborated with influencers and marketing teams",
-		"Developed responsive email campaigns and web graphics"
-	],
-	"skills": ["react", "javascript", "html", "css", "bootstrap", "3dmark-api", "photoshop", "wcag-testing", "git"],
-	"projects": [],
-	"achievements": [
-		"Improved conversion rates by 20%",
-		"Boosted brand visibility by 30%",
-		"Increased email open rates by 15%"
-	],
-	"isActive": false
+  "skills": [
+    "react",
+    "javascript",
+    "html",
+    "css",
+    "bootstrap",
+    "3dmark-api",
+    "photoshop",
+    "wcag-testing",
+    "git"
+  ],
+  "achievements": [
+    "Improved conversion rates by 20%",
+    "Boosted brand visibility by 30%",
+    "Increased email open rates by 15%"
+  ],
+  "endDate": "2022-05-01T00:00:00Z",
+  "slug": "corsair-memory",
+  "responsibilities": [
+    "Created landing pages and e-commerce tools using React",
+    "Integrated 3DMark API into PC recommendation tool",
+    "Remediated ADA compliance issues across OriginPC.com",
+    "Collaborated with influencers and marketing teams",
+    "Developed responsive email campaigns and web graphics"
+  ],
+  "date": "2020-01-01T00:00:00Z",
+  "isActive": true,
+  "location": "Miami, Florida, United States",
+  "role": "Frontend Web Developer",
+  "title": "CORSAIR Memory, Inc",
+  "projects": []
 }

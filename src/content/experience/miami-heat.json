@@ -1,22 +1,33 @@
 {
-	"title": "Miami HEAT",
-	"slug": "miami-heat",
-	"location": "Miami, Florida, United States",
-	"date": "2022-01-01T00:00:00Z",
-	"endDate": "2022-07-01T00:00:00Z",
-	"role": "Frontend Web Developer",
-	"responsibilities": [
-		"Migrated HEAT.com to a modern tech stack",
-		"Designed responsive pages using Bootstrap",
-		"Implemented real-time data integrations via REST APIs",
-		"Improved frontend performance and load times"
-	],
-	"skills": ["react", "html", "css", "javascript", "bootstrap", "wordpress", "drupal", "rest-api", "gtm", "ga4"],
-	"projects": [],
-	"achievements": [
-		"Boosted user engagement by 30%",
-		"Increased mobile traffic by 50%",
-		"Improved merchandise sales by 20%"
-	],
-	"isActive": false
+  "skills": [
+    "react",
+    "html",
+    "css",
+    "javascript",
+    "bootstrap",
+    "wordpress",
+    "drupal",
+    "rest-api",
+    "gtm",
+    "ga4"
+  ],
+  "achievements": [
+    "Boosted user engagement by 30%",
+    "Increased mobile traffic by 50%",
+    "Improved merchandise sales by 20%"
+  ],
+  "endDate": "2022-07-01T00:00:00Z",
+  "slug": "miami-heat",
+  "responsibilities": [
+    "Migrated HEAT.com to a modern tech stack",
+    "Designed responsive pages using Bootstrap",
+    "Implemented real-time data integrations via REST APIs",
+    "Improved frontend performance and load times"
+  ],
+  "date": "2022-01-01T00:00:00Z",
+  "isActive": true,
+  "location": "Miami, Florida, United States",
+  "role": "Frontend Web Developer",
+  "title": "Miami HEAT",
+  "projects": []
 }

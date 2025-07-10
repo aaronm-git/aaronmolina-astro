@@ -1,17 +1,28 @@
 {
-	"title": "Uplyft Capital",
-	"slug": "uplyft-capital",
-	"location": "Miami, Florida, United States",
-	"date": "2019-01-01T00:00:00Z",
-	"endDate": "2020-01-01T00:00:00Z",
-	"role": "Full-stack Developer",
-	"responsibilities": [
-		"Assisted in development of custom CRM features",
-		"Built internal tools for chat, notes, reporting, and APIs",
-		"Ensured secure authentication and XSS protection"
-	],
-	"skills": ["nodejs", "mongodb", "express", "oauth", "nunjucks", "mailgun", "salesforce-api", "bootstrap"],
-	"projects": [],
-	"achievements": ["Developed scalable internal systems for user interactions"],
-	"isActive": false
+  "skills": [
+    "nodejs",
+    "mongodb",
+    "express",
+    "oauth",
+    "nunjucks",
+    "mailgun",
+    "salesforce-api",
+    "bootstrap"
+  ],
+  "achievements": [
+    "Developed scalable internal systems for user interactions"
+  ],
+  "endDate": "2020-01-01T00:00:00Z",
+  "slug": "uplyft-capital",
+  "responsibilities": [
+    "Assisted in development of custom CRM features",
+    "Built internal tools for chat, notes, reporting, and APIs",
+    "Ensured secure authentication and XSS protection"
+  ],
+  "date": "2019-01-01T00:00:00Z",
+  "isActive": true,
+  "location": "Miami, Florida, United States",
+  "role": "Full-stack Developer",
+  "title": "Uplyft Capital",
+  "projects": []
 }

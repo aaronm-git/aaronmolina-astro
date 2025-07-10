@@ -4,6 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
 
+const imagesDir = path.join(process.cwd(), 'src', 'images');
+
 // Recommended size thresholds (in KB)
 const THRESHOLDS = {
   excellent: 50,     // Under 50KB - Blue (Perfect for icons, logos)
@@ -56,15 +58,13 @@ function formatSize(bytes) {
 
 // Main function to check image sizes
 function checkImageSizes() {
-  const imagesDir = path.join(process.cwd(), 'public', 'images');
-  
   if (!fs.existsSync(imagesDir)) {
     console.log(chalk.red('❌ Images directory not found: public/images'));
     return;
   }
 
   console.log(chalk.bold.white('\n📁 Image Size Analysis\n'));
-  console.log(chalk.gray('Directory: public/images/\n'));
+  console.log(chalk.gray(`Directory: ${imagesDir}\n`));
 
   // Read all files in the images directory
   const files = fs.readdirSync(imagesDir, { withFileTypes: true });
@@ -75,7 +75,7 @@ function checkImageSizes() {
   });
 
   if (imageFiles.length === 0) {
-    console.log(chalk.yellow('📂 No image files found in public/images/'));
+    console.log(chalk.yellow(`📂 No image files found in ${imagesDir}`));
     return;
   }
 

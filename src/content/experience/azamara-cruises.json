@@ -30,5 +30,6 @@
   "location": "Miami, Florida, United States",
   "role": "Lead Frontend Developer",
   "title": "Azamara Cruises",
-  "projects": []
+  "projects": [],
+  "current": false
 }

@@ -1,0 +1,121 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  experience: {
+    data: {
+      title: string;
+      role: string;
+      slug?: string;
+      location: string;
+      date: Date;
+      endDate?: string;
+      isActive?: boolean;
+      current?: boolean;
+      responsibilities: string[];
+      skills: string[];
+      achievements: string[];
+    };
+  };
+  showAllDetails?: boolean;
+}
+
+const { experience, showAllDetails = false } = Astro.props;
+
+// Get all tags to map skill slugs to titles
+const tags = await getCollection("tags");
+const tagMap = new Map(tags.map(tag => [tag.data.slug, tag.data]));
+
+// Calculate duration
+function calculateDuration(startDate: Date, endDate?: string): string {
+  const end = endDate ? new Date(endDate) : new Date();
+  const start = new Date(startDate);
+  
+  let years = end.getFullYear() - start.getFullYear();
+  let months = end.getMonth() - start.getMonth();
+  
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  
+  const parts = [];
+  if (years > 0) {
+    parts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
+  }
+  if (months > 0) {
+    parts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
+  }
+  
+  return parts.length > 0 ? parts.join(', ') : '1 month';
+}
+
+const duration = calculateDuration(experience.data.date, experience.data.endDate);
+---
+
+<article class="bg-white rounded-lg shadow-md border border-primary-100 p-6 hover:shadow-lg transition-shadow">
+  <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+    <div>
+      <h3 class="text-xl font-semibold text-primary-900 mb-1">{experience.data.role}</h3>
+      <h4 class="text-lg text-secondary-600 font-medium mb-2">{experience.data.title}</h4>
+      <p class="text-primary-600 text-sm mb-3">{experience.data.location}</p>
+    </div>
+    <div class="text-right">
+      <p class="text-primary-700 font-medium">
+        {experience.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+        {experience.data.endDate && !experience.data.current ? ` - ${new Date(experience.data.endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}` : ''}
+        {experience.data.current ? ' - Present' : ''}
+      </p>
+      <p class="text-primary-600 text-sm mt-1">
+        {duration}
+      </p>
+      {experience.data.current && (
+        <span class="inline-block mt-1 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
+          Current
+        </span>
+      )}
+    </div>
+  </div>
+  
+  <div class="grid md:grid-cols-2 gap-6">
+    <div>
+      <h5 class="font-medium text-primary-900 mb-3">Key Responsibilities</h5>
+      <ul class="space-y-2">
+        {experience.data.responsibilities.slice(0, showAllDetails ? undefined : 3).map((responsibility) => (
+          <li class="text-primary-700 text-sm flex items-start gap-2">
+            <span data-feather="check" class="w-4 h-4 text-secondary-600 flex-shrink-0 mt-0.5"></span>
+            {responsibility}
+          </li>
+        ))}
+      </ul>
+    </div>
+    
+    <div>
+      <h5 class="font-medium text-primary-900 mb-3">Technologies & Tools</h5>
+      <div class="flex flex-wrap gap-2">
+        {experience.data.skills.slice(0, showAllDetails ? undefined : 8).map((skillSlug) => {
+          const tag = tagMap.get(skillSlug);
+          return (
+            <span class="px-2 py-1 bg-primary-50 text-primary-700 rounded text-xs font-medium border border-primary-200">
+              {tag?.title || skillSlug}
+            </span>
+          );
+        })}
+      </div>
+      
+      {experience.data.achievements.length > 0 && (
+        <div class="mt-4">
+          <h5 class="font-medium text-primary-900 mb-2">Key Achievements</h5>
+          <ul class="space-y-1">
+            {experience.data.achievements.slice(0, showAllDetails ? undefined : 2).map((achievement) => (
+              <li class="text-primary-700 text-sm flex items-start gap-2">
+                <span data-feather="award" class="w-4 h-4 text-secondary-600 flex-shrink-0 mt-0.5"></span>
+                {achievement}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+</article> 

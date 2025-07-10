@@ -40,14 +40,7 @@ const experience = defineCollection({
       if (typeof val === "string") return new Date(val);
       return val;
     }),
-    endDate: z
-      .union([z.string(), z.date(), z.null()])
-      .optional()
-      .transform((val) => {
-        if (typeof val === "string") return new Date(val);
-        if (val === null) return undefined;
-        return val;
-      }),
+    endDate: z.string().optional(),
     role: z.string(),
     responsibilities: z.array(z.string()).default([]),
     skills: z.array(z.string()).default([]),
@@ -55,6 +48,7 @@ const experience = defineCollection({
     achievements: z.array(z.string()).default([]),
     body: z.string().optional(),
     isActive: z.boolean().default(true),
+    current: z.boolean().default(false),
   }),
 });
 

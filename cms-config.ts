@@ -259,7 +259,6 @@ export const cmsConfig: CmsConfig = {
           name: "endDate",
           widget: "datetime",
           required: false,
-          date_format: "YYYY-MM",
         },
         {
           label: "Role",
@@ -306,6 +305,13 @@ export const cmsConfig: CmsConfig = {
           name: "isActive",
           widget: "boolean",
           default: true,
+        },
+        {
+          label: "Current Position",
+          name: "current",
+          widget: "boolean",
+          default: false,
+          hint: "Check this if this is a current position",
         },
       ],
     },

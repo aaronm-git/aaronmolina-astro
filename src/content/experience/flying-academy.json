@@ -21,5 +21,6 @@
   "location": "Miami, Florida, United States",
   "role": "Frontend Web Developer",
   "title": "Flying Academy",
-  "projects": []
+  "projects": [],
+  "current": false
 }

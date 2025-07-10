@@ -7,6 +7,9 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
+		server: {
+			allowedHosts: ['aarons-macbook-pro.local'],
+		},
 	},
 	image: {
 		domains: ['placehold.co'],

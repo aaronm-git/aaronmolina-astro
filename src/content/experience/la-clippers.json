@@ -3,7 +3,6 @@
     "slug": "la-clippers",
     "location": "Miami, Florida, United States",
     "date": "2024-08-01T00:00:00Z",
-    "endDate": null,
     "role": "Lead Frontend Developer",
     "responsibilities": [
       "Led development of Clippers.com and ClippersCamp.com",
@@ -18,6 +17,7 @@
       "Enhanced ADA compliance and UX",
       "Standardized development workflows"
     ],
-    "isActive": true
+    "isActive": true,
+    "current": true
   }
   

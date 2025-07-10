@@ -14,5 +14,6 @@
 	"skills": ["react", "typescript", "nodejs", "graphql", "aws", "aws-lambda", "cognito", "amplify", "material-ui"],
 	"projects": [],
 	"achievements": ["Reduced API data processing time by 80%", "Improved frontend performance and scalability"],
-	"isActive": false
+	"isActive": false,
+	"current": false
 }

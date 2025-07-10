@@ -12,8 +12,7 @@
       "Managed Git workflows and QA testing",
       "Collaborated with UX/UI, marketing, and product teams"
     ],
-    "skills": ["Vue.js", "Nuxt", "TailwindCSS", "HTML", "CSS", "JavaScript"],
-    "tools": ["Git", "REST API", "Shopify", "Liquid", "QA testing"],
+    "skills": ["vue", "nuxt", "tailwindcss", "html", "css", "javascript", "git", "rest-api", "shopify", "liquid", "qa-testing"],
     "projects": [],
     "achievements": [
       "Enhanced ADA compliance and UX",

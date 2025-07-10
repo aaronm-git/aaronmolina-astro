@@ -11,8 +11,7 @@
 		"Improved performance and mentored junior developers",
 		"Led QA and deployment processes"
 	],
-	"skills": ["React", "TypeScript", "Node.js", "GraphQL", "AWS"],
-	"tools": ["AWS Lambda", "Cognito", "Amplify", "Material UI"],
+	"skills": ["react", "typescript", "nodejs", "graphql", "aws", "aws-lambda", "cognito", "amplify", "material-ui"],
 	"projects": [],
 	"achievements": ["Reduced API data processing time by 80%", "Improved frontend performance and scalability"],
 	"isActive": false

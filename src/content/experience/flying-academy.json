@@ -10,8 +10,7 @@
       "Used baseline grid theory for pixel-perfect design",
       "Built WordPress theme using Foundation 6"
     ],
-    "skills": ["HTML", "CSS", "WordPress"],
-    "tools": ["Foundation 6", "WordPress", "Plugins"],
+    "skills": ["html", "css", "wordpress", "foundation-6", "plugins"],
     "projects": [],
     "achievements": ["Modernized outdated web presence"],
     "isActive": false

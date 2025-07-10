@@ -1,10 +1,14 @@
 {
   "skills": [
-    "WordPress",
-    "PHP",
-    "HTML",
-    "CSS",
-    "JavaScript"
+    "wordpress",
+    "php",
+    "html",
+    "css",
+    "javascript",
+    "elementor-pro",
+    "figma",
+    "core-web-vitals",
+    "rest-api"
   ],
   "achievements": [
     "Improved SEO rankings and page speed",
@@ -23,11 +27,5 @@
   "location": "Miami, Florida, United States",
   "role": "Senior WordPress Developer",
   "title": "AVINTIV Media, LLC",
-  "projects": [],
-  "tools": [
-    "Elementor Pro",
-    "Figma",
-    "Core Web Vitals",
-    "REST API"
-  ]
+  "projects": []
 }

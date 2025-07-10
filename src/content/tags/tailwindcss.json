@@ -2,5 +2,6 @@
 	"title": "Tailwind CSS",
 	"slug": "tailwindcss",
 	"description": "Utility-first CSS framework for rapid UI development",
-	"color": "#06B6D4"
+	"color": "#06B6D4",
+	"category": "frontend"
 } 

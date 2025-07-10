@@ -2,5 +2,6 @@
 	"title": "Express.js",
 	"slug": "express",
 	"description": "Fast, unopinionated web framework for Node.js",
-	"color": "#000000"
+	"color": "#000000",
+	"category": "backend"
 } 

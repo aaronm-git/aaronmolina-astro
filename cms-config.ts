@@ -109,6 +109,22 @@ export const cmsConfig: CmsConfig = {
           default: "#000000",
           required: true,
         },
+        {
+          label: "Category",
+          name: "category",
+          widget: "select",
+          options: [
+            { label: "Frontend Development", value: "frontend" },
+            { label: "Backend & APIs", value: "backend" },
+            { label: "Tools & Platforms", value: "tools" },
+            { label: "Design & UX", value: "design" },
+            { label: "DevOps & Cloud", value: "devops" },
+            { label: "Content Management", value: "cms" },
+            { label: "Other", value: "other" }
+          ],
+          default: "other",
+          required: true,
+        },
       ],
     },
     // Projects
@@ -260,14 +276,13 @@ export const cmsConfig: CmsConfig = {
         {
           label: "Skills",
           name: "skills",
-          widget: "list",
-          required: true,
-        },
-        {
-          label: "Tools",
-          name: "tools",
-          widget: "list",
-          required: true,
+          widget: "relation",
+          collection: "tags",
+          search_fields: ["title", "slug"],
+          value_field: "slug",
+          display_fields: ["title"],
+          multiple: true,
+          required: false,
         },
         {
           label: "Projects",

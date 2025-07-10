@@ -24,6 +24,7 @@ const tags = defineCollection({
     slug: z.string(),
     description: z.string().optional(),
     color: z.string().default("#000000"),
+    category: z.enum(["frontend", "backend", "tools", "design", "devops", "cms", "other"]).default("other"),
   }),
 });
 
@@ -50,7 +51,6 @@ const experience = defineCollection({
     role: z.string(),
     responsibilities: z.array(z.string()).default([]),
     skills: z.array(z.string()).default([]),
-    tools: z.array(z.string()).default([]),
     projects: z.array(z.string()).default([]),
     achievements: z.array(z.string()).default([]),
     body: z.string().optional(),

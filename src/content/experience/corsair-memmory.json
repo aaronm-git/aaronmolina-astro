@@ -12,8 +12,7 @@
 		"Collaborated with influencers and marketing teams",
 		"Developed responsive email campaigns and web graphics"
 	],
-	"skills": ["React", "JavaScript", "HTML", "CSS", "Bootstrap"],
-	"tools": ["3DMark API", "Photoshop", "WCAG testing", "Git"],
+	"skills": ["react", "javascript", "html", "css", "bootstrap", "3dmark-api", "photoshop", "wcag-testing", "git"],
 	"projects": [],
 	"achievements": [
 		"Improved conversion rates by 20%",

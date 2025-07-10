@@ -2,5 +2,6 @@
 	"title": "Material-UI",
 	"slug": "material-ui",
 	"description": "React components implementing Google's Material Design",
-	"color": "#0081CB"
+	"color": "#0081CB",
+	"category": "frontend"
 } 

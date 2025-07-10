@@ -2,5 +2,6 @@
 	"title": "TypeScript",
 	"slug": "typescript",
 	"description": "Typed JavaScript for scalable and maintainable applications",
-	"color": "#3178C6"
+	"color": "#3178C6",
+	"category": "frontend"
 } 

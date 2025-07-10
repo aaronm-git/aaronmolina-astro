@@ -10,8 +10,7 @@
 		"Built internal tools for chat, notes, reporting, and APIs",
 		"Ensured secure authentication and XSS protection"
 	],
-	"skills": ["Node.js", "MongoDB", "Express.js", "OAuth2"],
-	"tools": ["Nunjucks", "Mailgun", "Salesforce API", "Bootstrap"],
+	"skills": ["nodejs", "mongodb", "express", "oauth", "nunjucks", "mailgun", "salesforce-api", "bootstrap"],
 	"projects": [],
 	"achievements": ["Developed scalable internal systems for user interactions"],
 	"isActive": false

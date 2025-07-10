@@ -2,5 +2,6 @@
 	"title": "AWS",
 	"slug": "aws",
 	"description": "Amazon Web Services cloud computing platform",
-	"color": "#FF9900"
+	"color": "#FF9900",
+	"category": "devops"
 } 

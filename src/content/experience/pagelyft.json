@@ -11,8 +11,7 @@
       "Built custom plugins and REST integrations",
       "Managed client content architecture"
     ],
-    "skills": ["WordPress", "PHP", "JavaScript", "SEO"],
-    "tools": ["Elementor Pro", "Google Business Profile", "REST API"],
+    "skills": ["wordpress", "php", "javascript", "seo", "elementor-pro", "google-business-profile", "rest-api"],
     "projects": [],
     "achievements": [
       "Improved local search visibility and performance metrics"

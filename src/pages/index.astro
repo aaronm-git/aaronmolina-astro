@@ -1,80 +1,232 @@
 ---
 import MainLayout from "@/layouts/main-layout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog");
 const recentPosts = posts
 	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 	.slice(0, 3);
+
+const experience = await getCollection("experience");
+const sortedExperience = experience
+	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+	.slice(0, 4);
+
+const projects = await getCollection("projects");
+const featuredProjects = projects
+	.filter(project => project.data.pinned || project.data.isActive)
+	.sort((a, b) => {
+		if (a.data.pinned && !b.data.pinned) return -1;
+		if (!a.data.pinned && b.data.pinned) return 1;
+		return (b.data.completedOn?.getTime() || 0) - (a.data.completedOn?.getTime() || 0);
+	})
+	.slice(0, 3);
+
+// Get all tags and group by category
+const tags = await getCollection("tags");
+const tagMap = new Map(tags.map(tag => [tag.data.slug, tag.data]));
+
+// Extract unique skills from experience and get their tag data
+const allSkills = experience.flatMap(exp => exp.data.skills);
+const uniqueSkills = [...new Set(allSkills)];
+
+// Group skills by category
+const skillsByCategory = uniqueSkills.reduce((acc, skillSlug) => {
+	const tag = tagMap.get(skillSlug);
+	if (tag) {
+		const category = tag.category;
+		if (!acc[category]) {
+			acc[category] = [];
+		}
+		acc[category].push(tag);
+	}
+	return acc;
+}, {} as Record<string, any[]>);
+
+// Define category display info
+const categoryInfo = {
+	frontend: { title: "Frontend Development", icon: "monitor" },
+	backend: { title: "Backend & APIs", icon: "server" },
+	tools: { title: "Tools & Platforms", icon: "tool" },
+	design: { title: "Design & UX", icon: "pen-tool" },
+	devops: { title: "DevOps & Cloud", icon: "cloud" },
+	cms: { title: "Content Management", icon: "edit" },
+	other: { title: "Other", icon: "more-horizontal" }
+};
 ---
 
 <MainLayout>
-	<div class="max-w-4xl mx-auto p-8">
-		<header class="mb-12 text-center">
-			<h1 class="text-5xl font-bold mb-4 text-primary-900">Aaron Molina</h1>
-			<p class="text-xl text-primary-700">Senior Frontend & Fullstack Developer</p>
-			<p class="text-lg text-primary-600 mt-2">Modern web technologies • Performance optimization • TypeScript • React</p>
+	<div class="max-w-6xl mx-auto p-8">
+		<!-- Hero Section -->
+		<header class="mb-16 text-center">
+			<h1 class="text-6xl font-bold mb-6 text-primary-900">Aaron Molina</h1>
+			<p class="text-2xl text-primary-700 mb-4">Senior Frontend & Fullstack Developer</p>
+			<p class="text-lg text-primary-600 max-w-3xl mx-auto leading-relaxed">
+				Passionate about building modern, accessible web applications with cutting-edge technologies. 
+				Specializing in React, Vue.js, TypeScript, and performance optimization with a focus on user experience and code quality.
+			</p>
+			<div class="mt-8 flex justify-center gap-4">
+				<a
+					href="/projects"
+					class="inline-flex items-center gap-2 bg-secondary-600 text-white px-8 py-3 rounded-lg hover:bg-secondary-700 transition-colors font-medium"
+				>
+					<span data-feather="briefcase"></span>
+					View My Work
+				</a>
+				<a
+					href="/blog"
+					class="inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium"
+				>
+					<span data-feather="book-open"></span>
+					Read My Blog
+				</a>
+			</div>
 		</header>
 
-		<div class="grid md:grid-cols-2 gap-8 mb-12">
-			<div class="bg-white p-6 rounded-lg shadow-md border border-primary-100">
-				<h2 class="text-2xl font-semibold mb-4 text-primary-900 flex items-center gap-2">
-					<span data-feather="edit-3" class="text-secondary-600"></span>
-					Content Management
+		<!-- Featured Projects Section -->
+		<section class="mb-16">
+			<div class="flex justify-between items-center mb-8">
+				<h2 class="text-3xl font-bold text-primary-900 flex items-center gap-3">
+					<span data-feather="star" class="text-secondary-600"></span>
+					Featured Projects
 				</h2>
-				<p class="text-primary-600 mb-4">
-					Your site is now equipped with DecapCMS for easy content management. Edit pages and posts through a beautiful
-					web interface.
-				</p>
-				<a
-					href="/admin"
-					class="inline-flex items-center gap-2 bg-secondary-600 text-white px-6 py-3 rounded-lg hover:bg-secondary-700 transition-colors"
-				>
-					<span data-feather="external-link"></span>
-					Access CMS Admin
+				<a href="/projects" class="text-secondary-600 hover:text-secondary-800 font-medium flex items-center gap-2">
+					View all projects <span data-feather="arrow-right"></span>
 				</a>
 			</div>
-
-			<div class="bg-white p-6 rounded-lg shadow-md border border-primary-100">
-				<h2 class="text-2xl font-semibold mb-4 text-primary-900 flex items-center gap-2">
-					<span data-feather="file-text" class="text-primary-600"></span>
-					Sample Content
-				</h2>
-				<p class="text-primary-600 mb-4">
-					Check out the sample content page to see how DecapCMS-managed content is displayed in your Astro site.
-				</p>
-				<a
-					href="/about"
-					class="inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors"
-				>
-					<span data-feather="eye"></span>
-					View Sample Page
-				</a>
+			
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{featuredProjects.map((project) => (
+					<ProjectCard project={project} showCompletedDate={false} />
+				))}
 			</div>
-		</div>
+		</section>
 
+		<!-- Experience Section -->
+		<section class="mb-16">
+			<h2 class="text-3xl font-bold text-primary-900 mb-8 flex items-center gap-3">
+				<span data-feather="briefcase" class="text-secondary-600"></span>
+				Professional Experience
+			</h2>
+			
+			<div class="space-y-8">
+				{sortedExperience.map((exp, index) => (
+					<article class="bg-white rounded-lg shadow-md border border-primary-100 p-6 hover:shadow-lg transition-shadow">
+						<div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+							<div>
+								<h3 class="text-xl font-semibold text-primary-900 mb-1">{exp.data.role}</h3>
+								<h4 class="text-lg text-secondary-600 font-medium mb-2">{exp.data.title}</h4>
+								<p class="text-primary-600 text-sm mb-3">{exp.data.location}</p>
+							</div>
+							<div class="text-right">
+								<p class="text-primary-700 font-medium">
+									{exp.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+									{exp.data.endDate ? ` - ${exp.data.endDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}` : ' - Present'}
+								</p>
+								{exp.data.isActive && (
+									<span class="inline-block mt-1 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
+										Current
+									</span>
+								)}
+							</div>
+						</div>
+						
+						<div class="grid md:grid-cols-2 gap-6">
+							<div>
+								<h5 class="font-medium text-primary-900 mb-3">Key Responsibilities</h5>
+								<ul class="space-y-2">
+									{exp.data.responsibilities.slice(0, 3).map((responsibility) => (
+										<li class="text-primary-700 text-sm flex items-start gap-2">
+											<span data-feather="check" class="w-4 h-4 text-secondary-600 flex-shrink-0 mt-0.5"></span>
+											{responsibility}
+										</li>
+									))}
+								</ul>
+							</div>
+							
+							<div>
+								<h5 class="font-medium text-primary-900 mb-3">Technologies & Tools</h5>
+								<div class="flex flex-wrap gap-2">
+									{exp.data.skills.slice(0, 8).map((skillSlug) => {
+										const tag = tagMap.get(skillSlug);
+										return (
+											<span class="px-2 py-1 bg-primary-50 text-primary-700 rounded text-xs font-medium border border-primary-200">
+												{tag?.title || skillSlug}
+											</span>
+										);
+									})}
+								</div>
+								
+								{exp.data.achievements.length > 0 && (
+									<div class="mt-4">
+										<h5 class="font-medium text-primary-900 mb-2">Key Achievements</h5>
+										<ul class="space-y-1">
+											{exp.data.achievements.slice(0, 2).map((achievement) => (
+												<li class="text-primary-700 text-sm flex items-start gap-2">
+													<span data-feather="award" class="w-4 h-4 text-secondary-600 flex-shrink-0 mt-0.5"></span>
+													{achievement}
+												</li>
+											))}
+										</ul>
+									</div>
+								)}
+							</div>
+						</div>
+					</article>
+				))}
+			</div>
+		</section>
+
+		<!-- Skills Section -->
+		<section class="mb-16">
+			<h2 class="text-3xl font-bold text-primary-900 mb-8 flex items-center gap-3">
+				<span data-feather="code" class="text-secondary-600"></span>
+				Technical Skills
+			</h2>
+			
+			<div class="grid md:grid-cols-3 gap-8">
+				{Object.entries(categoryInfo).filter(([categorySlug]) => skillsByCategory[categorySlug]?.length > 0).map(([categorySlug, info]) => (
+					<div class="bg-white rounded-lg shadow-md border border-primary-100 p-6">
+						<h3 class="text-lg font-semibold text-primary-900 mb-4 flex items-center gap-2">
+							<span data-feather={info.icon} class="text-secondary-600"></span>
+							{info.title}
+						</h3>
+						<div class="flex flex-wrap gap-2">
+							{skillsByCategory[categorySlug]?.map((tag) => (
+								<span class="px-3 py-1 bg-secondary-50 text-secondary-700 rounded-full text-sm font-medium border border-secondary-200">
+									{tag.title}
+								</span>
+							))}
+						</div>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- Recent Blog Posts -->
 		{recentPosts.length > 0 && (
-			<div class="bg-white p-6 rounded-lg shadow-md border border-primary-100 mb-8">
-				<div class="flex justify-between items-center mb-6">
-					<h2 class="text-2xl font-semibold text-primary-900 flex items-center gap-2">
-						<span data-feather="book-open" class="text-primary-600"></span>
-						Recent Blog Posts
+			<section class="mb-16">
+				<div class="flex justify-between items-center mb-8">
+					<h2 class="text-3xl font-bold text-primary-900 flex items-center gap-3">
+						<span data-feather="edit-3" class="text-secondary-600"></span>
+						Latest Articles
 					</h2>
-					<a href="/blog" class="text-secondary-600 hover:text-secondary-800 font-medium flex items-center gap-1">
+					<a href="/blog" class="text-secondary-600 hover:text-secondary-800 font-medium flex items-center gap-2">
 						View all posts <span data-feather="arrow-right"></span>
 					</a>
 				</div>
 				
-				<div class="space-y-4">
+				<div class="grid md:grid-cols-3 gap-6">
 					{recentPosts.map((post) => (
-						<article class="border-b border-primary-100 pb-4 last:border-b-0">
-							<h3 class="text-lg font-semibold text-primary-900 mb-2">
+						<article class="bg-white rounded-lg shadow-md border border-primary-100 p-6 hover:shadow-lg transition-shadow">
+							<h3 class="text-lg font-semibold text-primary-900 mb-3">
 								<a href={`/blog/${post.data.slug}`} class="hover:text-secondary-600 transition-colors">
 									{post.data.title}
 								</a>
 							</h3>
-							<div class="flex items-center text-sm text-primary-600 mb-2">
-								<span data-feather="calendar" class="w-4 h-4 mr-1"></span>
+							<div class="flex items-center text-sm text-primary-600 mb-3">
+								<span data-feather="calendar" class="w-4 h-4 mr-2"></span>
 								<time datetime={post.data.date.toISOString()}>
 									{post.data.date.toLocaleDateString('en-US', {
 										year: 'numeric',
@@ -84,55 +236,45 @@ const recentPosts = posts
 								</time>
 							</div>
 							{post.data.description && (
-								<p class="text-primary-700 text-sm">
+								<p class="text-primary-700 text-sm leading-relaxed mb-4">
 									{post.data.description}
 								</p>
 							)}
+							<a 
+								href={`/blog/${post.data.slug}`}
+								class="text-secondary-600 hover:text-secondary-800 font-medium flex items-center gap-1"
+							>
+								Read more <span data-feather="arrow-right" class="w-4 h-4"></span>
+							</a>
 						</article>
 					))}
 				</div>
-			</div>
+			</section>
 		)}
 
-		<div class="bg-primary-50 p-6 rounded-lg border border-primary-100">
-			<h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
-				<span data-feather="check-circle" class="text-secondary-600"></span>
-				What's Configured
-			</h3>
-			<ul class="space-y-2 text-primary-700">
-				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
-					DecapCMS with JavaScript configuration (no YAML!)
-				</li>
-				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
-					Git-based content management
-				</li>
-				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
-					Pages and blog posts collections
-				</li>
-				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
-					Image upload support
-				</li>
-				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
-					Markdown editing with preview
-				</li>
-				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
-					Astro integration with Tailwind CSS
-				</li>
-				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
-					Dynamic blog post generation
-				</li>
-				<li class="flex items-center gap-2">
-					<span data-feather="check" class="w-4 h-4 text-secondary-600"></span>
-					SEO-optimized metadata
-				</li>
-			</ul>
-		</div>
+		<!-- Contact Section -->
+		<section class="bg-primary-50 rounded-lg border border-primary-100 p-8 text-center">
+			<h2 class="text-3xl font-bold text-primary-900 mb-4">Let's Work Together</h2>
+			<p class="text-primary-700 mb-6 max-w-2xl mx-auto">
+				I'm always interested in new opportunities and challenging projects. 
+				Whether you need a frontend developer, fullstack solution, or technical consultation, let's connect.
+			</p>
+			<div class="flex justify-center gap-4">
+				<a
+					href="/admin"
+					class="inline-flex items-center gap-2 bg-secondary-600 text-white px-6 py-3 rounded-lg hover:bg-secondary-700 transition-colors font-medium"
+				>
+					<span data-feather="settings"></span>
+					Content Management
+				</a>
+				<a
+					href="mailto:contact@aaronmolina.dev"
+					class="inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium"
+				>
+					<span data-feather="mail"></span>
+					Get In Touch
+				</a>
+			</div>
+		</section>
 	</div>
 </MainLayout>

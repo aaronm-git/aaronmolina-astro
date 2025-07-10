@@ -12,8 +12,7 @@
       "Collaborated with Figma design team",
       "Maintained 99.9% uptime for deployments"
     ],
-    "skills": ["React", "TypeScript", "GraphQL", "HTML", "CSS", "JavaScript"],
-    "tools": ["AWS", "AppSync", "CrafterCMS", "Python", "QA testing"],
+    "skills": ["react", "typescript", "graphql", "html", "css", "javascript", "aws", "appsync", "craftercms", "python", "qa-testing"],
     "projects": [],
     "achievements": [
       "Reduced deployment time by 40%",

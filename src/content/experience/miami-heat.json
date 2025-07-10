@@ -11,8 +11,7 @@
 		"Implemented real-time data integrations via REST APIs",
 		"Improved frontend performance and load times"
 	],
-	"skills": ["React", "HTML", "CSS", "JavaScript", "Bootstrap"],
-	"tools": ["WordPress", "Drupal", "REST API", "GTM", "GA4"],
+	"skills": ["react", "html", "css", "javascript", "bootstrap", "wordpress", "drupal", "rest-api", "gtm", "ga4"],
 	"projects": [],
 	"achievements": [
 		"Boosted user engagement by 30%",

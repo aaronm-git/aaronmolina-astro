@@ -1,16 +1,125 @@
 ---
 import "@/styles/global.css";
+import Header from "@/components/layout/header.astro";
+import Footer from "@/components/layout/footer.astro";
+
+export interface Props {
+	title?: string;
+	description?: string;
+}
+
+// Hardcoded site settings
+const settings = {
+	site_title: "Aaron Molina - Sr. Software and Web Engineer",
+	site_description: "Aaron Molina is a Sr. Software and Web Engineer with a passion for building scalable and efficient web applications.",
+	site_url: "https://aaronmolina.me",
+	site_image: "/images/aaron-molina-profile.jpg",
+	site_keywords: [
+		"Aaron Molina",
+		"Software Engineer",
+		"Web Developer",
+		"Full Stack Developer",
+		"Frontend Developer",
+		"Backend Developer",
+		"React Developer",
+		"Node.js Developer",
+		"Python Developer",
+		"Django Developer",
+		"Flask Developer",
+		"SQL Developer",
+		"NoSQL Developer",
+		"Database Developer",
+		"DevOps Engineer",
+		"Cloud Engineer",
+		"AWS Engineer",
+		"Azure Engineer",
+		"GCP Engineer",
+		"Docker Engineer",
+		"Kubernetes Engineer",
+		"CI/CD Engineer",
+		"Agile Engineer",
+		"Scrum Master",
+		"Product Manager",
+		"Project Manager",
+		"Technical Lead",
+		"Team Lead",
+		"Architect",
+		"Consultant",
+		"Freelancer"
+	],
+	site_author: "Aaron Molina",
+	site_author_email: "aaron@aaronmolina.me",
+	site_author_url: "https://aaronmolina.me",
+	site_author_image: "/images/aaron-molina-profile.jpg",
+	site_author_bio: "Aaron Molina is a Sr. Software and Web Engineer with a passion for building scalable and efficient web applications.",
+	site_author_location: "Miami, FL",
+	site_author_social: {
+		linkedin: "https://www.linkedin.com/in/aaronmolinag",
+		github: "https://github.com/aaronm-git",
+		instagram: "https://www.instagram.com/chillsloth09"
+	},
+	site_contact: {
+		email: "hire@aaronmolina.me",
+		phone: "(305) 414-9289",
+		address: "Miami, FL"
+	}
+};
+
+const {
+	title = settings.site_title,
+	description = settings.site_description,
+} = Astro.props;
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <slot />
-  </body>
+	<head>
+		<meta charset="utf-8" />
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href={settings.site_image}
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<meta
+			name="keywords"
+			content={settings.site_keywords.join(", ")}
+		/>
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={settings.site_image} />
+		<meta property="og:url" content={settings.site_url} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={settings.site_image} />
+
+		<title>{title}</title>
+	</head>
+	<body class="bg-white text-gray-900 antialiased pt-16">
+		<Header />
+		<slot />
+		<Footer />
+		<script is:inline src="https://unpkg.com/feather-icons"></script>
+		<script is:inline>
+			feather.replace();
+		</script>
+		<script is:inline>
+			// smooth scroll
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener("click", e => {
+					e.preventDefault();
+					document.querySelector(anchor.getAttribute("href")).scrollIntoView({
+						behavior: "smooth",
+					});
+				});
+			});
+		</script>
+	</body>
 </html>

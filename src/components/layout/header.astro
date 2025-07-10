@@ -1,0 +1,134 @@
+---
+// No settings object needed - values are hardcoded directly in HTML
+---
+
+<header
+  class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center py-2">
+      <!-- Logo/Brand -->
+      <div class="flex-shrink-0">
+        <a
+          href="/"
+          class="text-xl font-bold text-gray-900 hover:text-gray-700 transition-colors flex items-center gap-2"
+        >
+          AaronMolina.me
+        </a>
+      </div>
+
+      <div class="flex items-center gap-10">
+        <!-- Navigation -->
+        <nav class="hidden md:flex">
+          <a
+            href="/"
+            class="text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
+          >
+            <i data-feather="home" class="w-4 h-4"></i> Home
+          </a>
+          <a
+            href="/projects"
+            class="text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
+          >
+            <i data-feather="briefcase" class="w-4 h-4"></i> Projects
+          </a>
+          <a
+            href="/blog"
+            class="text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
+          >
+            <i data-feather="book-open" class="w-4 h-4"></i> Blog
+          </a>
+          <a
+            href="/admin"
+            class="text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
+          >
+            <i data-feather="settings" class="w-4 h-4"></i> Admin
+          </a>
+        </nav>
+
+        <!-- Social Links (minimal, right side) -->
+        <div class="hidden md:flex items-center">
+          <a
+            href="https://github.com/aaronm-git"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-500 hover:text-gray-900 p-2 rounded-md hover:bg-gray-100"
+            aria-label="GitHub @aaronm-git"
+          >
+            <i data-feather="github" class="w-4 h-4"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/aaronmolinag"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-500 hover:text-gray-900 p-2 rounded-md hover:bg-gray-100"
+            aria-label="LinkedIn @aaronmolinag"
+          >
+            <i data-feather="linkedin" class="w-4 h-4"></i>
+          </a>
+          <a
+            href="https://www.instagram.com/chillsloth09"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-500 hover:text-gray-900 p-2 rounded-md hover:bg-gray-100"
+            aria-label="Instagram @chillsloth09"
+          >
+            <i data-feather="instagram" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button
+          type="button"
+          class="text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 p-2"
+          id="mobile-menu-button"
+        >
+          <span class="sr-only">Open main menu</span>
+          <i data-feather="menu" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+        <a
+          href="/"
+          class="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+        >
+          Home
+        </a>
+        <a
+          href="/projects"
+          class="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+        >
+          Projects
+        </a>
+        <a
+          href="/blog"
+          class="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+        >
+          Blog
+        </a>
+        <a
+          href="/admin"
+          class="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+        >
+          Admin
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  mobileMenuButton?.addEventListener("click", () => {
+    mobileMenu?.classList.toggle("hidden");
+  });
+</script>

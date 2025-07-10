@@ -39,7 +39,7 @@ const sortedProjects = projects
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {
         sortedProjects.map((project) => (
-          <article class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+          <article class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow flex flex-col">
             <div class="aspect-video bg-gray-100 overflow-hidden">
               {project.data.featuredImage ? (
                 <Image
@@ -57,72 +57,70 @@ const sortedProjects = projects
               )}
             </div>
 
-            <div class="p-6">
-              <header class="mb-4">
-                {project.data.pinned && (
-                  <div class="flex items-center mb-2">
-                    <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">
-                      Featured
-                    </span>
-                  </div>
-                )}
+            <header class="p-6">
+              {project.data.pinned && (
+                <div class="flex items-center mb-2">
+                  <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">
+                    Featured
+                  </span>
+                </div>
+              )}
 
-                <h2 class="text-xl font-semibold text-gray-900 mb-2">
-                  <a
-                    href={`/projects/${project.data.slug}`}
-                    class="hover:text-blue-600 transition-colors"
-                  >
-                    {project.data.title}
-                  </a>
-                </h2>
-
-                {project.data.completedOn && (
-                  <div class="text-sm text-gray-600 mb-3">
-                    Completed:{" "}
-                    {project.data.completedOn.toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                    })}
-                  </div>
-                )}
-
-                {project.data.description && (
-                  <p class="text-gray-700 mb-4 text-sm leading-relaxed">
-                    {project.data.description}
-                  </p>
-                )}
-
-                {project.data.tags && project.data.tags.length > 0 && (
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    {project.data.tags.map((tag) => (
-                      <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </header>
-
-              <footer class="flex justify-between items-center">
+              <h2 class="text-xl font-semibold text-gray-900 mb-2">
                 <a
                   href={`/projects/${project.data.slug}`}
-                  class="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                  class="hover:text-blue-600 transition-colors"
                 >
-                  View Details →
+                  {project.data.title}
                 </a>
+              </h2>
 
-                {project.data.link && (
-                  <a
-                    href={project.data.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-gray-600 hover:text-gray-800 text-sm"
-                  >
-                    Visit Site ↗
-                  </a>
-                )}
-              </footer>
-            </div>
+              {project.data.completedOn && (
+                <div class="text-sm text-gray-600 mb-3">
+                  Completed:{" "}
+                  {project.data.completedOn.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                  })}
+                </div>
+              )}
+
+              {project.data.description && (
+                <p class="text-gray-700 mb-4 text-sm leading-relaxed">
+                  {project.data.description}
+                </p>
+              )}
+
+              {project.data.tags && project.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {project.data.tags.map((tag) => (
+                    <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </header>
+
+            <footer class="flex justify-between items-center p-6 mt-auto">
+              <a
+                href={`/projects/${project.data.slug}`}
+                class="text-blue-600 hover:text-blue-800 text-sm font-medium"
+              >
+                View Details →
+              </a>
+
+              {project.data.link && (
+                <a
+                  href={project.data.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-600 hover:text-gray-800 text-sm"
+                >
+                  Visit Site ↗
+                </a>
+              )}
+            </footer>
           </article>
         ))
       }

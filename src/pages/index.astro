@@ -48,7 +48,7 @@ const tagsByCategory = uniqueTags.reduce(
     }
     return acc;
   },
-  {} as Record<string, any[]>,
+  {} as Record<string, any[]>
 );
 
 // Define category display info
@@ -64,15 +64,16 @@ const categoryInfo = {
 ---
 
 <MainLayout>
-  <div class="mx-auto max-w-6xl p-8">
+  <div class="mx-auto max-w-6xl p-4 md:p-8">
     <!-- Hero Section -->
     <header class="mb-16 text-center">
-      <h1 class="text-primary-900 mb-6 text-6xl font-bold">Aaron Molina</h1>
-      <p class="text-primary-700 mb-4 text-2xl">Senior Frontend & Fullstack Developer</p>
-      <p class="text-primary-600 mx-auto max-w-3xl text-lg leading-relaxed">
-        Building modern, high-performance web applications with Sanity.io, Next.js, Astro, and Tailwind CSS. Experienced in fullstack development using Supabase, MongoDB, Cloudinary, and AWS, with a focus on scalable architecture and exceptional user experiences.
+      <h1 class="text-primary-900 mb-1 text-4xl font-bold md:mb-6 md:text-6xl">Aaron Molina</h1>
+      <p class="text-primary-700 mb-4 text-lg font-medium md:text-2xl">Senior Frontend & Fullstack Developer</p>
+      <p class="text-primary-600 mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
+        Building modern, high-performannt web websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over 10 years of experience, I've worked with a variety of
+        technologies, including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences.
       </p>
-      <div class="mt-8 flex justify-center gap-4">
+      <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
         <a href="/projects" class="bg-secondary-600 hover:bg-secondary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors">
           <span data-feather="briefcase"></span>
           View My Work
@@ -87,11 +88,11 @@ const categoryInfo = {
     <!-- Featured Projects Section -->
     <section class="mb-16">
       <div class="mb-8 flex items-center justify-between">
-        <h2 class="text-primary-900 flex items-center gap-3 text-3xl font-bold">
+        <h2 class="text-primary-900 flex items-center gap-3 text-2xl font-bold md:text-3xl">
           <span data-feather="star" class="text-secondary-600"></span>
           Featured Projects
         </h2>
-        <a href="/projects" class="text-secondary-600 hover:text-secondary-800 flex items-center gap-2 font-medium">
+        <a href="/projects" class="text-secondary-600 hover:text-secondary-800 hidden items-center gap-2 font-medium md:flex">
           View all projects <span data-feather="arrow-right"></span>
         </a>
       </div>
@@ -99,16 +100,20 @@ const categoryInfo = {
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {featuredProjects.map(project => <ProjectCard project={project} showCompletedDate={false} />)}
       </div>
+
+      <a href="/projects" class="text-secondary-600 mt-6 flex items-center justify-end gap-2 font-medium md:hidden">
+        View all projects <span data-feather="arrow-right"></span>
+      </a>
     </section>
 
     <!-- Experience Section -->
     <section class="mb-16">
       <div class="mb-8 flex items-center justify-between">
-        <h2 class="text-primary-900 flex items-center gap-3 text-3xl font-bold">
+        <h2 class="text-primary-900 flex items-center gap-3 text-2xl font-bold md:text-3xl">
           <span data-feather="briefcase" class="text-secondary-600"></span>
           Professional Experience
         </h2>
-        <a href="/experience" class="text-secondary-600 hover:text-secondary-800 flex items-center gap-2 font-medium">
+        <a href="/experience" class="text-secondary-600 hover:text-secondary-800 hidden items-center gap-2 font-medium md:flex">
           View all experience <span data-feather="arrow-right"></span>
         </a>
       </div>
@@ -116,11 +121,15 @@ const categoryInfo = {
       <div class="space-y-8">
         {sortedExperience.map(exp => <ExperienceCard experience={exp} showAllDetails={false} />)}
       </div>
+
+      <a href="/experience" class="text-secondary-600 mt-6 flex items-center justify-end gap-2 font-medium md:hidden">
+        View all experience <span data-feather="arrow-right"></span>
+      </a>
     </section>
 
     <!-- Skills Section -->
     <section class="mb-16">
-      <h2 class="text-primary-900 mb-8 flex items-center gap-3 text-3xl font-bold">
+      <h2 class="text-primary-900 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
         <span data-feather="code" class="text-secondary-600"></span>
         Technical Skills
       </h2>
@@ -128,15 +137,15 @@ const categoryInfo = {
       <div class="grid gap-8 md:grid-cols-3">
         {
           Object.entries(categoryInfo)
-                    .filter(([categorySlug]) => tagsByCategory[categorySlug]?.length > 0)
-        .map(([categorySlug, info]) => (
-          <div class="border-primary-100 rounded-lg border bg-white p-6 shadow-md">
-            <h3 class="text-primary-900 mb-4 flex items-center gap-2 text-lg font-semibold">
-              <span data-feather={info.icon} class="text-secondary-600" />
-              {info.title}
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              {tagsByCategory[categorySlug]?.map(tag => (
+            .filter(([categorySlug]) => tagsByCategory[categorySlug]?.length > 0)
+            .map(([categorySlug, info]) => (
+              <div class="border-primary-100 rounded-lg border bg-white p-6 shadow-md">
+                <h3 class="text-primary-900 mb-4 flex items-center gap-2 text-lg font-semibold">
+                  <span data-feather={info.icon} class="text-secondary-600" />
+                  {info.title}
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                  {tagsByCategory[categorySlug]?.map(tag => (
                     <span class="bg-secondary-50 text-secondary-700 border-secondary-200 rounded-full border px-3 py-1 text-sm font-medium">{tag.title}</span>
                   ))}
                 </div>
@@ -151,7 +160,7 @@ const categoryInfo = {
       recentPosts.length > 0 && (
         <section class="mb-16">
           <div class="mb-8 flex items-center justify-between">
-            <h2 class="text-primary-900 flex items-center gap-3 text-3xl font-bold">
+            <h2 class="text-primary-900 flex items-center gap-3 text-2xl font-bold md:text-3xl">
               <span data-feather="edit-3" class="text-secondary-600" />
               Latest Articles
             </h2>

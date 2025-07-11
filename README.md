@@ -4,7 +4,7 @@ A modern, high-performance portfolio website built with Astro, showcasing my exp
 
 ## 🚀 Live Site
 
-Visit the live portfolio: **[aaronmolina.dev](https://aaronmolina.dev)**
+Visit the live portfolio: **[www.aaronmolina.me](https://www.aaronmolina.me)**
 
 Deployed on GitHub Pages with automatic deployments via GitHub Actions.
 

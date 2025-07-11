@@ -12,8 +12,8 @@ export interface Props {
 const settings = {
   site_title: 'Aaron Molina - Sr. Software and Web Engineer',
   site_description: 'Aaron Molina is a Sr. Software and Web Engineer with a passion for building scalable and efficient web applications.',
-  site_url: 'https://aaronmolina.me',
-  site_image: '/images/aaron-molina-profile.jpg',
+  site_url: 'https://www.aaronmolina.me',
+  //site_image: '/images/aaron-molina-profile.jpg',
   site_keywords: [
     'Aaron Molina',
     'Software Engineer',
@@ -50,7 +50,7 @@ const settings = {
   site_author: 'Aaron Molina',
   site_author_email: 'aaron@aaronmolina.me',
   site_author_url: 'https://aaronmolina.me',
-  site_author_image: '/images/aaron-molina-profile.jpg',
+  // site_author_image: '/images/aaron-molina-profile.jpg',
   site_author_bio: 'Aaron Molina is a Sr. Software and Web Engineer with a passion for building scalable and efficient web applications.',
   site_author_location: 'Miami, FL',
   site_author_social: {
@@ -71,7 +71,7 @@ const { title = settings.site_title, description = settings.site_description } =
 <html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href={settings.site_image} />
+    <!-- <link rel="icon" type="image/svg+xml" href={settings.site_image} /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
@@ -81,14 +81,14 @@ const { title = settings.site_title, description = settings.site_description } =
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={settings.site_image} />
+    <!-- <meta property="og:image" content={settings.site_image} /> -->
     <meta property="og:url" content={settings.site_url} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={settings.site_image} />
+    <!-- <meta property="twitter:image" content={settings.site_image} /> -->
 
     <title>{title}</title>
   </head>

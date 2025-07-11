@@ -58,8 +58,8 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
 
 <article class="border-primary-100 rounded-lg border bg-white p-6 shadow-md transition-shadow hover:shadow-lg" id={experience.data.slug}>
   <div class="mb-4 flex flex-col md:flex-row md:items-start md:justify-between">
-    <div class="flex items-start gap-4">
-      <div class="bg-primary-50 border-primary-200 flex h-20 w-20 items-center justify-center overflow-hidden rounded border">
+    <div class="flex flex-col items-start gap-4 md:flex-row">
+      <div class="bg-primary-50 border-primary-200 flex aspect-square w-20 items-center justify-center overflow-hidden rounded border">
         {
           experience.data.logo ? (
             <Image src={experience.data.logo} alt="Company logo" class="h-full w-full object-contain" loading="lazy" width={64} height={64} />
@@ -70,14 +70,17 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
           )
         }
       </div>
-      <div>
+      <div class="space-y-1">
         <h3 class="text-primary-900 text-xl font-semibold">{experience.data.role}</h3>
         <h4 class="text-secondary-600 text-lg font-medium">
           {experience.data.title}
           {
             experience.data.url && (
-              <a href={experience.data.url} target="_blank" rel="noopener noreferrer" class="text-secondary-500 hover:text-secondary-700 ml-2 transition-colors">
-                <i data-feather="external-link" class="inline h-4 w-4" />
+              <a href={experience.data.url} target="_blank" rel="noopener noreferrer" class="text-secondary-600 hover:text-secondary-700 transition-colors">
+                <>
+                  <i data-feather="external-link" class="inline h-4 w-4" />
+                  <span class="sr-only">Visit Site</span>
+                </>
               </a>
             )
           }
@@ -85,7 +88,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
         <p class="text-primary-600 text-sm">{experience.data.location}</p>
       </div>
     </div>
-    <div class="text-right">
+    <div class="md:text-right">
       <p class="text-primary-700 font-medium">
         {experience.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
         {experience.data.endDate && !experience.data.current ? ` - ${experience.data.endDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}` : ''}
@@ -98,7 +101,13 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
     </div>
   </div>
 
-  {showAllDetails && experience.data.description && <p class="text-primary-700 mt-2 mb-8 max-w-2xl text-sm">{experience.data.description}</p>}
+  {
+    showAllDetails && experience.data.description && (
+      <div class="border-primary-200 mb-8 max-w-2xl rounded-md border p-4">
+        <p class="text-primary-700 text-sm">{experience.data.description}</p>
+      </div>
+    )
+  }
 
   <div class="grid gap-6 md:grid-cols-2">
     <div>
@@ -129,9 +138,9 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       <h5 class="text-primary-900 mb-3 font-medium">Technologies & Tools</h5>
       <div class="flex flex-wrap gap-2">
         {
-                  experience.data.tags.slice(0, showAllDetails ? undefined : 8).map(tagSlug => {
-          const tag = tagMap.get(tagSlug);
-                          return <span class="bg-primary-50 text-primary-700 border-primary-200 rounded border px-2 py-1 text-xs font-medium">{tag?.title || tagSlug}</span>;
+          experience.data.tags.slice(0, showAllDetails ? undefined : 8).map(tagSlug => {
+            const tag = tagMap.get(tagSlug);
+            return <span class="bg-primary-50 text-primary-700 border-primary-200 rounded border px-2 py-1 text-xs font-medium">{tag?.title || tagSlug}</span>;
           })
         }
       </div>

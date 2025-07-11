@@ -11,7 +11,7 @@ tags:
   - seo
 link: 'https://www.nba.com/heat'
 completedOn: 2022-07-01T00:00:00.000Z
-featuredImage: '/src/images/project-heat-new.webp'
+featuredImage: '/images/project-heat-new.webp'
 isActive: true
 ---
 
@@ -34,9 +34,9 @@ We moved the frontend to a lightweight, performance-focused stack built with **R
 
 ### 🔍 Before & After Comparison
 
-![Legacy Miami HEAT site](/src/images/project-heat-old.webp 'Old vs New HEAT.com UI')
+![Legacy Miami HEAT site](/images/project-heat-old.webp 'Old vs New HEAT.com UI')
 
-![New Miami HEAT site](/src/images/project-heat-new.webp 'Old vs New HEAT.com UI')
+![New Miami HEAT site](/images/project-heat-new.webp 'Old vs New HEAT.com UI')
 
 ---
 
@@ -65,7 +65,7 @@ These were designed to be dropped into any page without custom logic, making the
 
 ### 🖼️ UI Improvements Breakdown
 
-![Example of rebuilt schedule component](/src/images/project-heat-schedule-widget.webp 'Responsive game schedule component built with Bootstrap and and Javascript')
+![Example of rebuilt schedule component](/images/project-heat-schedule-widget.webp 'Responsive game schedule component built with Bootstrap and and Javascript')
 
 ---
 

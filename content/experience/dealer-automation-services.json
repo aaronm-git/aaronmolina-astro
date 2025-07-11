@@ -5,7 +5,7 @@
   "date": "2022-07-01T00:00:00Z",
   "endDate": "2023-01-01T00:00:00Z",
   "role": "Senior Software Engineer",
-  "logo": "/src/images/experience-das.jpg",
+  "logo": "/images/experience-das.jpg",
   "description": "At Dealer Automation Technologies, I led the development of a custom SaaS CRM platform designed specifically for automotive dealerships. The CRM streamlined customer data management, automated sales processes, and provided advanced analytics to help dealerships track leads, sales, and customer interactions more efficiently. My work empowered teams to operate with greater insight and efficiency, modernizing their day-to-day operations with intuitive, state-of-the-art technology.",
   "responsibilities": [
     "Developed SaaS CRM platform using React and Node.js",

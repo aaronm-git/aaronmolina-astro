@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/main-layout.astro';
 import ExperienceCard from '@/components/ExperienceCard.astro';
 import { getCollection } from 'astro:content';
 import tags from 'content/tags';
+import CTA from '@/components/CTA.astro';
 
 const experience = await getCollection('experience');
 const sortedExperience = experience.sort((a, b) => {
@@ -171,26 +172,6 @@ const yearsOfExperience = 10;
       </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="bg-primary-50 border-primary-100 rounded-lg border p-8 text-center">
-      <h2 class="text-primary-900 mb-4 text-2xl font-bold md:text-3xl">Ready to Work Together?</h2>
-      <p class="text-primary-700 mx-auto mb-6 max-w-2xl">
-        I'm always interested in discussing new opportunities, challenging projects, or potential collaborations. Let's connect and explore how we can create something amazing
-        together.
-      </p>
-      <div class="flex justify-center gap-4">
-        <a
-          href="mailto:contact@aaronmolina.dev"
-          class="bg-secondary-600 hover:bg-secondary-700 inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-white transition-colors"
-        >
-          <span data-feather="mail"></span>
-          Get In Touch
-        </a>
-        <a href="/projects" class="bg-primary-600 hover:bg-primary-700 inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-white transition-colors">
-          <span data-feather="briefcase"></span>
-          View My Work
-        </a>
-      </div>
-    </section>
+    <CTA />
   </div>
 </MainLayout>

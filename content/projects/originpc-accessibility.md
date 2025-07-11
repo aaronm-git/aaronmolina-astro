@@ -11,7 +11,7 @@ tags:
   - javascript
   - git
   - bootstrap
-featuredImage: /src/images/project-corsair-ada.webp
+featuredImage: /images/project-corsair-ada.webp
 link: https://www.originpc.com
 completedOn: 2025-04-01T00:00:00.000Z
 isActive: true
@@ -24,7 +24,7 @@ As a **Senior Frontend Developer** working with CORSAIR’s OriginPC division, I
 
 ### 🛠️ Technical Breakdown
 
-![Screenshot of OriginPC.com homepage showing improved accessibility layout and contrast](/src/images/project-corsair-ada.webp 'Screenshot of the redesigned OriginPC.com homepage with accessibility fixes')
+![Screenshot of OriginPC.com homepage showing improved accessibility layout and contrast](/images/project-corsair-ada.webp 'Screenshot of the redesigned OriginPC.com homepage with accessibility fixes')
 
 **Scope:** Full WCAG 2.1 AA audit and remediation for OriginPC.com, focusing on product and checkout flows.
 

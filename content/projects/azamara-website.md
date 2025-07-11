@@ -2,7 +2,7 @@
 title: Azamara Cruises Website
 slug: azamara-website
 description: Custom frontend rebuild of Azamara.com, migrating from Royal Caribbean infrastructure to a modern JAMstack architecture with GraphQL and AWS.
-featuredImage: /src/images/project-azamara.webp
+featuredImage: /images/project-azamara.webp
 tags:
   - graphql
   - aws
@@ -36,7 +36,7 @@ As **Lead Frontend Developer** at Azamara Cruises, I rebuilt Azamara.com from th
 
 #### 🔹 Component-Driven UI Architecture
 
-![Placeholder for UI components breakdown](/src/images/project-azamara.webp 'Reusable components powering dynamic content on Azamara.com')
+![Placeholder for UI components breakdown](/images/project-azamara.webp 'Reusable components powering dynamic content on Azamara.com')
 
 ---
 

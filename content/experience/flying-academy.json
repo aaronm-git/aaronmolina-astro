@@ -5,7 +5,7 @@
   "slug": "flying-academy",
   "url": "https://flyingacademy.com",
   "description": "Flying Academy is a leading aviation school that provides flight training and aviation services to students and pilots.",
-  "logo": "/src/images/experience-flying-academy.jpg",
+  "logo": "/images/experience-flying-academy.jpg",
   "responsibilities": ["Redesigned and rebuilt aviation school website", "Used baseline grid theory for pixel-perfect design", "Built WordPress theme using Foundation 6"],
   "date": "2018-02-01T00:00:00Z",
   "isActive": true,

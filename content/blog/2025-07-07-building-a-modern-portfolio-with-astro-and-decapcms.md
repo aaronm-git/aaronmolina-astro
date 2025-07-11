@@ -10,7 +10,7 @@ tags:
   - frontend
   - fullstack
   - tailwindcss
-  - github-pages
+  - github
 ---
 
 # Building a Modern Portfolio with Astro

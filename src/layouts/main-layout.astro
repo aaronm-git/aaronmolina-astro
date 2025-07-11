@@ -97,9 +97,7 @@ const { title = settings.site_title, description = settings.site_description } =
     <slot />
     <Footer />
     <script is:inline src="https://unpkg.com/feather-icons"></script>
-    <script is:inline>
-      feather.replace();
-    </script>
+
     <script is:inline>
       // smooth scroll
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -110,6 +108,9 @@ const { title = settings.site_title, description = settings.site_description } =
           });
         });
       });
+    </script>
+    <script is:inline>
+      feather.replace();
     </script>
   </body>
 </html>

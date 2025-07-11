@@ -2,6 +2,7 @@
 import MainLayout from '@/layouts/main-layout.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
+import CTA from '@/components/CTA.astro';
 
 const projects = await getCollection('projects');
 // Sort projects by completion date (newest first), then by pinned status
@@ -37,5 +38,9 @@ const sortedProjects = projects
         </div>
       )
     }
+
+    <div class="mt-12">
+      <CTA />
+    </div>
   </div>
 </MainLayout>

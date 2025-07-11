@@ -1,52 +1,38 @@
 ---
-import MainLayout from "@/layouts/main-layout.astro";
-import ProjectCard from "@/components/ProjectCard.astro";
-import { getCollection } from "astro:content";
+import MainLayout from '@/layouts/main-layout.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
 
-const projects = await getCollection("projects");
+const projects = await getCollection('projects');
 // Sort projects by completion date (newest first), then by pinned status
 const sortedProjects = projects
-  .filter((project) => project.data.isActive)
+  .filter(project => project.data.isActive)
   .sort((a, b) => {
     // First sort by pinned status
     if (a.data.pinned && !b.data.pinned) return -1;
     if (!a.data.pinned && b.data.pinned) return 1;
 
     // Then by completion date
-    const aDate = a.data.completedOn
-      ? new Date(a.data.completedOn).getTime()
-      : 0;
-    const bDate = b.data.completedOn
-      ? new Date(b.data.completedOn).getTime()
-      : 0;
+    const aDate = a.data.completedOn ? new Date(a.data.completedOn).getTime() : 0;
+    const bDate = b.data.completedOn ? new Date(b.data.completedOn).getTime() : 0;
     return bDate - aDate;
   });
 ---
 
-<MainLayout
-  title="Projects - Aaron Molina"
-  description="A showcase of my portfolio projects including web development, frontend engineering, and technical solutions."
->
-  <div class="max-w-6xl mx-auto px-4 py-8">
+<MainLayout title="Projects - Aaron Molina" description="A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.">
+  <div class="mx-auto max-w-6xl px-4 py-8">
     <header class="mb-12">
-      <h1 class="text-4xl font-bold text-primary-900 mb-4">Projects</h1>
-      <p class="text-xl text-primary-700">
-        A showcase of my portfolio projects including web development, frontend
-        engineering, and technical solutions.
-      </p>
+      <h1 class="text-primary-900 mb-4 text-4xl font-bold">Projects</h1>
+      <p class="text-primary-700 text-xl">A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.</p>
     </header>
 
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {
-        sortedProjects.map((project) => (
-          <ProjectCard project={project} showCompletedDate={true} />
-        ))
-      }
+      {sortedProjects.map(project => <ProjectCard project={project} showCompletedDate={true} />)}
     </div>
 
     {
       projects.length === 0 && (
-        <div class="text-center py-12">
+        <div class="py-12 text-center">
           <p class="text-primary-600">No projects yet. Check back soon!</p>
         </div>
       )

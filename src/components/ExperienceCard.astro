@@ -1,5 +1,6 @@
 ---
-import tags from "@/content/tags";
+import { Image } from 'astro:assets';
+import tags from 'content/tags';
 
 interface Props {
   experience: {
@@ -9,12 +10,15 @@ interface Props {
       slug?: string;
       location: string;
       date: Date;
-      endDate?: string;
+      endDate?: Date;
       isActive?: boolean;
       current?: boolean;
       responsibilities: string[];
-      skills: string[];
+      tags: string[];
       achievements: string[];
+      logo?: string;
+      description?: string;
+      url?: string;
     };
   };
   showAllDetails?: boolean;
@@ -22,22 +26,22 @@ interface Props {
 
 const { experience, showAllDetails = false } = Astro.props;
 
-// Create a map of skill slugs to tag data
+// Create a map of tag slugs to tag data
 const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 
 // Calculate duration
-function calculateDuration(startDate: Date, endDate?: string): string {
-  const end = endDate ? new Date(endDate) : new Date();
-  const start = new Date(startDate);
-  
+function calculateDuration(startDate: Date, endDate?: Date): string {
+  const end = endDate ? endDate : new Date();
+  const start = startDate;
+
   let years = end.getFullYear() - start.getFullYear();
   let months = end.getMonth() - start.getMonth();
-  
+
   if (months < 0) {
     years--;
     months += 12;
   }
-  
+
   const parts = [];
   if (years > 0) {
     parts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
@@ -45,76 +49,108 @@ function calculateDuration(startDate: Date, endDate?: string): string {
   if (months > 0) {
     parts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
   }
-  
+
   return parts.length > 0 ? parts.join(', ') : '1 month';
 }
 
 const duration = calculateDuration(experience.data.date, experience.data.endDate);
 ---
 
-<article class="bg-white rounded-lg shadow-md border border-primary-100 p-6 hover:shadow-lg transition-shadow">
-  <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-    <div>
-      <h3 class="text-xl font-semibold text-primary-900 mb-1">{experience.data.role}</h3>
-      <h4 class="text-lg text-secondary-600 font-medium mb-2">{experience.data.title}</h4>
-      <p class="text-primary-600 text-sm mb-3">{experience.data.location}</p>
+<article class="border-primary-100 rounded-lg border bg-white p-6 shadow-md transition-shadow hover:shadow-lg" id={experience.data.slug}>
+  <div class="mb-4 flex flex-col md:flex-row md:items-start md:justify-between">
+    <div class="flex items-start gap-4">
+      <div class="bg-primary-50 border-primary-200 flex h-20 w-20 items-center justify-center overflow-hidden rounded border">
+        {
+          experience.data.logo ? (
+            <Image src={experience.data.logo} alt="Company logo" class="h-full w-full object-contain" loading="lazy" width={64} height={64} />
+          ) : (
+            <span class="text-primary-400 text-center text-xs">
+              <i data-feather="briefcase" class="h-6 w-6" />
+            </span>
+          )
+        }
+      </div>
+      <div>
+        <h3 class="text-primary-900 text-xl font-semibold">{experience.data.role}</h3>
+        <h4 class="text-secondary-600 text-lg font-medium">
+          {experience.data.title}
+          {
+            experience.data.url && (
+              <a href={experience.data.url} target="_blank" rel="noopener noreferrer" class="text-secondary-500 hover:text-secondary-700 ml-2 transition-colors">
+                <i data-feather="external-link" class="inline h-4 w-4" />
+              </a>
+            )
+          }
+        </h4>
+        <p class="text-primary-600 text-sm">{experience.data.location}</p>
+      </div>
     </div>
     <div class="text-right">
       <p class="text-primary-700 font-medium">
         {experience.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-        {experience.data.endDate && !experience.data.current ? ` - ${new Date(experience.data.endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}` : ''}
+        {experience.data.endDate && !experience.data.current ? ` - ${experience.data.endDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}` : ''}
         {experience.data.current ? ' - Present' : ''}
       </p>
-      <p class="text-primary-600 text-sm mt-1">
+      <p class="text-primary-600 mt-1 text-sm">
         {duration}
       </p>
-      {experience.data.current && (
-        <span class="inline-block mt-1 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
-          Current
-        </span>
-      )}
+      {experience.data.current && <span class="mt-1 inline-block rounded-full bg-green-100 px-2 py-1 text-xs text-green-800">Current</span>}
     </div>
   </div>
-  
-  <div class="grid md:grid-cols-2 gap-6">
+
+  {showAllDetails && experience.data.description && <p class="text-primary-700 mt-2 mb-8 max-w-2xl text-sm">{experience.data.description}</p>}
+
+  <div class="grid gap-6 md:grid-cols-2">
     <div>
-      <h5 class="font-medium text-primary-900 mb-3">Key Responsibilities</h5>
+      <h5 class="text-primary-900 mb-3 font-medium">Key Responsibilities</h5>
       <ul class="space-y-2">
-        {experience.data.responsibilities.slice(0, showAllDetails ? undefined : 3).map((responsibility) => (
-          <li class="text-primary-700 text-sm flex items-start gap-2">
-            <span data-feather="check" class="w-4 h-4 text-secondary-600 flex-shrink-0 mt-0.5"></span>
-            {responsibility}
-          </li>
-        ))}
+        {
+          experience.data.responsibilities.slice(0, showAllDetails ? undefined : 3).map(responsibility => (
+            <li class="text-primary-700 flex items-start gap-2 text-sm">
+              <span data-feather="check" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0" />
+              {responsibility}
+            </li>
+          ))
+        }
       </ul>
+
+      {
+        !showAllDetails && (
+          <div class="mt-4">
+            <a href={`/experience#${experience.data.slug}`} class="text-secondary-600 hover:text-secondary-700 group flex items-center gap-2 text-sm font-medium transition-colors">
+              See more details <i data-feather="chevron-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
+        )
+      }
     </div>
-    
+
     <div>
-      <h5 class="font-medium text-primary-900 mb-3">Technologies & Tools</h5>
+      <h5 class="text-primary-900 mb-3 font-medium">Technologies & Tools</h5>
       <div class="flex flex-wrap gap-2">
-        {experience.data.skills.slice(0, showAllDetails ? undefined : 8).map((skillSlug) => {
-          const tag = tagMap.get(skillSlug);
-          return (
-            <span class="px-2 py-1 bg-primary-50 text-primary-700 rounded text-xs font-medium border border-primary-200">
-              {tag?.title || skillSlug}
-            </span>
-          );
-        })}
+        {
+                  experience.data.tags.slice(0, showAllDetails ? undefined : 8).map(tagSlug => {
+          const tag = tagMap.get(tagSlug);
+                          return <span class="bg-primary-50 text-primary-700 border-primary-200 rounded border px-2 py-1 text-xs font-medium">{tag?.title || tagSlug}</span>;
+          })
+        }
       </div>
-      
-      {experience.data.achievements.length > 0 && (
-        <div class="mt-4">
-          <h5 class="font-medium text-primary-900 mb-2">Key Achievements</h5>
-          <ul class="space-y-1">
-            {experience.data.achievements.slice(0, showAllDetails ? undefined : 2).map((achievement) => (
-              <li class="text-primary-700 text-sm flex items-start gap-2">
-                <span data-feather="award" class="w-4 h-4 text-secondary-600 flex-shrink-0 mt-0.5"></span>
-                {achievement}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+
+      {
+        experience.data.achievements.length > 0 && (
+          <div class="mt-4">
+            <h5 class="text-primary-900 mb-2 font-medium">Key Achievements</h5>
+            <ul class="space-y-1">
+              {experience.data.achievements.map((achievement: string) => (
+                <li class="text-primary-700 flex items-start gap-2 text-sm">
+                  <span data-feather="award" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0" />
+                  {achievement}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
     </div>
   </div>
-</article> 
+</article>

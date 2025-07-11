@@ -1,0 +1,26 @@
+{
+  "title": "Azamara Cruises",
+  "slug": "azamara-cruises",
+  "location": "Miami, Florida, United States",
+  "date": "2022-01-01T00:00:00Z",
+  "endDate": "2024-04-01T00:00:00Z",
+  "role": "Lead Frontend Developer",
+  "url": "https://azamaracruises.com",
+  "description": "Azamara Cruises is a luxury cruise line that offers a variety of cruises to destinations around the world.",
+  "responsibilities": [
+    "Led frontend architecture for enterprise cruise booking platform",
+    "Built component library with React, TypeScript, and GraphQL APIs",
+    "Integrated AWS AppSync and CrafterCMS for scalable content management",
+    "Maintained 99.9% uptime across critical booking and payment flows"
+  ],
+  "tags": ["react", "typescript", "graphql", "aws", "appsync", "craftercms"],
+  "achievements": [
+    "Reduced deployment time by 40% through component reusability",
+    "Maintained 99.9% uptime for critical booking systems",
+    "Led successful migration from legacy Royal Caribbean infrastructure"
+  ],
+  "projects": [],
+  "isActive": true,
+  "current": false,
+  "logo": "/src/images/experience-azamara.jpg"
+}

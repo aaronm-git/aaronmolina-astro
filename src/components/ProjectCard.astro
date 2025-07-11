@@ -1,6 +1,6 @@
 ---
-import { Image } from "astro:assets";
-import tags from "@/content/tags";
+import { Image } from 'astro:assets';
+import tags from 'content/tags';
 
 interface Props {
   project: {
@@ -24,31 +24,30 @@ const { project, showCompletedDate = false } = Astro.props;
 const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 ---
 
-<article class="bg-white rounded-lg shadow-lg border border-primary-100 overflow-hidden hover:shadow-xl transition-shadow flex flex-col">
-  <div class="aspect-video bg-primary-50 overflow-hidden">
+<article class="border-primary-100 flex flex-col overflow-hidden rounded-lg border bg-white shadow-lg transition-shadow hover:shadow-xl">
+  <div class="bg-primary-50 relative aspect-video overflow-hidden">
     {
       project.data.featuredImage ? (
-        <Image src={project.data.featuredImage} alt={project.data.title} class="w-full h-full object-cover" loading="eager" width={600} height={400} />
+        <Image src={project.data.featuredImage} alt={project.data.title} class="h-full w-full object-cover" loading="eager" width={600} height={400} />
       ) : (
-        <div class="w-full h-full bg-primary-100 flex items-center justify-center">
+        <div class="bg-primary-100 flex h-full w-full items-center justify-center">
           <span class="text-primary-500 flex items-center gap-2">
-            No Image <i data-feather="image" class="w-4 h-4" />
+            No Image <i data-feather="image" class="h-4 w-4" />
           </span>
+        </div>
+      )
+    }
+    {
+      project.data.pinned && (
+        <div class="absolute right-0 bottom-0 z-10 flex w-full">
+          <span class="bg-secondary-100 text-secondary-800 w-full px-2 py-1 text-center text-xs font-semibold">Featured</span>
         </div>
       )
     }
   </div>
 
-  <div class="p-6 flex-1 flex flex-col">
-    {
-      project.data.pinned && (
-        <div class="flex items-center mb-2">
-          <span class="px-2 py-1 bg-secondary-100 text-secondary-800 text-xs font-semibold rounded-full">Featured</span>
-        </div>
-      )
-    }
-
-    <h3 class="text-xl font-semibold text-primary-900 mb-3">
+  <div class="flex flex-1 flex-col p-6">
+    <h3 class="text-primary-900 mb-3 text-xl font-semibold">
       {
         project.data.link ? (
           <a href={`/projects/${project.data.slug}`} class="hover:text-secondary-600 transition-colors">
@@ -62,11 +61,11 @@ const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 
     {
       showCompletedDate && project.data.completedOn && (
-        <div class="text-sm text-primary-600 mb-3">
-          Completed:{" "}
-          {project.data.completedOn.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
+        <div class="text-primary-600 mb-3 text-sm">
+          Completed:{' '}
+          {project.data.completedOn.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
           })}
         </div>
       )
@@ -74,25 +73,23 @@ const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 
     {project.data.description && <p class="text-primary-700 mb-4 text-sm leading-relaxed">{project.data.description}</p>}
 
-    <div class="flex flex-wrap gap-2 mb-4">
-      {project.data.tags.slice(0, 3).map((tagSlug) => {
-        const tag = tagMap.get(tagSlug);
-        return (
-          <span class="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-xs font-medium">
-            {tag?.title || tagSlug}
-          </span>
-        );
-      })}
+    <div class="mb-4 flex flex-wrap gap-2">
+      {
+        project.data.tags.slice(0, 3).map(tagSlug => {
+          const tag = tagMap.get(tagSlug);
+          return <span class="bg-primary-100 text-primary-700 rounded-full px-3 py-1 text-xs font-medium">{tag?.title || tagSlug}</span>;
+        })
+      }
     </div>
 
-    <div class="flex justify-between items-center mt-auto">
-      <a href={`/projects/${project.data.slug}`} class="text-secondary-600 hover:text-secondary-800 font-medium flex items-center gap-1">
-        Learn more <span data-feather="arrow-right" class="w-4 h-4"></span>
+    <div class="border-primary-100 mt-auto flex items-center justify-between border-t pt-4">
+      <a href={`/projects/${project.data.slug}`} class="text-secondary-600 hover:text-secondary-800 flex items-center gap-1 font-medium">
+        Learn more <span data-feather="arrow-right" class="h-4 w-4"></span>
       </a>
       {
         project.data.link && (
           <a href={project.data.link} class="text-primary-600 hover:text-primary-800 flex items-center gap-1" target="_blank" rel="noopener noreferrer">
-            <span data-feather="external-link" class="w-4 h-4" />
+            View project <span data-feather="external-link" class="h-4 w-4" />
           </a>
         )
       }

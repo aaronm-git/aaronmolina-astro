@@ -2,128 +2,90 @@
 // No settings object needed - values are hardcoded directly in HTML
 ---
 
-<header
-  class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50"
->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center py-2">
+<header class="fixed top-0 right-0 left-0 z-50 border-b border-gray-200 bg-white shadow-sm">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between py-2">
       <!-- Logo/Brand -->
       <div class="flex-shrink-0">
-        <a
-          href="/"
-          class="text-xl font-bold text-primary-900 hover:text-secondary-600 transition-colors flex items-center gap-2"
-        >
-          AaronMolina.me
-        </a>
+        <a href="/" class="text-primary-900 hover:text-secondary-600 flex items-center gap-2 text-xl font-bold transition-colors"> AaronMolina.me </a>
       </div>
 
       <div class="flex items-center gap-10">
         <!-- Navigation -->
         <nav class="hidden md:flex">
-          <a
-            href="/"
-            class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
-          >
-            <i data-feather="home" class="w-4 h-4"></i> Home
+          <a href="/" class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors">
+            <i data-feather="home" class="h-4 w-4"></i> Home
           </a>
           <a
             href="/projects"
-            class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
+            class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
           >
-            <i data-feather="briefcase" class="w-4 h-4"></i> Projects
+            <i data-feather="briefcase" class="h-4 w-4"></i> Projects
           </a>
           <a
             href="/experience"
-            class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
+            class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
           >
-            <i data-feather="user" class="w-4 h-4"></i> Experience
+            <i data-feather="user" class="h-4 w-4"></i> Experience
           </a>
-          <a
-            href="/blog"
-            class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
-          >
-            <i data-feather="book-open" class="w-4 h-4"></i> Blog
+          <a href="/blog" class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors">
+            <i data-feather="book-open" class="h-4 w-4"></i> Blog
+          </a>
+          <a href="/contact" class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors">
+            <i data-feather="mail" class="h-4 w-4"></i> Contact
           </a>
         </nav>
 
         <!-- Social Links (minimal, right side) -->
-        <div class="hidden md:flex items-center">
+        <div class="hidden items-center md:flex">
           <a
             href="https://github.com/aaronm-git"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-primary-500 hover:text-secondary-600 p-2 rounded-md hover:bg-primary-50"
+            class="text-primary-500 hover:text-secondary-600 hover:bg-primary-50 rounded-md p-2"
             aria-label="GitHub @aaronm-git"
           >
-            <i data-feather="github" class="w-4 h-4"></i>
+            <i data-feather="github" class="h-4 w-4"></i>
           </a>
           <a
             href="https://www.linkedin.com/in/aaronmolinag"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-primary-500 hover:text-secondary-600 p-2 rounded-md hover:bg-primary-50"
+            class="text-primary-500 hover:text-secondary-600 hover:bg-primary-50 rounded-md p-2"
             aria-label="LinkedIn @aaronmolinag"
           >
-            <i data-feather="linkedin" class="w-4 h-4"></i>
+            <i data-feather="linkedin" class="h-4 w-4"></i>
           </a>
           <a
             href="https://www.instagram.com/chillsloth09"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-primary-500 hover:text-secondary-600 p-2 rounded-md hover:bg-primary-50"
+            class="text-primary-500 hover:text-secondary-600 hover:bg-primary-50 rounded-md p-2"
             aria-label="Instagram @chillsloth09"
           >
-            <i data-feather="instagram" class="w-4 h-4"></i>
+            <i data-feather="instagram" class="h-4 w-4"></i>
           </a>
         </div>
       </div>
 
       <!-- Mobile menu button -->
       <div class="md:hidden">
-        <button
-          type="button"
-          class="text-primary-600 hover:text-primary-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-secondary-500 p-2"
-          id="mobile-menu-button"
-        >
+        <button type="button" class="text-primary-600 hover:text-primary-900 focus:ring-secondary-500 p-2 focus:ring-2 focus:outline-none focus:ring-inset" id="mobile-menu-button">
           <span class="sr-only">Open main menu</span>
-          <i data-feather="menu" class="w-4 h-4"></i>
+          <i data-feather="menu" class="h-4 w-4"></i>
         </button>
       </div>
     </div>
 
     <!-- Mobile menu -->
-    <div class="md:hidden hidden" id="mobile-menu">
-      <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-        <a
-          href="/"
-          class="text-primary-600 hover:text-primary-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
-        >
-          Home
-        </a>
-        <a
-          href="/projects"
-          class="text-primary-600 hover:text-primary-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
-        >
-          Projects
-        </a>
-        <a
-          href="/experience"
-          class="text-primary-600 hover:text-primary-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
-        >
-          Experience
-        </a>
-        <a
-          href="/blog"
-          class="text-primary-600 hover:text-primary-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
-        >
-          Blog
-        </a>
-        <a
-          href="/admin"
-          class="text-primary-600 hover:text-primary-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
-        >
-          Admin
-        </a>
+    <div class="hidden md:hidden" id="mobile-menu">
+      <div class="space-y-1 border-t border-gray-200 px-2 pt-2 pb-3">
+        <a href="/" class="text-primary-600 hover:text-primary-900 block rounded-md px-3 py-2 text-base font-medium transition-colors"> Home </a>
+        <a href="/projects" class="text-primary-600 hover:text-primary-900 block rounded-md px-3 py-2 text-base font-medium transition-colors"> Projects </a>
+        <a href="/experience" class="text-primary-600 hover:text-primary-900 block rounded-md px-3 py-2 text-base font-medium transition-colors"> Experience </a>
+        <a href="/blog" class="text-primary-600 hover:text-primary-900 block rounded-md px-3 py-2 text-base font-medium transition-colors"> Blog </a>
+        <a href="/contact" class="text-primary-600 hover:text-primary-900 block rounded-md px-3 py-2 text-base font-medium transition-colors"> Contact </a>
+        <a href="/admin" class="text-primary-600 hover:text-primary-900 block rounded-md px-3 py-2 text-base font-medium transition-colors"> Admin </a>
       </div>
     </div>
   </div>
@@ -131,10 +93,10 @@
 
 <script>
   // Mobile menu toggle
-  const mobileMenuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
 
-  mobileMenuButton?.addEventListener("click", () => {
-    mobileMenu?.classList.toggle("hidden");
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
   });
 </script>

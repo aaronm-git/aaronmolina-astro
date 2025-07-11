@@ -3,7 +3,7 @@ import MainLayout from '@/layouts/main-layout.astro';
 
 // You can set your Formspree endpoint here or use environment variables
 // const FORMSPREE_ENDPOINT = import.meta.env.FORMSPREE_ENDPOINT || 'https://formspree.io/f/YOUR_FORM_ID';
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaydzyqa'; // Replace with your actual form ID
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with your actual form ID
 ---
 
 <MainLayout>
@@ -28,7 +28,6 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaydzyqa'; // Replace with yo
               <label for="name" class="text-primary-900 mb-2 block text-sm font-medium">Full Name</label>
               <input
                 type="text"
-                id="name"
                 name="name"
                 required
                 class="border-primary-300 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
@@ -40,7 +39,6 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaydzyqa'; // Replace with yo
               <label for="email" class="text-primary-900 mb-2 block text-sm font-medium">Email Address</label>
               <input
                 type="email"
-                id="email"
                 name="email"
                 required
                 class="border-primary-300 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
@@ -53,7 +51,6 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaydzyqa'; // Replace with yo
             <label for="company" class="text-primary-900 mb-2 block text-sm font-medium">Company (Optional)</label>
             <input
               type="text"
-              id="company"
               name="company"
               class="border-primary-300 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
               placeholder="Your company"
@@ -63,7 +60,6 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaydzyqa'; // Replace with yo
           <div>
             <label for="project-type" class="text-primary-900 mb-2 block text-sm font-medium">Project Type</label>
             <select
-              id="project-type"
               name="project-type"
               class="border-primary-300 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
             >
@@ -79,11 +75,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaydzyqa'; // Replace with yo
 
           <div>
             <label for="budget" class="text-primary-900 mb-2 block text-sm font-medium">Budget Range (Optional)</label>
-            <select
-              id="budget"
-              name="budget"
-              class="border-primary-300 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
-            >
+            <select name="budget" class="border-primary-300 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none">
               <option value="">Select budget range</option>
               <option value="under-5k">Under $5,000</option>
               <option value="5k-15k">$5,000 - $15,000</option>
@@ -96,7 +88,6 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaydzyqa'; // Replace with yo
           <div>
             <label for="message" class="text-primary-900 mb-2 block text-sm font-medium">Project Details</label>
             <textarea
-              id="message"
               name="message"
               rows="6"
               required
@@ -106,21 +97,13 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaydzyqa'; // Replace with yo
 
           <!-- Hidden fields for Formspree -->
           <input type="hidden" name="_subject" value="New Contact Form Submission" />
-          <input type="hidden" name="_cc" value="your-email@example.com" />
+          <!-- <input type="hidden" name="_cc" value="hiram@aaronmolina.me" /> -->
 
           <button
             type="submit"
-            id="submit-button"
-            class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            class="bg-secondary-600 hover:bg-secondary-700 focus:ring-secondary-500 flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <span id="submit-text">Send Message</span>
-            <div id="loading-spinner" class="hidden">
-              <svg class="h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-            </div>
+            <span>Send Message</span>
           </button>
         </form>
       </div>
@@ -251,97 +234,3 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaydzyqa'; // Replace with yo
     </div>
   </div>
 </MainLayout>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('contact-form') as HTMLFormElement;
-    const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
-    const submitText = document.getElementById('submit-text') as HTMLSpanElement;
-    const loadingSpinner = document.getElementById('loading-spinner') as HTMLDivElement;
-    const thankYouModal = document.getElementById('thank-you-modal') as HTMLDivElement;
-    const closeModalButton = document.getElementById('close-modal') as HTMLButtonElement;
-
-    if (!form || !submitButton || !submitText || !loadingSpinner || !thankYouModal || !closeModalButton) {
-      console.error('Required elements not found');
-      return;
-    }
-
-    // Handle form submission
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      // Show loading state
-      submitButton.disabled = true;
-      submitText.textContent = 'Sending...';
-      loadingSpinner.classList.remove('hidden');
-
-      try {
-        const formData = new FormData(form);
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            Accept: 'application/json',
-          },
-        });
-
-        if (response.ok) {
-          // Success - show modal
-          thankYouModal.classList.remove('hidden');
-          thankYouModal.classList.add('flex');
-          form.reset();
-        } else {
-          // Error handling
-          throw new Error('Form submission failed');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('There was an error sending your message. Please try again.');
-      } finally {
-        // Reset button state
-        submitButton.disabled = false;
-        submitText.textContent = 'Send Message';
-        loadingSpinner.classList.add('hidden');
-      }
-    });
-
-    // Close modal handlers
-    closeModalButton.addEventListener('click', function () {
-      thankYouModal.classList.add('hidden');
-      thankYouModal.classList.remove('flex');
-    });
-
-    // Close modal when clicking outside
-    thankYouModal.addEventListener('click', function (e) {
-      if (e.target === thankYouModal) {
-        thankYouModal.classList.add('hidden');
-        thankYouModal.classList.remove('flex');
-      }
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !thankYouModal.classList.contains('hidden')) {
-        thankYouModal.classList.add('hidden');
-        thankYouModal.classList.remove('flex');
-      }
-    });
-  });
-</script>
-
-<style>
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.2s ease-out;
-  }
-</style>

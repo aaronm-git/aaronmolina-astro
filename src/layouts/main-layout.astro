@@ -3,6 +3,8 @@ import '@/styles/global.css';
 import Header from '@/components/layout/header.astro';
 import Footer from '@/components/layout/footer.astro';
 
+import favicon from "@/favicon_io/android-chrome-512x512.png"
+
 export interface Props {
   title?: string;
   description?: string;
@@ -71,7 +73,7 @@ const { title = settings.site_title, description = settings.site_description } =
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <!-- <link rel="icon" type="image/svg+xml" href={settings.site_image} /> -->
+    <link rel="icon" type="image/png" href={favicon.src} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />

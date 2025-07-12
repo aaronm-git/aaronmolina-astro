@@ -18,7 +18,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
   <!-- Contact Form -->
   <div class="mb-16 grid gap-12 lg:grid-cols-2">
     <!-- Form -->
-    <div class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-8 shadow-md">
+    <div class="border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-8 shadow-md">
       <h2 class="text-primary-900 dark:text-primary-100 mb-6 text-2xl font-bold">Send a Message</h2>
 
       <form id="contact-form" action={FORMSPREE_ENDPOINT} method="POST" class="space-y-6">
@@ -29,7 +29,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
               type="text"
               name="name"
               required
-              class="border-primary-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
+              class="border-primary-300 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border bg-white px-3 py-2 focus:ring-2 focus:outline-none dark:border-gray-600 dark:bg-gray-800"
               placeholder="Your name"
             />
           </div>
@@ -40,7 +40,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
               type="email"
               name="email"
               required
-              class="border-primary-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
+              class="border-primary-300 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border bg-white px-3 py-2 focus:ring-2 focus:outline-none dark:border-gray-600 dark:bg-gray-800"
               placeholder="your@email.com"
             />
           </div>
@@ -51,7 +51,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
           <input
             type="text"
             name="company"
-            class="border-primary-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
+            class="border-primary-300 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border bg-white px-3 py-2 focus:ring-2 focus:outline-none dark:border-gray-600 dark:bg-gray-800"
             placeholder="Your company"
           />
         </div>
@@ -60,7 +60,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
           <label for="project-type" class="text-primary-900 dark:text-primary-100 mb-2 block text-sm font-medium">Project Type</label>
           <select
             name="project-type"
-            class="border-primary-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
+            class="border-primary-300 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border bg-white px-3 py-2 focus:ring-2 focus:outline-none dark:border-gray-600 dark:bg-gray-800"
           >
             <option value="">Select a project type</option>
             <option value="frontend">Frontend Development</option>
@@ -74,7 +74,10 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
 
         <div>
           <label for="budget" class="text-primary-900 dark:text-primary-100 mb-2 block text-sm font-medium">Budget Range (Optional)</label>
-          <select name="budget" class="border-primary-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none">
+          <select
+            name="budget"
+            class="border-primary-300 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border bg-white px-3 py-2 focus:ring-2 focus:outline-none dark:border-gray-600 dark:bg-gray-800"
+          >
             <option value="">Select budget range</option>
             <option value="under-5k">Under $5,000</option>
             <option value="5k-15k">$5,000 - $15,000</option>
@@ -90,7 +93,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
             name="message"
             rows="6"
             required
-            class="border-primary-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
+            class="border-primary-300 text-primary-900 dark:text-primary-100 focus:border-secondary-500 focus:ring-secondary-500 w-full rounded-md border bg-white px-3 py-2 focus:ring-2 focus:outline-none dark:border-gray-600 dark:bg-gray-800"
             placeholder="Tell me about your project, timeline, and any specific requirements..."></textarea>
         </div>
 
@@ -109,7 +112,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
 
     <!-- Contact Info -->
     <div class="space-y-8">
-      <div class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+      <div class="border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md">
         <h3 class="text-primary-900 dark:text-primary-100 mb-4 text-xl font-bold">Why Work With Me?</h3>
         <div class="space-y-4">
           <div class="flex items-start gap-3">
@@ -143,7 +146,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
         </div>
       </div>
 
-      <div class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+      <div class="border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md">
         <h3 class="text-primary-900 dark:text-primary-100 mb-4 text-xl font-bold">Response Time</h3>
         <div class="space-y-3">
           <div class="flex items-center gap-2">
@@ -162,14 +165,20 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
       </div>
 
       <div class="bg-secondary-50 dark:bg-secondary-900 border-secondary-200 dark:border-secondary-700 rounded-lg border p-6">
-        <h3 class="text-primary-900 dark:text-primary-100 mb-3 text-lg font-bold">Ready to Start?</h3>
-        <p class="text-primary-700 dark:text-primary-300 mb-4 text-sm">Looking for something specific? Check out my recent work and technical expertise.</p>
+        <h3 class="text-primary-900 dark:text-secondary-50 mb-3 text-lg font-bold">Ready to Start?</h3>
+        <p class="text-primary-700 dark:text-secondary-50 mb-4 text-sm">Looking for something specific? Check out my recent work and technical expertise.</p>
         <div class="flex gap-3">
-          <a href="/projects" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 border-secondary-600 dark:border-secondary-400 flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium">
+          <a
+            href="/projects"
+            class="text-secondary-600 dark:text-secondary-200 hover:text-secondary-800 dark:hover:text-secondary-500 border-secondary-600 dark:border-secondary-200 dark:hover:border-secondary-500 flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
+          >
             <span data-feather="briefcase" class="h-4 w-4"></span>
             View Projects
           </a>
-          <a href="/experience" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 border-secondary-600 dark:border-secondary-400 flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium">
+          <a
+            href="/experience"
+            class="text-secondary-600 dark:text-secondary-200 hover:text-secondary-800 dark:hover:text-secondary-500 border-secondary-600 dark:border-secondary-200 dark:hover:border-secondary-500 flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
+          >
             <span data-feather="user" class="h-4 w-4"></span>
             My Experience
           </a>
@@ -182,12 +191,12 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
   <section class="bg-primary-50 dark:bg-primary-800 border-primary-100 dark:border-primary-700 rounded-lg border p-8 text-center">
     <h2 class="text-primary-900 dark:text-primary-100 mb-4 text-3xl font-bold">Connect With Me</h2>
     <p class="text-primary-700 dark:text-primary-300 mx-auto mb-6 max-w-2xl">Prefer social media? Find me on these platforms or check out my latest projects and articles.</p>
-    <div class="flex justify-center gap-6">
+    <div class="flex flex-wrap justify-center gap-6">
       <a
         href="https://github.com/aaronm-git"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 rounded-lg bg-gray-800 dark:bg-gray-700 px-6 py-3 font-medium text-white transition-colors hover:bg-gray-900 dark:hover:bg-gray-600"
+        class="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-6 py-3 font-medium text-white transition-colors hover:bg-gray-900 dark:bg-gray-800 dark:hover:bg-gray-600"
       >
         <span data-feather="github"></span>
         GitHub
@@ -196,7 +205,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
         href="https://www.linkedin.com/in/aaronmolinag"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 rounded-lg bg-blue-600 dark:bg-blue-700 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:hover:bg-blue-600"
+        class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600"
       >
         <span data-feather="linkedin"></span>
         LinkedIn
@@ -205,7 +214,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xanjrvre'; // Replace with yo
         href="https://www.instagram.com/chillsloth09"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 rounded-lg bg-pink-600 dark:bg-pink-700 px-6 py-3 font-medium text-white transition-colors hover:bg-pink-700 dark:hover:bg-pink-600"
+        class="inline-flex items-center gap-2 rounded-lg bg-pink-600 px-6 py-3 font-medium text-white transition-colors hover:bg-pink-700 dark:bg-pink-700 dark:hover:bg-pink-600"
       >
         <span data-feather="instagram"></span>
         Instagram

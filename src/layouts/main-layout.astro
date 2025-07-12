@@ -68,7 +68,7 @@ const settings = {
 const { title = settings.site_title, description = settings.site_description } = Astro.props;
 ---
 
-<html lang="en" data-theme="system">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <!-- <link rel="icon" type="image/svg+xml" href={settings.site_image} /> -->
@@ -89,6 +89,22 @@ const { title = settings.site_title, description = settings.site_description } =
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <!-- <meta property="twitter:image" content={settings.site_image} /> -->
+
+    <!-- Prevent theme flash by setting theme immediately -->
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'system';
+        let themeToApply;
+        
+        if (savedTheme === 'system') {
+          themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        } else {
+          themeToApply = savedTheme;
+        }
+        
+        document.documentElement.setAttribute('data-theme', themeToApply);
+      })();
+    </script>
 
     <title>{title}</title>
   </head>

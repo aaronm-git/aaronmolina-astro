@@ -56,27 +56,27 @@ function calculateDuration(startDate: Date, endDate?: Date): string {
 const duration = calculateDuration(experience.data.date, experience.data.endDate);
 ---
 
-<article class="border-primary-100 rounded-lg border bg-white p-6 shadow-md transition-shadow hover:shadow-lg" id={experience.data.slug}>
+<article class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md transition-shadow hover:shadow-lg" id={experience.data.slug}>
   <div class="mb-4 flex flex-col md:flex-row md:items-start md:justify-between">
     <div class="flex flex-col items-start gap-4 md:flex-row">
-      <div class="bg-primary-50 border-primary-200 flex aspect-square w-20 items-center justify-center overflow-hidden rounded border">
+      <div class="bg-primary-50 dark:bg-primary-800 border-primary-200 dark:border-primary-600 flex aspect-square w-20 items-center justify-center overflow-hidden rounded border">
         {
           experience.data.logo ? (
             <Image src={experience.data.logo} alt="Company logo" class="h-full w-full object-contain" loading="lazy" width={64} height={64} />
           ) : (
-            <span class="text-primary-400 text-center text-xs">
+            <span class="text-primary-400 dark:text-primary-500 text-center text-xs">
               <i data-feather="briefcase" class="h-6 w-6" />
             </span>
           )
         }
       </div>
       <div class="space-y-1">
-        <h3 class="text-primary-900 text-xl font-semibold">{experience.data.role}</h3>
-        <h4 class="text-secondary-600 text-lg font-medium">
+        <h3 class="text-primary-900 dark:text-primary-100 text-xl font-semibold">{experience.data.role}</h3>
+        <h4 class="text-secondary-600 dark:text-secondary-400 text-lg font-medium">
           {experience.data.title}
           {
             experience.data.url && (
-              <a href={experience.data.url} target="_blank" rel="noopener noreferrer" class="text-secondary-600 hover:text-secondary-700 transition-colors">
+              <a href={experience.data.url} target="_blank" rel="noopener noreferrer" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-500 transition-colors">
                 <>
                   <i data-feather="external-link" class="inline h-4 w-4" />
                   <span class="sr-only">Visit Site</span>
@@ -85,38 +85,38 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
             )
           }
         </h4>
-        <p class="text-primary-600 text-sm">{experience.data.location}</p>
+        <p class="text-primary-600 dark:text-primary-400 text-sm">{experience.data.location}</p>
       </div>
     </div>
     <div class="md:text-right">
-      <p class="text-primary-700 font-medium">
+      <p class="text-primary-700 dark:text-primary-300 font-medium">
         {experience.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
         {experience.data.endDate && !experience.data.current ? ` - ${experience.data.endDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}` : ''}
         {experience.data.current ? ' - Present' : ''}
       </p>
-      <p class="text-primary-600 mt-1 text-sm">
+      <p class="text-primary-600 dark:text-primary-400 mt-1 text-sm">
         {duration}
       </p>
-      {experience.data.current && <span class="mt-1 inline-block rounded-full bg-green-100 px-2 py-1 text-xs text-green-800">Current</span>}
+      {experience.data.current && <span class="mt-1 inline-block rounded-full bg-green-100 dark:bg-green-800 px-2 py-1 text-xs text-green-800 dark:text-green-100">Current</span>}
     </div>
   </div>
 
   {
     showAllDetails && experience.data.description && (
-      <div class="border-primary-200 mb-8 max-w-2xl rounded-md border p-4">
-        <p class="text-primary-700 text-sm">{experience.data.description}</p>
+      <div class="border-primary-200 dark:border-primary-700 mb-8 max-w-2xl rounded-md border p-4">
+        <p class="text-primary-700 dark:text-primary-300 text-sm">{experience.data.description}</p>
       </div>
     )
   }
 
   <div class="grid gap-6 md:grid-cols-2">
     <div>
-      <h5 class="text-primary-900 mb-3 font-medium">Key Responsibilities</h5>
+      <h5 class="text-primary-900 dark:text-primary-100 mb-3 font-medium">Key Responsibilities</h5>
       <ul class="space-y-2">
         {
           experience.data.responsibilities.slice(0, showAllDetails ? undefined : 3).map(responsibility => (
-            <li class="text-primary-700 flex items-start gap-2 text-sm">
-              <span data-feather="check" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0" />
+            <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
+              <span data-feather="check" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
               {responsibility}
             </li>
           ))
@@ -126,7 +126,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       {
         !showAllDetails && (
           <div class="mt-4">
-            <a href={`/experience#${experience.data.slug}`} class="text-secondary-600 hover:text-secondary-700 group flex items-center gap-2 text-sm font-medium transition-colors">
+            <a href={`/experience#${experience.data.slug}`} class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-500 group flex items-center gap-2 text-sm font-medium transition-colors">
               See more details <i data-feather="chevron-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
@@ -135,12 +135,12 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
     </div>
 
     <div>
-      <h5 class="text-primary-900 mb-3 font-medium">Technologies & Tools</h5>
+      <h5 class="text-primary-900 dark:text-primary-100 mb-3 font-medium">Technologies & Tools</h5>
       <div class="flex flex-wrap gap-2">
         {
           experience.data.tags.slice(0, showAllDetails ? undefined : 8).map(tagSlug => {
             const tag = tagMap.get(tagSlug);
-            return <span class="bg-primary-50 text-primary-700 border-primary-200 rounded border px-2 py-1 text-xs font-medium">{tag?.title || tagSlug}</span>;
+            return <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 border-secondary-200 dark:border-secondary-700 rounded border px-2 py-1 text-xs font-medium">{tag?.title || tagSlug}</span>;
           })
         }
       </div>
@@ -148,11 +148,11 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       {
         experience.data.achievements.length > 0 && (
           <div class="mt-4">
-            <h5 class="text-primary-900 mb-2 font-medium">Key Achievements</h5>
+            <h5 class="text-primary-900 dark:text-primary-100 mb-2 font-medium">Key Achievements</h5>
             <ul class="space-y-1">
               {experience.data.achievements.map((achievement: string) => (
-                <li class="text-primary-700 flex items-start gap-2 text-sm">
-                  <span data-feather="award" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0" />
+                <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
+                  <span data-feather="award" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
                   {achievement}
                 </li>
               ))}

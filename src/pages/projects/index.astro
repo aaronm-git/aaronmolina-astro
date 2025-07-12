@@ -22,8 +22,8 @@ const sortedProjects = projects
 
 <MainLayout title="Projects - Aaron Molina" description="A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.">
   <header class="mb-12">
-    <h1 class="text-primary-900 mb-4 text-4xl font-bold">Projects</h1>
-    <p class="text-primary-700 text-xl">A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.</p>
+    <h1 class="text-primary-900 dark:text-primary-100 mb-4 text-4xl font-bold">Projects</h1>
+    <p class="text-primary-700 dark:text-primary-300 text-xl">A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.</p>
   </header>
 
   <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -33,7 +33,7 @@ const sortedProjects = projects
   {
     projects.length === 0 && (
       <div class="py-12 text-center">
-        <p class="text-primary-600">No projects yet. Check back soon!</p>
+        <p class="text-primary-600 dark:text-primary-400">No projects yet. Check back soon!</p>
       </div>
     )
   }

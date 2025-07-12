@@ -58,11 +58,11 @@ const yearsOfExperience = 10;
 <MainLayout>
   <!-- Header Section -->
   <header class="mb-12 text-center">
-    <h1 class="text-primary-900 mb-4 text-5xl font-bold">Professional Experience</h1>
-    <p class="text-primary-700 mb-6 text-xl">
+    <h1 class="text-primary-900 dark:text-primary-100 mb-4 text-5xl font-bold">Professional Experience</h1>
+    <p class="text-primary-700 dark:text-primary-300 mb-6 text-xl">
       {yearsOfExperience}+ years of building exceptional web experiences
     </p>
-    <p class="text-primary-600 mx-auto max-w-3xl text-lg leading-relaxed">
+    <p class="text-primary-600 dark:text-primary-400 mx-auto max-w-3xl text-lg leading-relaxed">
       My journey as a developer has taken me through various technologies, teams, and challenges. Here's a comprehensive overview of my professional experience, skills, and
       achievements.
     </p>
@@ -70,8 +70,8 @@ const yearsOfExperience = 10;
 
   <!-- Experience Timeline -->
   <section class="mb-16">
-    <h2 class="text-primary-900 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-      <span data-feather="briefcase" class="text-secondary-600"></span>
+    <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
+      <span data-feather="briefcase" class="text-secondary-600 dark:text-secondary-400"></span>
       Work Experience
     </h2>
 
@@ -82,8 +82,8 @@ const yearsOfExperience = 10;
 
   <!-- Skills Overview -->
   <section class="mb-16">
-    <h2 class="text-primary-900 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-      <span data-feather="code" class="text-secondary-600"></span>
+    <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
+      <span data-feather="code" class="text-secondary-600 dark:text-secondary-400"></span>
       Technical Skills & Expertise
     </h2>
 
@@ -92,14 +92,14 @@ const yearsOfExperience = 10;
         Object.entries(categoryInfo)
           .filter(([categorySlug]) => tagsByCategory[categorySlug]?.length > 0)
           .map(([categorySlug, info]) => (
-            <div class="border-primary-100 rounded-lg border bg-white p-6 shadow-md">
-              <h3 class="text-primary-900 mb-4 flex items-center gap-2 text-lg font-semibold">
-                <span data-feather={info.icon} class="text-secondary-600" />
+            <div class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+              <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-center gap-2 text-lg font-semibold">
+                <span data-feather={info.icon} class="text-secondary-600 dark:text-secondary-400" />
                 {info.title}
               </h3>
               <div class="flex flex-wrap gap-2">
                 {tagsByCategory[categorySlug]?.map(tag => (
-                  <span class="bg-secondary-50 text-secondary-700 border-secondary-200 rounded-full border px-3 py-1 text-sm font-medium">{tag.title}</span>
+                  <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 border-secondary-200 dark:border-secondary-700 rounded-full border px-3 py-1 text-sm font-medium">{tag.title}</span>
                 ))}
               </div>
             </div>
@@ -110,15 +110,15 @@ const yearsOfExperience = 10;
 
   <!-- Career Highlights -->
   <section class="mb-16">
-    <h2 class="text-primary-900 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-      <span data-feather="award" class="text-secondary-600"></span>
+    <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
+      <span data-feather="award" class="text-secondary-600 dark:text-secondary-400"></span>
       Career Highlights
     </h2>
 
     <div class="grid gap-8 md:grid-cols-2">
-      <div class="border-primary-100 rounded-lg border bg-white p-6 shadow-md">
-        <h3 class="text-primary-900 mb-4 flex items-center gap-2 text-lg font-semibold">
-          <span data-feather="trending-up" class="text-secondary-600"></span>
+      <div class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+        <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-center gap-2 text-lg font-semibold">
+          <span data-feather="trending-up" class="text-secondary-600 dark:text-secondary-400"></span>
           Key Achievements
         </h3>
         <ul class="space-y-3">
@@ -127,8 +127,8 @@ const yearsOfExperience = 10;
               .flatMap(exp => exp.data.achievements)
               .slice(0, 6)
               .map(achievement => (
-                <li class="text-primary-700 flex items-start gap-2 text-sm">
-                  <span data-feather="check-circle" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0" />
+                <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
+                  <span data-feather="check-circle" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
                   {achievement}
                 </li>
               ))
@@ -136,34 +136,34 @@ const yearsOfExperience = 10;
         </ul>
       </div>
 
-      <div class="border-primary-100 rounded-lg border bg-white p-6 shadow-md">
-        <h3 class="text-primary-900 mb-4 flex items-start gap-2 text-lg font-semibold">
-          <span data-feather="target" class="text-secondary-600"></span>
+      <div class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+        <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-start gap-2 text-lg font-semibold">
+          <span data-feather="target" class="text-secondary-600 dark:text-secondary-400"></span>
           Core Competencies
         </h3>
         <ul class="space-y-3">
-          <li class="text-primary-700 flex items-start gap-2 text-sm">
-            <span data-feather="code" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+          <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
+            <span data-feather="code" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
             Full-stack web development with modern frameworks
           </li>
-          <li class="text-primary-700 flex items-start gap-2 text-sm">
-            <span data-feather="smartphone" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+          <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
+            <span data-feather="smartphone" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
             Responsive design and mobile-first development
           </li>
-          <li class="text-primary-700 flex items-start gap-2 text-sm">
-            <span data-feather="zap" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+          <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
+            <span data-feather="zap" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
             Performance optimization and Core Web Vitals
           </li>
-          <li class="text-primary-700 flex items-start gap-2 text-sm">
-            <span data-feather="users" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+          <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
+            <span data-feather="users" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
             Cross-functional team collaboration and leadership
           </li>
-          <li class="text-primary-700 flex items-start gap-2 text-sm">
-            <span data-feather="eye" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+          <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
+            <span data-feather="eye" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
             Accessibility standards and inclusive design
           </li>
-          <li class="text-primary-700 flex items-start gap-2 text-sm">
-            <span data-feather="cloud" class="text-secondary-600 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+          <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
+            <span data-feather="cloud" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
             Cloud platforms and DevOps practices
           </li>
         </ul>

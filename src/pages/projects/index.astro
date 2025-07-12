@@ -21,26 +21,24 @@ const sortedProjects = projects
 ---
 
 <MainLayout title="Projects - Aaron Molina" description="A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.">
-  <div class="mx-auto max-w-6xl px-4 py-8">
-    <header class="mb-12">
-      <h1 class="text-primary-900 mb-4 text-4xl font-bold">Projects</h1>
-      <p class="text-primary-700 text-xl">A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.</p>
-    </header>
+  <header class="mb-12">
+    <h1 class="text-primary-900 mb-4 text-4xl font-bold">Projects</h1>
+    <p class="text-primary-700 text-xl">A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.</p>
+  </header>
 
-    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {sortedProjects.map(project => <ProjectCard project={project} showCompletedDate={true} />)}
-    </div>
+  <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    {sortedProjects.map(project => <ProjectCard project={project} showCompletedDate={true} />)}
+  </div>
 
-    {
-      projects.length === 0 && (
-        <div class="py-12 text-center">
-          <p class="text-primary-600">No projects yet. Check back soon!</p>
-        </div>
-      )
-    }
+  {
+    projects.length === 0 && (
+      <div class="py-12 text-center">
+        <p class="text-primary-600">No projects yet. Check back soon!</p>
+      </div>
+    )
+  }
 
-    <div class="mt-12">
-      <CTA />
-    </div>
+  <div class="mt-12">
+    <CTA />
   </div>
 </MainLayout>

@@ -466,3 +466,36 @@ a:not([disabled]),
 button:not([disabled]) {
   @apply cursor-pointer;
 }
+
+/* Initial animation states to prevent jumping on load - only when JS is available */
+.js .hero-image {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.js .hero-title {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.js .hero-subtitle,
+.js .hero-description,
+.js .hero-cta {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.js .animate-card {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.js .animate-section h2 {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.js .animate-content {
+  opacity: 0;
+  transform: translateY(30px);
+}

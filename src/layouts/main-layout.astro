@@ -70,7 +70,7 @@ const settings = {
 const { title = settings.site_title, description = settings.site_description } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class="js">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href={favicon.src} />
@@ -108,6 +108,8 @@ const { title = settings.site_title, description = settings.site_description } =
       })();
     </script>
 
+
+
     <title>{title}</title>
   </head>
   <body class="dark:bg-primary-950 text-primary-900 dark:text-primary-100 bg-white pt-16 antialiased transition-colors duration-200">
@@ -123,6 +125,13 @@ const { title = settings.site_title, description = settings.site_description } =
     </script>
 
     <!-- GSAP Animations -->
-    <script type="module" src="/src/scripts/animations.ts"></script>
+    <script>
+      import { AnimationUtils } from '@/scripts/animations';
+
+      // Initialize animations when DOM is ready
+      document.addEventListener('DOMContentLoaded', () => {
+        AnimationUtils.initializeAll();
+      });
+    </script>
   </body>
 </html>

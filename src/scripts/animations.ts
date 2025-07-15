@@ -409,16 +409,4 @@ export class AnimationUtils {
     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     gsap.killTweensOf('*');
   }
-}
-
-// Initialize animations when DOM is ready
-if (typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', () => {
-    AnimationUtils.initializeAll();
-  });
-
-  // Re-initialize animations on page navigation (for SPAs)
-  document.addEventListener('astro:page-load', () => {
-    AnimationUtils.initializeAll();
-  });
 } 

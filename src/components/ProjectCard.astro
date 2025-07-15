@@ -24,7 +24,7 @@ const { project, showCompletedDate = false } = Astro.props;
 const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 ---
 
-<article class="border-primary-100 dark:border-primary-800 flex flex-col overflow-hidden rounded-lg border bg-white dark:bg-primary-900 shadow-lg transition-shadow hover:shadow-xl">
+<article class="animate-card border-primary-100 dark:border-primary-800 flex flex-col overflow-hidden rounded-lg border bg-white dark:bg-primary-900 shadow-lg transition-shadow hover:shadow-xl">
   <div class="bg-primary-50 dark:bg-primary-800 relative aspect-video overflow-hidden">
     {
       project.data.featuredImage ? (

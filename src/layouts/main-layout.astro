@@ -119,18 +119,10 @@ const { title = settings.site_title, description = settings.site_description } =
     <script is:inline src="https://unpkg.com/feather-icons"></script>
 
     <script is:inline>
-      // smooth scroll
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', e => {
-          e.preventDefault();
-          document.querySelector(anchor.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth',
-          });
-        });
-      });
-    </script>
-    <script is:inline>
       feather.replace();
     </script>
+
+    <!-- GSAP Animations -->
+    <script type="module" src="/src/scripts/animations.ts"></script>
   </body>
 </html>

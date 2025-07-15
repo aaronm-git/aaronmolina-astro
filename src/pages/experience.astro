@@ -57,7 +57,7 @@ const yearsOfExperience = 10;
 
 <MainLayout>
   <!-- Header Section -->
-  <header class="mb-12 text-center">
+  <header class="animate-section mb-12 text-center">
     <h1 class="text-primary-900 dark:text-primary-100 mb-4 text-5xl font-bold">Professional Experience</h1>
     <p class="text-primary-700 dark:text-primary-300 mb-6 text-xl">
       {yearsOfExperience}+ years of building exceptional web experiences
@@ -69,19 +69,19 @@ const yearsOfExperience = 10;
   </header>
 
   <!-- Experience Timeline -->
-  <section class="mb-16">
+  <section class="animate-section mb-16">
     <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
       <span data-feather="briefcase" class="text-secondary-600 dark:text-secondary-400"></span>
       Work Experience
     </h2>
 
-    <div class="space-y-8">
+    <div class="animate-content space-y-8">
       {sortedExperience.map(exp => <ExperienceCard experience={exp} showAllDetails={true} />)}
     </div>
   </section>
 
   <!-- Skills Overview -->
-  <section class="mb-16">
+  <section class="animate-section mb-16">
     <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
       <span data-feather="code" class="text-secondary-600 dark:text-secondary-400"></span>
       Technical Skills & Expertise
@@ -92,7 +92,7 @@ const yearsOfExperience = 10;
         Object.entries(categoryInfo)
           .filter(([categorySlug]) => tagsByCategory[categorySlug]?.length > 0)
           .map(([categorySlug, info]) => (
-            <div class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+            <div class="animate-content border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
               <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-center gap-2 text-lg font-semibold">
                 <span data-feather={info.icon} class="text-secondary-600 dark:text-secondary-400" />
                 {info.title}
@@ -109,14 +109,14 @@ const yearsOfExperience = 10;
   </section>
 
   <!-- Career Highlights -->
-  <section class="mb-16">
+  <section class="animate-section mb-16">
     <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
       <span data-feather="award" class="text-secondary-600 dark:text-secondary-400"></span>
       Career Highlights
     </h2>
 
     <div class="grid gap-8 md:grid-cols-2">
-      <div class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+      <div class="animate-content border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
         <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-center gap-2 text-lg font-semibold">
           <span data-feather="trending-up" class="text-secondary-600 dark:text-secondary-400"></span>
           Key Achievements
@@ -136,7 +136,7 @@ const yearsOfExperience = 10;
         </ul>
       </div>
 
-      <div class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+      <div class="animate-content border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
         <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-start gap-2 text-lg font-semibold">
           <span data-feather="target" class="text-secondary-600 dark:text-secondary-400"></span>
           Core Competencies
@@ -171,5 +171,7 @@ const yearsOfExperience = 10;
     </div>
   </section>
 
-  <CTA />
+  <div class="animate-section">
+    <CTA />
+  </div>
 </MainLayout>

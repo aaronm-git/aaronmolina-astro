@@ -68,7 +68,7 @@ const categoryInfo = {
 <MainLayout>
   <!-- Hero Section -->
   <header class="mb-16 text-center">
-    <div class="mb-8 flex justify-center">
+    <div class="hero-image mb-8 flex justify-center">
       <Image
         src={ProfilePicture}
         alt="Aaron Molina - Software Web Engineer"
@@ -76,23 +76,23 @@ const categoryInfo = {
         loading="eager"
       />
     </div>
-    <h1 class="text-primary-900 dark:text-primary-100 mb-1 text-4xl font-bold md:mb-6 md:text-6xl">Aaron Molina</h1>
-    <p class="text-primary-700 dark:text-primary-300 mb-4 text-lg font-medium md:text-2xl">Senior Frontend & Fullstack Developer</p>
-    <p class="text-primary-600 dark:text-primary-400 mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
+    <h1 class="hero-title text-primary-900 dark:text-primary-100 mb-1 text-4xl font-bold md:mb-6 md:text-6xl">Aaron Molina</h1>
+    <p class="hero-subtitle text-primary-700 dark:text-primary-300 mb-4 text-lg font-medium md:text-2xl">Senior Frontend & Fullstack Developer</p>
+    <p class="hero-description text-primary-600 dark:text-primary-400 mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
       Building modern, high-performannt web websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over 10 years of experience, I've worked with a variety of technologies,
       including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences.
     </p>
     <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
       <a
         href="/projects"
-        class="bg-secondary-600 hover:bg-secondary-700 dark:bg-secondary-600 dark:hover:bg-secondary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors"
+        class="hero-cta bg-secondary-600 hover:bg-secondary-700 dark:bg-secondary-600 dark:hover:bg-secondary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors"
       >
         <span data-feather="briefcase"></span>
         View My Work
       </a>
       <a
         href="/blog"
-        class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors"
+        class="hero-cta bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors"
       >
         <span data-feather="book-open"></span>
         Read My Blog
@@ -101,7 +101,7 @@ const categoryInfo = {
   </header>
 
   <!-- Featured Projects Section -->
-  <section class="mb-16">
+  <section class="animate-section mb-16">
     <div class="mb-8 flex items-center justify-between">
       <h2 class="text-primary-900 dark:text-primary-100 flex items-center gap-3 text-2xl font-bold md:text-3xl">
         <span data-feather="star" class="text-secondary-600 dark:text-secondary-400"></span>
@@ -125,7 +125,7 @@ const categoryInfo = {
   </section>
 
   <!-- Experience Section -->
-  <section class="mb-16">
+  <section class="animate-section mb-16">
     <div class="mb-8 flex items-center justify-between">
       <h2 class="text-primary-900 dark:text-primary-100 flex items-center gap-3 text-2xl font-bold md:text-3xl">
         <span data-feather="briefcase" class="text-secondary-600 dark:text-secondary-400"></span>
@@ -136,7 +136,7 @@ const categoryInfo = {
       </a>
     </div>
 
-    <div class="space-y-8">
+    <div class="animate-content space-y-8">
       {sortedExperience.map(exp => <ExperienceCard experience={exp} showAllDetails={false} />)}
     </div>
 
@@ -149,7 +149,7 @@ const categoryInfo = {
   </section>
 
   <!-- Skills Section -->
-  <section class="mb-16">
+  <section class="animate-section mb-16">
     <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
       <span data-feather="code" class="text-secondary-600 dark:text-secondary-400"></span>
       Technical Skills
@@ -160,7 +160,7 @@ const categoryInfo = {
         Object.entries(categoryInfo)
           .filter(([categorySlug]) => tagsByCategory[categorySlug]?.length > 0)
           .map(([categorySlug, info]) => (
-            <div class="border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md">
+            <div class="animate-content border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md">
               <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-center gap-2 text-lg font-semibold">
                 <span data-feather={info.icon} class="text-secondary-600 dark:text-secondary-400" />
                 {info.title}
@@ -181,7 +181,7 @@ const categoryInfo = {
   <!-- Recent Blog Posts -->
   {
     recentPosts.length > 0 && (
-      <section class="mb-16">
+      <section class="animate-section mb-16">
         <div class="mb-8 flex items-center justify-between">
           <h2 class="text-primary-900 dark:text-primary-100 flex items-center gap-3 text-2xl font-bold md:text-3xl">
             <span data-feather="edit-3" class="text-secondary-600 dark:text-secondary-400" />
@@ -194,7 +194,7 @@ const categoryInfo = {
 
         <div class="grid gap-6 md:grid-cols-3">
           {recentPosts.map(post => (
-            <article class="border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md transition-shadow hover:shadow-lg">
+            <article class="animate-content border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md transition-shadow hover:shadow-lg">
               <h3 class="text-primary-900 dark:text-primary-100 mb-3 text-lg font-semibold">
                 <a href={`/blog/${post.data.slug}`} class="hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">
                   {post.data.title}

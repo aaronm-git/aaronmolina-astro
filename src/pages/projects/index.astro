@@ -21,12 +21,12 @@ const sortedProjects = projects
 ---
 
 <MainLayout title="Projects - Aaron Molina" description="A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.">
-  <header class="mb-12">
+  <header class="animate-section mb-12">
     <h1 class="text-primary-900 dark:text-primary-100 mb-4 text-4xl font-bold">Projects</h1>
     <p class="text-primary-700 dark:text-primary-300 text-xl">A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.</p>
   </header>
 
-  <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+  <div class="animate-section grid gap-8 md:grid-cols-2 lg:grid-cols-3">
     {sortedProjects.map(project => <ProjectCard project={project} showCompletedDate={true} />)}
   </div>
 
@@ -38,7 +38,7 @@ const sortedProjects = projects
     )
   }
 
-  <div class="mt-12">
+  <div class="animate-section mt-12">
     <CTA />
   </div>
 </MainLayout>

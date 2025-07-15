@@ -5,6 +5,8 @@ import ExperienceCard from '@/components/ExperienceCard.astro';
 import CTA from '@/components/CTA.astro';
 import { getCollection } from 'astro:content';
 import tags from 'content/tags';
+import ProfilePicture from '@/assets/images/profile-picture.jpeg';
+import { Image } from 'astro:assets';
 
 const posts = await getCollection('blog');
 const recentPosts = posts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()).slice(0, 3);
@@ -66,6 +68,14 @@ const categoryInfo = {
 <MainLayout>
   <!-- Hero Section -->
   <header class="mb-16 text-center">
+    <div class="mb-8 flex justify-center">
+      <Image
+        src={ProfilePicture}
+        alt="Aaron Molina - Software Web Engineer"
+        class="border-secondary-200 dark:border-secondary-700 h-32 w-32 rounded-full border-2 object-cover object-[20%_40%] shadow-lg md:h-48 md:w-48"
+        loading="eager"
+      />
+    </div>
     <h1 class="text-primary-900 dark:text-primary-100 mb-1 text-4xl font-bold md:mb-6 md:text-6xl">Aaron Molina</h1>
     <p class="text-primary-700 dark:text-primary-300 mb-4 text-lg font-medium md:text-2xl">Senior Frontend & Fullstack Developer</p>
     <p class="text-primary-600 dark:text-primary-400 mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
@@ -73,11 +83,17 @@ const categoryInfo = {
       including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences.
     </p>
     <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
-      <a href="/projects" class="bg-secondary-600 hover:bg-secondary-700 dark:bg-secondary-600 dark:hover:bg-secondary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors">
+      <a
+        href="/projects"
+        class="bg-secondary-600 hover:bg-secondary-700 dark:bg-secondary-600 dark:hover:bg-secondary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors"
+      >
         <span data-feather="briefcase"></span>
         View My Work
       </a>
-      <a href="/blog" class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors">
+      <a
+        href="/blog"
+        class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors"
+      >
         <span data-feather="book-open"></span>
         Read My Blog
       </a>
@@ -100,7 +116,10 @@ const categoryInfo = {
       {featuredProjects.map(project => <ProjectCard project={project} showCompletedDate={false} />)}
     </div>
 
-    <a href="/projects" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 mt-6 flex items-center justify-end gap-2 font-medium md:hidden">
+    <a
+      href="/projects"
+      class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 mt-6 flex items-center justify-end gap-2 font-medium md:hidden"
+    >
       View all projects <span data-feather="arrow-right"></span>
     </a>
   </section>
@@ -121,7 +140,10 @@ const categoryInfo = {
       {sortedExperience.map(exp => <ExperienceCard experience={exp} showAllDetails={false} />)}
     </div>
 
-    <a href="/experience" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 mt-6 flex items-center justify-end gap-2 font-medium md:hidden">
+    <a
+      href="/experience"
+      class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 mt-6 flex items-center justify-end gap-2 font-medium md:hidden"
+    >
       View all experience <span data-feather="arrow-right"></span>
     </a>
   </section>
@@ -138,14 +160,16 @@ const categoryInfo = {
         Object.entries(categoryInfo)
           .filter(([categorySlug]) => tagsByCategory[categorySlug]?.length > 0)
           .map(([categorySlug, info]) => (
-            <div class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+            <div class="border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md">
               <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-center gap-2 text-lg font-semibold">
                 <span data-feather={info.icon} class="text-secondary-600 dark:text-secondary-400" />
                 {info.title}
               </h3>
               <div class="flex flex-wrap gap-2">
                 {tagsByCategory[categorySlug]?.map(tag => (
-                  <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 border-secondary-200 dark:border-secondary-700 rounded-full border px-3 py-1 text-sm font-medium">{tag.title}</span>
+                  <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 border-secondary-200 dark:border-secondary-700 rounded-full border px-3 py-1 text-sm font-medium">
+                    {tag.title}
+                  </span>
                 ))}
               </div>
             </div>
@@ -170,7 +194,7 @@ const categoryInfo = {
 
         <div class="grid gap-6 md:grid-cols-3">
           {recentPosts.map(post => (
-            <article class="border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md transition-shadow hover:shadow-lg">
+            <article class="border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md transition-shadow hover:shadow-lg">
               <h3 class="text-primary-900 dark:text-primary-100 mb-3 text-lg font-semibold">
                 <a href={`/blog/${post.data.slug}`} class="hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">
                   {post.data.title}
@@ -187,7 +211,10 @@ const categoryInfo = {
                 </time>
               </div>
               {post.data.description && <p class="text-primary-700 dark:text-primary-300 mb-4 text-sm leading-relaxed">{post.data.description}</p>}
-              <a href={`/blog/${post.data.slug}`} class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 flex items-center gap-1 font-medium">
+              <a
+                href={`/blog/${post.data.slug}`}
+                class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 flex items-center gap-1 font-medium"
+              >
                 Read more <span data-feather="arrow-right" class="h-4 w-4" />
               </a>
             </article>

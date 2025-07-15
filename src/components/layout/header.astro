@@ -1,5 +1,6 @@
 ---
-
+import { Image } from 'astro:assets';
+import ProfilePicture from '@/assets/images/profile-picture.jpeg';
 ---
 
 <header class="dark:border-primary-700 dark:bg-primary-900 fixed top-0 right-0 left-0 z-50 border-b border-gray-200 bg-white shadow-sm">
@@ -9,8 +10,15 @@
       <div class="flex-shrink-0">
         <a
           href="/"
-          class="text-primary-900 dark:text-primary-100 hover:text-secondary-600 dark:hover:text-secondary-400 flex items-center gap-2 text-xl font-bold transition-colors"
+          class="text-primary-900 dark:text-primary-100 hover:text-secondary-600 dark:hover:text-secondary-400 flex items-center gap-3 text-xl font-bold transition-colors"
         >
+          <Image
+            src={ProfilePicture}
+            alt="Aaron Molina - Software Web Engineer"
+            class="border-secondary-200 dark:border-secondary-700 h-8 w-8 rounded-full border-2 object-cover object-[20%_40%]"
+            width={40}
+            height={40}
+          />
           AaronMolina.me
         </a>
       </div>

@@ -2,124 +2,74 @@
 import '@/styles/global.css';
 import Header from '@/components/layout/header.astro';
 import Footer from '@/components/layout/footer.astro';
+import { siteConfig } from '@/config/site';
 
-import favicon from "@/favicon_io/android-chrome-512x512.png"
+import favicon from '@/favicon_io/android-chrome-512x512.png';
 
 export interface Props {
   title?: string;
   description?: string;
 }
 
-// Hardcoded site settings
-const settings = {
-  site_title: 'Aaron Molina - Sr. Software and Web Engineer',
-  site_description: 'Aaron Molina is a Sr. Software and Web Engineer with a passion for building scalable and efficient web applications.',
-  site_url: 'https://www.aaronmolina.me',
-  //site_image: '/images/aaron-molina-profile.jpg',
-  site_keywords: [
-    'Aaron Molina',
-    'Software Engineer',
-    'Web Developer',
-    'Full Stack Developer',
-    'Frontend Developer',
-    'Backend Developer',
-    'React Developer',
-    'Node.js Developer',
-    'Python Developer',
-    'Django Developer',
-    'Flask Developer',
-    'SQL Developer',
-    'NoSQL Developer',
-    'Database Developer',
-    'DevOps Engineer',
-    'Cloud Engineer',
-    'AWS Engineer',
-    'Azure Engineer',
-    'GCP Engineer',
-    'Docker Engineer',
-    'Kubernetes Engineer',
-    'CI/CD Engineer',
-    'Agile Engineer',
-    'Scrum Master',
-    'Product Manager',
-    'Project Manager',
-    'Technical Lead',
-    'Team Lead',
-    'Architect',
-    'Consultant',
-    'Freelancer',
-  ],
-  site_author: 'Aaron Molina',
-  site_author_email: 'aaron@aaronmolina.me',
-  site_author_url: 'https://aaronmolina.me',
-  // site_author_image: '/images/aaron-molina-profile.jpg',
-  site_author_bio: 'Aaron Molina is a Sr. Software and Web Engineer with a passion for building scalable and efficient web applications.',
-  site_author_location: 'Miami, FL',
-  site_author_social: {
-    linkedin: 'https://www.linkedin.com/in/aaronmolinag',
-    github: 'https://github.com/aaronm-git',
-    instagram: 'https://www.instagram.com/chillsloth09',
-  },
-  site_contact: {
-    email: 'hire@aaronmolina.me',
-    phone: '(305) 414-9289',
-    address: 'Miami, FL',
-  },
-};
-
-const { title = settings.site_title, description = settings.site_description } = Astro.props;
+const { title = siteConfig.title, description = siteConfig.description } = Astro.props;
 ---
 
 <html lang="en" class="js">
   <head>
+    <!-- Meta Tags -->
+    <!-- General -->
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href={favicon.src} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="keywords" content={settings.site_keywords.join(', ')} />
+    <meta name="keywords" content={siteConfig.keywords.join(', ')} />
+
+    <!-- Umami Analytics -->
+    <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="065ec9e6-3b6b-4868-a29b-6d9538c525a6"></script>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <!-- <meta property="og:image" content={settings.site_image} /> -->
-    <meta property="og:url" content={settings.site_url} />
+    <!-- <meta property="og:image" content={siteConfig.image} /> -->
+    <meta property="og:url" content={siteConfig.url} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <!-- <meta property="twitter:image" content={settings.site_image} /> -->
+    <!-- <meta property="twitter:image" content={siteConfig.image} /> -->
 
-    <!-- Prevent theme flash by setting theme immediately -->
+    <!-- Theme -->
     <script is:inline>
-      (function() {
+      (function () {
         const savedTheme = localStorage.getItem('theme') || 'system';
         let themeToApply;
-        
+
         if (savedTheme === 'system') {
           themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         } else {
           themeToApply = savedTheme;
         }
-        
+
         document.documentElement.setAttribute('data-theme', themeToApply);
       })();
     </script>
 
-
-
+    <!-- Title -->
     <title>{title}</title>
   </head>
+  <!-- Body -->
   <body class="dark:bg-primary-950 text-primary-900 dark:text-primary-100 bg-white pt-16 antialiased transition-colors duration-200">
     <Header />
     <main class="mx-auto max-w-6xl px-4 py-8">
       <slot />
     </main>
     <Footer />
-    <script is:inline src="https://unpkg.com/feather-icons"></script>
 
+    <!-- Feather Icons -->
+    <script is:inline src="https://unpkg.com/feather-icons"></script>
     <script is:inline>
       feather.replace();
     </script>

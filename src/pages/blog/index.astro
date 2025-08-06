@@ -1,12 +1,10 @@
 ---
-// export const prerender = false; // This is a SSR page
 import MainLayout from '@/layouts/main-layout.astro';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('blog');
 const currentDate = new Date();
 
-// Simple filtering with type assertion
 const postsToShow = posts
   .filter(post => post.data.publishDate !== null)
   .filter(post => post.data.publishDate! <= currentDate)

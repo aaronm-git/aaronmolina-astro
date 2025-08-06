@@ -15,45 +15,26 @@ const { Content } = await render(post);
 ---
 
 <MainLayout title={post.data.title} description={post.data.description}>
-  <article>
-    <!-- Post Header -->
-    <header class="mb-8">
-      <h1 class="text-primary-900 dark:text-primary-100 mb-4 text-4xl font-bold">
-        {post.data.title}
-      </h1>
-
-      <div class="text-primary-600 dark:text-primary-400 mb-4 flex items-center">
-        <time datetime={post.data.date.toISOString()}>
-          {
-            post.data.date.toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })
-          }
-        </time>
-      </div>
-
-      {post.data.description && <p class="text-primary-700 dark:text-primary-300 mb-6 text-xl">{post.data.description}</p>}
-
-      {
-        post.data.tags && post.data.tags.length > 0 && (
-          <div class="mb-6 flex flex-wrap gap-2">
-            {post.data.tags.map(tag => (
-              <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 rounded-full px-3 py-1 text-sm">{tag}</span>
-            ))}
-          </div>
-        )
-      }
-    </header>
-
+  <article class="mx-auto max-w-screen-md">
     <!-- Post Content -->
-    <div class="typography max-w-none">
+    <div class="typography">
       <Content />
     </div>
 
     <!-- Post Footer -->
     <footer class="border-primary-200 dark:border-primary-700 mt-12 border-t pt-8">
+      <div class="mb-6">
+        <h2 class="text-primary-900 dark:text-primary-100 mb-4 text-2xl font-semibold">Tags</h2>
+        {
+          post.data.tags && post.data.tags.length > 0 && (
+            <div class="mb-6 flex flex-wrap gap-2">
+              {post.data.tags.map(tag => (
+                <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 rounded-full px-3 py-1 text-sm">{tag}</span>
+              ))}
+            </div>
+          )
+        }
+      </div>
       <div class="flex items-center justify-between">
         <a href="/blog" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500"> ← Back to Blog </a>
         <div class="text-primary-500 dark:text-primary-400 text-sm">

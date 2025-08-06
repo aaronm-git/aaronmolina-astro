@@ -1,7 +1,7 @@
 ---
 title: "Building a Modern Portfolio with Astro: A Senior Developer's Approach"
 slug: 2025-07-07-building-a-modern-portfolio-with-astro
-date: 2025-07-07T10:00:00.000Z
+date: 2025-08-06T19:07:17.486Z
 description: Exploring the architecture and implementation of a modern portfolio site built with Astro, TypeScript, Content Collections, and Tailwind CSS. A deep dive into the technical decisions that make this stack ideal for developer portfolios.
 image: ''
 tags:
@@ -112,6 +112,7 @@ Sometimes the simplest approach is the best approach.
 For a portfolio site, GitHub Pages is perfect. It's free, fast, and deploys automatically when I push to main. No server management, no monthly hosting fees.
 
 The build process is simple:
+
 1. `astro build` generates static files
 2. GitHub Actions deploys to Pages
 3. Available at my custom domain

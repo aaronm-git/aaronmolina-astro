@@ -11,43 +11,7 @@ const sortedExperience = experience.sort((a, b) => {
   return b.data.date.getTime() - a.data.date.getTime();
 });
 
-// Extract unique tags from all experience and get their tag data
-const allTags = experience.flatMap(exp => exp.data.tags);
-const uniqueTags = [...new Set(allTags)];
-
-// Group tags by category
-const tagsByCategory = uniqueTags.reduce(
-  (acc, tagSlug) => {
-    if (tagSlug) {
-      const category = 'uncategorized';
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(tagSlug);
-    }
-    return acc;
-  },
-  {} as Record<string, any[]>
-);
-
-// Define category display info
-const categoryInfo = {
-  frontend: { title: 'Frontend Development', icon: 'monitor' },
-  backend: { title: 'Backend & APIs', icon: 'server' },
-  tools: { title: 'Tools & Platforms', icon: 'tool' },
-  design: { title: 'Design & UX', icon: 'pen-tool' },
-  devops: { title: 'DevOps & Cloud', icon: 'cloud' },
-  cms: { title: 'Content Management', icon: 'edit' },
-  other: { title: 'Other', icon: 'more-horizontal' },
-};
-
-// Calculate total years of experience
-// const currentDate = new Date();
-// const earliestDate = experience.reduce((earliest, exp) => {
-//   return exp.data.date < earliest ? exp.data.date : earliest;
-// }, currentDate);
-// const yearsOfExperience = Math.floor((currentDate.getTime() - earliestDate.getTime()) / (1000 * 60 * 60 * 24 * 365));
-const yearsOfExperience = 10;
+const yearsOfExperience = new Date().getFullYear() - 2012;
 ---
 
 <MainLayout>

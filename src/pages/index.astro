@@ -1,5 +1,4 @@
 ---
-export const prerender = false;
 import MainLayout from '@/layouts/main-layout.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
 import ExperienceCard from '@/components/ExperienceCard.astro';
@@ -35,35 +34,7 @@ const featuredProjects = projects
   })
   .slice(0, 3);
 
-// Extract unique tags from experience and get their tag data
-const allTags = experience.flatMap(exp => exp.data.tags);
-const uniqueTags = [...new Set(allTags)];
-
-// Group tags by category
-const tagsByCategory = uniqueTags.reduce(
-  (acc, tagSlug) => {
-    if (tagSlug) {
-      const category = 'uncategorized';
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(tagSlug);
-    }
-    return acc;
-  },
-  {} as Record<string, any[]>
-);
-
-// Define category display info
-const categoryInfo = {
-  frontend: { title: 'Frontend Development', icon: 'monitor' },
-  backend: { title: 'Backend & APIs', icon: 'server' },
-  tools: { title: 'Tools & Platforms', icon: 'tool' },
-  design: { title: 'Design & UX', icon: 'pen-tool' },
-  devops: { title: 'DevOps & Cloud', icon: 'cloud' },
-  cms: { title: 'Content Management', icon: 'edit' },
-  other: { title: 'Other', icon: 'more-horizontal' },
-};
+const yearsOfExperience = new Date().getFullYear() - 2012;
 ---
 
 <MainLayout>
@@ -80,7 +51,7 @@ const categoryInfo = {
     <h1 class="hero-title text-primary-900 dark:text-primary-100 mb-1 text-4xl font-bold md:mb-6 md:text-6xl">Aaron Molina</h1>
     <p class="hero-subtitle text-primary-700 dark:text-primary-300 mb-4 text-lg font-medium md:text-2xl">Senior Frontend & Fullstack Developer</p>
     <p class="hero-description text-primary-600 dark:text-primary-400 mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
-      Building modern, high-performannt web websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over 10 years of experience, I've worked with a variety of technologies,
+      Building modern, high-performannt web websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over {yearsOfExperience} years of experience, I've worked with a variety of technologies,
       including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences.
     </p>
     <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">

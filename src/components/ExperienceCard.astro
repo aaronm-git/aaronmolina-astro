@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import tags from 'content/tags';
 
 interface Props {
   experience: {
@@ -25,9 +24,6 @@ interface Props {
 }
 
 const { experience, showAllDetails = false } = Astro.props;
-
-// Create a map of tag slugs to tag data
-const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 
 // Calculate duration
 function calculateDuration(startDate: Date, endDate?: Date): string {
@@ -56,7 +52,10 @@ function calculateDuration(startDate: Date, endDate?: Date): string {
 const duration = calculateDuration(experience.data.date, experience.data.endDate);
 ---
 
-<article class="animate-card border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md transition-shadow hover:shadow-lg" id={experience.data.slug}>
+<article
+  class="animate-card border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md transition-shadow hover:shadow-lg"
+  id={experience.data.slug}
+>
   <div class="mb-4 flex flex-col md:flex-row md:items-start md:justify-between">
     <div class="flex flex-col items-start gap-4 md:flex-row">
       <div class="bg-primary-50 dark:bg-primary-800 border-primary-200 dark:border-primary-600 flex aspect-square w-20 items-center justify-center overflow-hidden rounded border">
@@ -76,7 +75,12 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
           {experience.data.title}
           {
             experience.data.url && (
-              <a href={experience.data.url} target="_blank" rel="noopener noreferrer" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-500 transition-colors">
+              <a
+                href={experience.data.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-500 transition-colors"
+              >
                 <>
                   <i data-feather="external-link" class="inline h-4 w-4" />
                   <span class="sr-only">Visit Site</span>
@@ -97,7 +101,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       <p class="text-primary-600 dark:text-primary-400 mt-1 text-sm">
         {duration}
       </p>
-      {experience.data.current && <span class="mt-1 inline-block rounded-full bg-green-100 dark:bg-green-800 px-2 py-1 text-xs text-green-800 dark:text-green-100">Current</span>}
+      {experience.data.current && <span class="mt-1 inline-block rounded-full bg-green-100 px-2 py-1 text-xs text-green-800 dark:bg-green-800 dark:text-green-100">Current</span>}
     </div>
   </div>
 
@@ -126,7 +130,10 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       {
         !showAllDetails && (
           <div class="mt-4">
-            <a href={`/experience#${experience.data.slug}`} class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-500 group flex items-center gap-2 text-sm font-medium transition-colors">
+            <a
+              href={`/experience#${experience.data.slug}`}
+              class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-500 group flex items-center gap-2 text-sm font-medium transition-colors"
+            >
               See more details <i data-feather="chevron-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
@@ -139,8 +146,11 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       <div class="flex flex-wrap gap-2">
         {
           experience.data.tags.slice(0, showAllDetails ? undefined : 8).map(tagSlug => {
-            const tag = tagMap.get(tagSlug);
-            return <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 border-secondary-200 dark:border-secondary-700 rounded border px-2 py-1 text-xs font-medium">{tag?.title || tagSlug}</span>;
+            return (
+              <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 border-secondary-200 dark:border-secondary-700 rounded border px-2 py-1 text-xs font-medium">
+                {tagSlug}
+              </span>
+            );
           })
         }
       </div>

@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import tags from 'content/tags';
 
 interface Props {
   project: {
@@ -19,12 +18,11 @@ interface Props {
 }
 
 const { project, showCompletedDate = false } = Astro.props;
-
-// Create a map of tag slugs to tag data
-const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 ---
 
-<article class="animate-card border-primary-100 dark:border-primary-800 flex flex-col overflow-hidden rounded-lg border bg-white dark:bg-primary-900 shadow-lg transition-shadow hover:shadow-xl">
+<article
+  class="animate-card border-primary-100 dark:border-primary-800 dark:bg-primary-900 flex flex-col overflow-hidden rounded-lg border bg-white shadow-lg transition-shadow hover:shadow-xl"
+>
   <div class="bg-primary-50 dark:bg-primary-800 relative aspect-video overflow-hidden">
     {
       project.data.featuredImage ? (
@@ -76,19 +74,26 @@ const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
     <div class="mb-4 flex flex-wrap gap-2">
       {
         project.data.tags.slice(0, 3).map(tagSlug => {
-          const tag = tagMap.get(tagSlug);
-          return <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 rounded-full px-3 py-1 text-xs font-medium">{tag?.title || tagSlug}</span>;
+          return <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 rounded-full px-3 py-1 text-xs font-medium">{tagSlug}</span>;
         })
       }
     </div>
 
     <div class="border-primary-100 dark:border-primary-700 mt-auto flex items-center justify-between border-t pt-4">
-      <a href={`/projects/${project.data.slug}`} class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-1 font-medium">
+      <a
+        href={`/projects/${project.data.slug}`}
+        class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-1 font-medium"
+      >
         Learn more <span data-feather="arrow-right" class="h-4 w-4"></span>
       </a>
       {
         project.data.link && (
-          <a href={project.data.link} class="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+          <a
+            href={project.data.link}
+            class="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 flex items-center gap-1"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             View project <span data-feather="external-link" class="h-4 w-4" />
           </a>
         )

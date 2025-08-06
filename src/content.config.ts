@@ -1,24 +1,16 @@
-// 1. Import utilities from `astro:content`
 import { defineCollection, z } from 'astro:content';
-
-// 2. Import loader(s)
 import { glob } from 'astro/loaders';
 
-import tags from 'content/tags';
-
-// Create tag slugs enum from tags data
-const tagSlugs = tags.map(tag => tag.slug) as [string, ...string[]];
-
-// 3. Define your collection(s)
 const blog = defineCollection({
   loader: glob({ pattern: 'content/blog/**/*.md' }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
-    date: z.date(),
+    publishDate: z.date().or(z.null()),
+    updatedDate: z.date().optional().default(new Date()),
     description: z.string().optional(),
     image: z.string().optional(),
-    tags: z.array(z.enum(tagSlugs)).default([]),
+    tags: z.array(z.string()).default([]),
   }),
 });
 
@@ -37,7 +29,7 @@ const experience = defineCollection({
       .transform(str => (str ? new Date(str) : undefined)),
     role: z.string(),
     responsibilities: z.array(z.string()).default([]),
-    tags: z.array(z.enum(tagSlugs)).default([]),
+    tags: z.array(z.string()).default([]),
     projects: z.array(z.string()).default([]),
     achievements: z.array(z.string()).default([]),
     body: z.string().optional(),
@@ -54,7 +46,7 @@ const projects = defineCollection({
     title: z.string(),
     slug: z.string().optional(),
     description: z.string().optional(),
-    tags: z.array(z.enum(tagSlugs)).default([]),
+    tags: z.array(z.string()).default([]),
     featuredImage: z.string().optional(),
     link: z.string().optional(),
     body: z.string().optional(),

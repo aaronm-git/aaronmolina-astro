@@ -38,7 +38,7 @@ const { Content } = await render(post);
       <div class="flex items-center justify-between">
         <a href="/blog" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500"> ← Back to Blog </a>
         <div class="text-primary-500 dark:text-primary-400 text-sm">
-          Last updated: {post.data.date.toLocaleDateString()}
+          Last updated: {post.data.updatedDate.toLocaleDateString()}
         </div>
       </div>
     </footer>

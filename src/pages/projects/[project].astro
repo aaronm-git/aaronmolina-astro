@@ -1,8 +1,6 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
-import tags from 'content/tags';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -14,31 +12,42 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-
-// Create a map of tag slugs to tag data
-const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
 ---
 
 <MainLayout title={project.data.title} description={project.data.description}>
-  <article>
+  <article class="mx-auto max-w-screen-md">
     <!-- Project Header -->
     <header class="mb-8">
-      <div class="mb-4 flex items-center justify-between">
+      <div class="mb-4 flex items-center justify-between gap-4">
         <h1 class="text-primary-900 dark:text-primary-100 text-4xl font-bold">
           {project.data.title}
         </h1>
-        {project.data.pinned && <span class="bg-secondary-100 dark:bg-secondary-800 text-secondary-800 dark:text-secondary-200 flex-shrink-0 rounded-full px-3 py-1 text-sm font-semibold">Featured Project</span>}
+        {
+          project.data.pinned && (
+            <span class="bg-secondary-100 dark:bg-secondary-800 text-secondary-800 dark:text-secondary-200 flex-shrink-0 rounded-full px-3 py-1 text-sm font-semibold">
+              Featured Project
+            </span>
+          )
+        }
       </div>
 
       <div class="text-primary-600 dark:text-primary-400 mb-6 flex items-center justify-between">
         <div class="flex items-center gap-6">
-          <a href="#project-details" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2 transition-colors">
+          <a
+            href="#project-details"
+            class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2 transition-colors"
+          >
             <span class="flex items-center gap-2 text-sm font-medium"><i data-feather="info" class="h-4 w-4"></i> Project Details</span>
           </a>
           |
           {
             project.data.link && (
-              <a href={project.data.link} target="_blank" rel="noopener noreferrer" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2 transition-colors">
+              <a
+                href={project.data.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2 transition-colors"
+              >
                 <span class="text-sm font-medium">Visit Project</span>
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -97,7 +106,12 @@ const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
             <div>
               <dt class="text-primary-600 dark:text-primary-400 mb-1 text-sm font-medium">Project URL</dt>
               <dd class="text-sm">
-                <a href={project.data.link} target="_blank" rel="noopener noreferrer" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 break-all">
+                <a
+                  href={project.data.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 break-all"
+                >
                   {project.data.link}
                 </a>
               </dd>
@@ -110,10 +124,11 @@ const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
             <div class="md:col-span-2">
               <dt class="text-primary-600 dark:text-primary-400 mb-2 text-sm font-medium">Technologies Used</dt>
               <dd class="flex flex-wrap gap-2">
-                {project.data.tags.map(tagSlug => {
-                  const tag = tagMap.get(tagSlug);
-                  return <span class="text-secondary-700 dark:text-secondary-300 border-secondary-200 dark:border-secondary-700 rounded border bg-secondary-50 dark:bg-secondary-900 px-2 py-1 text-xs">{tag?.title || tagSlug}</span>;
-                })}
+                {project.data.tags.map(tagSlug => (
+                  <span class="text-secondary-700 dark:text-secondary-300 border-secondary-200 dark:border-secondary-700 bg-secondary-50 dark:bg-secondary-900 rounded border px-2 py-1 text-xs">
+                    {tagSlug}
+                  </span>
+                ))}
               </dd>
             </div>
           )

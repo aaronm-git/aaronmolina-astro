@@ -2,7 +2,6 @@
 import MainLayout from '@/layouts/main-layout.astro';
 import ExperienceCard from '@/components/ExperienceCard.astro';
 import { getCollection } from 'astro:content';
-import tags from 'content/tags';
 import CTA from '@/components/CTA.astro';
 
 const experience = await getCollection('experience');
@@ -12,9 +11,6 @@ const sortedExperience = experience.sort((a, b) => {
   return b.data.date.getTime() - a.data.date.getTime();
 });
 
-// Create tag map for skills overview
-const tagMap = new Map(tags.map(tag => [tag.slug, tag]));
-
 // Extract unique tags from all experience and get their tag data
 const allTags = experience.flatMap(exp => exp.data.tags);
 const uniqueTags = [...new Set(allTags)];
@@ -22,13 +18,12 @@ const uniqueTags = [...new Set(allTags)];
 // Group tags by category
 const tagsByCategory = uniqueTags.reduce(
   (acc, tagSlug) => {
-    const tag = tagMap.get(tagSlug);
-    if (tag) {
-      const category = tag.category || 'uncategorized';
+    if (tagSlug) {
+      const category = 'uncategorized';
       if (!acc[category]) {
         acc[category] = [];
       }
-      acc[category].push(tag);
+      acc[category].push(tagSlug);
     }
     return acc;
   },
@@ -80,34 +75,6 @@ const yearsOfExperience = 10;
     </div>
   </section>
 
-  <!-- Skills Overview -->
-  <section class="animate-section mb-16">
-    <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-      <span data-feather="code" class="text-secondary-600 dark:text-secondary-400"></span>
-      Technical Skills & Expertise
-    </h2>
-
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {
-        Object.entries(categoryInfo)
-          .filter(([categorySlug]) => tagsByCategory[categorySlug]?.length > 0)
-          .map(([categorySlug, info]) => (
-            <div class="animate-content border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
-              <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-center gap-2 text-lg font-semibold">
-                <span data-feather={info.icon} class="text-secondary-600 dark:text-secondary-400" />
-                {info.title}
-              </h3>
-              <div class="flex flex-wrap gap-2">
-                {tagsByCategory[categorySlug]?.map(tag => (
-                  <span class="bg-secondary-50 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 border-secondary-200 dark:border-secondary-700 rounded-full border px-3 py-1 text-sm font-medium">{tag.title}</span>
-                ))}
-              </div>
-            </div>
-          ))
-      }
-    </div>
-  </section>
-
   <!-- Career Highlights -->
   <section class="animate-section mb-16">
     <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
@@ -116,7 +83,7 @@ const yearsOfExperience = 10;
     </h2>
 
     <div class="grid gap-8 md:grid-cols-2">
-      <div class="animate-content border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+      <div class="animate-content border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md">
         <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-center gap-2 text-lg font-semibold">
           <span data-feather="trending-up" class="text-secondary-600 dark:text-secondary-400"></span>
           Key Achievements
@@ -136,7 +103,7 @@ const yearsOfExperience = 10;
         </ul>
       </div>
 
-      <div class="animate-content border-primary-100 dark:border-primary-800 rounded-lg border bg-white dark:bg-primary-900 p-6 shadow-md">
+      <div class="animate-content border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md">
         <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-start gap-2 text-lg font-semibold">
           <span data-feather="target" class="text-secondary-600 dark:text-secondary-400"></span>
           Core Competencies

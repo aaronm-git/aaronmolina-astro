@@ -7,7 +7,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "images:check": "node scripts/image-size-check.js"
+    "images:check": "node scripts/image-size-check.js",
+    "netlify:deploy:prod": "pnpm build && netlify deploy --prod --dir=dist --message=\"Deploying production build\"",
+    "netlify:deploy:dev": "pnpm build && netlify deploy --dir=dist --message=\"Deploying development build\""
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",

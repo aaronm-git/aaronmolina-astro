@@ -1,8 +1,7 @@
 ---
 title: LA Clippers Website and Other Online Properties
 slug: clippers-website
-description: Modern Vue/Nuxt-based frontend for Clippers.com and
-  ClippersCamp.com with RESTful API integrations.
+description: Modern Vue/Nuxt-based frontend for Clippers.com with RESTful API integrations.
 tags:
   - vue
   - nuxt

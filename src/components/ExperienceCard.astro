@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { FaBriefcase, FaExternalLinkAlt, FaCheck, FaChevronRight, FaAward } from 'react-icons/fa';
 
 interface Props {
   experience: {
@@ -58,13 +59,15 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
 >
   <div class="mb-4 flex flex-col md:flex-row md:items-start md:justify-between">
     <div class="flex flex-col items-start gap-4 md:flex-row">
-      <div class="bg-primary-50 dark:bg-primary-800 border-primary-200 dark:border-primary-600 flex aspect-square w-20 items-center justify-center overflow-hidden rounded border">
+      <div
+        class="bg-primary-50 dark:bg-primary-800 border-primary-200 dark:border-primary-600 flex aspect-square w-20 items-center justify-center overflow-hidden rounded border"
+      >
         {
           experience.data.logo ? (
             <Image src={experience.data.logo} alt="Company logo" class="h-full w-full object-contain" loading="lazy" width={64} height={64} />
           ) : (
             <span class="text-primary-400 dark:text-primary-500 text-center text-xs">
-              <i data-feather="briefcase" class="h-6 w-6" />
+              <FaBriefcase className="h-6 w-6" />
             </span>
           )
         }
@@ -82,7 +85,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
                 class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-500 transition-colors"
               >
                 <>
-                  <i data-feather="external-link" class="inline h-4 w-4" />
+                  <FaExternalLinkAlt className="inline h-4 w-4" />
                   <span class="sr-only">Visit Site</span>
                 </>
               </a>
@@ -101,7 +104,11 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       <p class="text-primary-600 dark:text-primary-400 mt-1 text-sm">
         {duration}
       </p>
-      {experience.data.current && <span class="mt-1 inline-block rounded-full bg-green-100 px-2 py-1 text-xs text-green-800 dark:bg-green-800 dark:text-green-100">Current</span>}
+      {
+        experience.data.current && (
+          <span class="mt-1 inline-block rounded-full bg-green-100 px-2 py-1 text-xs text-green-800 dark:bg-green-800 dark:text-green-100">Current</span>
+        )
+      }
     </div>
   </div>
 
@@ -120,7 +127,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
         {
           experience.data.responsibilities.slice(0, showAllDetails ? undefined : 3).map(responsibility => (
             <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
-              <span data-feather="check" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
+              <FaCheck className="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
               {responsibility}
             </li>
           ))
@@ -134,7 +141,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
               href={`/experience#${experience.data.slug}`}
               class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-500 group flex items-center gap-2 text-sm font-medium transition-colors"
             >
-              See more details <i data-feather="chevron-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              See more details <FaChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
         )
@@ -162,7 +169,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
             <ul class="space-y-1">
               {experience.data.achievements.map((achievement: string) => (
                 <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
-                  <span data-feather="award" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
+                  <FaAward className="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
                   {achievement}
                 </li>
               ))}

@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/main-layout.astro';
 import ExperienceCard from '@/components/ExperienceCard.astro';
 import { getCollection } from 'astro:content';
 import CTA from '@/components/CTA.astro';
+import { FaBriefcase, FaBrain, FaAward, FaCheckCircle, FaChartLine, FaCode, FaMobile, FaBolt, FaUsers, FaEye, FaCloud } from 'react-icons/fa';
 
 const experience = await getCollection('experience');
 const sortedExperience = experience.sort((a, b) => {
@@ -30,7 +31,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
   <!-- Experience Timeline -->
   <section class="animate-section mb-16">
     <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-      <span data-feather="briefcase" class="text-secondary-600 dark:text-secondary-400"></span>
+      <FaBriefcase className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
       Work Experience
     </h2>
 
@@ -42,14 +43,14 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
   <!-- Career Highlights -->
   <section class="animate-section mb-16">
     <h2 class="text-primary-900 dark:text-primary-100 mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-      <span data-feather="award" class="text-secondary-600 dark:text-secondary-400"></span>
+      <FaAward className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
       Career Highlights
     </h2>
 
     <div class="grid gap-8 md:grid-cols-2">
       <div class="animate-content border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md">
         <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-center gap-2 text-lg font-semibold">
-          <span data-feather="trending-up" class="text-secondary-600 dark:text-secondary-400"></span>
+          <FaChartLine className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
           Key Achievements
         </h3>
         <ul class="space-y-3">
@@ -59,7 +60,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
               .slice(0, 6)
               .map(achievement => (
                 <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
-                  <span data-feather="check-circle" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
+                  <FaCheckCircle className="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
                   {achievement}
                 </li>
               ))
@@ -69,32 +70,32 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
 
       <div class="animate-content border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md">
         <h3 class="text-primary-900 dark:text-primary-100 mb-4 flex items-start gap-2 text-lg font-semibold">
-          <span data-feather="target" class="text-secondary-600 dark:text-secondary-400"></span>
+          <FaBrain className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
           Core Competencies
         </h3>
         <ul class="space-y-3">
           <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
-            <span data-feather="code" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+            <FaCode className="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
             Full-stack web development with modern frameworks
           </li>
           <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
-            <span data-feather="smartphone" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+            <FaMobile className="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
             Responsive design and mobile-first development
           </li>
           <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
-            <span data-feather="zap" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+            <FaBolt className="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
             Performance optimization and Core Web Vitals
           </li>
           <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
-            <span data-feather="users" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+            <FaUsers className="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
             Cross-functional team collaboration and leadership
           </li>
           <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
-            <span data-feather="eye" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+            <FaEye className="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
             Accessibility standards and inclusive design
           </li>
           <li class="text-primary-700 dark:text-primary-300 flex items-start gap-2 text-sm">
-            <span data-feather="cloud" class="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0"></span>
+            <FaCloud className="text-secondary-600 dark:text-secondary-400 mt-0.5 h-4 w-4 flex-shrink-0" />
             Cloud platforms and DevOps practices
           </li>
         </ul>

@@ -1,6 +1,7 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
 import { getCollection, render } from 'astro:content';
+import { FaGithub, FaExternalLinkAlt, FaInfoCircle } from 'react-icons/fa';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -37,7 +38,8 @@ const { Content } = await render(project);
             href="#project-details"
             class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2 transition-colors"
           >
-            <span class="flex items-center gap-2 text-sm font-medium"><i data-feather="info" class="h-4 w-4"></i> Project Details</span>
+            <FaInfoCircle className="h-4 w-4" />
+            <span class="flex items-center gap-2 text-sm font-medium">Project Details</span>
           </a>
           |
           {
@@ -48,10 +50,22 @@ const { Content } = await render(project);
                 rel="noopener noreferrer"
                 class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2 transition-colors"
               >
+                <FaExternalLinkAlt className="h-4 w-4" />
                 <span class="text-sm font-medium">Visit Project</span>
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
+              </a>
+            )
+          }
+          |
+          {
+            project.data.githubLink && (
+              <a
+                href={project.data.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2 transition-colors"
+              >
+                <FaGithub className="h-4 w-4" />
+                <span class="text-sm font-medium">View on GitHub</span>
               </a>
             )
           }

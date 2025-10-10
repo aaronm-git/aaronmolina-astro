@@ -13,6 +13,7 @@ link: 'https://www.nba.com/heat'
 completedOn: 2022-07-01T00:00:00.000Z
 featuredImage: '/images/project-heat-new.webp'
 isActive: true
+pinned: true
 ---
 
 As a **Frontend Developer** working on the Miami HEAT digital platform, I played a key role in migrating **HEAT.com**, **KaseyaCenter.com**, and **HeatCheck.nba.com** to a modern, mobile-first stack.

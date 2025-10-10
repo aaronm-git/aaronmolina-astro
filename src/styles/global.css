@@ -500,12 +500,18 @@ button:not([disabled]) {
   transform: translateY(30px);
 }
 
-/* Smooth scrolling for anchor links */
 html {
   scroll-behavior: smooth;
 }
 
-/* Offset for anchor links to account for any fixed headers */
 [id] {
   scroll-margin-top: 2rem;
+}
+
+body {
+  @apply dark:bg-primary-950 bg-gray-50;
+}
+
+main {
+  @apply min-h-[calc(100vh-53px-69px-24px)];
 }

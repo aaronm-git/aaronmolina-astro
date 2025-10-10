@@ -76,6 +76,13 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
       document.addEventListener('DOMContentLoaded', () => {
         AnimationUtils.initializeAll();
       });
+
+      // Also try on window load as a fallback for hash scrolling
+      window.addEventListener('load', () => {
+        if (window.location.hash) {
+          AnimationUtils.initSmoothScrollOnPageLoad();
+        }
+      });
     </script>
   </body>
 </html>

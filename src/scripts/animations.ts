@@ -207,10 +207,10 @@ export class AnimationUtils {
     const heroTitle = document.querySelector('.hero-title');
     const heroSubtitle = document.querySelector('.hero-subtitle');
     const heroDescription = document.querySelector('.hero-description');
-    const heroCta = document.querySelector('.hero-cta');
+    const heroCtas = document.querySelectorAll('.hero-cta');
 
     // Only create timeline if hero elements exist
-    if (!heroImage && !heroTitle && !heroSubtitle && !heroDescription && !heroCta) {
+    if (!heroImage && !heroTitle && !heroSubtitle && !heroDescription && heroCtas.length === 0) {
       return;
     }
 
@@ -286,9 +286,9 @@ export class AnimationUtils {
     }
 
     // Animate CTA buttons if they exist
-    if (heroCta) {
+    if (heroCtas.length > 0) {
       tl.fromTo(
-        heroCta,
+        heroCtas,
         {
           y: 30,
           opacity: 0,
@@ -406,13 +406,47 @@ export class AnimationUtils {
             ease: 'power2.out',
             scrollTo: {
               y: target,
-              offsetY: 80,
+              offsetY: 180,
             },
           });
         } else {
           console.log('No target found');
         }
       });
+    });
+  }
+
+  // smooth scroll on page load
+  static initSmoothScrollOnPageLoad() {
+    if (!window.location.hash) {
+      return;
+    }
+
+    // Wait a bit for the page to fully load and render
+    setTimeout(() => {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        gsap.to(window, {
+          duration: 0,
+          ease: 'power2.out',
+          scrollTo: { y: target, offsetY: 180 },
+        });
+      }
+    }, 100);
+  }
+
+  static initHashScrolling() {
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+          gsap.to(window, {
+            duration: 0,
+            ease: 'power2.out',
+            scrollTo: { y: target, offsetY: 180 },
+          });
+        }
+      }
     });
   }
 
@@ -423,6 +457,8 @@ export class AnimationUtils {
     this.initCardAnimations();
     this.initSectionAnimations();
     this.initSmoothScrolling();
+    this.initSmoothScrollOnPageLoad();
+    this.initHashScrolling();
   }
 
   // Refresh ScrollTrigger (useful for dynamic content)

@@ -27,7 +27,7 @@ const sortedExperience = experience
 
 const projects = await getCollection('projects');
 const featuredProjects = projects
-  .filter(project => project.data.pinned || project.data.isActive)
+  .filter(project => project.data.pinned)
   .sort((a, b) => {
     if (a.data.pinned && !b.data.pinned) return -1;
     if (!a.data.pinned && b.data.pinned) return 1;
@@ -80,10 +80,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
         <FaStar className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
         Featured Projects
       </h2>
-      <a
-        href="/projects"
-        class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 hidden items-center gap-2 font-medium md:flex"
-      >
+      <a href="/projects" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 hidden items-center gap-2 font-medium md:flex">
         View all projects <FaArrowRight className="h-4 w-4" />
       </a>
     </div>
@@ -107,10 +104,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
         <FaBriefcase className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
         Professional Experience
       </h2>
-      <a
-        href="/experience"
-        class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 hidden items-center gap-2 font-medium md:flex"
-      >
+      <a href="/experience" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 hidden items-center gap-2 font-medium md:flex">
         View all experience <FaArrowRight className="h-4 w-4" />
       </a>
     </div>

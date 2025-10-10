@@ -499,3 +499,13 @@ button:not([disabled]) {
   opacity: 0;
   transform: translateY(30px);
 }
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for anchor links to account for any fixed headers */
+[id] {
+  scroll-margin-top: 2rem;
+}

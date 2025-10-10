@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { FaImage, FaArrowRight, FaExternalLinkAlt } from 'react-icons/fa';
 
 interface Props {
   project: {
@@ -30,7 +31,7 @@ const { project, showCompletedDate = false } = Astro.props;
       ) : (
         <div class="bg-primary-100 dark:bg-primary-700 flex h-full w-full items-center justify-center">
           <span class="text-primary-500 dark:text-primary-400 flex items-center gap-2">
-            No Image <i data-feather="image" class="h-4 w-4" />
+            No Image <FaImage className="h-4 w-4" />
           </span>
         </div>
       )
@@ -84,7 +85,7 @@ const { project, showCompletedDate = false } = Astro.props;
         href={`/projects/${project.data.slug}`}
         class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-1 font-medium"
       >
-        Learn more <span data-feather="arrow-right" class="h-4 w-4"></span>
+        Learn more <FaArrowRight className="h-4 w-4" />
       </a>
       {
         project.data.link && (
@@ -94,7 +95,7 @@ const { project, showCompletedDate = false } = Astro.props;
             target="_blank"
             rel="noopener noreferrer"
           >
-            View project <span data-feather="external-link" class="h-4 w-4" />
+            View project <FaExternalLinkAlt className="h-4 w-4" />
           </a>
         )
       }

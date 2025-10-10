@@ -54,8 +54,8 @@ const projects = defineCollection({
     isActive: z.boolean().default(true),
     pinned: z.boolean().default(false),
     experience: z.string().optional(),
+    githubLink: z.string().optional(),
   }),
 });
 
-// 4. Export a single `collections` object to register your collection(s)
 export const collections = { blog, projects, experience };

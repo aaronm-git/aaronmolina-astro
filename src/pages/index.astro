@@ -6,6 +6,7 @@ import CTA from '@/components/CTA.astro';
 import { getCollection } from 'astro:content';
 import ProfilePicture from '@/assets/images/profile-picture-square.jpg';
 import { Image } from 'astro:assets';
+import { FaBriefcase, FaBookOpen, FaStar, FaArrowRight, FaEdit, FaCalendarAlt } from 'react-icons/fa';
 
 const posts = await getCollection('blog');
 const currentDate = new Date();
@@ -51,22 +52,22 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
     <h1 class="hero-title text-primary-900 dark:text-primary-100 mb-1 text-4xl font-bold md:mb-6 md:text-6xl">Aaron Molina</h1>
     <p class="hero-subtitle text-primary-700 dark:text-primary-300 mb-4 text-lg font-medium md:text-2xl">Senior Frontend & Fullstack Developer</p>
     <p class="hero-description text-primary-600 dark:text-primary-400 mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
-      Building modern, high-performannt web websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over {yearsOfExperience} years of experience, I've worked with a variety of technologies,
-      including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences.
+      Building modern, high-performannt web websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over {yearsOfExperience} years of experience, I've worked with a variety
+      of technologies, including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences.
     </p>
     <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
       <a
         href="/projects"
         class="hero-cta bg-secondary-600 hover:bg-secondary-700 dark:bg-secondary-600 dark:hover:bg-secondary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors"
       >
-        <span data-feather="briefcase"></span>
+        <FaBriefcase className="h-4 w-4" />
         View My Work
       </a>
       <a
         href="/blog"
         class="hero-cta bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors"
       >
-        <span data-feather="book-open"></span>
+        <FaBookOpen className="h-4 w-4" />
         Read My Blog
       </a>
     </div>
@@ -76,11 +77,14 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
   <section class="animate-section mb-16">
     <div class="mb-8 flex items-center justify-between">
       <h2 class="text-primary-900 dark:text-primary-100 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-        <span data-feather="star" class="text-secondary-600 dark:text-secondary-400"></span>
+        <FaStar className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
         Featured Projects
       </h2>
-      <a href="/projects" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 hidden items-center gap-2 font-medium md:flex">
-        View all projects <span data-feather="arrow-right"></span>
+      <a
+        href="/projects"
+        class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 hidden items-center gap-2 font-medium md:flex"
+      >
+        View all projects <FaArrowRight className="h-4 w-4" />
       </a>
     </div>
 
@@ -92,7 +96,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
       href="/projects"
       class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 mt-6 flex items-center justify-end gap-2 font-medium md:hidden"
     >
-      View all projects <span data-feather="arrow-right"></span>
+      View all projects <FaArrowRight className="h-4 w-4" />
     </a>
   </section>
 
@@ -100,11 +104,14 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
   <section class="animate-section mb-16">
     <div class="mb-8 flex items-center justify-between">
       <h2 class="text-primary-900 dark:text-primary-100 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-        <span data-feather="briefcase" class="text-secondary-600 dark:text-secondary-400"></span>
+        <FaBriefcase className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
         Professional Experience
       </h2>
-      <a href="/experience" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 hidden items-center gap-2 font-medium md:flex">
-        View all experience <span data-feather="arrow-right"></span>
+      <a
+        href="/experience"
+        class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 hidden items-center gap-2 font-medium md:flex"
+      >
+        View all experience <FaArrowRight className="h-4 w-4" />
       </a>
     </div>
 
@@ -116,7 +123,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
       href="/experience"
       class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 mt-6 flex items-center justify-end gap-2 font-medium md:hidden"
     >
-      View all experience <span data-feather="arrow-right"></span>
+      View all experience <FaArrowRight className="h-4 w-4" />
     </a>
   </section>
 
@@ -126,11 +133,11 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
       <section class="animate-section mb-16">
         <div class="mb-8 flex items-center justify-between">
           <h2 class="text-primary-900 dark:text-primary-100 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-            <span data-feather="edit-3" class="text-secondary-600 dark:text-secondary-400" />
+            <FaEdit className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
             Latest Articles
           </h2>
           <a href="/blog" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 flex items-center gap-2 font-medium">
-            View all posts <span data-feather="arrow-right" />
+            View all posts <FaArrowRight className="h-4 w-4" />
           </a>
         </div>
 
@@ -143,7 +150,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
                 </a>
               </h3>
               <div class="text-primary-600 dark:text-primary-400 mb-3 flex items-center text-sm">
-                <span data-feather="calendar" class="mr-2 h-4 w-4" />
+                <FaCalendarAlt className="mr-2 h-4 w-4" />
                 <time datetime={post.data.publishDate?.toISOString()}>
                   {post.data.publishDate?.toLocaleDateString('en-US', {
                     year: 'numeric',
@@ -157,7 +164,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
                 href={`/blog/${post.data.slug}`}
                 class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 flex items-center gap-1 font-medium"
               >
-                Read more <span data-feather="arrow-right" class="h-4 w-4" />
+                Read more <FaArrowRight className="h-4 w-4" />
               </a>
             </article>
           ))}

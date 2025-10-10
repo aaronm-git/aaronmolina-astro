@@ -1,5 +1,5 @@
 ---
-// No settings object needed - values are hardcoded directly in HTML
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 ---
 
 <footer class="bg-primary-50 dark:bg-primary-800 border-primary-200 dark:border-primary-700 mt-12 border-t py-6">
@@ -8,8 +8,14 @@
       &copy; {new Date().getFullYear()} Aaron Molina &mdash; All rights reserved.
     </div>
     <div class="flex items-center space-x-4">
-      <a href="https://github.com/aaronm-git" target="_blank" rel="noopener noreferrer" class="text-primary-500 dark:text-primary-400 hover:text-secondary-600 dark:hover:text-secondary-400" aria-label="GitHub @aaronm-git">
-        <span data-feather="github"></span>
+      <a
+        href="https://github.com/aaronm-git"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-primary-500 dark:text-primary-400 hover:text-secondary-600 dark:hover:text-secondary-400"
+        aria-label="GitHub @aaronm-git"
+      >
+        <FaGithub className="h-4 w-4" />
       </a>
       <a
         href="https://www.linkedin.com/in/aaronmolinag"
@@ -18,7 +24,7 @@
         class="text-primary-500 dark:text-primary-400 hover:text-secondary-600 dark:hover:text-secondary-400"
         aria-label="LinkedIn @aaronmolinag"
       >
-        <span data-feather="linkedin"></span>
+        <FaLinkedin className="h-4 w-4" />
       </a>
       <a
         href="https://www.instagram.com/chillsloth09"
@@ -27,8 +33,10 @@
         class="text-primary-500 dark:text-primary-400 hover:text-secondary-600 dark:hover:text-secondary-400"
         aria-label="Instagram @chillsloth09"
       >
-        <span data-feather="instagram"></span>
+        <FaInstagram className="h-4 w-4" />
       </a>
     </div>
   </div>
 </footer>
+
+<!-- Feather Icons removed - now using React Icons -->

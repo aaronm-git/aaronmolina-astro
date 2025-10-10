@@ -11,12 +11,13 @@ tags:
   - typescript
   - javascript
   - git
-  
+
 featuredImage: /images/project-pokedex-nextjs-shadcn-clerk-react-query.png
 link: https://pokedex-next-clerk-react-query.vercel.app
 completedOn: 2025-10-10T00:00:00.000Z
 isActive: true
 pinned: true
+githubLink: https://github.com/aaronm-git/pokedex-next-clerk-react-query
 ---
 
 ## Overview
@@ -74,8 +75,7 @@ NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/app/dashboard
 
 ## License
 
-MIT 
-
+MIT
 
 ## Author
 

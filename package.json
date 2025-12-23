@@ -1,5 +1,5 @@
 {
-  "name": "-r",
+  "name": "aaronmolina-astro",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -7,9 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "images:check": "node scripts/image-size-check.js",
-    "netlify:deploy:prod": "pnpm build && netlify deploy --prod --dir=dist --message=\"Deploying production build\"",
-    "netlify:deploy:dev": "pnpm build && netlify deploy --dir=dist --message=\"Deploying development build\""
+    "images:check": "node scripts/image-size-check.js"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.0",

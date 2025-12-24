@@ -45,27 +45,27 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
       <Image
         src={ProfilePicture}
         alt="Aaron Molina - Software Web Engineer"
-        class="border-secondary-200 dark:border-secondary-700 h-32 w-32 rounded-full border-2 object-cover object-[20%_40%] shadow-lg md:h-48 md:w-48"
+        class="border-border h-32 w-32 rounded-full border-2 object-cover object-[20%_40%] shadow-lg md:h-48 md:w-48"
         loading="eager"
       />
     </div>
-    <h1 class="hero-title text-primary-900 dark:text-primary-100 mb-1 text-4xl font-bold md:mb-6 md:text-6xl">Aaron Molina</h1>
-    <p class="hero-subtitle text-primary-700 dark:text-primary-300 mb-4 text-lg font-medium md:text-2xl">Senior Frontend & Fullstack Developer</p>
-    <p class="hero-description text-primary-600 dark:text-primary-400 mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
+    <h1 class="hero-title text-foreground mb-1 text-4xl font-bold md:mb-6 md:text-6xl">Aaron Molina</h1>
+    <p class="hero-subtitle text-foreground-muted mb-4 text-lg font-medium md:text-2xl">Senior Frontend & Fullstack Developer</p>
+    <p class="hero-description text-foreground-muted mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
       Building modern, high-performannt web websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over {yearsOfExperience} years of experience, I've worked with a variety
       of technologies, including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences.
     </p>
     <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
       <a
         href="/projects"
-        class="hero-cta bg-secondary-600 hover:bg-secondary-700 dark:bg-secondary-600 dark:hover:bg-secondary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors"
+        class="hero-cta bg-secondary hover:bg-secondary-hover text-on-secondary inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium transition-colors"
       >
         <FaBriefcase className="h-4 w-4" />
         View My Work
       </a>
       <a
         href="/blog"
-        class="hero-cta bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors"
+        class="hero-cta bg-primary hover:bg-primary-hover text-on-primary inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium transition-colors"
       >
         <FaBookOpen className="h-4 w-4" />
         Read My Blog
@@ -76,11 +76,11 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
   <!-- Featured Projects Section -->
   <section class="animate-section mb-16">
     <div class="mb-8 flex items-center justify-between">
-      <h2 class="text-primary-900 dark:text-primary-100 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-        <FaStar className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
+      <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
+        <FaStar className="text-secondary h-4 w-4" />
         Featured Projects
       </h2>
-      <a href="/projects" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 hidden items-center gap-2 font-medium md:flex">
+      <a href="/projects" class="text-secondary hover:text-secondary-hover hidden items-center gap-2 font-medium md:flex">
         View all projects <FaArrowRight className="h-4 w-4" />
       </a>
     </div>
@@ -91,7 +91,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
 
     <a
       href="/projects"
-      class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 mt-6 flex items-center justify-end gap-2 font-medium md:hidden"
+      class="text-secondary hover:text-secondary-hover mt-6 flex items-center justify-end gap-2 font-medium md:hidden"
     >
       View all projects <FaArrowRight className="h-4 w-4" />
     </a>
@@ -100,11 +100,11 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
   <!-- Experience Section -->
   <section class="animate-section mb-16">
     <div class="mb-8 flex items-center justify-between">
-      <h2 class="text-primary-900 dark:text-primary-100 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-        <FaBriefcase className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
+      <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
+        <FaBriefcase className="text-secondary h-4 w-4" />
         Professional Experience
       </h2>
-      <a href="/experience" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 hidden items-center gap-2 font-medium md:flex">
+      <a href="/experience" class="text-secondary hover:text-secondary-hover hidden items-center gap-2 font-medium md:flex">
         View all experience <FaArrowRight className="h-4 w-4" />
       </a>
     </div>
@@ -115,7 +115,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
 
     <a
       href="/experience"
-      class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 mt-6 flex items-center justify-end gap-2 font-medium md:hidden"
+      class="text-secondary hover:text-secondary-hover mt-6 flex items-center justify-end gap-2 font-medium md:hidden"
     >
       View all experience <FaArrowRight className="h-4 w-4" />
     </a>
@@ -126,24 +126,24 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
     recentPosts.length > 0 && (
       <section class="animate-section mb-16">
         <div class="mb-8 flex items-center justify-between">
-          <h2 class="text-primary-900 dark:text-primary-100 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-            <FaEdit className="text-secondary-600 dark:text-secondary-400 h-4 w-4" />
+          <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
+            <FaEdit className="text-secondary h-4 w-4" />
             Latest Articles
           </h2>
-          <a href="/blog" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 flex items-center gap-2 font-medium">
+          <a href="/blog" class="text-secondary hover:text-secondary-hover flex items-center gap-2 font-medium">
             View all posts <FaArrowRight className="h-4 w-4" />
           </a>
         </div>
 
         <div class="grid gap-6 md:grid-cols-3">
           {recentPosts.map(post => (
-            <article class="animate-content border-primary-100 dark:border-primary-800 dark:bg-primary-900 rounded-lg border bg-white p-6 shadow-md transition-shadow hover:shadow-lg">
-              <h3 class="text-primary-900 dark:text-primary-100 mb-3 text-lg font-semibold">
-                <a href={`/blog/${post.data.slug}`} class="hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">
+            <article class="animate-content bg-surface border-border rounded-lg border p-6 shadow-md transition-shadow hover:shadow-lg">
+              <h3 class="text-foreground mb-3 text-lg font-semibold">
+                <a href={`/blog/${post.data.slug}`} class="hover:text-secondary transition-colors">
                   {post.data.title}
                 </a>
               </h3>
-              <div class="text-primary-600 dark:text-primary-400 mb-3 flex items-center text-sm">
+              <div class="text-foreground-muted mb-3 flex items-center text-sm">
                 <FaCalendarAlt className="mr-2 h-4 w-4" />
                 <time datetime={post.data.publishDate?.toISOString()}>
                   {post.data.publishDate?.toLocaleDateString('en-US', {
@@ -153,10 +153,10 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
                   })}
                 </time>
               </div>
-              {post.data.description && <p class="text-primary-700 dark:text-primary-300 mb-4 text-sm leading-relaxed">{post.data.description}</p>}
+              {post.data.description && <p class="text-foreground-muted mb-4 text-sm leading-relaxed">{post.data.description}</p>}
               <a
                 href={`/blog/${post.data.slug}`}
-                class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-600 flex items-center gap-1 font-medium"
+                class="text-secondary hover:text-secondary-hover flex items-center gap-1 font-medium"
               >
                 Read more <FaArrowRight className="h-4 w-4" />
               </a>

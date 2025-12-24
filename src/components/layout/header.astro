@@ -4,19 +4,19 @@ import ProfilePicture from '@/assets/images/profile-picture-square.jpg';
 import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars } from 'react-icons/fa';
 ---
 
-<header class="dark:border-primary-700 dark:bg-primary-900 fixed top-0 right-0 left-0 z-50 border-b border-gray-200 bg-white shadow-sm">
+<header class="bg-surface border-border fixed top-0 right-0 left-0 z-50 border-b shadow-sm">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between py-2">
       <!-- Logo/Brand -->
       <div class="flex-shrink-0">
         <a
           href="/"
-          class="text-primary-900 dark:text-primary-100 hover:text-secondary-600 dark:hover:text-secondary-400 flex items-center gap-3 text-xl font-bold transition-colors"
+          class="text-foreground hover:text-secondary flex items-center gap-3 text-xl font-bold transition-colors"
         >
           <Image
             src={ProfilePicture}
             alt="Aaron Molina - Software Web Engineer"
-            class="border-secondary-200 dark:border-secondary-700 h-8 w-8 rounded-full border-2 object-cover object-[20%_40%]"
+            class="border-border h-8 w-8 rounded-full border-2 object-cover object-[20%_40%]"
             width={40}
             height={40}
           />
@@ -29,31 +29,31 @@ import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinked
         <nav class="hidden md:flex">
           <a
             href="/"
-            class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 hover:bg-primary-50 dark:hover:bg-secondary-700 flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
           >
             <FaHome className="h-4 w-4" /> Home
           </a>
           <a
             href="/projects"
-            class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 hover:bg-primary-50 dark:hover:bg-secondary-700 flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
           >
             <FaBriefcase className="h-4 w-4" /> Projects
           </a>
           <a
             href="/experience"
-            class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 hover:bg-primary-50 dark:hover:bg-secondary-700 flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
           >
             <FaUser className="h-4 w-4" /> Experience
           </a>
           <a
             href="/blog"
-            class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 hover:bg-primary-50 dark:hover:bg-secondary-700 flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
           >
             <FaBookOpen className="h-4 w-4" /> Blog
           </a>
           <a
             href="/contact"
-            class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 hover:bg-primary-50 dark:hover:bg-secondary-700 flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
           >
             <FaEnvelope className="h-4 w-4" /> Contact
           </a>
@@ -65,7 +65,7 @@ import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinked
             href="https://github.com/aaronm-git"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-primary-500 hover:text-secondary-600 hover:bg-primary-50 rounded-md p-2 dark:hover:bg-gray-800"
+            class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
             aria-label="GitHub @aaronm-git"
           >
             <FaGithub className="h-4 w-4" />
@@ -74,7 +74,7 @@ import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinked
             href="https://www.linkedin.com/in/aaronmolinag"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-primary-500 hover:text-secondary-600 hover:bg-primary-50 rounded-md p-2 dark:hover:bg-gray-800"
+            class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
             aria-label="LinkedIn @aaronmolinag"
           >
             <FaLinkedin className="h-4 w-4" />
@@ -83,7 +83,7 @@ import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinked
             href="https://www.instagram.com/chillsloth09"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-primary-500 hover:text-secondary-600 hover:bg-primary-50 rounded-md p-2 dark:hover:bg-gray-800"
+            class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
             aria-label="Instagram @chillsloth09"
           >
             <FaInstagram className="h-4 w-4" />
@@ -92,7 +92,7 @@ import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinked
           <!-- Theme toggle -->
           <button
             data-theme-toggle
-            class="text-primary-500 hover:text-secondary-600 hover:bg-primary-50 ml-1 rounded-md p-2 dark:hover:bg-gray-800"
+            class="text-foreground-muted hover:text-secondary hover:bg-muted ml-1 rounded-md p-2"
             aria-label="Toggle theme (light/dark/system)"
             title="Toggle Theme"
           >
@@ -107,7 +107,7 @@ import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinked
           <button
             type="button"
             data-mobile-menu-toggle
-            class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 focus:ring-secondary-500 p-2 focus:ring-2 focus:outline-none focus:ring-inset"
+            class="text-foreground-muted hover:text-foreground focus:ring-ring p-2 focus:ring-2 focus:outline-none focus:ring-inset"
           >
             <span class="sr-only">Open main menu</span>
             <FaBars className="h-4 w-4" />
@@ -118,42 +118,42 @@ import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinked
 
     <!-- Mobile menu -->
     <div class="hidden md:hidden" id="mobile-menu">
-      <div class="dark:border-primary-700 space-y-1 border-t border-gray-200 px-2 pt-2 pb-3">
+      <div class="border-border space-y-1 border-t px-2 pt-2 pb-3">
         <a
           href="/"
-          class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 block rounded-md px-3 py-2 text-base font-medium transition-colors"
+          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
         >
           Home
         </a>
         <a
           href="/projects"
-          class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 block rounded-md px-3 py-2 text-base font-medium transition-colors"
+          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
         >
           Projects
         </a>
         <a
           href="/experience"
-          class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 block rounded-md px-3 py-2 text-base font-medium transition-colors"
+          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
         >
           Experience
         </a>
         <a
           href="/blog"
-          class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 block rounded-md px-3 py-2 text-base font-medium transition-colors"
+          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
         >
           Blog
         </a>
         <a
           href="/contact"
-          class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 block rounded-md px-3 py-2 text-base font-medium transition-colors"
+          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
         >
           Contact
         </a>
         <!-- Theme toggle for mobile -->
-        <div class="dark:border-primary-700 mt-2 border-t border-gray-200 pt-2">
+        <div class="border-border mt-2 border-t pt-2">
           <button
             data-theme-toggle
-            class="text-primary-600 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium transition-colors"
+            class="text-foreground-muted hover:text-foreground flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium transition-colors"
             title="Toggle Theme"
           >
             <FaSun data-theme-icon="dark" className="sun-icon hidden h-4 w-4" />

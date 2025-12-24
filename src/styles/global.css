@@ -2,105 +2,91 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-:root inline {
-  /* Custom Color Palette in OKLCH format */
-  --color-oxford-blue: oklch(0.25 0.11 261);
-  --color-white: oklch(1 0 0);
-  --color-platinum: oklch(0.92 0 0);
-  --color-orange-web: oklch(0.78 0.19 73);
-  --color-black: oklch(0 0 0);
+/**
+ * Goldie palette
+ * - Navy:     #14213D
+ * - White:    #FFFFFF
+ * - Platinum: #E5E5E5
+ * - Orange:   #FCA311
+ * - Black:    #000000
+ *
+ * Implementation note:
+ * - We expose ONLY semantic tokens to Tailwind via @theme so templates use
+ *   classes like bg-background, text-foreground, bg-primary, bg-secondary, etc.
+ * - Theme switching is handled by [data-theme="dark"] (already wired in layout).
+ */
 
-  /* Semantic color mappings */
-  --color-primary: var(--color-oxford-blue);
-  --color-secondary: var(--color-orange-web);
-  --color-accent: var(--color-orange-web);
-  --color-neutral: var(--color-platinum);
-  --color-surface: var(--color-white);
-  --color-text: var(--color-oxford-blue);
-  --color-text-light: oklch(0.55 0.05 261);
-  --color-text-muted: oklch(0.45 0.05 261);
+:root {
+  /* Palette */
+  --palette-navy: #14213d;
+  --palette-white: #ffffff;
+  --palette-platinum: #e5e5e5;
+  --palette-orange: #fca311;
+  --palette-black: #000000;
 
-  /* Extended palette for UI elements */
-  --color-primary-50: oklch(0.95 0.02 261);
-  --color-primary-100: oklch(0.9 0.04 261);
-  --color-primary-200: oklch(0.8 0.06 261);
-  --color-primary-300: oklch(0.7 0.08 261);
-  --color-primary-400: oklch(0.6 0.09 261);
-  --color-primary-500: oklch(0.5 0.1 261);
-  --color-primary-600: oklch(0.4 0.11 261);
-  --color-primary-700: oklch(0.3 0.11 261);
-  --color-primary-800: oklch(0.2 0.11 261);
-  --color-primary-900: oklch(0.15 0.11 261);
+  /* Semantic tokens (light) */
+  --background: var(--palette-white);
+  --surface: var(--palette-white);
+  --muted: var(--palette-platinum);
+  --border: var(--palette-platinum);
 
-  --color-secondary-50: oklch(0.95 0.04 73);
-  --color-secondary-100: oklch(0.9 0.08 73);
-  --color-secondary-200: oklch(0.85 0.12 73);
-  --color-secondary-300: oklch(0.8 0.15 73);
-  --color-secondary-400: oklch(0.75 0.17 73);
-  --color-secondary-500: oklch(0.7 0.18 73);
-  --color-secondary-600: oklch(0.65 0.19 73);
-  --color-secondary-700: oklch(0.6 0.19 73);
-  --color-secondary-800: oklch(0.55 0.19 73);
-  --color-secondary-900: oklch(0.5 0.19 73);
+  --foreground: var(--palette-black);
+  --foreground-muted: color-mix(in srgb, var(--foreground) 65%, transparent);
 
-  /* Neutral grays */
-  --color-gray-50: oklch(0.98 0 0);
-  --color-gray-100: oklch(0.95 0 0);
-  --color-gray-200: oklch(0.9 0 0);
-  --color-gray-300: oklch(0.85 0 0);
-  --color-gray-400: oklch(0.7 0 0);
-  --color-gray-500: oklch(0.55 0 0);
-  --color-gray-600: oklch(0.45 0 0);
-  --color-gray-700: oklch(0.35 0 0);
-  --color-gray-800: oklch(0.25 0 0);
-  --color-gray-900: oklch(0.15 0 0);
+  --primary: var(--palette-navy);
+  --primary-hover: color-mix(in srgb, var(--primary) 85%, var(--palette-black));
+  --on-primary: var(--palette-white);
+
+  --secondary: var(--palette-orange);
+  --secondary-hover: color-mix(in srgb, var(--secondary) 85%, var(--palette-black));
+  --on-secondary: var(--palette-black);
+
+  --ring: var(--secondary);
+}
+
+[data-theme='dark'] {
+  /* Semantic tokens (dark) */
+  --background: var(--palette-black);
+  --surface: var(--palette-navy);
+
+  /* Use translucent neutrals in dark mode so UI stays calm */
+  --muted: color-mix(in srgb, var(--palette-platinum) 10%, transparent);
+  --border: color-mix(in srgb, var(--palette-platinum) 18%, transparent);
+
+  --foreground: var(--palette-white);
+  --foreground-muted: color-mix(in srgb, var(--foreground) 75%, transparent);
+
+  /* Brand colors remain consistent */
+  --primary: var(--palette-navy);
+  --primary-hover: color-mix(in srgb, var(--primary) 85%, var(--palette-black));
+  --on-primary: var(--palette-white);
+
+  --secondary: var(--palette-orange);
+  --secondary-hover: color-mix(in srgb, var(--secondary) 85%, var(--palette-black));
+  --on-secondary: var(--palette-black);
+
+  --ring: var(--secondary);
 }
 
 @theme {
-  --color-oxford-blue: oklch(0.25 0.11 261);
-  --color-white: oklch(1 0 0);
-  --color-platinum: oklch(0.92 0 0);
-  --color-orange-web: oklch(0.78 0.19 73);
-  --color-black: oklch(0 0 0);
+  /* Semantic colors (Tailwind v4 tokens) */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
 
-  /* Primary color palette */
-  --color-primary-50: oklch(0.95 0.02 261);
-  --color-primary-100: oklch(0.9 0.04 261);
-  --color-primary-200: oklch(0.8 0.06 261);
-  --color-primary-300: oklch(0.7 0.08 261);
-  --color-primary-400: oklch(0.6 0.09 261);
-  --color-primary-500: oklch(0.5 0.1 261);
-  --color-primary-600: oklch(0.4 0.11 261);
-  --color-primary-700: oklch(0.3 0.11 261);
-  --color-primary-800: oklch(0.2 0.11 261);
-  --color-primary-900: oklch(0.15 0.11 261);
-  --color-primary-950: oklch(0.1 0.11 261);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
 
-  /* Secondary/Orange palette */
-  --color-secondary-50: oklch(0.95 0.04 73);
-  --color-secondary-100: oklch(0.9 0.08 73);
-  --color-secondary-200: oklch(0.85 0.12 73);
-  --color-secondary-300: oklch(0.8 0.15 73);
-  --color-secondary-400: oklch(0.75 0.17 73);
-  --color-secondary-500: oklch(0.7 0.18 73);
-  --color-secondary-600: oklch(0.65 0.19 73);
-  --color-secondary-700: oklch(0.6 0.19 73);
-  --color-secondary-800: oklch(0.55 0.19 73);
-  --color-secondary-900: oklch(0.5 0.19 73);
-  --color-secondary-950: oklch(0.45 0.19 73);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
 
-  /* Neutral grays */
-  --color-gray-50: oklch(0.98 0 0);
-  --color-gray-100: oklch(0.95 0 0);
-  --color-gray-200: oklch(0.9 0 0);
-  --color-gray-300: oklch(0.85 0 0);
-  --color-gray-400: oklch(0.7 0 0);
-  --color-gray-500: oklch(0.55 0 0);
-  --color-gray-600: oklch(0.45 0 0);
-  --color-gray-700: oklch(0.35 0 0);
-  --color-gray-800: oklch(0.25 0 0);
-  --color-gray-900: oklch(0.15 0 0);
-  --color-gray-950: oklch(0.1 0 0);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-on-secondary: var(--on-secondary);
+
+  --color-ring: var(--ring);
 }
 
 @theme inline {
@@ -121,23 +107,23 @@
 
 @layer components {
   .typography {
-    @apply text-gray-800 dark:text-gray-200;
+    @apply text-foreground;
     line-height: var(--leading-relaxed);
 
     h1 {
       font-size: var(--text-3xl);
       font-weight: var(--font-weight-bold);
-      @apply text-gray-900 dark:text-gray-100;
+      @apply text-foreground;
       margin-top: 2rem;
       margin-bottom: 1rem;
       padding-bottom: 0.5rem;
-      @apply border-b border-gray-200 dark:border-gray-700;
+      @apply border-border border-b;
     }
 
     h2 {
       font-size: var(--text-2xl);
       font-weight: var(--font-weight-semibold);
-      @apply text-gray-900 dark:text-gray-100;
+      @apply text-foreground;
       margin-top: 1.5rem;
       margin-bottom: 0.75rem;
     }
@@ -145,7 +131,7 @@
     h3 {
       font-size: var(--text-xl);
       font-weight: var(--font-weight-semibold);
-      @apply text-gray-900 dark:text-gray-100;
+      @apply text-foreground;
       margin-top: 1.25rem;
       margin-bottom: 0.5rem;
     }
@@ -153,7 +139,7 @@
     h4 {
       font-size: var(--text-lg);
       font-weight: var(--font-weight-semibold);
-      @apply text-gray-900 dark:text-gray-100;
+      @apply text-foreground;
       margin-top: 1rem;
       margin-bottom: 0.5rem;
     }
@@ -161,7 +147,7 @@
     h5 {
       font-size: var(--text-base);
       font-weight: var(--font-weight-semibold);
-      @apply text-gray-900 dark:text-gray-100;
+      @apply text-foreground;
       margin-top: 0.75rem;
       margin-bottom: 0.5rem;
     }
@@ -169,38 +155,38 @@
     h6 {
       font-size: var(--text-sm);
       font-weight: var(--font-weight-semibold);
-      @apply text-gray-900 dark:text-gray-100;
+      @apply text-foreground;
       margin-top: 0.75rem;
       margin-bottom: 0.5rem;
     }
 
     p {
       font-size: var(--text-base);
-      @apply text-gray-700 dark:text-gray-300;
+      @apply text-foreground-muted;
       margin-bottom: 1rem;
       line-height: var(--leading-normal);
     }
 
     a {
-      @apply text-secondary-600 dark:text-secondary-400;
+      @apply text-secondary;
       text-decoration: underline;
-      @apply decoration-secondary-300 dark:decoration-secondary-600;
+      @apply decoration-secondary;
       transition: color 0.2s ease;
 
       &:hover {
-        @apply text-secondary-800 dark:text-secondary-300;
-        @apply decoration-secondary-500 dark:decoration-secondary-400;
+        @apply text-secondary-hover;
+        @apply decoration-secondary-hover;
       }
     }
 
     strong {
       font-weight: var(--font-weight-semibold);
-      @apply text-gray-900 dark:text-gray-100;
+      @apply text-foreground;
     }
 
     em {
       font-style: italic;
-      @apply text-gray-700 dark:text-gray-300;
+      @apply text-foreground-muted;
     }
 
     ul {
@@ -209,7 +195,7 @@
       margin-bottom: 1rem;
 
       li {
-        @apply text-gray-700 dark:text-gray-300;
+        @apply text-foreground-muted;
         line-height: var(--leading-normal);
         margin-bottom: 0.5rem;
 
@@ -228,7 +214,7 @@
       margin-bottom: 1rem;
 
       li {
-        @apply text-gray-700 dark:text-gray-300;
+        @apply text-foreground-muted;
         line-height: var(--leading-normal);
         margin-bottom: 0.5rem;
 
@@ -242,12 +228,12 @@
     }
 
     blockquote {
-      @apply border-l-4 border-gray-300 dark:border-gray-600;
+      @apply border-border border-l-4;
       padding-left: 1rem;
       font-style: italic;
-      @apply text-gray-600 dark:text-gray-400;
+      @apply text-foreground-muted;
       margin: 1rem 0;
-      @apply bg-gray-50 dark:bg-gray-800;
+      @apply bg-muted;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
     }
@@ -255,34 +241,34 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      @apply border border-gray-300 dark:border-gray-600;
+      @apply border-border border;
       margin: 1rem 0;
 
       th {
-        @apply bg-gray-100 dark:bg-gray-800;
-        @apply border border-gray-300 dark:border-gray-600;
+        @apply bg-muted;
+        @apply border-border border;
         padding: 0.75rem 1rem;
         text-align: left;
         font-weight: var(--font-weight-semibold);
-        @apply text-gray-900 dark:text-gray-100;
+        @apply text-foreground;
       }
 
       td {
-        @apply border border-gray-300 dark:border-gray-600;
+        @apply border-border border;
         padding: 0.75rem 1rem;
-        @apply text-gray-700 dark:text-gray-300;
+        @apply text-foreground-muted;
       }
     }
 
     hr {
       margin: 2rem 0;
-      @apply border-t border-gray-300 dark:border-gray-600;
+      @apply border-border border-t;
     }
 
     /* Code Styling with Atom Theme */
     code {
-      @apply bg-gray-100 dark:bg-gray-800;
-      @apply text-gray-800 dark:text-gray-200;
+      @apply bg-muted;
+      @apply text-foreground;
       padding: 0.125rem 0.25rem;
       border-radius: var(--radius-sm);
       font-size: var(--text-sm);
@@ -415,8 +401,8 @@
     h4 code,
     h5 code,
     h6 code {
-      @apply bg-gray-200 dark:bg-gray-700;
-      @apply text-gray-800 dark:text-gray-200;
+      @apply bg-muted;
+      @apply text-foreground;
     }
 
     /* Images */
@@ -434,7 +420,7 @@
 
       figcaption {
         font-size: var(--text-sm);
-        @apply text-gray-600 dark:text-gray-400;
+        @apply text-foreground-muted;
         text-align: center;
         margin-top: 0.5rem;
         font-style: italic;
@@ -509,7 +495,7 @@ html {
 }
 
 body {
-  @apply dark:bg-primary-950 bg-gray-50;
+  @apply bg-background;
 }
 
 main {

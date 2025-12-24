@@ -20,23 +20,23 @@ const { Content } = await render(project);
     <!-- Project Header -->
     <header class="mb-8">
       <div class="mb-4 flex items-center justify-between gap-4">
-        <h1 class="text-primary-900 dark:text-primary-100 text-4xl font-bold">
+        <h1 class="text-foreground text-4xl font-bold">
           {project.data.title}
         </h1>
         {
           project.data.pinned && (
-            <span class="bg-secondary-100 dark:bg-secondary-800 text-secondary-800 dark:text-secondary-200 flex-shrink-0 rounded-full px-3 py-1 text-sm font-semibold">
+            <span class="bg-secondary text-on-secondary flex-shrink-0 rounded-full px-3 py-1 text-sm font-semibold">
               Featured Project
             </span>
           )
         }
       </div>
 
-      <div class="text-primary-600 dark:text-primary-400 mb-6 flex items-center justify-between">
+      <div class="text-foreground-muted mb-6 flex items-center justify-between">
         <div class="flex items-center gap-6">
           <a
             href="#project-details"
-            class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2 transition-colors"
+            class="text-secondary hover:text-secondary-hover flex items-center gap-2 transition-colors"
           >
             <FaInfoCircle className="h-4 w-4" />
             <span class="flex items-center gap-2 text-sm font-medium">Project Details</span>
@@ -48,7 +48,7 @@ const { Content } = await render(project);
                 href={project.data.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2 transition-colors"
+                class="text-secondary hover:text-secondary-hover flex items-center gap-2 transition-colors"
               >
                 <FaExternalLinkAlt className="h-4 w-4" />
                 <span class="text-sm font-medium">Visit Project</span>
@@ -62,7 +62,7 @@ const { Content } = await render(project);
                 href={project.data.githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2 transition-colors"
+                class="text-secondary hover:text-secondary-hover flex items-center gap-2 transition-colors"
               >
                 <FaGithub className="h-4 w-4" />
                 <span class="text-sm font-medium">View on GitHub</span>
@@ -72,7 +72,7 @@ const { Content } = await render(project);
         </div>
       </div>
 
-      {project.data.description && <p class="text-primary-700 dark:text-primary-300 mb-6 text-xl leading-relaxed">{project.data.description}</p>}
+      {project.data.description && <p class="text-foreground-muted mb-6 text-xl leading-relaxed">{project.data.description}</p>}
 
       <!-- 
       {
@@ -97,15 +97,15 @@ const { Content } = await render(project);
     }
 
     <!-- Project Details -->
-    <div id="project-details" class="bg-primary-50 dark:bg-primary-800 border-primary-200 dark:border-primary-700 mb-8 rounded-lg border p-6">
-      <h2 class="text-primary-900 dark:text-primary-100 mb-4 text-lg font-semibold">Project Details</h2>
+    <div id="project-details" class="bg-muted border-border mb-8 rounded-lg border p-6">
+      <h2 class="text-foreground mb-4 text-lg font-semibold">Project Details</h2>
 
       <div class="grid gap-4 md:grid-cols-2">
         {
           project.data.completedOn && (
             <div>
-              <dt class="text-primary-600 dark:text-primary-400 mb-1 text-sm font-medium">Completion Date</dt>
-              <dd class="text-primary-900 dark:text-primary-100 text-sm">
+              <dt class="text-foreground-muted mb-1 text-sm font-medium">Completion Date</dt>
+              <dd class="text-foreground text-sm">
                 {project.data.completedOn.toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -119,13 +119,13 @@ const { Content } = await render(project);
           {
             project.data.link && (
               <div>
-                <dt class="text-primary-600 dark:text-primary-400 mb-1 text-sm font-medium">Project URL</dt>
+                <dt class="text-foreground-muted mb-1 text-sm font-medium">Project URL</dt>
                 <dd class="text-sm">
                   <a
                     href={project.data.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 break-all"
+                    class="text-secondary hover:text-secondary-hover break-all"
                   >
                     {project.data.link}
                   </a>
@@ -137,13 +137,13 @@ const { Content } = await render(project);
           {
             project.data.githubLink && (
               <div>
-                <dt class="text-primary-600 dark:text-primary-400 mb-1 text-sm font-medium">GitHub Repository</dt>
+                <dt class="text-foreground-muted mb-1 text-sm font-medium">GitHub Repository</dt>
                 <dd class="text-sm">
                   <a
                     href={project.data.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 break-all"
+                    class="text-secondary hover:text-secondary-hover break-all"
                   >
                     {project.data.githubLink}
                   </a>
@@ -156,10 +156,10 @@ const { Content } = await render(project);
         {
           project.data.tags && project.data.tags.length > 0 && (
             <div class="md:col-span-2">
-              <dt class="text-primary-600 dark:text-primary-400 mb-2 text-sm font-medium">Technologies Used</dt>
+              <dt class="text-foreground-muted mb-2 text-sm font-medium">Technologies Used</dt>
               <dd class="flex flex-wrap gap-2">
                 {project.data.tags.map(tagSlug => (
-                  <span class="text-secondary-700 dark:text-secondary-300 border-secondary-200 dark:border-secondary-700 bg-secondary-50 dark:bg-secondary-900 rounded border px-2 py-1 text-xs">
+                  <span class="text-secondary border-border bg-muted rounded border px-2 py-1 text-xs">
                     {tagSlug}
                   </span>
                 ))}
@@ -171,9 +171,9 @@ const { Content } = await render(project);
     </div>
 
     <!-- Project Footer -->
-    <footer class="border-primary-200 dark:border-primary-700 border-t pt-8">
+    <footer class="border-border border-t pt-8">
       <div class="flex items-center justify-between">
-        <a href="/projects" class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-500 flex items-center gap-2">
+        <a href="/projects" class="text-secondary hover:text-secondary-hover flex items-center gap-2">
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
           </svg>

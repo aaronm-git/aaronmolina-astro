@@ -105,7 +105,45 @@
   --color-atom-line-highlight: #2f3129;
 }
 
+/* ==========================================================================
+   BASE LAYER
+   Default styles for HTML elements (resets, normalizations, defaults)
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background;
+  }
+
+  /* Scroll margin for anchor links */
+  [id] {
+    scroll-margin-top: 2rem;
+  }
+
+  /* Interactive elements should show pointer cursor */
+  a:not([disabled]),
+  button:not([disabled]) {
+    @apply cursor-pointer;
+  }
+}
+
+/* ==========================================================================
+   COMPONENTS LAYER
+   Class-based component styles (.typography, .card, .btn, etc.)
+   These can be overridden by utility classes when needed.
+   ========================================================================== */
+
 @layer components {
+  /* Main content minimum height (accounts for header/footer) */
+  main {
+    @apply min-h-[calc(100vh-53px-69px-24px)];
+  }
+
+  /* Typography component for rich text/markdown content */
   .typography {
     @apply text-foreground;
     line-height: var(--leading-relaxed);
@@ -113,11 +151,10 @@
     h1 {
       font-size: var(--text-3xl);
       font-weight: var(--font-weight-bold);
-      @apply text-foreground;
+      @apply text-foreground border-border border-b;
       margin-top: 2rem;
       margin-bottom: 1rem;
       padding-bottom: 0.5rem;
-      @apply border-border border-b;
     }
 
     h2 {
@@ -168,14 +205,12 @@
     }
 
     a {
-      @apply text-secondary;
+      @apply text-secondary decoration-secondary;
       text-decoration: underline;
-      @apply decoration-secondary;
       transition: color 0.2s ease;
 
       &:hover {
-        @apply text-secondary-hover;
-        @apply decoration-secondary-hover;
+        @apply text-secondary-hover decoration-secondary-hover;
       }
     }
 
@@ -228,14 +263,12 @@
     }
 
     blockquote {
-      @apply border-border border-l-4;
+      @apply border-border text-foreground-muted bg-muted border-l-4;
       padding-left: 1rem;
-      font-style: italic;
-      @apply text-foreground-muted;
-      margin: 1rem 0;
-      @apply bg-muted;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
+      font-style: italic;
+      margin: 1rem 0;
     }
 
     table {
@@ -245,18 +278,15 @@
       margin: 1rem 0;
 
       th {
-        @apply bg-muted;
-        @apply border-border border;
+        @apply bg-muted border-border text-foreground border;
         padding: 0.75rem 1rem;
         text-align: left;
         font-weight: var(--font-weight-semibold);
-        @apply text-foreground;
       }
 
       td {
-        @apply border-border border;
+        @apply border-border text-foreground-muted border;
         padding: 0.75rem 1rem;
-        @apply text-foreground-muted;
       }
     }
 
@@ -265,16 +295,16 @@
       @apply border-border border-t;
     }
 
-    /* Code Styling with Atom Theme */
+    /* Inline code */
     code {
-      @apply bg-muted;
-      @apply text-foreground;
+      @apply bg-muted text-foreground;
       padding: 0.125rem 0.25rem;
       border-radius: var(--radius-sm);
       font-size: var(--text-sm);
       font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     }
 
+    /* Code blocks with Atom theme */
     pre {
       background-color: var(--color-atom-bg);
       color: var(--color-atom-text);
@@ -379,7 +409,7 @@
     pre[class*='language-'] {
       position: relative;
 
-      &:before {
+      &::before {
         content: attr(data-language);
         position: absolute;
         top: 0;
@@ -401,8 +431,7 @@
     h4 code,
     h5 code,
     h6 code {
-      @apply bg-muted;
-      @apply text-foreground;
+      @apply bg-muted text-foreground;
     }
 
     /* Images */
@@ -446,58 +475,37 @@
       }
     }
   }
-}
 
-a:not([disabled]),
-button:not([disabled]) {
-  @apply cursor-pointer;
-}
+  /* Initial animation states to prevent jumping on load (JS-only) */
+  .js .hero-image {
+    opacity: 0;
+    transform: scale(0.8);
+  }
 
-/* Initial animation states to prevent jumping on load - only when JS is available */
-.js .hero-image {
-  opacity: 0;
-  transform: scale(0.8);
-}
+  .js .hero-title {
+    opacity: 0;
+    transform: translateY(50px);
+  }
 
-.js .hero-title {
-  opacity: 0;
-  transform: translateY(50px);
-}
+  .js .hero-subtitle,
+  .js .hero-description,
+  .js .hero-cta {
+    opacity: 0;
+    transform: translateY(30px);
+  }
 
-.js .hero-subtitle,
-.js .hero-description,
-.js .hero-cta {
-  opacity: 0;
-  transform: translateY(30px);
-}
+  .js .animate-card {
+    opacity: 0;
+    transform: translateY(50px);
+  }
 
-.js .animate-card {
-  opacity: 0;
-  transform: translateY(50px);
-}
+  .js .animate-section h2 {
+    opacity: 0;
+    transform: translateY(30px);
+  }
 
-.js .animate-section h2 {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.js .animate-content {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-[id] {
-  scroll-margin-top: 2rem;
-}
-
-body {
-  @apply bg-background;
-}
-
-main {
-  @apply min-h-[calc(100vh-53px-69px-24px)];
+  .js .animate-content {
+    opacity: 0;
+    transform: translateY(30px);
+  }
 }

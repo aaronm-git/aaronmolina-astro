@@ -1,10 +1,10 @@
 ---
-title: "Cursor’s 2025 Year in Review: How I Actually Used AI Day-to-Day"
+title: 'Cursor’s 2025 Year in Review: How I Actually Used AI Day-to-Day'
 slug: cursor-2025-year-in-review
 publishDate: 2025-12-22T10:00:00.000Z
 updatedDate: 2025-12-22T10:00:00.000Z
 description: "Cursor generated a '2025 Year in Review' snapshot of my editor usage. Here’s what the numbers say, what surprised me, and what I’m taking into 2026."
-image: "/images/cursor-2025-year-in-review.png"
+image: '/images/cursor-2025-year-in-review.png'
 tags:
   - cursor
   - ai
@@ -179,9 +179,4 @@ Some personal rules I’m keeping:
 - **Treat output as a draft** until it’s verified by tests, types, or runtime behavior.
 - **Invest in the boring parts** (tooling, docs, error messages). They compound.
 
-If Cursor does this recap again next year, I’m curious what changes: fewer tabs? more focus? fewer tokens but better prompts? Either way, it’s a pretty fun snapshot of a year spent building.
-
----
-
-If you want, I can also do a follow-up post: **the exact prompt patterns and “agent routines” I used most in 2025** (refactors, PR reviews, debugging, docs, and content writing).
-
+I'm excited to see what Cursor does in 2026. I really hope it continues to improve and evolve.

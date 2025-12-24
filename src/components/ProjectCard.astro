@@ -31,7 +31,7 @@ const { project, showCompletedDate = false } = Astro.props;
       ) : (
         <div class="bg-muted flex h-full w-full items-center justify-center">
           <span class="text-foreground-muted flex items-center gap-2">
-            No Image <FaImage className="h-4 w-4" />
+            No Image <FaImage className="icon-base icon-spacing-left" />
           </span>
         </div>
       )
@@ -85,7 +85,7 @@ const { project, showCompletedDate = false } = Astro.props;
         href={`/projects/${project.data.slug}`}
         class="text-secondary hover:text-secondary-hover flex items-center gap-1 font-medium"
       >
-        Learn more <FaArrowRight className="h-4 w-4" />
+        Learn more <FaArrowRight className="icon-sm" />
       </a>
       {
         project.data.link && (
@@ -95,7 +95,7 @@ const { project, showCompletedDate = false } = Astro.props;
             target="_blank"
             rel="noopener noreferrer"
           >
-            View project <FaExternalLinkAlt className="h-4 w-4" />
+            View project <FaExternalLinkAlt className="icon-sm" />
           </a>
         )
       }

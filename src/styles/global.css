@@ -24,6 +24,13 @@
   --palette-orange: #fca311;
   --palette-black: #000000;
 
+  /* Icon sizing and spacing */
+  --icon-size-sm: 1rem; /* 16px - for buttons/links */
+  --icon-size-base: 1.25rem; /* 20px - for list items with text */
+  --icon-size-lg: 2rem; /* 32px - for section headings */
+  --icon-size-xl: 3rem; /* 48px - for hero/large standalone icons */
+  --icon-spacing: 0.75rem; /* 12px - spacing between icon and text */
+
   /* Semantic tokens (light) */
   --background: var(--palette-white);
   --surface: var(--palette-white);
@@ -87,6 +94,15 @@
   --color-on-secondary: var(--on-secondary);
 
   --color-ring: var(--ring);
+
+  /* Icon sizing */
+  --size-icon-sm: var(--icon-size-sm);
+  --size-icon-base: var(--icon-size-base);
+  --size-icon-lg: var(--icon-size-lg);
+  --size-icon-xl: var(--icon-size-xl);
+
+  /* Icon spacing */
+  --spacing-icon: var(--icon-spacing);
 }
 
 @theme inline {
@@ -141,6 +157,35 @@
   /* Main content minimum height (accounts for header/footer) */
   main {
     @apply min-h-[calc(100vh-53px-69px-24px)];
+  }
+
+  /* Icon utility classes */
+  .icon-sm {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+  }
+
+  .icon-base {
+    width: var(--icon-size-base);
+    height: var(--icon-size-base);
+  }
+
+  .icon-lg {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+  }
+
+  .icon-xl {
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+  }
+
+  .icon-spacing-left {
+    margin-left: var(--icon-spacing);
+  }
+
+  .icon-spacing-right {
+    margin-right: var(--icon-spacing);
   }
 
   /* Typography component for rich text/markdown content */

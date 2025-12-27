@@ -40,7 +40,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
 
 <MainLayout>
   <!-- Hero Section -->
-  <header class="mb-16 text-center">
+  <section class="my-16 text-center">
     <div class="hero-image mb-8 flex justify-center">
       <Image
         src={ProfilePicture}
@@ -68,13 +68,13 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
         Read My Blog
       </a>
     </div>
-  </header>
+  </section>
 
   <!-- Featured Projects Section -->
   <section class="animate-section mb-16">
     <div class="mb-8 flex items-center justify-between">
       <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
-        <FaStar className="text-secondary icon-lg" />
+        <FaStar className="text-secondary icon-base" />
         Featured Projects
       </h2>
       <a href="/projects" class="text-secondary hover:text-secondary-hover group hidden items-center gap-1 font-medium md:flex">
@@ -95,7 +95,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
   <section class="animate-section mb-16">
     <div class="mb-8 flex items-center justify-between">
       <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
-        <FaBriefcase className="text-secondary icon-lg" />
+        <FaBriefcase className="text-secondary icon-base" />
         Professional Experience
       </h2>
       <a href="/experience" class="text-secondary hover:text-secondary-hover group hidden items-center gap-1 font-medium md:flex">
@@ -118,7 +118,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
       <section class="animate-section mb-16">
         <div class="mb-8 flex items-center justify-between">
           <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
-            <FaPencil className="text-secondary icon-lg" />
+            <FaPencil className="text-secondary icon-base" />
             Latest Articles
           </h2>
           <a href="/blog" class="text-secondary hover:text-secondary-hover group flex items-center gap-1 font-medium">
@@ -130,13 +130,13 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
           {recentPosts.map(post => (
             <article class="animate-content bg-surface border-border flex flex-col justify-between rounded-lg border p-6 shadow-md transition-shadow hover:shadow-lg">
               <div>
-                <h3 class="text-foreground mb-3 text-lg font-semibold">
-                  <a href={`/blog/${post.data.slug}`} class="hover:text-secondary transition-colors">
+                <h3 class="text-foreground mb-3 line-clamp-2 h-14 text-lg font-semibold">
+                  <a title={post.data.title} href={`/blog/${post.data.slug}`} class="hover:text-secondary transition-colors">
                     {post.data.title}
                   </a>
                 </h3>
-                <div class="text-foreground-muted mb-3 flex items-center text-sm">
-                  <FaCalendar className="icon-base" />
+                <div class="text-foreground-muted mb-3 flex items-center gap-2 text-sm">
+                  <FaCalendar className="size-icon-sm" />
                   <time datetime={post.data.publishDate?.toISOString()}>
                     {post.data.publishDate?.toLocaleDateString('en-US', {
                       year: 'numeric',

@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import { FaChrome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars, FaPencil } from 'react-icons/fa6';
+import { FaHouse, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars, FaPencil } from 'react-icons/fa6';
 import ProfilePicture from '@/images/profile.jpg';
 
 const isDev = import.meta.env.DEV;
 ---
 
-<header class="bg-surface border-border fixed top-0 right-0 left-0 z-50 border-b shadow-sm">
+<header class="bg-surface border-border fixed top-0 right-0 left-0 z-50 border-b shadow-xl">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between py-2">
       <!-- Logo/Brand -->
@@ -27,7 +27,7 @@ const isDev = import.meta.env.DEV;
         <!-- Navigation -->
         <nav class="hidden md:flex">
           <a href="/" class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
-            <FaChrome className="icon-sm" /> Home
+            <FaHouse className="icon-sm" /> Home
           </a>
           <a href="/projects" class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
             <FaBriefcase className="icon-sm" /> Projects

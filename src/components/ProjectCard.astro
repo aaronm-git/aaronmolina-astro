@@ -81,10 +81,7 @@ const { project, showCompletedDate = false, showViewProjectLink = true } = Astro
     </div>
 
     <div class="border-border mt-auto flex items-center justify-between border-t pt-4">
-      <a
-        href={`/projects/${project.data.slug}`}
-        class="text-secondary hover:text-secondary-hover group flex items-center gap-1 font-medium"
-      >
+      <a href={`/projects/${project.data.slug}`} class="text-secondary hover:text-secondary-hover group flex items-center gap-1 font-medium">
         Learn More <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
       </a>
       {

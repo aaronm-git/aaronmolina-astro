@@ -1,5 +1,5 @@
 ---
-import { FaEnvelope } from 'react-icons/fa';
+import { FaEnvelope } from 'react-icons/fa6';
 
 interface Props {
   title?: string;
@@ -12,13 +12,13 @@ const {
 } = Astro.props;
 ---
 
-<section class="bg-muted border-border rounded-lg border p-8 text-center">
-  <h2 class="text-foreground mb-4 text-3xl font-bold">{title}</h2>
-  <p class="text-foreground-muted mx-auto mb-6 max-w-2xl">
+<section class="bg-primary border-border rounded-lg border p-8 text-center">
+  <h2 class="text-on-primary mb-4 text-3xl font-bold">{title}</h2>
+  <p class="text-on-primary mx-auto mb-6 max-w-2xl">
     {description}
   </p>
   <div class="flex justify-center">
-    <a href="/contact" class="bg-primary hover:bg-primary-hover text-on-primary inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors">
+    <a href="/contact" class="bg-secondary hover:bg-secondary-hover text-on-secondary inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors">
       <FaEnvelope className="icon-sm" />
       Get In Touch
     </a>

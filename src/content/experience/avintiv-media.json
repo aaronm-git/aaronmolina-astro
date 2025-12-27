@@ -1,0 +1,34 @@
+{
+  "skills": [
+    "WordPress",
+    "PHP",
+    "HTML",
+    "CSS",
+    "JavaScript"
+  ],
+  "achievements": [
+    "Improved SEO rankings and page speed",
+    "Improved development process for new client sites"
+  ],
+  "endDate": "2025-05-01T00:00:00Z",
+  "slug": "avintiv-media",
+  "responsibilities": [
+    "Built high-performance WordPress sites with Elementor Pro",
+    "Translated Figma designs into responsive websites",
+    "Implemented Core Web Vitals improvements and SEO practices",
+    "Created custom plugins and features"
+  ],
+  "date": "2024-09-01T00:00:00Z",
+  "isActive": true,
+  "location": "Miami, Florida, United States",
+  "role": "Senior WordPress Developer",
+  "title": "AVINTIV Media, LLC",
+  "projects": [],
+  "tools": [
+    "Elementor Pro",
+    "Figma",
+    "Core Web Vitals",
+    "REST API"
+  ],
+  "logo": "../../images/experience-avintiv.jpg"
+}

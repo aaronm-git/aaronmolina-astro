@@ -1,7 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import ProfilePicture from '@/assets/images/profile-picture-square.jpg';
-import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars } from 'react-icons/fa';
+import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars, FaEdit } from 'react-icons/fa';
+
+const isDev = import.meta.env.DEV;
 ---
 
 <header class="bg-surface border-border fixed top-0 right-0 left-0 z-50 border-b shadow-sm">
@@ -57,6 +59,15 @@ import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinked
           >
             <FaEnvelope className="icon-sm" /> Contact
           </a>
+          {isDev && (
+            <a
+              href="/admin"
+              class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+              title="DecapCMS Admin (Development Only)"
+            >
+              <FaEdit className="icon-sm" /> CMS
+            </a>
+          )}
         </nav>
 
         <!-- Social Links (minimal, right side) -->
@@ -149,6 +160,15 @@ import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinked
         >
           Contact
         </a>
+        {isDev && (
+          <a
+            href="/admin"
+            class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
+            title="DecapCMS Admin (Development Only)"
+          >
+            <FaEdit className="icon-sm inline mr-2" /> CMS Admin
+          </a>
+        )}
         <!-- Theme toggle for mobile -->
         <div class="border-border mt-2 border-t pt-2">
           <button

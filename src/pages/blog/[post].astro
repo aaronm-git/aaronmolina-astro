@@ -15,7 +15,43 @@ const { Content } = await render(post);
 ---
 
 <MainLayout title={post.data.title} description={post.data.description}>
-  <article class="mx-auto max-w-screen-md">
+  <article class="mx-auto max-w-screen-md px-4 py-8">
+    <!-- Post Header -->
+    <header class="mb-8">
+      <h1 class="text-foreground mb-4 text-4xl font-bold">
+        {post.data.title}
+      </h1>
+
+      <div class="text-foreground-muted mb-6 flex items-center gap-4">
+        <time datetime={post.data.publishDate?.toISOString()}>
+          {
+            post.data.publishDate?.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          }
+        </time>
+        {
+          post.data.updatedDate && post.data.updatedDate.getTime() !== post.data.publishDate?.getTime() && (
+            <>
+              <span>•</span>
+              <span>
+                Updated{' '}
+                {post.data.updatedDate.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </span>
+            </>
+          )
+        }
+      </div>
+
+      {post.data.description && <p class="text-foreground-muted mb-6 text-xl leading-relaxed">{post.data.description}</p>}
+    </header>
+
     <!-- Post Content -->
     <div class="typography">
       <Content />
@@ -38,7 +74,7 @@ const { Content } = await render(post);
       <div class="flex items-center justify-between">
         <a href="/blog" class="text-secondary hover:text-secondary-hover"> ← Back to Blog </a>
         <div class="text-foreground-muted text-sm">
-          Last updated: {post.data.updatedDate.toLocaleDateString()}
+          Last updated: {post.data.updatedDate?.toLocaleDateString() || post.data.publishDate?.toLocaleDateString()}
         </div>
       </div>
     </footer>

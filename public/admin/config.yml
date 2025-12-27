@@ -1,8 +1,8 @@
-local_backend: true
 backend:
   name: git-gateway
-  branch: decapcms
-display_url: http://localhost:4321
+  branch: master
+site_url: https://www.aaronmolina.me
+display_url: https://www.aaronmolina.me
 media_folder: public/images
 public_folder: /images
 collections:

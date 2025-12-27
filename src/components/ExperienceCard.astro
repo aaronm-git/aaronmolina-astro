@@ -137,7 +137,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       <div class="flex flex-wrap gap-2">
         {
           experience.data.tags.slice(0, showAllDetails ? undefined : 8).map(tagSlug => {
-            return <span class="bg-muted text-secondary border-border rounded border px-2 py-1 text-xs font-medium">{tagSlug}</span>;
+            return <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{tagSlug}</span>;
           })
         }
       </div>

@@ -14,5 +14,6 @@
 	"tools": ["Nunjucks", "Mailgun", "Salesforce API", "Bootstrap"],
 	"projects": [],
 	"achievements": ["Developed scalable internal systems for user interactions"],
+	"logo": "/images/experience-uplyft.jpg",
 	"isActive": false
 }

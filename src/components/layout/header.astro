@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import ProfilePicture from '@/assets/images/profile-picture-square.jpg';
-import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars, FaEdit } from 'react-icons/fa';
+import { FaChrome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars, FaPencil } from 'react-icons/fa6';
 
 const isDev = import.meta.env.DEV;
 ---
@@ -11,12 +10,9 @@ const isDev = import.meta.env.DEV;
     <div class="flex items-center justify-between py-2">
       <!-- Logo/Brand -->
       <div class="flex-shrink-0">
-        <a
-          href="/"
-          class="text-foreground hover:text-secondary flex items-center gap-3 text-xl font-bold transition-colors"
-        >
+        <a href="/" class="text-foreground hover:text-secondary flex items-center gap-3 text-xl font-bold transition-colors">
           <Image
-            src={ProfilePicture}
+            src="/images/profile.png"
             alt="Aaron Molina - Software Web Engineer"
             class="border-border h-8 w-8 rounded-full border-2 object-cover object-[20%_40%]"
             width={40}
@@ -29,45 +25,35 @@ const isDev = import.meta.env.DEV;
       <div class="flex items-center gap-4">
         <!-- Navigation -->
         <nav class="hidden md:flex">
-          <a
-            href="/"
-            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
-          >
-            <FaHome className="icon-sm" /> Home
+          <a href="/" class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
+            <FaChrome className="icon-sm" /> Home
           </a>
-          <a
-            href="/projects"
-            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
-          >
+          <a href="/projects" class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
             <FaBriefcase className="icon-sm" /> Projects
           </a>
           <a
             href="/experience"
-            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors"
           >
             <FaUser className="icon-sm" /> Experience
           </a>
-          <a
-            href="/blog"
-            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
-          >
+          <a href="/blog" class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
             <FaBookOpen className="icon-sm" /> Blog
           </a>
-          <a
-            href="/contact"
-            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
-          >
+          <a href="/contact" class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
             <FaEnvelope className="icon-sm" /> Contact
           </a>
-          {isDev && (
-            <a
-              href="/admin"
-              class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
-              title="DecapCMS Admin (Development Only)"
-            >
-              <FaEdit className="icon-sm" /> CMS
-            </a>
-          )}
+          {
+            isDev && (
+              <a
+                href="/admin"
+                class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+                title="DecapCMS Admin (Development Only)"
+              >
+                <FaPencil className="icon-sm" /> CMS
+              </a>
+            )
+          }
         </nav>
 
         <!-- Social Links (minimal, right side) -->
@@ -107,19 +93,15 @@ const isDev = import.meta.env.DEV;
             aria-label="Toggle theme (light/dark/system)"
             title="Toggle Theme"
           >
-            <FaSun data-theme-icon="dark" className="sun-icon hidden icon-sm" />
-            <FaMoon data-theme-icon="light" className="moon-icon hidden icon-sm" />
+            <FaSun data-theme-icon="dark" className="sun-icon icon-sm hidden" />
+            <FaMoon data-theme-icon="light" className="moon-icon icon-sm hidden" />
             <FaDesktop data-theme-icon="system" className="system-icon icon-sm" />
           </button>
         </div>
 
         <!-- Mobile menu button -->
         <div class="md:hidden">
-          <button
-            type="button"
-            data-mobile-menu-toggle
-            class="text-foreground-muted hover:text-foreground focus:ring-ring p-2 focus:ring-2 focus:outline-none focus:ring-inset"
-          >
+          <button type="button" data-mobile-menu-toggle class="text-foreground-muted hover:text-foreground focus:ring-ring p-2 focus:ring-2 focus:outline-none focus:ring-inset">
             <span class="sr-only">Open main menu</span>
             <FaBars className="icon-sm" />
           </button>
@@ -130,45 +112,22 @@ const isDev = import.meta.env.DEV;
     <!-- Mobile menu -->
     <div class="hidden md:hidden" id="mobile-menu">
       <div class="border-border space-y-1 border-t px-2 pt-2 pb-3">
-        <a
-          href="/"
-          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
-        >
-          Home
-        </a>
-        <a
-          href="/projects"
-          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
-        >
-          Projects
-        </a>
-        <a
-          href="/experience"
-          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
-        >
-          Experience
-        </a>
-        <a
-          href="/blog"
-          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
-        >
-          Blog
-        </a>
-        <a
-          href="/contact"
-          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
-        >
-          Contact
-        </a>
-        {isDev && (
-          <a
-            href="/admin"
-            class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
-            title="DecapCMS Admin (Development Only)"
-          >
-            <FaEdit className="icon-sm inline mr-2" /> CMS Admin
-          </a>
-        )}
+        <a href="/" class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"> Home </a>
+        <a href="/projects" class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"> Projects </a>
+        <a href="/experience" class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"> Experience </a>
+        <a href="/blog" class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"> Blog </a>
+        <a href="/contact" class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"> Contact </a>
+        {
+          isDev && (
+            <a
+              href="/admin"
+              class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
+              title="DecapCMS Admin (Development Only)"
+            >
+              <FaPencil className="icon-sm inline mr-2" /> CMS Admin
+            </a>
+          )
+        }
         <!-- Theme toggle for mobile -->
         <div class="border-border mt-2 border-t pt-2">
           <button
@@ -176,8 +135,8 @@ const isDev = import.meta.env.DEV;
             class="text-foreground-muted hover:text-foreground flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium transition-colors"
             title="Toggle Theme"
           >
-            <FaSun data-theme-icon="dark" className="sun-icon hidden icon-sm" />
-            <FaMoon data-theme-icon="light" className="moon-icon hidden icon-sm" />
+            <FaSun data-theme-icon="dark" className="sun-icon icon-sm hidden" />
+            <FaMoon data-theme-icon="light" className="moon-icon icon-sm hidden" />
             <FaDesktop data-theme-icon="system" className="system-icon icon-sm" />
             <span>Toggle Theme</span>
           </button>

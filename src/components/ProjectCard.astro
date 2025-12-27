@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { FaImage, FaArrowRight, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaImage, FaArrowRight } from 'react-icons/fa6';
 
 interface Props {
   project: {
@@ -21,9 +21,7 @@ interface Props {
 const { project, showCompletedDate = false } = Astro.props;
 ---
 
-<article
-  class="animate-card bg-surface border-border flex flex-col overflow-hidden rounded-lg border shadow-lg transition-shadow hover:shadow-xl"
->
+<article class="animate-card bg-surface border-border flex flex-col overflow-hidden rounded-lg border shadow-lg transition-shadow hover:shadow-xl">
   <div class="bg-muted relative aspect-video overflow-hidden">
     {
       project.data.featuredImage ? (
@@ -75,7 +73,7 @@ const { project, showCompletedDate = false } = Astro.props;
     <div class="mb-4 flex flex-wrap gap-2">
       {
         project.data.tags.slice(0, 3).map(tagSlug => {
-          return <span class="bg-muted text-secondary rounded-full px-3 py-1 text-xs font-medium">{tagSlug}</span>;
+          return <span class="bg-muted text-dark rounded-full px-3 py-1 text-xs font-medium">{tagSlug}</span>;
         })
       }
     </div>
@@ -83,19 +81,14 @@ const { project, showCompletedDate = false } = Astro.props;
     <div class="border-border mt-auto flex items-center justify-between border-t pt-4">
       <a
         href={`/projects/${project.data.slug}`}
-        class="text-secondary hover:text-secondary-hover flex items-center gap-1 font-medium"
+        class="bg-secondary hover:bg-secondary-hover text-on-secondary group inline-flex items-center gap-1 rounded-md px-3 py-2 font-medium transition-colors"
       >
-        Learn more <FaArrowRight className="icon-sm" />
+        Learn More <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
       </a>
       {
         project.data.link && (
-          <a
-            href={project.data.link}
-            class="text-foreground-muted hover:text-secondary flex items-center gap-1"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View project <FaExternalLinkAlt className="icon-sm" />
+          <a href={project.data.link} class="text-foreground-muted hover:text-secondary group flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+            View project <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
           </a>
         )
       }

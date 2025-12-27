@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { FaBriefcase, FaExternalLinkAlt, FaCheck, FaChevronRight, FaAward } from 'react-icons/fa';
+import { FaBriefcase, FaArrowRight, FaCheck, FaChevronRight, FaAward } from 'react-icons/fa6';
 
 interface Props {
   experience: {
@@ -53,15 +53,10 @@ function calculateDuration(startDate: Date, endDate?: Date): string {
 const duration = calculateDuration(experience.data.date, experience.data.endDate);
 ---
 
-<article
-  class="animate-card bg-surface border-border rounded-lg border p-6 shadow-md transition-shadow hover:shadow-lg"
-  id={experience.data.slug}
->
+<article class="animate-card bg-surface border-border rounded-lg border p-6 shadow-md transition-shadow hover:shadow-lg" id={experience.data.slug}>
   <div class="mb-4 flex flex-col md:flex-row md:items-start md:justify-between">
     <div class="flex flex-col items-start gap-4 md:flex-row">
-      <div
-        class="bg-muted border-border flex aspect-square w-20 items-center justify-center overflow-hidden rounded border"
-      >
+      <div class="bg-muted border-border flex aspect-square w-20 items-center justify-center overflow-hidden rounded border">
         {
           experience.data.logo ? (
             <Image src={experience.data.logo} alt="Company logo" class="h-full w-full object-contain" loading="lazy" width={64} height={64} />
@@ -78,14 +73,9 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
           {experience.data.title}
           {
             experience.data.url && (
-              <a
-                href={experience.data.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-secondary hover:text-secondary-hover transition-colors"
-              >
+              <a href={experience.data.url} target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-secondary-hover transition-colors">
                 <>
-                  <FaExternalLinkAlt className="inline icon-sm" />
+                  <FaArrowRight className="inline icon-sm" />
                   <span class="sr-only">Visit Site</span>
                 </>
               </a>
@@ -104,11 +94,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       <p class="text-foreground-muted mt-1 text-sm">
         {duration}
       </p>
-      {
-        experience.data.current && (
-          <span class="bg-secondary text-on-secondary mt-1 inline-block rounded-full px-2 py-1 text-xs">Current</span>
-        )
-      }
+      {experience.data.current && <span class="bg-secondary text-on-secondary mt-1 inline-block rounded-full px-2 py-1 text-xs">Current</span>}
     </div>
   </div>
 
@@ -127,7 +113,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
         {
           experience.data.responsibilities.slice(0, showAllDetails ? undefined : 3).map(responsibility => (
             <li class="text-foreground-muted flex items-start gap-2 text-sm">
-              <FaCheck className="text-secondary mt-0.5 icon-base flex-shrink-0 icon-spacing-right" />
+              <FaCheck className="text-secondary size-icon-sm mt-0.5" />
               {responsibility}
             </li>
           ))
@@ -137,10 +123,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       {
         !showAllDetails && (
           <div class="mt-4">
-            <a
-              href={`/experience#${experience.data.slug}`}
-              class="text-secondary hover:text-secondary-hover group flex items-center gap-2 text-sm font-medium transition-colors"
-            >
+            <a href={`/experience#${experience.data.slug}`} class="text-secondary hover:text-secondary-hover group flex items-center gap-2 text-sm font-medium transition-colors">
               See more details <FaChevronRight className="icon-sm transition-transform group-hover:translate-x-1" />
             </a>
           </div>
@@ -153,11 +136,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       <div class="flex flex-wrap gap-2">
         {
           experience.data.tags.slice(0, showAllDetails ? undefined : 8).map(tagSlug => {
-            return (
-              <span class="bg-muted text-secondary border-border rounded border px-2 py-1 text-xs font-medium">
-                {tagSlug}
-              </span>
-            );
+            return <span class="bg-muted text-secondary border-border rounded border px-2 py-1 text-xs font-medium">{tagSlug}</span>;
           })
         }
       </div>
@@ -169,7 +148,7 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
             <ul class="space-y-1">
               {experience.data.achievements.map((achievement: string) => (
                 <li class="text-foreground-muted flex items-start gap-2 text-sm">
-                  <FaAward className="text-secondary mt-0.5 icon-base flex-shrink-0 icon-spacing-right" />
+                  <FaAward className="text-secondary size-icon-sm mt-0.5" />
                   {achievement}
                 </li>
               ))}

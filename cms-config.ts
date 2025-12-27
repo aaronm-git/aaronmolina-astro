@@ -7,8 +7,8 @@ export const cmsConfig: CmsConfig = {
     branch: "decapcms",
   },
   display_url: "http://localhost:4321",
-  media_folder: "src/images",
-  public_folder: "/src/images",
+  media_folder: "public/images",
+  public_folder: "/images",
   collections: [
     // Blog Posts
     {

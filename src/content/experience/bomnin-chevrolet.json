@@ -15,5 +15,6 @@
 	"tools": ["AWS Lambda", "Cognito", "Amplify", "Material UI"],
 	"projects": [],
 	"achievements": ["Reduced API data processing time by 80%", "Improved frontend performance and scalability"],
+	"logo": "/images/experience-das.jpg",
 	"isActive": false
 }

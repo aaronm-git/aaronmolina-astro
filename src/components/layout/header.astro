@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 // No settings object needed - values are hardcoded directly in HTML
 ---
 
@@ -7,21 +8,48 @@
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center py-2">
+=======
+import { Image } from 'astro:assets';
+import ProfilePicture from '@/assets/images/profile-picture-square.jpg';
+import { FaHome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars } from 'react-icons/fa';
+---
+
+<header class="bg-surface border-border fixed top-0 right-0 left-0 z-50 border-b shadow-sm">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between py-2">
+>>>>>>> master
       <!-- Logo/Brand -->
       <div class="flex-shrink-0">
         <a
           href="/"
+<<<<<<< HEAD
           class="text-xl font-bold text-primary-900 hover:text-secondary-600 transition-colors flex items-center gap-2"
         >
+=======
+          class="text-foreground hover:text-secondary flex items-center gap-3 text-xl font-bold transition-colors"
+        >
+          <Image
+            src={ProfilePicture}
+            alt="Aaron Molina - Software Web Engineer"
+            class="border-border h-8 w-8 rounded-full border-2 object-cover object-[20%_40%]"
+            width={40}
+            height={40}
+          />
+>>>>>>> master
           AaronMolina.me
         </a>
       </div>
 
+<<<<<<< HEAD
       <div class="flex items-center gap-10">
+=======
+      <div class="flex items-center gap-4">
+>>>>>>> master
         <!-- Navigation -->
         <nav class="hidden md:flex">
           <a
             href="/"
+<<<<<<< HEAD
             class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
           >
             <i data-feather="home" class="w-4 h-4"></i> Home
@@ -43,33 +71,81 @@
             class="text-primary-600 hover:text-primary-900 hover:bg-primary-50 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
           >
             <i data-feather="settings" class="w-4 h-4"></i> Admin
+=======
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+          >
+            <FaHome className="icon-sm" /> Home
+          </a>
+          <a
+            href="/projects"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+          >
+            <FaBriefcase className="icon-sm" /> Projects
+          </a>
+          <a
+            href="/experience"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+          >
+            <FaUser className="icon-sm" /> Experience
+          </a>
+          <a
+            href="/blog"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+          >
+            <FaBookOpen className="icon-sm" /> Blog
+          </a>
+          <a
+            href="/contact"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+          >
+            <FaEnvelope className="icon-sm" /> Contact
+>>>>>>> master
           </a>
         </nav>
 
         <!-- Social Links (minimal, right side) -->
+<<<<<<< HEAD
         <div class="hidden md:flex items-center">
+=======
+        <div class="hidden items-center md:flex">
+>>>>>>> master
           <a
             href="https://github.com/aaronm-git"
             target="_blank"
             rel="noopener noreferrer"
+<<<<<<< HEAD
             class="text-primary-500 hover:text-secondary-600 p-2 rounded-md hover:bg-primary-50"
             aria-label="GitHub @aaronm-git"
           >
             <i data-feather="github" class="w-4 h-4"></i>
+=======
+            class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
+            aria-label="GitHub @aaronm-git"
+          >
+            <FaGithub className="icon-sm" />
+>>>>>>> master
           </a>
           <a
             href="https://www.linkedin.com/in/aaronmolinag"
             target="_blank"
             rel="noopener noreferrer"
+<<<<<<< HEAD
             class="text-primary-500 hover:text-secondary-600 p-2 rounded-md hover:bg-primary-50"
             aria-label="LinkedIn @aaronmolinag"
           >
             <i data-feather="linkedin" class="w-4 h-4"></i>
+=======
+            class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
+            aria-label="LinkedIn @aaronmolinag"
+          >
+            <FaLinkedin className="icon-sm" />
+>>>>>>> master
           </a>
           <a
             href="https://www.instagram.com/chillsloth09"
             target="_blank"
             rel="noopener noreferrer"
+<<<<<<< HEAD
             class="text-primary-500 hover:text-secondary-600 p-2 rounded-md hover:bg-primary-50"
             aria-label="Instagram @chillsloth09"
           >
@@ -88,42 +164,119 @@
           <span class="sr-only">Open main menu</span>
           <i data-feather="menu" class="w-4 h-4"></i>
         </button>
+=======
+            class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
+            aria-label="Instagram @chillsloth09"
+          >
+            <FaInstagram className="icon-sm" />
+          </a>
+
+          <!-- Theme toggle -->
+          <button
+            data-theme-toggle
+            class="text-foreground-muted hover:text-secondary hover:bg-muted ml-1 rounded-md p-2"
+            aria-label="Toggle theme (light/dark/system)"
+            title="Toggle Theme"
+          >
+            <FaSun data-theme-icon="dark" className="sun-icon hidden icon-sm" />
+            <FaMoon data-theme-icon="light" className="moon-icon hidden icon-sm" />
+            <FaDesktop data-theme-icon="system" className="system-icon icon-sm" />
+          </button>
+        </div>
+
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button
+            type="button"
+            data-mobile-menu-toggle
+            class="text-foreground-muted hover:text-foreground focus:ring-ring p-2 focus:ring-2 focus:outline-none focus:ring-inset"
+          >
+            <span class="sr-only">Open main menu</span>
+            <FaBars className="icon-sm" />
+          </button>
+        </div>
+>>>>>>> master
       </div>
     </div>
 
     <!-- Mobile menu -->
+<<<<<<< HEAD
     <div class="md:hidden hidden" id="mobile-menu">
       <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
         <a
           href="/"
           class="text-primary-600 hover:text-primary-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+=======
+    <div class="hidden md:hidden" id="mobile-menu">
+      <div class="border-border space-y-1 border-t px-2 pt-2 pb-3">
+        <a
+          href="/"
+          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
+>>>>>>> master
         >
           Home
         </a>
         <a
           href="/projects"
+<<<<<<< HEAD
           class="text-primary-600 hover:text-primary-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+=======
+          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
+>>>>>>> master
         >
           Projects
         </a>
         <a
+<<<<<<< HEAD
           href="/blog"
           class="text-primary-600 hover:text-primary-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+=======
+          href="/experience"
+          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
+        >
+          Experience
+        </a>
+        <a
+          href="/blog"
+          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
+>>>>>>> master
         >
           Blog
         </a>
         <a
+<<<<<<< HEAD
           href="/admin"
           class="text-primary-600 hover:text-primary-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
         >
           Admin
         </a>
+=======
+          href="/contact"
+          class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
+        >
+          Contact
+        </a>
+        <!-- Theme toggle for mobile -->
+        <div class="border-border mt-2 border-t pt-2">
+          <button
+            data-theme-toggle
+            class="text-foreground-muted hover:text-foreground flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium transition-colors"
+            title="Toggle Theme"
+          >
+            <FaSun data-theme-icon="dark" className="sun-icon hidden icon-sm" />
+            <FaMoon data-theme-icon="light" className="moon-icon hidden icon-sm" />
+            <FaDesktop data-theme-icon="system" className="system-icon icon-sm" />
+            <span>Toggle Theme</span>
+          </button>
+        </div>
+>>>>>>> master
       </div>
     </div>
   </div>
 </header>
 
 <script>
+<<<<<<< HEAD
   // Mobile menu toggle
   const mobileMenuButton = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
@@ -131,4 +284,90 @@
   mobileMenuButton?.addEventListener("click", () => {
     mobileMenu?.classList.toggle("hidden");
   });
+=======
+  const themeToggleBtns = document.querySelectorAll('[data-theme-toggle]');
+  const themeBtnIcons = document.querySelectorAll('[data-theme-icon]');
+  const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  // Initialize theme on page load
+  const savedTheme = localStorage.getItem('theme') || 'system';
+  applyTheme(savedTheme);
+  updateThemeIcons(savedTheme);
+
+  // Theme toggle functionality
+  themeToggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      themeToggle();
+    });
+  });
+
+  // Mobile menu toggle functionality
+  mobileMenuToggle?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu when clicking on a link
+  const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
+  mobileMenuLinks?.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'system') {
+      applyTheme('system');
+    }
+  });
+
+  function themeToggle() {
+    const savedTheme = localStorage.getItem('theme') || 'system';
+    let newTheme;
+
+    switch (savedTheme) {
+      case 'dark':
+        newTheme = 'light';
+        break;
+      case 'light':
+        newTheme = 'system';
+        break;
+      case 'system':
+        newTheme = 'dark';
+        break;
+      default:
+        newTheme = 'dark';
+    }
+
+    updateTheme(newTheme);
+  }
+
+  function updateTheme(theme: string) {
+    applyTheme(theme);
+    updateThemeIcons(theme);
+    localStorage.setItem('theme', theme);
+  }
+
+  function applyTheme(theme: string) {
+    if (theme === 'system') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', systemTheme);
+    } else {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  }
+
+  function updateThemeIcons(theme: string) {
+    themeBtnIcons.forEach(icon => {
+      const iconTheme = icon.getAttribute('data-theme-icon');
+      if (iconTheme === theme) {
+        icon.classList.remove('hidden');
+      } else {
+        icon.classList.add('hidden');
+      }
+    });
+  }
+>>>>>>> master
 </script>

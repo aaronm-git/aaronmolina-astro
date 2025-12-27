@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 import MainLayout from "@/layouts/main-layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
@@ -7,22 +8,39 @@ const projects = await getCollection("projects");
 // Sort projects by completion date (newest first), then by pinned status
 const sortedProjects = projects
   .filter((project) => project.data.isActive)
+=======
+import MainLayout from '@/layouts/main-layout.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+import CTA from '@/components/CTA.astro';
+
+const projects = await getCollection('projects');
+// Sort projects by completion date (newest first), then by pinned status
+const sortedProjects = projects
+  .filter(project => project.data.isActive)
+>>>>>>> master
   .sort((a, b) => {
     // First sort by pinned status
     if (a.data.pinned && !b.data.pinned) return -1;
     if (!a.data.pinned && b.data.pinned) return 1;
 
     // Then by completion date
+<<<<<<< HEAD
     const aDate = a.data.completedOn
       ? new Date(a.data.completedOn).getTime()
       : 0;
     const bDate = b.data.completedOn
       ? new Date(b.data.completedOn).getTime()
       : 0;
+=======
+    const aDate = a.data.completedOn ? new Date(a.data.completedOn).getTime() : 0;
+    const bDate = b.data.completedOn ? new Date(b.data.completedOn).getTime() : 0;
+>>>>>>> master
     return bDate - aDate;
   });
 ---
 
+<<<<<<< HEAD
 <MainLayout
   title="Projects - Aaron Molina"
   description="A showcase of my portfolio projects including web development, frontend engineering, and technical solutions."
@@ -133,5 +151,27 @@ const sortedProjects = projects
         </div>
       )
     }
+=======
+<MainLayout title="Projects - Aaron Molina" description="A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.">
+  <header class="animate-section mb-12">
+    <h1 class="text-foreground mb-4 text-4xl font-bold">Projects</h1>
+    <p class="text-foreground-muted text-xl">A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.</p>
+  </header>
+
+  <div class="animate-section grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    {sortedProjects.map(project => <ProjectCard project={project} showCompletedDate={true} />)}
+  </div>
+
+  {
+    projects.length === 0 && (
+      <div class="py-12 text-center">
+        <p class="text-foreground-muted">No projects yet. Check back soon!</p>
+      </div>
+    )
+  }
+
+  <div class="animate-section mt-12">
+    <CTA />
+>>>>>>> master
   </div>
 </MainLayout>

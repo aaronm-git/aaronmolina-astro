@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 import MainLayout from "@/layouts/main-layout.astro";
 import { getCollection, render } from "astro:content";
 
@@ -8,6 +9,17 @@ export async function getStaticPaths() {
 		params: { post: p.data.slug },
 		props: { post: p },
 	}));
+=======
+import MainLayout from '@/layouts/main-layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(p => ({
+    params: { post: p.data.slug },
+    props: { post: p },
+  }));
+>>>>>>> master
 }
 
 const { post } = Astro.props;
@@ -15,6 +27,7 @@ const { Content } = await render(post);
 ---
 
 <MainLayout title={post.data.title} description={post.data.description}>
+<<<<<<< HEAD
 	<article class="max-w-4xl mx-auto px-4 py-8">
 		<!-- Post Header -->
 		<header class="mb-8">
@@ -62,4 +75,34 @@ const { Content } = await render(post);
 			</div>
 		</footer>
 	</article>
+=======
+  <article class="mx-auto max-w-screen-md">
+    <!-- Post Content -->
+    <div class="typography">
+      <Content />
+    </div>
+
+    <!-- Post Footer -->
+    <footer class="border-border mt-12 border-t pt-8">
+      <div class="mb-6">
+        <h2 class="text-foreground mb-4 text-2xl font-semibold">Tags</h2>
+        {
+          post.data.tags && post.data.tags.length > 0 && (
+            <div class="mb-6 flex flex-wrap gap-2">
+              {post.data.tags.map(tag => (
+                <span class="bg-muted text-secondary rounded-full px-3 py-1 text-sm">{tag}</span>
+              ))}
+            </div>
+          )
+        }
+      </div>
+      <div class="flex items-center justify-between">
+        <a href="/blog" class="text-secondary hover:text-secondary-hover"> ← Back to Blog </a>
+        <div class="text-foreground-muted text-sm">
+          Last updated: {post.data.updatedDate.toLocaleDateString()}
+        </div>
+      </div>
+    </footer>
+  </article>
+>>>>>>> master
 </MainLayout>

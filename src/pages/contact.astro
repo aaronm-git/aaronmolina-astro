@@ -1,0 +1,245 @@
+---
+import MainLayout from '@/layouts/main-layout.astro';
+import { FaBriefcase, FaBolt, FaUsers, FaShieldAlt, FaClock, FaCalendarAlt, FaGlobe, FaUser, FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+
+// Netlify Turnstile site key - configure this in your Netlify dashboard
+// Go to Site settings > Security & privacy > Turnstile
+const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TURNSTILE_SITE_KEY';
+---
+
+<MainLayout>
+  <!-- Header -->
+  <header class="animate-section mb-12 text-center">
+    <h1 class="text-foreground mb-4 text-5xl font-bold">Get In Touch</h1>
+    <p class="text-foreground-muted mx-auto max-w-2xl text-lg">
+      Ready to start your next project? I'd love to hear about your ideas and discuss how we can work together to bring them to life.
+    </p>
+  </header>
+
+  <!-- Contact Form -->
+  <div class="animate-section mb-16 grid gap-12 lg:grid-cols-2">
+    <!-- Form -->
+    <div class="animate-content bg-surface border-border rounded-lg border p-8 shadow-md">
+      <h2 class="text-foreground mb-6 text-2xl font-bold">Send a Message</h2>
+
+      <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
+        <div class="grid gap-6 md:grid-cols-2">
+          <div>
+            <label for="name" class="text-foreground mb-2 block text-sm font-medium">Full Name</label>
+            <input
+              type="text"
+              name="name"
+              required
+              class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+              placeholder="Your name"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="text-foreground mb-2 block text-sm font-medium">Email Address</label>
+            <input
+              type="email"
+              name="email"
+              required
+              class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+              placeholder="your@email.com"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="company" class="text-foreground mb-2 block text-sm font-medium">Company (Optional)</label>
+          <input
+            type="text"
+            name="company"
+            class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+            placeholder="Your company"
+          />
+        </div>
+
+        <div>
+          <label for="project-type" class="text-foreground mb-2 block text-sm font-medium">Project Type</label>
+          <select
+            name="project-type"
+            class="border-border bg-surface text-foreground focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+          >
+            <option value="">Select a project type</option>
+            <option value="frontend">Frontend Development</option>
+            <option value="fullstack">Full-Stack Application</option>
+            <option value="website">Website Development</option>
+            <option value="consultation">Technical Consultation</option>
+            <option value="optimization">Performance Optimization</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="budget" class="text-foreground mb-2 block text-sm font-medium">Budget Range (Optional)</label>
+          <select
+            name="budget"
+            class="border-border bg-surface text-foreground focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+          >
+            <option value="">Select budget range</option>
+            <option value="under-5k">Under $5,000</option>
+            <option value="5k-15k">$5,000 - $15,000</option>
+            <option value="15k-30k">$15,000 - $30,000</option>
+            <option value="30k-plus">$30,000+</option>
+            <option value="discuss">Let's discuss</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="message" class="text-foreground mb-2 block text-sm font-medium">Project Details</label>
+          <textarea
+            name="message"
+            rows="6"
+            required
+            class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+            placeholder="Tell me about your project, timeline, and any specific requirements..."></textarea>
+        </div>
+
+        <!-- Hidden fields for Netlify -->
+        <input type="hidden" name="form-name" value="contact" />
+        <!-- Honeypot field for spam protection -->
+        <input type="hidden" name="bot-field" />
+
+        <!-- Netlify Turnstile Captcha -->
+        <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
+
+        <button
+          type="submit"
+          class="bg-secondary hover:bg-secondary-hover text-on-secondary focus:ring-ring flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <span>Send Message</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="space-y-8">
+      <div class="animate-content bg-surface border-border rounded-lg border p-6 shadow-md">
+        <h3 class="text-foreground mb-4 text-xl font-bold">Why Work With Me?</h3>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <FaBriefcase className="text-secondary mt-1 icon-lg flex-shrink-0 icon-spacing-right" />
+            <div>
+              <h4 class="text-foreground font-medium">Experience</h4>
+              <p class="text-foreground-muted text-sm">I've been in the industry for over 10 years and have worked with some of the biggest brands in the world</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <FaBolt className="text-secondary mt-1 icon-lg flex-shrink-0 icon-spacing-right" />
+            <div>
+              <h4 class="text-foreground font-medium">Fast & Efficient</h4>
+              <p class="text-foreground-muted text-sm">Quick turnaround times without compromising quality</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <FaUsers className="text-secondary mt-1 icon-lg flex-shrink-0 icon-spacing-right" />
+            <div>
+              <h4 class="text-foreground font-medium">Collaborative Approach</h4>
+              <p class="text-foreground-muted text-sm">Regular communication and feedback throughout the project</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <FaShieldAlt className="text-secondary mt-1 icon-lg flex-shrink-0 icon-spacing-right" />
+            <div>
+              <h4 class="text-foreground font-medium">Quality Assurance</h4>
+              <p class="text-foreground-muted text-sm">Clean, tested code with focus on performance and accessibility</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="animate-content bg-surface border-border rounded-lg border p-6 shadow-md">
+        <h3 class="text-foreground mb-4 text-xl font-bold">Response Time</h3>
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <FaClock className="text-secondary icon-base icon-spacing-right" />
+            <span class="text-foreground-muted text-sm">I typically respond within 24 hours</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <FaCalendarAlt className="text-secondary icon-base icon-spacing-right" />
+            <span class="text-foreground-muted text-sm">Free consultation calls available</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <FaGlobe className="text-secondary icon-base icon-spacing-right" />
+            <span class="text-foreground-muted text-sm">Available for remote projects worldwide</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="animate-content bg-muted border-border rounded-lg border p-6">
+        <h3 class="text-foreground mb-3 text-lg font-bold">Ready to Start?</h3>
+        <p class="text-foreground-muted mb-4 text-sm">Looking for something specific? Check out my recent work and technical expertise.</p>
+        <div class="flex gap-3">
+          <a
+            href="/projects"
+            class="text-secondary hover:text-secondary-hover border-secondary hover:border-secondary-hover flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
+          >
+            <FaBriefcase className="icon-sm" />
+            View Projects
+          </a>
+          <a
+            href="/experience"
+            class="text-secondary hover:text-secondary-hover border-secondary hover:border-secondary-hover flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
+          >
+            <FaUser className="icon-sm" />
+            My Experience
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social Media Section -->
+  <section class="animate-section bg-muted border-border rounded-lg border p-8 text-center">
+    <h2 class="text-foreground mb-4 text-3xl font-bold">Connect With Me</h2>
+    <p class="text-foreground-muted mx-auto mb-6 max-w-2xl">Prefer social media? Find me on these platforms or check out my latest projects and articles.</p>
+    <div class="flex flex-wrap justify-center gap-6">
+      <a
+        href="https://github.com/aaronm-git"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-primary hover:bg-primary-hover text-on-primary inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors"
+      >
+        <FaGithub className="icon-sm" />
+        GitHub
+      </a>
+      <a
+        href="https://www.linkedin.com/in/aaronmolinag"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-primary hover:bg-primary-hover text-on-primary inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors"
+      >
+        <FaLinkedin className="icon-sm" />
+        LinkedIn
+      </a>
+      <a
+        href="https://www.instagram.com/chillsloth09"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-primary hover:bg-primary-hover text-on-primary inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors"
+      >
+        <FaInstagram className="icon-sm" />
+        Instagram
+      </a>
+    </div>
+  </section>
+
+  <!-- Netlify Turnstile Script -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+  <!-- Form submission handling -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('contact-form');
+      if (form) {
+        form.addEventListener('submit', e => {
+          // Netlify will handle the form submission automatically
+          // This is just for any additional client-side handling if needed
+        });
+      }
+    });
+  </script>
+</MainLayout>

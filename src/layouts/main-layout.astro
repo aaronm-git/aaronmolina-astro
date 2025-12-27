@@ -1,13 +1,23 @@
 ---
+<<<<<<< HEAD
 import "@/styles/global.css";
 import Header from "@/components/layout/header.astro";
 import Footer from "@/components/layout/footer.astro";
+=======
+import '@/styles/global.css';
+import Header from '@/components/layout/header.astro';
+import Footer from '@/components/layout/footer.astro';
+import { siteConfig } from '@/config/site';
+
+import favicon from '@/favicon_io/android-chrome-512x512.png';
+>>>>>>> master
 
 export interface Props {
   title?: string;
   description?: string;
 }
 
+<<<<<<< HEAD
 // Hardcoded site settings
 const settings = {
   site_title: "Aaron Molina - Sr. Software and Web Engineer",
@@ -72,25 +82,50 @@ const { title = settings.site_title, description = settings.site_description } =
 ---
 
 <html lang="en" class="dark">
+=======
+const { title = siteConfig.title, description = siteConfig.description } = Astro.props;
+---
+
+<html lang="en" class="js">
+>>>>>>> master
   <head>
+    <!-- Meta Tags -->
+    <!-- General -->
     <meta charset="utf-8" />
+<<<<<<< HEAD
     <link rel="icon" type="image/svg+xml" href={settings.site_image} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="keywords" content={settings.site_keywords.join(", ")} />
+=======
+    <link rel="icon" type="image/png" href={favicon.src} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={siteConfig.keywords.join(', ')} />
+
+    <!-- Umami Analytics -->
+    <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="065ec9e6-3b6b-4868-a29b-6d9538c525a6"></script>
+>>>>>>> master
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+<<<<<<< HEAD
     <meta property="og:image" content={settings.site_image} />
     <meta property="og:url" content={settings.site_url} />
+=======
+    <!-- <meta property="og:image" content={siteConfig.image} /> -->
+    <meta property="og:url" content={siteConfig.url} />
+>>>>>>> master
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
+<<<<<<< HEAD
     <meta property="twitter:image" content={settings.site_image} />
 
     <title>{title}</title>
@@ -112,6 +147,51 @@ const { title = settings.site_title, description = settings.site_description } =
             behavior: "smooth",
           });
         });
+=======
+    <!-- <meta property="twitter:image" content={siteConfig.image} /> -->
+
+    <!-- Theme -->
+    <script is:inline>
+      (function () {
+        const savedTheme = localStorage.getItem('theme') || 'system';
+        let themeToApply;
+
+        if (savedTheme === 'system') {
+          themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        } else {
+          themeToApply = savedTheme;
+        }
+
+        document.documentElement.setAttribute('data-theme', themeToApply);
+      })();
+    </script>
+
+    <!-- Title -->
+    <title>{title}</title>
+  </head>
+  <!-- Body -->
+  <body class="bg-background text-foreground pt-13 antialiased transition-colors duration-200">
+    <Header />
+    <main class="mx-auto max-w-6xl px-4 py-8">
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- GSAP Animations -->
+    <script>
+      import { AnimationUtils } from '@/scripts/animations';
+
+      // Initialize animations when DOM is ready
+      document.addEventListener('DOMContentLoaded', () => {
+        AnimationUtils.initializeAll();
+      });
+
+      // Also try on window load as a fallback for hash scrolling
+      window.addEventListener('load', () => {
+        if (window.location.hash) {
+          AnimationUtils.initSmoothScrollOnPageLoad();
+        }
+>>>>>>> master
       });
     </script>
   </body>

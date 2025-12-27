@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+import { FaImage, FaArrowRight, FaExternalLinkAlt } from 'react-icons/fa';
+
+interface Props {
+  project: {
+    data: {
+      title: string;
+      slug?: string;
+      description?: string;
+      tags: string[];
+      featuredImage?: string;
+      link?: string;
+      completedOn?: Date;
+      pinned?: boolean;
+    };
+  };
+  showCompletedDate?: boolean;
+}
+
+const { project, showCompletedDate = false } = Astro.props;
+---
+
+<article
+  class="animate-card bg-surface border-border flex flex-col overflow-hidden rounded-lg border shadow-lg transition-shadow hover:shadow-xl"
+>
+  <div class="bg-muted relative aspect-video overflow-hidden">
+    {
+      project.data.featuredImage ? (
+        <Image src={project.data.featuredImage} alt={project.data.title} class="h-full w-full object-cover" loading="eager" width={600} height={400} />
+      ) : (
+        <div class="bg-muted flex h-full w-full items-center justify-center">
+          <span class="text-foreground-muted flex items-center gap-2">
+            No Image <FaImage className="icon-base icon-spacing-left" />
+          </span>
+        </div>
+      )
+    }
+    {
+      project.data.pinned && (
+        <div class="absolute right-0 bottom-0 z-10 flex w-full">
+          <span class="bg-secondary text-on-secondary w-full px-2 py-1 text-center text-xs font-semibold">Featured</span>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="flex flex-1 flex-col p-6">
+    <h3 class="text-foreground mb-3 text-xl font-semibold">
+      {
+        project.data.link ? (
+          <a href={`/projects/${project.data.slug}`} class="hover:text-secondary transition-colors">
+            {project.data.title}
+          </a>
+        ) : (
+          project.data.title
+        )
+      }
+    </h3>
+
+    {
+      showCompletedDate && project.data.completedOn && (
+        <div class="text-foreground-muted mb-3 text-sm">
+          Completed:{' '}
+          {project.data.completedOn.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+          })}
+        </div>
+      )
+    }
+
+    {project.data.description && <p class="text-foreground-muted mb-4 text-sm leading-relaxed">{project.data.description}</p>}
+
+    <div class="mb-4 flex flex-wrap gap-2">
+      {
+        project.data.tags.slice(0, 3).map(tagSlug => {
+          return <span class="bg-muted text-secondary rounded-full px-3 py-1 text-xs font-medium">{tagSlug}</span>;
+        })
+      }
+    </div>
+
+    <div class="border-border mt-auto flex items-center justify-between border-t pt-4">
+      <a
+        href={`/projects/${project.data.slug}`}
+        class="text-secondary hover:text-secondary-hover flex items-center gap-1 font-medium"
+      >
+        Learn more <FaArrowRight className="icon-sm" />
+      </a>
+      {
+        project.data.link && (
+          <a
+            href={project.data.link}
+            class="text-foreground-muted hover:text-secondary flex items-center gap-1"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View project <FaExternalLinkAlt className="icon-sm" />
+          </a>
+        )
+      }
+    </div>
+  </div>
+</article>

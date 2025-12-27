@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 import MainLayout from "@/layouts/main-layout.astro";
 import { Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
@@ -9,6 +10,18 @@ export async function getStaticPaths() {
 		params: { project: p.data.slug },
 		props: { project: p },
 	}));
+=======
+import MainLayout from '@/layouts/main-layout.astro';
+import { getCollection, render } from 'astro:content';
+import { FaGithub, FaExternalLinkAlt, FaInfoCircle } from 'react-icons/fa';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(p => ({
+    params: { project: p.data.slug },
+    props: { project: p },
+  }));
+>>>>>>> master
 }
 
 const { project } = Astro.props;
@@ -16,6 +29,7 @@ const { Content } = await render(project);
 ---
 
 <MainLayout title={project.data.title} description={project.data.description}>
+<<<<<<< HEAD
 	<article class="max-w-4xl mx-auto px-4 py-8">
 		<!-- Project Header -->
 		<header class="mb-8">
@@ -211,4 +225,172 @@ const { Content } = await render(project);
 			</div>
 		</footer>
 	</article>
+=======
+  <article class="mx-auto max-w-screen-md">
+    <!-- Project Header -->
+    <header class="mb-8">
+      <div class="mb-4 flex items-center justify-between gap-4">
+        <h1 class="text-foreground text-4xl font-bold">
+          {project.data.title}
+        </h1>
+        {
+          project.data.pinned && (
+            <span class="bg-secondary text-on-secondary flex-shrink-0 rounded-full px-3 py-1 text-sm font-semibold">
+              Featured Project
+            </span>
+          )
+        }
+      </div>
+
+      <div class="text-foreground-muted mb-6 flex items-center justify-between">
+        <div class="flex items-center gap-6">
+          <a
+            href="#project-details"
+            class="text-secondary hover:text-secondary-hover flex items-center gap-2 transition-colors"
+          >
+            <FaInfoCircle className="icon-sm" />
+            <span class="flex items-center gap-2 text-sm font-medium">Project Details</span>
+          </a>
+          |
+          {
+            project.data.link && (
+              <a
+                href={project.data.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-secondary hover:text-secondary-hover flex items-center gap-2 transition-colors"
+              >
+                <FaExternalLinkAlt className="icon-sm" />
+                <span class="text-sm font-medium">Visit Project</span>
+              </a>
+            )
+          }
+          |
+          {
+            project.data.githubLink && (
+              <a
+                href={project.data.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-secondary hover:text-secondary-hover flex items-center gap-2 transition-colors"
+              >
+                <FaGithub className="icon-sm" />
+                <span class="text-sm font-medium">View on GitHub</span>
+              </a>
+            )
+          }
+        </div>
+      </div>
+
+      {project.data.description && <p class="text-foreground-muted mb-6 text-xl leading-relaxed">{project.data.description}</p>}
+
+      <!-- 
+      {
+        project.data.tags && project.data.tags.length > 0 && (
+          <div class="mb-6 flex flex-wrap gap-2">
+            {project.data.tags.map(tagSlug => {
+              const tag = tagMap.get(tagSlug);
+              return <span class="bg-secondary-100 text-secondary-800 rounded-full px-3 py-1 text-sm font-medium">{tag?.title || tagSlug}</span>;
+            })}
+          </div>
+        )
+      } -->
+    </header>
+
+    <!-- Project Content -->
+    {
+      project.body && (
+        <div class="typography mb-8 max-w-none">
+          <Content />
+        </div>
+      )
+    }
+
+    <!-- Project Details -->
+    <div id="project-details" class="bg-muted border-border mb-8 rounded-lg border p-6">
+      <h2 class="text-foreground mb-4 text-lg font-semibold">Project Details</h2>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        {
+          project.data.completedOn && (
+            <div>
+              <dt class="text-foreground-muted mb-1 text-sm font-medium">Completion Date</dt>
+              <dd class="text-foreground text-sm">
+                {project.data.completedOn.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                })}
+              </dd>
+            </div>
+          )
+        }
+
+        <div class="space-y-2">
+          {
+            project.data.link && (
+              <div>
+                <dt class="text-foreground-muted mb-1 text-sm font-medium">Project URL</dt>
+                <dd class="text-sm">
+                  <a
+                    href={project.data.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-secondary hover:text-secondary-hover break-all"
+                  >
+                    {project.data.link}
+                  </a>
+                </dd>
+              </div>
+            )
+          }
+
+          {
+            project.data.githubLink && (
+              <div>
+                <dt class="text-foreground-muted mb-1 text-sm font-medium">GitHub Repository</dt>
+                <dd class="text-sm">
+                  <a
+                    href={project.data.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-secondary hover:text-secondary-hover break-all"
+                  >
+                    {project.data.githubLink}
+                  </a>
+                </dd>
+              </div>
+            )
+          }
+        </div>
+
+        {
+          project.data.tags && project.data.tags.length > 0 && (
+            <div class="md:col-span-2">
+              <dt class="text-foreground-muted mb-2 text-sm font-medium">Technologies Used</dt>
+              <dd class="flex flex-wrap gap-2">
+                {project.data.tags.map(tagSlug => (
+                  <span class="text-secondary border-border bg-muted rounded border px-2 py-1 text-xs">
+                    {tagSlug}
+                  </span>
+                ))}
+              </dd>
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    <!-- Project Footer -->
+    <footer class="border-border border-t pt-8">
+      <div class="flex items-center justify-between">
+        <a href="/projects" class="text-secondary hover:text-secondary-hover flex items-center gap-2">
+          <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back to Projects
+        </a>
+      </div>
+    </footer>
+  </article>
+>>>>>>> master
 </MainLayout>

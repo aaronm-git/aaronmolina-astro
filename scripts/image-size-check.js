@@ -8,11 +8,19 @@ const imagesDir = path.join(process.cwd(), 'src', 'images');
 
 // Recommended size thresholds (in KB)
 const THRESHOLDS = {
+<<<<<<< HEAD
   excellent: 50,     // Under 50KB - Blue (Perfect for icons, logos)
   good: 150,         // 50-150KB - Cyan (Great for small graphics)
   acceptable: 300,   // 150-300KB - Green (Good for product photos)
   warning: 500,      // 300-500KB - Yellow (Acceptable for hero images)
   poor: 1000,        // 500-1000KB - Orange (Getting large)
+=======
+  excellent: 50, // Under 50KB - Blue (Perfect for icons, logos)
+  good: 150, // 50-150KB - Cyan (Great for small graphics)
+  acceptable: 300, // 150-300KB - Green (Good for product photos)
+  warning: 500, // 300-500KB - Yellow (Acceptable for hero images)
+  poor: 1000, // 500-1000KB - Orange (Getting large)
+>>>>>>> master
   // Over 1000KB - Red (Too large)
 };
 
@@ -80,6 +88,7 @@ function checkImageSizes() {
   }
 
   // Sort files by size (largest first)
+<<<<<<< HEAD
   const fileStats = imageFiles.map(file => {
     const filePath = path.join(imagesDir, file.name);
     const stats = fs.statSync(filePath);
@@ -89,16 +98,34 @@ function checkImageSizes() {
       sizeKB: Math.round(stats.size / 1024)
     };
   }).sort((a, b) => b.size - a.size);
+=======
+  const fileStats = imageFiles
+    .map(file => {
+      const filePath = path.join(imagesDir, file.name);
+      const stats = fs.statSync(filePath);
+      return {
+        name: file.name,
+        size: stats.size,
+        sizeKB: Math.round(stats.size / 1024),
+      };
+    })
+    .sort((a, b) => b.size - a.size);
+>>>>>>> master
 
   // Display files with color coding
   fileStats.forEach((file, index) => {
     const colorFn = getColorForSize(file.sizeKB);
     const recommendation = getSizeRecommendation(file.sizeKB);
     const formattedSize = formatSize(file.size);
+<<<<<<< HEAD
     
     console.log(
       `${colorFn('●')} ${colorFn(file.name)} ${chalk.gray('(')}${chalk.white(formattedSize)}${chalk.gray(')')} ${recommendation}`
     );
+=======
+
+    console.log(`${colorFn('●')} ${colorFn(file.name)} ${chalk.gray('(')}${chalk.white(formattedSize)}${chalk.gray(')')} ${recommendation}`);
+>>>>>>> master
   });
 
   // Summary statistics
@@ -118,12 +145,20 @@ function checkImageSizes() {
   // Recommendations
   const problematicFiles = fileStats.filter(file => file.sizeKB > THRESHOLDS.warning);
   const veryLargeFiles = fileStats.filter(file => file.sizeKB > THRESHOLDS.poor);
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> master
   if (veryLargeFiles.length > 0) {
     console.log(chalk.red(`\n🚨 ${veryLargeFiles.length} file(s) are too large (>1MB)`));
     console.log(chalk.gray('These files may cause performance issues and slow loading times'));
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> master
   if (problematicFiles.length > 0) {
     console.log(chalk.yellow(`\n⚠️  ${problematicFiles.length} file(s) exceed recommended limits (>500KB)`));
     console.log(chalk.gray('Consider optimizing these files or converting to WebP format'));
@@ -142,4 +177,8 @@ function checkImageSizes() {
 }
 
 // Run the script
+<<<<<<< HEAD
 checkImageSizes(); 
+=======
+checkImageSizes();
+>>>>>>> master

@@ -1,8 +1,6 @@
 {
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
-  "prettier.enable": true,
-  "prettier.printWidth": 80,
-  "prettier.useTabs": false,
-  "prettier.tabWidth": 2
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

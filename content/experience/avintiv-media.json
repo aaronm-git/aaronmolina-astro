@@ -1,0 +1,22 @@
+{
+  "tags": ["wordpress", "php", "html", "css", "javascript", "elementor-pro", "figma", "core-web-vitals", "rest-api"],
+  "achievements": ["Improved SEO rankings and page speed", "Improved development process for new client sites"],
+  "endDate": "2025-05-01T00:00:00Z",
+  "slug": "avintiv-media",
+  "url": "https://avintivmedia.com",
+  "description": "AVINTIV Media is a digital marketing agency that specializes in creating custom websites for small businesses.",
+  "responsibilities": [
+    "Built high-performance WordPress sites with Elementor Pro",
+    "Translated Figma designs into responsive websites",
+    "Implemented Core Web Vitals improvements and SEO practices",
+    "Created custom plugins and features"
+  ],
+  "date": "2024-09-01T00:00:00Z",
+  "isActive": true,
+  "location": "Miami, Florida, United States",
+  "role": "Senior WordPress Developer",
+  "title": "AVINTIV Media, LLC",
+  "projects": [],
+  "current": false,
+  "logo": "/images/experience-avintiv.jpg"
+}

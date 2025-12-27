@@ -1,0 +1,34 @@
+{
+  "title": "PageLyft, LLC",
+  "slug": "pagelyft",
+  "location": "Miami, Florida, United States",
+  "date": "2023-10-01T00:00:00Z",
+  "description": "PageLyft is a web development agency that specializes in creating custom websites for small businesses.",
+  "role": "Owner / Full Stack Developer",
+  "isActive": true,
+  "current": true,
+  "tags": [
+    "wordpress",
+    "php",
+    "javascript",
+    "nextjs",
+    "astro",
+    "seo",
+    "elementor-pro",
+    "performance-optimization"
+  ],
+  "responsibilities": [
+    "Built high-performance WordPress sites and modern JAMstack applications using Next.js and Astro",
+    "Implemented advanced local SEO strategies including schema markup and Core Web Vitals optimization",
+    "Developed custom WordPress plugins and REST API integrations for extended functionality",
+    "Migrated legacy sites to modern frameworks, improving performance and SEO rankings"
+  ],
+  "achievements": [
+    "Reduced average page load times by 60% across all client sites",
+    "Improved local search visibility and SEO rankings for multiple small businesses",
+    "Successfully migrated several sites to headless/modern frameworks",
+    "Established PageLyft as a trusted development partner for local businesses"
+  ],
+  "projects": ["clippers-website", "originpc-accessibility"],
+  "logo": "/images/experience-pagelyft.jpg"
+}

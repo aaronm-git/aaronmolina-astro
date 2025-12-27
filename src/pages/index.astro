@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 import MainLayout from "@/layouts/main-layout.astro";
 import { getCollection } from "astro:content";
 
@@ -135,4 +136,176 @@ const recentPosts = posts
 			</ul>
 		</div>
 	</div>
+=======
+import MainLayout from '@/layouts/main-layout.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import ExperienceCard from '@/components/ExperienceCard.astro';
+import CTA from '@/components/CTA.astro';
+import { getCollection } from 'astro:content';
+import ProfilePicture from '@/assets/images/profile-picture-square.jpg';
+import { Image } from 'astro:assets';
+import { FaBriefcase, FaBookOpen, FaStar, FaArrowRight, FaEdit, FaCalendarAlt } from 'react-icons/fa';
+
+const posts = await getCollection('blog');
+const currentDate = new Date();
+const recentPosts = posts
+  .filter(post => post.data.publishDate !== null)
+  .filter(post => post.data.publishDate! <= currentDate)
+  .sort((a, b) => b.data.publishDate!.getTime() - a.data.publishDate!.getTime())
+  .slice(0, 3);
+
+const experience = await getCollection('experience');
+const sortedExperience = experience
+  .sort((a, b) => {
+    if (a.data.current && !b.data.current) return -1;
+    if (!a.data.current && b.data.current) return 1;
+    return b.data.date.getTime() - a.data.date.getTime();
+  })
+  .slice(0, 4);
+
+const projects = await getCollection('projects');
+const featuredProjects = projects
+  .filter(project => project.data.pinned)
+  .sort((a, b) => {
+    if (a.data.pinned && !b.data.pinned) return -1;
+    if (!a.data.pinned && b.data.pinned) return 1;
+    return (b.data.completedOn?.getTime() || 0) - (a.data.completedOn?.getTime() || 0);
+  })
+  .slice(0, 3);
+
+const yearsOfExperience = new Date().getFullYear() - 2012;
+---
+
+<MainLayout>
+  <!-- Hero Section -->
+  <header class="mb-16 text-center">
+    <div class="hero-image mb-8 flex justify-center">
+      <Image
+        src={ProfilePicture}
+        alt="Aaron Molina - Software Web Engineer"
+        class="border-border h-32 w-32 rounded-full border-2 object-cover object-[20%_40%] shadow-lg md:h-48 md:w-48"
+        loading="eager"
+      />
+    </div>
+    <h1 class="hero-title text-foreground mb-1 text-4xl font-bold md:mb-6 md:text-6xl">Aaron Molina</h1>
+    <p class="hero-subtitle text-foreground-muted mb-4 text-lg font-medium md:text-2xl">Senior Frontend & Fullstack Developer</p>
+    <p class="hero-description text-foreground-muted mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
+      Building modern, high-performannt web websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over {yearsOfExperience} years of experience, I've worked with a variety
+      of technologies, including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences.
+    </p>
+    <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
+      <a
+        href="/projects"
+        class="hero-cta bg-secondary hover:bg-secondary-hover text-on-secondary inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium transition-colors"
+      >
+        <FaBriefcase className="icon-sm" />
+        View My Work
+      </a>
+      <a
+        href="/blog"
+        class="hero-cta bg-primary hover:bg-primary-hover text-on-primary inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium transition-colors"
+      >
+        <FaBookOpen className="icon-sm" />
+        Read My Blog
+      </a>
+    </div>
+  </header>
+
+  <!-- Featured Projects Section -->
+  <section class="animate-section mb-16">
+    <div class="mb-8 flex items-center justify-between">
+      <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
+        <FaStar className="text-secondary icon-lg icon-spacing-right" />
+        Featured Projects
+      </h2>
+      <a href="/projects" class="text-secondary hover:text-secondary-hover hidden items-center gap-2 font-medium md:flex">
+        View all projects <FaArrowRight className="icon-sm" />
+      </a>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {featuredProjects.map(project => <ProjectCard project={project} showCompletedDate={false} />)}
+    </div>
+
+    <a
+      href="/projects"
+      class="text-secondary hover:text-secondary-hover mt-6 flex items-center justify-end gap-2 font-medium md:hidden"
+    >
+      View all projects <FaArrowRight className="icon-sm" />
+    </a>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="animate-section mb-16">
+    <div class="mb-8 flex items-center justify-between">
+      <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
+        <FaBriefcase className="text-secondary icon-lg icon-spacing-right" />
+        Professional Experience
+      </h2>
+      <a href="/experience" class="text-secondary hover:text-secondary-hover hidden items-center gap-2 font-medium md:flex">
+        View all experience <FaArrowRight className="icon-sm" />
+      </a>
+    </div>
+
+    <div class="animate-content space-y-8">
+      {sortedExperience.map(exp => <ExperienceCard experience={exp} showAllDetails={false} />)}
+    </div>
+
+    <a
+      href="/experience"
+      class="text-secondary hover:text-secondary-hover mt-6 flex items-center justify-end gap-2 font-medium md:hidden"
+    >
+      View all experience <FaArrowRight className="icon-sm" />
+    </a>
+  </section>
+
+  <!-- Recent Blog Posts -->
+  {
+    recentPosts.length > 0 && (
+      <section class="animate-section mb-16">
+        <div class="mb-8 flex items-center justify-between">
+          <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
+            <FaEdit className="text-secondary icon-lg icon-spacing-right" />
+            Latest Articles
+          </h2>
+          <a href="/blog" class="text-secondary hover:text-secondary-hover flex items-center gap-2 font-medium">
+            View all posts <FaArrowRight className="icon-sm" />
+          </a>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          {recentPosts.map(post => (
+            <article class="animate-content bg-surface border-border rounded-lg border p-6 shadow-md transition-shadow hover:shadow-lg">
+              <h3 class="text-foreground mb-3 text-lg font-semibold">
+                <a href={`/blog/${post.data.slug}`} class="hover:text-secondary transition-colors">
+                  {post.data.title}
+                </a>
+              </h3>
+              <div class="text-foreground-muted mb-3 flex items-center text-sm">
+                <FaCalendarAlt className="icon-base icon-spacing-right" />
+                <time datetime={post.data.publishDate?.toISOString()}>
+                  {post.data.publishDate?.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </time>
+              </div>
+              {post.data.description && <p class="text-foreground-muted mb-4 text-sm leading-relaxed">{post.data.description}</p>}
+              <a
+                href={`/blog/${post.data.slug}`}
+                class="text-secondary hover:text-secondary-hover flex items-center gap-1 font-medium"
+              >
+                Read more <FaArrowRight className="icon-sm" />
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Contact Section -->
+  <CTA />
+>>>>>>> master
 </MainLayout>

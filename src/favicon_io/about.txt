@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: IBM Plex Sans JP
+- Font Author: undefined
+- Font Source: https://fonts.gstatic.com/s/ibmplexsansjp/v6/Z9XNDn9KbTDf6_f7dISNqYf_tvPT1Cr4iNJ-pwc.ttf
+- Font License: undefined)

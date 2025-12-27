@@ -1,0 +1,182 @@
+---
+import { Image } from 'astro:assets';
+import { FaBriefcase, FaExternalLinkAlt, FaCheck, FaChevronRight, FaAward } from 'react-icons/fa';
+
+interface Props {
+  experience: {
+    data: {
+      title: string;
+      role: string;
+      slug?: string;
+      location: string;
+      date: Date;
+      endDate?: Date;
+      isActive?: boolean;
+      current?: boolean;
+      responsibilities: string[];
+      tags: string[];
+      achievements: string[];
+      logo?: string;
+      description?: string;
+      url?: string;
+    };
+  };
+  showAllDetails?: boolean;
+}
+
+const { experience, showAllDetails = false } = Astro.props;
+
+// Calculate duration
+function calculateDuration(startDate: Date, endDate?: Date): string {
+  const end = endDate ? endDate : new Date();
+  const start = startDate;
+
+  let years = end.getFullYear() - start.getFullYear();
+  let months = end.getMonth() - start.getMonth();
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  const parts = [];
+  if (years > 0) {
+    parts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
+  }
+  if (months > 0) {
+    parts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
+  }
+
+  return parts.length > 0 ? parts.join(', ') : '1 month';
+}
+
+const duration = calculateDuration(experience.data.date, experience.data.endDate);
+---
+
+<article
+  class="animate-card bg-surface border-border rounded-lg border p-6 shadow-md transition-shadow hover:shadow-lg"
+  id={experience.data.slug}
+>
+  <div class="mb-4 flex flex-col md:flex-row md:items-start md:justify-between">
+    <div class="flex flex-col items-start gap-4 md:flex-row">
+      <div
+        class="bg-muted border-border flex aspect-square w-20 items-center justify-center overflow-hidden rounded border"
+      >
+        {
+          experience.data.logo ? (
+            <Image src={experience.data.logo} alt="Company logo" class="h-full w-full object-contain" loading="lazy" width={64} height={64} />
+          ) : (
+            <span class="text-foreground-muted text-center text-xs">
+              <FaBriefcase className="icon-lg" />
+            </span>
+          )
+        }
+      </div>
+      <div class="space-y-1">
+        <h3 class="text-foreground text-xl font-semibold">{experience.data.role}</h3>
+        <h4 class="text-secondary text-lg font-medium">
+          {experience.data.title}
+          {
+            experience.data.url && (
+              <a
+                href={experience.data.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-secondary hover:text-secondary-hover transition-colors"
+              >
+                <>
+                  <FaExternalLinkAlt className="inline icon-sm" />
+                  <span class="sr-only">Visit Site</span>
+                </>
+              </a>
+            )
+          }
+        </h4>
+        <p class="text-foreground-muted text-sm">{experience.data.location}</p>
+      </div>
+    </div>
+    <div class="md:text-right">
+      <p class="text-foreground-muted font-medium">
+        {experience.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+        {experience.data.endDate && !experience.data.current ? ` - ${experience.data.endDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}` : ''}
+        {experience.data.current ? ' - Present' : ''}
+      </p>
+      <p class="text-foreground-muted mt-1 text-sm">
+        {duration}
+      </p>
+      {
+        experience.data.current && (
+          <span class="bg-secondary text-on-secondary mt-1 inline-block rounded-full px-2 py-1 text-xs">Current</span>
+        )
+      }
+    </div>
+  </div>
+
+  {
+    showAllDetails && experience.data.description && (
+      <div class="border-border mb-8 max-w-2xl rounded-md border p-4">
+        <p class="text-foreground-muted text-sm">{experience.data.description}</p>
+      </div>
+    )
+  }
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <div>
+      <h5 class="text-foreground mb-3 font-medium">Key Responsibilities</h5>
+      <ul class="space-y-2">
+        {
+          experience.data.responsibilities.slice(0, showAllDetails ? undefined : 3).map(responsibility => (
+            <li class="text-foreground-muted flex items-start gap-2 text-sm">
+              <FaCheck className="text-secondary mt-0.5 icon-base flex-shrink-0 icon-spacing-right" />
+              {responsibility}
+            </li>
+          ))
+        }
+      </ul>
+
+      {
+        !showAllDetails && (
+          <div class="mt-4">
+            <a
+              href={`/experience#${experience.data.slug}`}
+              class="text-secondary hover:text-secondary-hover group flex items-center gap-2 text-sm font-medium transition-colors"
+            >
+              See more details <FaChevronRight className="icon-sm transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
+        )
+      }
+    </div>
+
+    <div>
+      <h5 class="text-foreground mb-3 font-medium">Technologies & Tools</h5>
+      <div class="flex flex-wrap gap-2">
+        {
+          experience.data.tags.slice(0, showAllDetails ? undefined : 8).map(tagSlug => {
+            return (
+              <span class="bg-muted text-secondary border-border rounded border px-2 py-1 text-xs font-medium">
+                {tagSlug}
+              </span>
+            );
+          })
+        }
+      </div>
+
+      {
+        experience.data.achievements.length > 0 && (
+          <div class="mt-4">
+            <h5 class="text-foreground mb-2 font-medium">Key Achievements</h5>
+            <ul class="space-y-1">
+              {experience.data.achievements.map((achievement: string) => (
+                <li class="text-foreground-muted flex items-start gap-2 text-sm">
+                  <FaAward className="text-secondary mt-0.5 icon-base flex-shrink-0 icon-spacing-right" />
+                  {achievement}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</article>

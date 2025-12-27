@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import "tailwindcss";
 
 :root inline {
@@ -99,6 +100,113 @@
   --color-gray-800: oklch(0.25 0 0);
   --color-gray-900: oklch(0.15 0 0);
   --color-gray-950: oklch(0.10 0 0);
+=======
+@import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/**
+ * Goldie palette
+ * - Navy:     #14213D
+ * - White:    #FFFFFF
+ * - Platinum: #E5E5E5
+ * - Orange:   #FCA311
+ * - Black:    #000000
+ *
+ * Implementation note:
+ * - We expose ONLY semantic tokens to Tailwind via @theme so templates use
+ *   classes like bg-background, text-foreground, bg-primary, bg-secondary, etc.
+ * - Theme switching is handled by [data-theme="dark"] (already wired in layout).
+ */
+
+:root {
+  /* Palette */
+  --palette-navy: #14213d;
+  --palette-white: #ffffff;
+  --palette-platinum: #e5e5e5;
+  --palette-orange: #fca311;
+  --palette-black: #000000;
+
+  /* Icon sizing and spacing */
+  --icon-size-sm: 1rem; /* 16px - for buttons/links */
+  --icon-size-base: 1.25rem; /* 20px - for list items with text */
+  --icon-size-lg: 2rem; /* 32px - for section headings */
+  --icon-size-xl: 3rem; /* 48px - for hero/large standalone icons */
+  --icon-spacing: 0.75rem; /* 12px - spacing between icon and text */
+
+  /* Semantic tokens (light) */
+  --background: var(--palette-white);
+  --surface: var(--palette-white);
+  --muted: var(--palette-platinum);
+  --border: var(--palette-platinum);
+
+  --foreground: var(--palette-black);
+  --foreground-muted: color-mix(in srgb, var(--foreground) 65%, transparent);
+
+  --primary: var(--palette-navy);
+  --primary-hover: color-mix(in srgb, var(--primary) 85%, var(--palette-black));
+  --on-primary: var(--palette-white);
+
+  --secondary: var(--palette-orange);
+  --secondary-hover: color-mix(in srgb, var(--secondary) 85%, var(--palette-black));
+  --on-secondary: var(--palette-black);
+
+  --ring: var(--secondary);
+}
+
+[data-theme='dark'] {
+  /* Semantic tokens (dark) */
+  --background: var(--palette-black);
+  --surface: var(--palette-navy);
+
+  /* Use translucent neutrals in dark mode so UI stays calm */
+  --muted: color-mix(in srgb, var(--palette-platinum) 10%, transparent);
+  --border: color-mix(in srgb, var(--palette-platinum) 18%, transparent);
+
+  --foreground: var(--palette-white);
+  --foreground-muted: color-mix(in srgb, var(--foreground) 75%, transparent);
+
+  /* Brand colors remain consistent */
+  --primary: var(--palette-navy);
+  --primary-hover: color-mix(in srgb, var(--primary) 85%, var(--palette-black));
+  --on-primary: var(--palette-white);
+
+  --secondary: var(--palette-orange);
+  --secondary-hover: color-mix(in srgb, var(--secondary) 85%, var(--palette-black));
+  --on-secondary: var(--palette-black);
+
+  --ring: var(--secondary);
+}
+
+@theme {
+  /* Semantic colors (Tailwind v4 tokens) */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-on-secondary: var(--on-secondary);
+
+  --color-ring: var(--ring);
+
+  /* Icon sizing */
+  --size-icon-sm: var(--icon-size-sm);
+  --size-icon-base: var(--icon-size-base);
+  --size-icon-lg: var(--icon-size-lg);
+  --size-icon-xl: var(--icon-size-xl);
+
+  /* Icon spacing */
+  --spacing-icon: var(--icon-spacing);
+>>>>>>> master
 }
 
 @theme inline {
@@ -117,25 +225,109 @@
   --color-atom-line-highlight: #2f3129;
 }
 
+<<<<<<< HEAD
 @layer components {
   .typography {
     color: var(--color-gray-800);
+=======
+/* ==========================================================================
+   BASE LAYER
+   Default styles for HTML elements (resets, normalizations, defaults)
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background;
+  }
+
+  /* Scroll margin for anchor links */
+  [id] {
+    scroll-margin-top: 2rem;
+  }
+
+  /* Interactive elements should show pointer cursor */
+  a:not([disabled]),
+  button:not([disabled]) {
+    @apply cursor-pointer;
+  }
+}
+
+/* ==========================================================================
+   COMPONENTS LAYER
+   Class-based component styles (.typography, .card, .btn, etc.)
+   These can be overridden by utility classes when needed.
+   ========================================================================== */
+
+@layer components {
+  /* Main content minimum height (accounts for header/footer) */
+  main {
+    @apply min-h-[calc(100vh-53px-69px-24px)];
+  }
+
+  /* Icon utility classes */
+  .icon-sm {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+  }
+
+  .icon-base {
+    width: var(--icon-size-base);
+    height: var(--icon-size-base);
+  }
+
+  .icon-lg {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+  }
+
+  .icon-xl {
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+  }
+
+  .icon-spacing-left {
+    margin-left: var(--icon-spacing);
+  }
+
+  .icon-spacing-right {
+    margin-right: var(--icon-spacing);
+  }
+
+  /* Typography component for rich text/markdown content */
+  .typography {
+    @apply text-foreground;
+>>>>>>> master
     line-height: var(--leading-relaxed);
 
     h1 {
       font-size: var(--text-3xl);
       font-weight: var(--font-weight-bold);
+<<<<<<< HEAD
       color: var(--color-gray-900);
       margin-top: 2rem;
       margin-bottom: 1rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--color-gray-200);
+=======
+      @apply text-foreground border-border border-b;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+>>>>>>> master
     }
 
     h2 {
       font-size: var(--text-2xl);
       font-weight: var(--font-weight-semibold);
+<<<<<<< HEAD
       color: var(--color-gray-900);
+=======
+      @apply text-foreground;
+>>>>>>> master
       margin-top: 1.5rem;
       margin-bottom: 0.75rem;
     }
@@ -143,7 +335,11 @@
     h3 {
       font-size: var(--text-xl);
       font-weight: var(--font-weight-semibold);
+<<<<<<< HEAD
       color: var(--color-gray-900);
+=======
+      @apply text-foreground;
+>>>>>>> master
       margin-top: 1.25rem;
       margin-bottom: 0.5rem;
     }
@@ -151,7 +347,11 @@
     h4 {
       font-size: var(--text-lg);
       font-weight: var(--font-weight-semibold);
+<<<<<<< HEAD
       color: var(--color-gray-900);
+=======
+      @apply text-foreground;
+>>>>>>> master
       margin-top: 1rem;
       margin-bottom: 0.5rem;
     }
@@ -159,7 +359,11 @@
     h5 {
       font-size: var(--text-base);
       font-weight: var(--font-weight-semibold);
+<<<<<<< HEAD
       color: var(--color-gray-900);
+=======
+      @apply text-foreground;
+>>>>>>> master
       margin-top: 0.75rem;
       margin-bottom: 0.5rem;
     }
@@ -167,19 +371,28 @@
     h6 {
       font-size: var(--text-sm);
       font-weight: var(--font-weight-semibold);
+<<<<<<< HEAD
       color: var(--color-gray-900);
+=======
+      @apply text-foreground;
+>>>>>>> master
       margin-top: 0.75rem;
       margin-bottom: 0.5rem;
     }
 
     p {
       font-size: var(--text-base);
+<<<<<<< HEAD
       color: var(--color-gray-700);
+=======
+      @apply text-foreground-muted;
+>>>>>>> master
       margin-bottom: 1rem;
       line-height: var(--leading-normal);
     }
 
     a {
+<<<<<<< HEAD
       color: var(--color-blue-600);
       text-decoration: underline;
       text-decoration-color: var(--color-blue-300);
@@ -188,17 +401,33 @@
       &:hover {
         color: var(--color-blue-800);
         text-decoration-color: var(--color-blue-500);
+=======
+      @apply text-secondary decoration-secondary;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+
+      &:hover {
+        @apply text-secondary-hover decoration-secondary-hover;
+>>>>>>> master
       }
     }
 
     strong {
       font-weight: var(--font-weight-semibold);
+<<<<<<< HEAD
       color: var(--color-gray-900);
+=======
+      @apply text-foreground;
+>>>>>>> master
     }
 
     em {
       font-style: italic;
+<<<<<<< HEAD
       color: var(--color-gray-700);
+=======
+      @apply text-foreground-muted;
+>>>>>>> master
     }
 
     ul {
@@ -207,7 +436,11 @@
       margin-bottom: 1rem;
 
       li {
+<<<<<<< HEAD
         color: var(--color-gray-700);
+=======
+        @apply text-foreground-muted;
+>>>>>>> master
         line-height: var(--leading-normal);
         margin-bottom: 0.5rem;
 
@@ -226,7 +459,11 @@
       margin-bottom: 1rem;
 
       li {
+<<<<<<< HEAD
         color: var(--color-gray-700);
+=======
+        @apply text-foreground-muted;
+>>>>>>> master
         line-height: var(--leading-normal);
         margin-bottom: 0.5rem;
 
@@ -240,6 +477,7 @@
     }
 
     blockquote {
+<<<<<<< HEAD
       border-left: 4px solid var(--color-gray-300);
       padding-left: 1rem;
       font-style: italic;
@@ -248,11 +486,20 @@
       background-color: var(--color-gray-50);
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
+=======
+      @apply border-border text-foreground-muted bg-muted border-l-4;
+      padding-left: 1rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      font-style: italic;
+      margin: 1rem 0;
+>>>>>>> master
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
+<<<<<<< HEAD
       border: 1px solid var(--color-gray-300);
       margin: 1rem 0;
 
@@ -269,11 +516,27 @@
         border: 1px solid var(--color-gray-300);
         padding: 0.75rem 1rem;
         color: var(--color-gray-700);
+=======
+      @apply border-border border;
+      margin: 1rem 0;
+
+      th {
+        @apply bg-muted border-border text-foreground border;
+        padding: 0.75rem 1rem;
+        text-align: left;
+        font-weight: var(--font-weight-semibold);
+      }
+
+      td {
+        @apply border-border text-foreground-muted border;
+        padding: 0.75rem 1rem;
+>>>>>>> master
       }
     }
 
     hr {
       margin: 2rem 0;
+<<<<<<< HEAD
       border-top: 1px solid var(--color-gray-300);
     }
 
@@ -288,6 +551,21 @@
         Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
+=======
+      @apply border-border border-t;
+    }
+
+    /* Inline code */
+    code {
+      @apply bg-muted text-foreground;
+      padding: 0.125rem 0.25rem;
+      border-radius: var(--radius-sm);
+      font-size: var(--text-sm);
+      font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    }
+
+    /* Code blocks with Atom theme */
+>>>>>>> master
     pre {
       background-color: var(--color-atom-bg);
       color: var(--color-atom-text);
@@ -303,8 +581,12 @@
         color: inherit;
         padding: 0;
         border-radius: 0;
+<<<<<<< HEAD
         font-family: "Fira Code", "Monaco", "Cascadia Code", "Roboto Mono",
           ui-monospace, SFMono-Regular, monospace;
+=======
+        font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', ui-monospace, SFMono-Regular, monospace;
+>>>>>>> master
 
         /* Atom Theme Syntax Highlighting */
         .token.comment,
@@ -390,10 +672,17 @@
     }
 
     /* Code block with language label */
+<<<<<<< HEAD
     pre[class*="language-"] {
       position: relative;
 
       &:before {
+=======
+    pre[class*='language-'] {
+      position: relative;
+
+      &::before {
+>>>>>>> master
         content: attr(data-language);
         position: absolute;
         top: 0;
@@ -415,8 +704,12 @@
     h4 code,
     h5 code,
     h6 code {
+<<<<<<< HEAD
       background-color: var(--color-gray-200);
       color: var(--color-gray-800);
+=======
+      @apply bg-muted text-foreground;
+>>>>>>> master
     }
 
     /* Images */
@@ -434,7 +727,11 @@
 
       figcaption {
         font-size: var(--text-sm);
+<<<<<<< HEAD
         color: var(--color-gray-600);
+=======
+        @apply text-foreground-muted;
+>>>>>>> master
         text-align: center;
         margin-top: 0.5rem;
         font-style: italic;
@@ -460,4 +757,40 @@
       }
     }
   }
+<<<<<<< HEAD
+=======
+
+  /* Initial animation states to prevent jumping on load (JS-only) */
+  .js .hero-image {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .js .hero-title {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .js .hero-subtitle,
+  .js .hero-description,
+  .js .hero-cta {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .js .animate-card {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .js .animate-section h2 {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .js .animate-content {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+>>>>>>> master
 }

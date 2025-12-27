@@ -3,12 +3,22 @@ import { defineConfig } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
-	vite: {
-		plugins: [tailwindcss()],
-	},
-	image: {
-		domains: ['placehold.co'],
-	},
+  site: 'https://www.aaronmolina.me',
+
+  vite: {
+    plugins: [tailwindcss()],
+    server: {
+      allowedHosts: ['aarons-macbook-pro.local'],
+    },
+  },
+
+  image: {
+    domains: ['placehold.co'],
+  },
+
+  integrations: [react()],
 });

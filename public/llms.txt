@@ -1,0 +1,72 @@
+# Aaron Molina - Sr. Software and Web Engineer
+> Aaron Molina is a Sr. Software and Web Engineer with a passion for building scalable and efficient web applications.
+
+Important notes:
+- This is a personal portfolio site for Aaron Molina (software/web engineering work, writing, and career history).
+- Prefer canonical URLs on https://www.aaronmolina.me.
+- Content may include code snippets and technical guidance; verify details against the linked pages and current docs.
+
+## Key pages
+- [Home](https://www.aaronmolina.me/): Overview, featured work, and navigation.
+- [Projects](https://www.aaronmolina.me/projects): Portfolio projects and case studies.
+- [Experience](https://www.aaronmolina.me/experience): Professional experience timeline, skills, and achievements.
+- [Blog](https://www.aaronmolina.me/blog): Articles about web development, tooling, and engineering decisions.
+- [Contact](https://www.aaronmolina.me/contact): Contact form and social links.
+
+## Services / specialties
+- Frontend engineering (React, modern UI architecture)
+- Performance optimization (Core Web Vitals, Lighthouse-driven improvements)
+- Accessibility (WCAG-focused audits and remediation)
+- Full-stack web delivery (Node.js, TypeScript, integrations)
+
+## Projects
+- [LA Clippers Website and Other Online Properties](https://www.aaronmolina.me/projects/clippers-website): Modern Vue/Nuxt-based frontend for Clippers.com and ClippersCamp.com with RESTful API integrations. (completed 2025-06-01; tags: vue, nuxt, seo, css3, frontend, aws, accessibility, fullstack). External: https://www.nba.com/clippers
+- [CORSAIR Accessibility Overhaul](https://www.aaronmolina.me/projects/originpc-accessibility): Led a comprehensive WCAG 2.1 accessibility audit and remediation effort for CORSAIR's OriginPC.com platform, improving inclusivity and compliance across key product and checkout flows. (completed 2025-04-01; tags: accessibility, frontend, css3, javascript, git, bootstrap). External: https://www.originpc.com
+- [Azamara Cruises Website](https://www.aaronmolina.me/projects/azamara-website): Custom frontend rebuild of Azamara.com, moving from Royal Caribbean infrastructure to a modern JAMstack site. (completed 2024-04-01; tags: react, graphql, aws). External: https://www.azamara.com
+- [Miami HEAT Website Migration](https://www.aaronmolina.me/projects/miami-heat-website): Migration and modernization of HEAT.com to a new tech stack, improving fan engagement and site performance. (completed 2022-07-01; tags: react, nba, bootstrap, wordpress, drupal, seo). External: https://www.nba.com/heat
+
+## Blog posts
+- [Cursor's 2025 Year in Review: How I Actually Used AI Day-to-Day](https://www.aaronmolina.me/blog/cursor-2025-year-in-review): Cursor generated a '2025 Year in Review' snapshot of my editor usage. Here's what the numbers say, what surprised me, and what I'm taking into 2026. (2025-12-22; tags: cursor, ai, developer-tools, productivity, llm)
+- [Astro Framework and Why I Love It!](https://www.aaronmolina.me/blog/astro-framework-and-why-i-love-it): Discover why Astro has become my go-to framework for web development, and the top 5 features that make it truly special. (2025-08-06; tags: astro)
+- [Building a Modern Portfolio with Astro and DecapCMS: A Senior Developer's Approach](https://www.aaronmolina.me/blog/2025-07-07-building-a-modern-portfolio-with-astro-and-decapcms): Exploring the architecture and implementation of a modern portfolio site built with Astro, DecapCMS, TypeScript, and Tailwind CSS. A deep dive into the technical decisions and patterns that make this stack ideal for content-driven applications. (2025-07-07; tags: astro, decapcms, typescript, frontend, fullstack, tailwindcss)
+- [Building a Modern Portfolio with Astro: A Senior Developer's Approach](https://www.aaronmolina.me/blog/2025-07-07-building-a-modern-portfolio-with-astro): Exploring the architecture and implementation of a modern portfolio site built with Astro, TypeScript, Content Collections, and Tailwind CSS. A deep dive into the technical decisions that make this stack ideal for developer portfolios. (2025-07-07; tags: astro, typescript, frontend, fullstack, tailwindcss, github)
+
+## Experience (items listed on /experience)
+- AVINTIV Media, LLC — Senior WordPress Developer (Miami, Florida, United States) — 2024-09-01 → 2025-05-01; skills: WordPress, PHP, HTML, CSS, JavaScript
+- LA Clippers — Lead Frontend Developer (Miami, Florida, United States) — 2024-08-01; skills: Vue.js, Nuxt, TailwindCSS, HTML, CSS, JavaScript
+- PageLyft, LLC — Owner / Full Stack Developer (Miami, Florida, United States) — 2023-10-01; skills: WordPress, PHP, JavaScript, SEO
+- Bomnin Chevrolet — Senior React Developer (Miami, Florida, United States) — 2022-07-01 → 2023-01-01; skills: React, TypeScript, Node.js, GraphQL, AWS
+- Azamara Cruises — Lead Frontend Developer (Miami, Florida, United States) — 2022-01-01 → 2024-04-01; skills: React, TypeScript, GraphQL, HTML, CSS, JavaScript
+- Miami HEAT — Frontend Web Developer (Miami, Florida, United States) — 2022-01-01 → 2022-07-01; skills: React, HTML, CSS, JavaScript, Bootstrap
+- CORSAIR Memory, Inc — Frontend Web Developer (Miami, Florida, United States) — 2020-01-01 → 2022-05-01; skills: React, JavaScript, HTML, CSS, Bootstrap
+- Uplyft Capital — Full-stack Developer (Miami, Florida, United States) — 2019-01-01 → 2020-01-01; skills: Node.js, MongoDB, Express.js, OAuth2
+- Flying Academy — Frontend Web Developer (Miami, Florida, United States) — 2018-02-01 → 2018-12-01; skills: HTML, CSS, WordPress
+
+## Topics
+- frontend
+- astro
+- fullstack
+- accessibility
+- aws
+- bootstrap
+- css3
+- react
+- seo
+- tailwindcss
+- typescript
+- ai
+- cursor
+- decapcms
+- developer-tools
+- drupal
+- git
+- github
+- graphql
+- javascript
+
+## Contact
+- [Contact page](https://www.aaronmolina.me/contact)
+- Email: hire@aaronmolina.me
+- GitHub: https://github.com/aaronm-git
+- LinkedIn: https://www.linkedin.com/in/aaronmolinag
+- Instagram: https://www.instagram.com/chillsloth09

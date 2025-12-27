@@ -1,0 +1,20 @@
+{
+	"title": "Bomnin Chevrolet",
+	"slug": "bomnin-chevrolet",
+	"location": "Miami, Florida, United States",
+	"date": "2022-07-01T00:00:00Z",
+	"endDate": "2023-01-01T00:00:00Z",
+	"role": "Senior React Developer",
+	"responsibilities": [
+		"Developed SaaS CRM platform using React and Node.js",
+		"Integrated AWS Lambda, GraphQL APIs, and Cognito",
+		"Improved performance and mentored junior developers",
+		"Led QA and deployment processes"
+	],
+	"skills": ["React", "TypeScript", "Node.js", "GraphQL", "AWS"],
+	"tools": ["AWS Lambda", "Cognito", "Amplify", "Material UI"],
+	"projects": [],
+	"achievements": ["Reduced API data processing time by 80%", "Improved frontend performance and scalability"],
+	"logo": "../../images/experience-das.jpg",
+	"isActive": false
+}

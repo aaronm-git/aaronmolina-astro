@@ -1,6 +1,6 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import { FaBriefcase, FaBolt, FaUsers, FaShieldAlt, FaClock, FaCalendarAlt, FaGlobe, FaUser, FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaBriefcase, FaBolt, FaUsers, FaShieldCat, FaClock, FaCalendar, FaGlobe, FaUser, FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa6';
 
 // Netlify Turnstile site key - configure this in your Netlify dashboard
 // Go to Site settings > Security & privacy > Turnstile
@@ -9,12 +9,12 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TU
 
 <MainLayout>
   <!-- Header -->
-  <header class="animate-section mb-12 text-center">
+  <section class="animate-section mb-12 text-center">
     <h1 class="text-foreground mb-4 text-5xl font-bold">Get In Touch</h1>
     <p class="text-foreground-muted mx-auto max-w-2xl text-lg">
-      Ready to start your next project? I'd love to hear about your ideas and discuss how we can work together to bring them to life.
+      Ready to start your next project? I'd love to hear about your ideas and       discuss how we can work together to bring them to life.
     </p>
-  </header>
+  </section>
 
   <!-- Contact Form -->
   <div class="animate-section mb-16 grid gap-12 lg:grid-cols-2">
@@ -30,7 +30,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TU
               type="text"
               name="name"
               required
-              class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+              class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
               placeholder="Your name"
             />
           </div>
@@ -41,7 +41,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TU
               type="email"
               name="email"
               required
-              class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+              class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
               placeholder="your@email.com"
             />
           </div>
@@ -52,7 +52,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TU
           <input
             type="text"
             name="company"
-            class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+            class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
             placeholder="Your company"
           />
         </div>
@@ -61,7 +61,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TU
           <label for="project-type" class="text-foreground mb-2 block text-sm font-medium">Project Type</label>
           <select
             name="project-type"
-            class="border-border bg-surface text-foreground focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+            class="border-border bg-surface text-foreground focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
           >
             <option value="">Select a project type</option>
             <option value="frontend">Frontend Development</option>
@@ -77,7 +77,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TU
           <label for="budget" class="text-foreground mb-2 block text-sm font-medium">Budget Range (Optional)</label>
           <select
             name="budget"
-            class="border-border bg-surface text-foreground focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+            class="border-border bg-surface text-foreground focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
           >
             <option value="">Select budget range</option>
             <option value="under-5k">Under $5,000</option>
@@ -94,7 +94,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TU
             name="message"
             rows="6"
             required
-            class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
+            class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
             placeholder="Tell me about your project, timeline, and any specific requirements..."></textarea>
         </div>
 
@@ -108,7 +108,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TU
 
         <button
           type="submit"
-          class="bg-secondary hover:bg-secondary-hover text-on-secondary focus:ring-ring flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          class="bg-secondary hover:bg-secondary-hover text-on-secondary focus:ring-ring focus:ring-offset-background flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
         >
           <span>Send Message</span>
         </button>
@@ -121,28 +121,28 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TU
         <h3 class="text-foreground mb-4 text-xl font-bold">Why Work With Me?</h3>
         <div class="space-y-4">
           <div class="flex items-start gap-3">
-            <FaBriefcase className="text-secondary mt-1 icon-lg flex-shrink-0 icon-spacing-right" />
+            <FaBriefcase className="text-secondary icon-base mt-1 flex-shrink-0" />
             <div>
               <h4 class="text-foreground font-medium">Experience</h4>
               <p class="text-foreground-muted text-sm">I've been in the industry for over 10 years and have worked with some of the biggest brands in the world</p>
             </div>
           </div>
           <div class="flex items-start gap-3">
-            <FaBolt className="text-secondary mt-1 icon-lg flex-shrink-0 icon-spacing-right" />
+            <FaBolt className="text-secondary icon-base mt-1 flex-shrink-0" />
             <div>
               <h4 class="text-foreground font-medium">Fast & Efficient</h4>
               <p class="text-foreground-muted text-sm">Quick turnaround times without compromising quality</p>
             </div>
           </div>
           <div class="flex items-start gap-3">
-            <FaUsers className="text-secondary mt-1 icon-lg flex-shrink-0 icon-spacing-right" />
+            <FaUsers className="text-secondary icon-base mt-1 flex-shrink-0" />
             <div>
               <h4 class="text-foreground font-medium">Collaborative Approach</h4>
               <p class="text-foreground-muted text-sm">Regular communication and feedback throughout the project</p>
             </div>
           </div>
           <div class="flex items-start gap-3">
-            <FaShieldAlt className="text-secondary mt-1 icon-lg flex-shrink-0 icon-spacing-right" />
+            <FaShieldCat className="text-secondary icon-base mt-1 flex-shrink-0" />
             <div>
               <h4 class="text-foreground font-medium">Quality Assurance</h4>
               <p class="text-foreground-muted text-sm">Clean, tested code with focus on performance and accessibility</p>
@@ -155,15 +155,15 @@ const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TU
         <h3 class="text-foreground mb-4 text-xl font-bold">Response Time</h3>
         <div class="space-y-3">
           <div class="flex items-center gap-2">
-            <FaClock className="text-secondary icon-base icon-spacing-right" />
+            <FaClock className="text-secondary size-icon-sm mt-0.5" />
             <span class="text-foreground-muted text-sm">I typically respond within 24 hours</span>
           </div>
           <div class="flex items-center gap-2">
-            <FaCalendarAlt className="text-secondary icon-base icon-spacing-right" />
+            <FaCalendar className="text-secondary size-icon-sm mt-0.5" />
             <span class="text-foreground-muted text-sm">Free consultation calls available</span>
           </div>
           <div class="flex items-center gap-2">
-            <FaGlobe className="text-secondary icon-base icon-spacing-right" />
+            <FaGlobe className="text-secondary size-icon-sm mt-0.5" />
             <span class="text-foreground-muted text-sm">Available for remote projects worldwide</span>
           </div>
         </div>

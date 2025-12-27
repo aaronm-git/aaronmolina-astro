@@ -1,0 +1,25 @@
+{
+    "title": "LA Clippers",
+    "slug": "la-clippers",
+    "location": "Miami, Florida, United States",
+    "date": "2024-08-01T00:00:00Z",
+    "endDate": null,
+    "role": "Lead Frontend Developer",
+    "responsibilities": [
+      "Led development of Clippers.com and ClippersCamp.com",
+      "Integrated REST APIs for third-party systems",
+      "Mentored junior developers",
+      "Managed Git workflows and QA testing",
+      "Collaborated with UX/UI, marketing, and product teams"
+    ],
+    "skills": ["Vue.js", "Nuxt", "TailwindCSS", "HTML", "CSS", "JavaScript"],
+    "tools": ["Git", "REST API", "Shopify", "Liquid", "QA testing"],
+    "projects": [],
+    "achievements": [
+      "Enhanced ADA compliance and UX",
+      "Standardized development workflows"
+    ],
+    "logo": "../../images/experience-clippers.jpg",
+    "isActive": true
+  }
+  

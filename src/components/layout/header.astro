@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { FaChrome, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars, FaPencil } from 'react-icons/fa6';
+import ProfilePicture from '@/images/profile.jpg';
 
 const isDev = import.meta.env.DEV;
 ---
@@ -12,7 +13,7 @@ const isDev = import.meta.env.DEV;
       <div class="flex-shrink-0">
         <a href="/" class="text-foreground hover:text-secondary flex items-center gap-3 text-xl font-bold transition-colors">
           <Image
-            src="/images/profile.png"
+            src={ProfilePicture}
             alt="Aaron Molina - Software Web Engineer"
             class="border-border h-8 w-8 rounded-full border-2 object-cover object-[20%_40%]"
             width={40}

@@ -10,6 +10,7 @@ export default defineConfig({
   site: 'https://www.aaronmolina.me',
 
   vite: {
+    // @ts-expect-error Vite plugin type mismatch caused by dependency version skew; runtime behavior is correct.
     plugins: [tailwindcss()],
     server: {
       allowedHosts: ['aarons-macbook-pro.local'],

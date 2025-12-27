@@ -4,7 +4,7 @@ slug: cursor-2025-year-in-review
 publishDate: 2025-12-22T10:00:00.000Z
 updatedDate: 2025-12-22T10:00:00.000Z
 description: "Cursor generated a '2025 Year in Review' snapshot of my editor usage. Here's what the numbers say, what surprised me, and what I'm taking into 2026."
-image: '/images/cursor-2025-year-in-review.png'
+image: '../../images/cursor-2025-year-in-review.jpg'
 tags:
   - cursor
   - ai
@@ -17,7 +17,7 @@ If you've been living in your editor this year (same), Cursor has a fun little "
 
 Here's mine:
 
-![Cursor 2025 Year in Review](/images/cursor-2025-year-in-review.png)
+![Cursor 2025 Year in Review](../../images/cursor-2025-year-in-review.jpg)
 
 ## The headline numbers
 
@@ -86,7 +86,7 @@ The bigger lesson: **workflows beat model fandom**. Pick what keeps you shipping
 
 Here's the model graph from the recap (this tells the real story—what I reached for, and when):
 
-![Cursor 2025 model usage graph](/images/cursor-2025-models.png)
+![Cursor 2025 model usage graph](../../images/cursor-2025-models.jpg)
 
 If there's a pattern in that chart, it's this: I wasn't trying to "pick the best model." I was trying to **stay in flow**—and different tasks benefit from different strengths.
 

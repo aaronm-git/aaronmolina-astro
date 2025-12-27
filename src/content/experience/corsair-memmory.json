@@ -20,6 +20,6 @@
 		"Boosted brand visibility by 30%",
 		"Increased email open rates by 15%"
 	],
-	"logo": "/images/experience-corsair.jpg",
+	"logo": "../../images/experience-corsair.jpg",
 	"isActive": false
 }

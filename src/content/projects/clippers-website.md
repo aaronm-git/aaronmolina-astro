@@ -12,7 +12,7 @@ tags:
   - aws
   - accessibility
   - fullstack
-featuredImage: /images/project-la-clippers.webp
+featuredImage: ../../images/project-la-clippers.jpg
 link: https://www.nba.com/clippers
 completedOn: 2025-06-01T00:00:00.000Z
 isActive: true
@@ -27,7 +27,7 @@ I led frontend and platform development for three key digital properties under t
 **Tech stack:** Nuxt.js, Vue, TailwindCSS, RESTful APIs, AWS\
 The official team site focused on ticketing, news, video, and merchandise.
 
-![Clippers.com Screenshot](/images/project-la-clippers.webp)
+![Clippers.com Screenshot](../../images/project-la-clippers.jpg)
 
 * Developed a high-performance frontend with Nuxt and TailwindCSS
 * Integrated RESTful APIs for dynamic content including game schedules, scores, and promotions
@@ -42,7 +42,7 @@ The official team site focused on ticketing, news, video, and merchandise.
 **Tech stack:** Shopify + Liquid (theme updates)\
 The organization's internal and corporate portal used for merchandising and operations.
 
-![ClippersHQ.com Screenshot](/images/project-la-clippers-clippershq.webp)
+![ClippersHQ.com Screenshot](../../images/project-la-clippers-clippershq.jpg)
 
 * Audited and remediated accessibility violations within Liquid themes
 * Implemented ARIA roles, contrast fixes, and semantic structure to pass WCAG 2.1 audits
@@ -56,7 +56,7 @@ The organization's internal and corporate portal used for merchandising and oper
 **Tech stack:** WordPress + Elementor\
 Emergency donation site launched during the devastating 2025 LA wildfires.
 
-![FireAidLA.org Screenshot](/images/project-la-clippers-fire-aid.webp)
+![FireAidLA.org Screenshot](../../images/project-la-clippers-fire-aid.jpg)
 
 * Designed and developed a responsive, accessible donation portal in under 72 hours
 * Integrated Stripe and third-party fundraising tools

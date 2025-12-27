@@ -1,4 +1,5 @@
 ---
+import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import { FaImage, FaArrowRight } from 'react-icons/fa6';
 
@@ -9,16 +10,17 @@ interface Props {
       slug?: string;
       description?: string;
       tags: string[];
-      featuredImage?: string;
+      featuredImage?: ImageMetadata;
       link?: string;
       completedOn?: Date;
       pinned?: boolean;
     };
   };
   showCompletedDate?: boolean;
+  showViewProjectLink?: boolean;
 }
 
-const { project, showCompletedDate = false } = Astro.props;
+const { project, showCompletedDate = false, showViewProjectLink = true } = Astro.props;
 ---
 
 <article class="animate-card bg-surface border-border flex flex-col overflow-hidden rounded-lg border shadow-lg transition-shadow hover:shadow-xl">
@@ -29,7 +31,7 @@ const { project, showCompletedDate = false } = Astro.props;
       ) : (
         <div class="bg-muted flex h-full w-full items-center justify-center">
           <span class="text-foreground-muted flex items-center gap-2">
-            No Image <FaImage className="icon-base icon-spacing-left" />
+            No Image <FaImage className="icon-base" />
           </span>
         </div>
       )
@@ -81,12 +83,12 @@ const { project, showCompletedDate = false } = Astro.props;
     <div class="border-border mt-auto flex items-center justify-between border-t pt-4">
       <a
         href={`/projects/${project.data.slug}`}
-        class="bg-secondary hover:bg-secondary-hover text-on-secondary group inline-flex items-center gap-1 rounded-md px-3 py-2 font-medium transition-colors"
+        class="text-secondary hover:text-secondary-hover group flex items-center gap-1 font-medium"
       >
         Learn More <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
       </a>
       {
-        project.data.link && (
+        showViewProjectLink && project.data.link && (
           <a href={project.data.link} class="text-foreground-muted hover:text-secondary group flex items-center gap-1" target="_blank" rel="noopener noreferrer">
             View project <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
           </a>

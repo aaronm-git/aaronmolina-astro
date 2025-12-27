@@ -20,10 +20,8 @@ const { Content } = await render(project);
   <article class="mx-auto max-w-screen-lg">
     <!-- Back Navigation -->
     <nav class="mb-8">
-      <a href="/projects" class="text-foreground-muted hover:text-foreground group inline-flex items-center gap-2 text-sm font-medium transition-colors">
-        <svg class="icon-sm transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-        </svg>
+      <a href="/projects" class="text-foreground-muted hover:text-foreground group inline-flex items-center gap-1 font-medium transition-colors">
+        <FaArrowLeft className="icon-sm transition-transform group-hover:-translate-x-1" />
         Back to Projects
       </a>
     </nav>

@@ -4,7 +4,7 @@ import ProjectCard from '@/components/ProjectCard.astro';
 import ExperienceCard from '@/components/ExperienceCard.astro';
 import CTA from '@/components/CTA.astro';
 import { getCollection } from 'astro:content';
-import ProfilePicture from '@/images/profile.png';
+import ProfilePicture from '@/images/profile.jpg';
 import { Image } from 'astro:assets';
 import { FaBriefcase, FaBookOpen, FaStar, FaArrowRight, FaPencil, FaCalendar } from 'react-icons/fa6';
 
@@ -83,7 +83,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
     </div>
 
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {featuredProjects.map(project => <ProjectCard project={project} showCompletedDate={false} />)}
+      {featuredProjects.map(project => <ProjectCard project={project} showCompletedDate={false} showViewProjectLink={false} />)}
     </div>
 
     <a href="/projects" class="text-secondary hover:text-secondary-hover mt-6 flex items-center justify-end gap-1 font-medium md:hidden">

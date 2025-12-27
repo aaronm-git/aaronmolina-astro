@@ -14,7 +14,7 @@
     "tools": ["Foundation 6", "WordPress", "Plugins"],
     "projects": [],
     "achievements": ["Modernized outdated web presence"],
-    "logo": "/images/experience-flying-academy.jpg",
+    "logo": "../../images/experience-flying-academy.jpg",
     "isActive": false
   }
   

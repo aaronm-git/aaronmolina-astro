@@ -1,7 +1,7 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
-import { FaBriefcase, FaArrowRight, FaCheck, FaChevronRight, FaAward } from 'react-icons/fa6';
+import { FaBriefcase, FaArrowRight, FaCheck, FaAward } from 'react-icons/fa6';
 
 interface Props {
   experience: {
@@ -124,8 +124,8 @@ const duration = calculateDuration(experience.data.date, experience.data.endDate
       {
         !showAllDetails && (
           <div class="mt-4">
-            <a href={`/experience#${experience.data.slug}`} class="text-secondary hover:text-secondary-hover group flex items-center gap-2 text-sm font-medium transition-colors">
-              See more details <FaChevronRight className="icon-sm transition-transform group-hover:translate-x-1" />
+            <a href={`/experience#${experience.data.slug}`} class="text-secondary hover:text-secondary-hover group flex items-center gap-1 text-sm font-medium transition-colors">
+              See more details <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
             </a>
           </div>
         )

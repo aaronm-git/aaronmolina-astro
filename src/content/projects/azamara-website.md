@@ -7,6 +7,7 @@ tags:
   - react
   - graphql
   - aws
+featuredImage: ../../images/project-azamara.jpg
 link: https://www.azamara.com
 completedOn: 2024-04-01T00:00:00.000Z
 isActive: true

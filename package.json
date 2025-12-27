@@ -12,7 +12,8 @@
     "cms:watch": "gulp watchConfig",
     "images:webp": "gulp createWebp",
     "images:watch": "gulp watchImages",
-    "images:check": "node scripts/image-size-check.js"
+    "images:check": "node scripts/image-size-check.js",
+    "llms:generate": "node scripts/generate-llms-txt.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.0",

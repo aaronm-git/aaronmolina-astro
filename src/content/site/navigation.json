@@ -1,0 +1,13 @@
+{
+  "brandText": "AaronMolina.me",
+  "brandAlt": "Aaron Molina - Software Web Engineer",
+  "navItems": [
+    { "label": "Home", "href": "/", "icon": "home" },
+    { "label": "Projects", "href": "/projects", "icon": "projects" },
+    { "label": "Experience", "href": "/experience", "icon": "experience" },
+    { "label": "Blog", "href": "/blog", "icon": "blog" },
+    { "label": "Contact", "href": "/contact", "icon": "contact" }
+  ]
+}
+
+

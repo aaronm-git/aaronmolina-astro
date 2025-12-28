@@ -1,35 +1,43 @@
 ---
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa6';
+import footer from '@/content/site/footer.json';
+import settings from '@/content/site/settings.json';
+
+const socialIconForPlatform = (platform?: string) => {
+  switch ((platform || '').toLowerCase()) {
+    case 'github':
+      return FaGithub;
+    case 'linkedin':
+      return FaLinkedin;
+    case 'instagram':
+      return FaInstagram;
+    default:
+      return null;
+  }
+};
 ---
 
 <footer class="bg-muted border-border border-t py-6 pt-12">
   <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 md:flex-row">
     <div class="text-foreground-muted text-sm">
-      &copy; {new Date().getFullYear()} Aaron Molina &mdash; All rights reserved.
+      &copy; {new Date().getFullYear()} {footer.copyrightOwnerName}
+      {footer.copyrightSuffix ? ` — ${footer.copyrightSuffix}` : ''}
     </div>
-    <div class="flex items-center space-x-4">
-      <a href="https://github.com/aaronm-git" target="_blank" rel="noopener noreferrer" class="text-foreground-muted hover:text-secondary" aria-label="GitHub @aaronm-git">
-        <FaGithub className="icon-sm" />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/aaronmolinag"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-foreground-muted hover:text-secondary"
-        aria-label="LinkedIn @aaronmolinag"
-      >
-        <FaLinkedin className="icon-sm" />
-      </a>
-      <a
-        href="https://www.instagram.com/chillsloth09"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-foreground-muted hover:text-secondary"
-        aria-label="Instagram @chillsloth09"
-      >
-        <FaInstagram className="icon-sm" />
-      </a>
-    </div>
+    {
+      footer.showSocialLinks && settings.author.socialLinks?.length ? (
+        <div class="flex items-center space-x-4">
+          {settings.author.socialLinks.map((link) => {
+            const Icon = socialIconForPlatform(link.platform);
+            if (!Icon) return null;
+            return (
+              <a href={link.url} target="_blank" rel="noopener noreferrer" class="text-foreground-muted hover:text-secondary" aria-label={link.ariaLabel || link.label}>
+                <Icon className="icon-sm" />
+              </a>
+            );
+          })}
+        </div>
+      ) : null
+    }
   </div>
 </footer>
 

@@ -4,6 +4,8 @@ import ExperienceCard from '@/components/ExperienceCard.astro';
 import { getCollection } from 'astro:content';
 import CTA from '@/components/CTA.astro';
 import { FaBriefcase, FaBrain, FaAward, FaCheck, FaChartLine, FaCode, FaMobile, FaBolt, FaUsers, FaEye, FaCloud } from 'react-icons/fa6';
+import homepageContent from '@/content/site/homepage.json';
+import pages from '@/content/site/pages.json';
 
 const experience = await getCollection('experience');
 const sortedExperience = experience.sort((a, b) => {
@@ -12,19 +14,20 @@ const sortedExperience = experience.sort((a, b) => {
   return b.data.date.getTime() - a.data.date.getTime();
 });
 
-const yearsOfExperience = new Date().getFullYear() - 2012;
+const yearsOfExperience = new Date().getFullYear() - homepageContent.yearsOfExperienceStartYear;
+const experienceSubheading = pages.experience.subheadingTemplate.replaceAll('{yearsOfExperience}', String(yearsOfExperience));
+const competencyIcons = [FaCode, FaMobile, FaBolt, FaUsers, FaEye, FaCloud];
 ---
 
-<MainLayout>
+<MainLayout title={pages.experience.metaTitle} description={pages.experience.metaDescription}>
   <!-- Header Section -->
   <section class="animate-section mb-12 text-center">
-    <h1 class="text-foreground mb-4 text-5xl font-bold">Professional Experience</h1>
+    <h1 class="text-foreground mb-4 text-5xl font-bold">{pages.experience.heading}</h1>
     <p class="text-foreground-muted mb-6 text-xl">
-      {yearsOfExperience}+ years of building exceptional web experiences
+      {experienceSubheading}
     </p>
     <p class="text-foreground-muted mx-auto max-w-3xl text-lg leading-relaxed">
-      My journey as a developer has taken me through various technologies, teams, and challenges. Here's a comprehensive overview of my professional experience, skills, and
-      achievements.
+      {pages.experience.intro}
     </p>
   </section>
 
@@ -32,7 +35,7 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
   <section class="animate-section mb-16">
     <h2 class="text-foreground mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
       <FaBriefcase className="text-secondary icon-base" />
-      Work Experience
+      {pages.experience.workExperienceTitle}
     </h2>
 
     <div class="animate-content space-y-8">
@@ -44,14 +47,14 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
   <section class="animate-section mb-16">
     <h2 class="text-foreground mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
       <FaAward className="text-secondary icon-base" />
-      Career Highlights
+      {pages.experience.careerHighlightsTitle}
     </h2>
 
     <div class="grid gap-8 md:grid-cols-2">
       <div class="animate-content bg-surface border-border rounded-lg border p-6 shadow-md">
         <h3 class="text-foreground mb-4 flex items-center gap-2 text-lg font-semibold">
           <FaChartLine className="text-secondary" />
-          Key Achievements
+          {pages.experience.keyAchievementsTitle}
         </h3>
         <ul class="space-y-3">
           {
@@ -71,33 +74,18 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
       <div class="animate-content bg-surface border-border rounded-lg border p-6 shadow-md">
         <h3 class="text-foreground mb-4 flex items-center gap-2 text-lg font-semibold">
           <FaBrain className="text-secondary" />
-          Core Competencies
+          {pages.experience.coreCompetenciesTitle}
         </h3>
         <ul class="space-y-3">
-          <li class="text-foreground-muted flex items-start gap-2 text-sm">
-            <FaCode className="text-secondary mt-0.5" />
-            Full-stack web development with modern frameworks
-          </li>
-          <li class="text-foreground-muted flex items-start gap-2 text-sm">
-            <FaMobile className="text-secondary mt-0.5" />
-            Responsive design and mobile-first development
-          </li>
-          <li class="text-foreground-muted flex items-start gap-2 text-sm">
-            <FaBolt className="text-secondary mt-0.5" />
-            Performance optimization and Core Web Vitals
-          </li>
-          <li class="text-foreground-muted flex items-start gap-2 text-sm">
-            <FaUsers className="text-secondary mt-0.5" />
-            Cross-functional team collaboration and leadership
-          </li>
-          <li class="text-foreground-muted flex items-start gap-2 text-sm">
-            <FaEye className="text-secondary mt-0.5" />
-            Accessibility standards and inclusive design
-          </li>
-          <li class="text-foreground-muted flex items-start gap-2 text-sm">
-            <FaCloud className="text-secondary mt-0.5" />
-            Cloud platforms and DevOps practices
-          </li>
+          {pages.experience.coreCompetencies.map((item, idx) => {
+            const Icon = competencyIcons[idx] ?? FaCode;
+            return (
+              <li class="text-foreground-muted flex items-start gap-2 text-sm">
+                <Icon className="text-secondary mt-0.5" />
+                <span>{item.title}</span>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>

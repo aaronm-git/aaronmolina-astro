@@ -31,7 +31,7 @@ function stripMarkdownToText(markdown) {
   return String(markdown)
     .replace(/```[\s\S]*?```/g, '')
     .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
-    .replace(/\[[^\]]+\]\([^)]+\)/g, (m) => {
+    .replace(/\[[^\]]+\]\([^)]+\)/g, m => {
       const text = m.match(/^\[([^\]]+)\]/)?.[1];
       return text ?? '';
     })
@@ -58,7 +58,7 @@ function asArray(value) {
 }
 
 function parseSiteConfig(tsSource) {
-  const pick = (re) => tsSource.match(re)?.[1]?.trim();
+  const pick = re => tsSource.match(re)?.[1]?.trim();
 
   const title = pick(/title:\s*'([^']+)'/);
   const description = pick(/description:\s*'([^']+)'/);
@@ -89,9 +89,9 @@ function parseSiteConfig(tsSource) {
 async function readDirFiles(dir, filterFn) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
   const files = entries
-    .filter((e) => e.isFile())
-    .map((e) => e.name)
-    .filter((name) => (filterFn ? filterFn(name) : true))
+    .filter(e => e.isFile())
+    .map(e => e.name)
+    .filter(name => (filterFn ? filterFn(name) : true))
     .sort((a, b) => a.localeCompare(b));
   return files;
 }
@@ -111,7 +111,7 @@ async function main() {
   const baseUrl = site.url || '';
 
   // Blog
-  const blogFiles = await readDirFiles(PATHS.blogDir, (n) => n.endsWith('.md'));
+  const blogFiles = await readDirFiles(PATHS.blogDir, n => n.endsWith('.md'));
   const blogPosts = [];
 
   for (const filename of blogFiles) {
@@ -127,8 +127,7 @@ async function main() {
     if (!slug) continue;
 
     const title = String(data.title || slug).trim();
-    const description =
-      String(data.description || '').trim() || stripMarkdownToText(body).slice(0, 180);
+    const description = String(data.description || '').trim() || stripMarkdownToText(body).slice(0, 180);
     const tags = asArray(data.tags);
 
     blogPosts.push({
@@ -144,7 +143,7 @@ async function main() {
   blogPosts.sort((a, b) => b.publishDate.getTime() - a.publishDate.getTime());
 
   // Projects
-  const projectFiles = await readDirFiles(PATHS.projectsDir, (n) => n.endsWith('.md'));
+  const projectFiles = await readDirFiles(PATHS.projectsDir, n => n.endsWith('.md'));
   const projects = [];
 
   for (const filename of projectFiles) {
@@ -159,8 +158,7 @@ async function main() {
     if (!slug) continue;
 
     const title = String(data.title || slug).trim();
-    const description =
-      String(data.description || '').trim() || stripMarkdownToText(body).slice(0, 180);
+    const description = String(data.description || '').trim() || stripMarkdownToText(body).slice(0, 180);
     const tags = asArray(data.tags);
     const completedOn = safeDate(data.completedOn);
     const link = typeof data.link === 'string' && data.link.trim() ? data.link.trim() : null;
@@ -183,7 +181,7 @@ async function main() {
   });
 
   // Experience
-  const experienceFiles = await readDirFiles(PATHS.experienceDir, (n) => n.endsWith('.json'));
+  const experienceFiles = await readDirFiles(PATHS.experienceDir, n => n.endsWith('.json'));
   const experience = [];
 
   for (const filename of experienceFiles) {
@@ -299,7 +297,7 @@ async function main() {
 
   if (topTopics.length) {
     lines.push('## Topics');
-    lines.push(topTopics.map((t) => `- ${t}`).join('\n'));
+    lines.push(topTopics.map(t => `- ${t}`).join('\n'));
     lines.push('');
   }
 
@@ -318,8 +316,7 @@ async function main() {
   console.log(`Wrote ${PATHS.outFile}`);
 }
 
-main().catch((err) => {
+main().catch(err => {
   console.error(err);
   process.exitCode = 1;
 });
-

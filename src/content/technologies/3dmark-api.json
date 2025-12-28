@@ -1,8 +1,8 @@
 {
-  "title": "3DMark API",
   "slug": "3dmark-api",
   "category": "other",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "3DMark API"
 }

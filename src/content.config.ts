@@ -2,7 +2,10 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
-  loader: glob({ pattern: './src/content/blog/**/*.md' }),
+  loader: glob({ 
+    pattern: '**/*.md',
+    base: './src/content/blog'
+  }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -16,9 +19,12 @@ const blog = defineCollection({
 });
 
 const technologies = defineCollection({
-  loader: glob({ pattern: './src/content/technologies/**/*.json' }),
+  loader: glob({ 
+    pattern: '**/*.json',
+    base: './src/content/technologies'
+  }),
   schema: z.object({
-    title: z.string(),
+    name: z.string(),
     slug: z.string(),
     category: z
       .enum(['language', 'framework', 'library', 'tool', 'platform', 'service', 'cms', 'concept', 'other'])
@@ -32,7 +38,10 @@ const technologies = defineCollection({
 });
 
 const organizations = defineCollection({
-  loader: glob({ pattern: './src/content/organizations/**/*.json' }),
+  loader: glob({ 
+    pattern: '**/*.json',
+    base: './src/content/organizations'
+  }),
   schema: ({ image }) =>
     z.object({
       name: z.string(),
@@ -48,7 +57,10 @@ const organizations = defineCollection({
 });
 
 const roles = defineCollection({
-  loader: glob({ pattern: './src/content/roles/**/*.json' }),
+  loader: glob({ 
+    pattern: '**/*.json',
+    base: './src/content/roles'
+  }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -80,7 +92,10 @@ const roles = defineCollection({
 });
 
 const profile = defineCollection({
-  loader: glob({ pattern: './src/content/profile/**/*.json' }),
+  loader: glob({ 
+    pattern: '**/*.json',
+    base: './src/content/profile'
+  }),
   schema: ({ image }) =>
     z.object({
       fullName: z.string(),
@@ -97,7 +112,10 @@ const profile = defineCollection({
 });
 
 const projects = defineCollection({
-  loader: glob({ pattern: './src/content/projects/**/*.md' }),
+  loader: glob({ 
+    pattern: '**/*.md',
+    base: './src/content/projects'
+  }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -130,7 +148,10 @@ const projects = defineCollection({
 });
 
 const education = defineCollection({
-  loader: glob({ pattern: './src/content/education/**/*.json' }),
+  loader: glob({ 
+    pattern: '**/*.json',
+    base: './src/content/education'
+  }),
   schema: z.object({
     school: z.string(),
     slug: z.string(),
@@ -146,7 +167,10 @@ const education = defineCollection({
 });
 
 const certifications = defineCollection({
-  loader: glob({ pattern: './src/content/certifications/**/*.json' }),
+  loader: glob({ 
+    pattern: '**/*.json',
+    base: './src/content/certifications'
+  }),
   schema: z.object({
     name: z.string(),
     slug: z.string(),
@@ -161,7 +185,10 @@ const certifications = defineCollection({
 });
 
 const awards = defineCollection({
-  loader: glob({ pattern: './src/content/awards/**/*.json' }),
+  loader: glob({ 
+    pattern: '**/*.json',
+    base: './src/content/awards'
+  }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -175,7 +202,10 @@ const awards = defineCollection({
 });
 
 const testimonials = defineCollection({
-  loader: glob({ pattern: './src/content/testimonials/**/*.json' }),
+  loader: glob({ 
+    pattern: '**/*.json',
+    base: './src/content/testimonials'
+  }),
   schema: z.object({
     name: z.string(),
     slug: z.string(),
@@ -190,7 +220,10 @@ const testimonials = defineCollection({
 });
 
 const services = defineCollection({
-  loader: glob({ pattern: './src/content/services/**/*.json' }),
+  loader: glob({ 
+    pattern: '**/*.json',
+    base: './src/content/services'
+  }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),

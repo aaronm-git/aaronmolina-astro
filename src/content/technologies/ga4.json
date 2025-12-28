@@ -1,8 +1,8 @@
 {
-  "title": "GA4",
   "slug": "ga4",
   "category": "tool",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "GA4"
 }

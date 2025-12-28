@@ -1,8 +1,8 @@
 {
-  "title": "Sanity.io",
   "slug": "sanity",
   "category": "cms",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "Sanity.io"
 }

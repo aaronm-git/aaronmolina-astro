@@ -7,14 +7,21 @@ import pages from '@/content/site/pages.json';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
+  const technologies = await getCollection('technologies');
+  const techMap = new Map(technologies.map(t => [t.data.slug, t.data.name]));
+  
   return projects.map(p => ({
     params: { project: p.data.slug },
-    props: { project: p },
+    props: { project: p, techMap: Object.fromEntries(techMap) },
   }));
 }
 
-const { project } = Astro.props;
+const { project, techMap } = Astro.props;
 const { Content } = await render(project);
+
+function getTechName(slug) {
+  return techMap[slug] || slug;
+}
 ---
 
 <MainLayout title={project.data.title} description={project.data.summary}>
@@ -63,7 +70,7 @@ const { Content } = await render(project);
         <div class="mb-8 flex flex-wrap gap-2">
           {project.data.technologies.slice(0, 8).map((tagSlug) => (
             <span class="bg-muted text-foreground border-border hover:bg-muted/80 inline-flex items-center rounded-md border px-3 py-1 text-sm font-medium transition-colors">
-              {tagSlug}
+              {getTechName(tagSlug)}
             </span>
           ))}
         </div>
@@ -179,7 +186,7 @@ const { Content } = await render(project);
             <dt class="text-foreground-muted mb-3 text-xs font-semibold tracking-wide uppercase">Technologies</dt>
             <dd class="flex flex-wrap gap-2">
               {project.data.technologies.map((tagSlug) => (
-                <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{tagSlug}</span>
+                <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{getTechName(tagSlug)}</span>
               ))}
             </dd>
           </div>

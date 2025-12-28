@@ -1,8 +1,8 @@
 {
-  "title": "Express.js",
   "slug": "express",
   "category": "library",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "Express.js"
 }

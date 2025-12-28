@@ -532,14 +532,16 @@ collections:
     editor:
       preview: false
     fields:
-      - label: Title
-        name: title
+      - label: Name (Display Name)
+        name: name
         widget: string
         required: true
-      - label: Slug
+        hint: 'Human-readable display name (e.g., "Vue 2", "React.js")'
+      - label: Slug (Machine Name)
         name: slug
         widget: string
         required: true
+        hint: 'Machine-readable identifier (e.g., "vue-js-2", "react")'
       - label: Category
         name: category
         widget: select
@@ -717,9 +719,9 @@ collections:
         name: technologies
         widget: relation
         collection: technologies
-        search_fields: [title, slug]
+        search_fields: [name, slug]
         value_field: slug
-        display_fields: [title]
+        display_fields: [name]
         multiple: true
         required: false
       - label: Projects
@@ -786,11 +788,11 @@ collections:
         widget: relation
         collection: technologies
         search_fields:
-          - title
+          - name
           - slug
         value_field: slug
         display_fields:
-          - title
+          - name
         multiple: true
       - label: Body
         name: body
@@ -823,9 +825,9 @@ collections:
         name: technologies
         widget: relation
         collection: technologies
-        search_fields: [title, slug]
+        search_fields: [name, slug]
         value_field: slug
-        display_fields: [title]
+        display_fields: [name]
         multiple: true
         required: false
       - label: Featured Image
@@ -927,9 +929,9 @@ collections:
         name: technologies
         widget: relation
         collection: technologies
-        search_fields: [title, slug]
+        search_fields: [name, slug]
         value_field: slug
-        display_fields: [title]
+        display_fields: [name]
         multiple: true
         required: false
       - { label: Sort Order, name: sortOrder, widget: number, value_type: int, required: false, default: 0 }
@@ -1000,9 +1002,9 @@ collections:
         name: technologies
         widget: relation
         collection: technologies
-        search_fields: [title, slug]
+        search_fields: [name, slug]
         value_field: slug
-        display_fields: [title]
+        display_fields: [name]
         multiple: true
         required: false
       - { label: Featured, name: featured, widget: boolean, default: false, required: false }

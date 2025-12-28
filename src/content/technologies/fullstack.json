@@ -1,8 +1,8 @@
 {
-  "title": "Fullstack",
   "slug": "fullstack",
   "category": "concept",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "Fullstack"
 }

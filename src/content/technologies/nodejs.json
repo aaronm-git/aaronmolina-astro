@@ -1,8 +1,8 @@
 {
-  "title": "Node.js",
   "slug": "nodejs",
   "category": "platform",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "Node.js"
 }

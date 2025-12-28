@@ -1,8 +1,8 @@
 {
-  "title": "React Bricks",
   "slug": "react-bricks",
   "category": "other",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "React Bricks"
 }

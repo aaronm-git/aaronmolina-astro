@@ -2,6 +2,7 @@
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import { FaBriefcase, FaArrowRight, FaCheck, FaAward } from 'react-icons/fa6';
+import { getCollection } from 'astro:content';
 
 interface Props {
   role: {
@@ -34,7 +35,14 @@ interface Props {
 
 const { role, organization, showAllDetails = false } = Astro.props;
 
-function calculateDuration(startDate: Date, endDate?: Date): string {
+const technologies = await getCollection('technologies');
+const techMap = new Map(technologies.map(t => [t.data.slug, t.data.name]));
+
+function getTechName(slug) {
+  return techMap.get(slug) || slug;
+}
+
+function calculateDuration(startDate, endDate) {
   const end = endDate ? endDate : new Date();
   const start = startDate;
 
@@ -132,7 +140,7 @@ const logoAlt = `${orgName.trim()} logo`;
       <h5 class="text-foreground mb-3 font-medium">Technologies</h5>
       <div class="flex flex-wrap gap-2">
         {role.data.technologies.slice(0, showAllDetails ? undefined : 10).map((slug) => (
-          <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{slug}</span>
+          <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{getTechName(slug)}</span>
         ))}
       </div>
 

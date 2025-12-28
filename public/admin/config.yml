@@ -1,6 +1,8 @@
+local_backend: true
 backend:
   name: git-gateway
   branch: master
+
 site_url: https://www.aaronmolina.me
 display_url: https://www.aaronmolina.me
 media_folder: public/images
@@ -9,6 +11,423 @@ collections:
   - name: site
     label: Site
     files:
+      - name: settings
+        label: Settings
+        file: src/content/site/settings.json
+        format: json
+        editor:
+          preview: false
+        fields:
+          - label: Site Title
+            name: siteTitle
+            widget: string
+            required: true
+          - label: Site Description
+            name: siteDescription
+            widget: text
+            required: true
+          - label: Site URL
+            name: siteUrl
+            widget: string
+            required: true
+          - label: Keywords
+            name: keywords
+            widget: list
+            field:
+              label: Keyword
+              name: keyword
+              widget: string
+            required: false
+          - label: Author
+            name: author
+            widget: object
+            fields:
+              - label: Name
+                name: name
+                widget: string
+                required: true
+              - label: Email
+                name: email
+                widget: string
+                required: false
+              - label: URL
+                name: url
+                widget: string
+                required: false
+              - label: Bio
+                name: bio
+                widget: text
+                required: false
+              - label: Location
+                name: location
+                widget: string
+                required: false
+              - label: Social Links
+                name: socialLinks
+                widget: list
+                required: false
+                fields:
+                  - label: Platform
+                    name: platform
+                    widget: string
+                    required: true
+                  - label: Label
+                    name: label
+                    widget: string
+                    required: true
+                  - label: URL
+                    name: url
+                    widget: string
+                    required: true
+                  - label: Aria Label
+                    name: ariaLabel
+                    widget: string
+                    required: false
+          - label: Contact
+            name: contact
+            widget: object
+            fields:
+              - label: Email
+                name: email
+                widget: string
+                required: false
+              - label: Phone
+                name: phone
+                widget: string
+                required: false
+              - label: Address
+                name: address
+                widget: string
+                required: false
+          - label: Analytics
+            name: analytics
+            widget: object
+            required: false
+            fields:
+              - label: Umami Script URL
+                name: umamiScriptSrc
+                widget: string
+                required: false
+              - label: Umami Website ID
+                name: umamiWebsiteId
+                widget: string
+                required: false
+      - name: navigation
+        label: Navigation
+        file: src/content/site/navigation.json
+        format: json
+        editor:
+          preview: false
+        fields:
+          - label: Brand Text
+            name: brandText
+            widget: string
+            required: true
+          - label: Brand Alt Text
+            name: brandAlt
+            widget: string
+            required: true
+          - label: Navigation Items
+            name: navItems
+            widget: list
+            required: true
+            fields:
+              - label: Label
+                name: label
+                widget: string
+                required: true
+              - label: Href
+                name: href
+                widget: string
+                required: true
+              - label: Icon Key
+                name: icon
+                widget: select
+                required: false
+                options:
+                  - home
+                  - projects
+                  - experience
+                  - blog
+                  - contact
+      - name: footer
+        label: Footer
+        file: src/content/site/footer.json
+        format: json
+        editor:
+          preview: false
+        fields:
+          - label: Copyright Owner Name
+            name: copyrightOwnerName
+            widget: string
+            required: true
+          - label: Copyright Suffix
+            name: copyrightSuffix
+            widget: string
+            required: false
+            hint: 'Example: "All rights reserved."'
+          - label: Show Social Links
+            name: showSocialLinks
+            widget: boolean
+            default: true
+            required: false
+      - name: cta
+        label: Call To Action
+        file: src/content/site/cta.json
+        format: json
+        editor:
+          preview: false
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: true
+          - label: Description
+            name: description
+            widget: text
+            required: true
+          - label: Button Label
+            name: buttonLabel
+            widget: string
+            required: true
+          - label: Button Href
+            name: buttonHref
+            widget: string
+            required: true
+      - name: pages
+        label: Pages
+        file: src/content/site/pages.json
+        format: json
+        editor:
+          preview: false
+        fields:
+          - label: Home Page
+            name: home
+            widget: object
+            fields:
+              - label: Buttons
+                name: buttons
+                widget: object
+                fields:
+                  - label: View Work Label
+                    name: viewWorkLabel
+                    widget: string
+                    required: true
+                  - label: Read Blog Label
+                    name: readBlogLabel
+                    widget: string
+                    required: true
+              - label: Sections
+                name: sections
+                widget: object
+                fields:
+                  - label: Featured Projects Title
+                    name: featuredProjectsTitle
+                    widget: string
+                    required: true
+                  - label: Featured Projects View All Label
+                    name: featuredProjectsViewAllLabel
+                    widget: string
+                    required: true
+                  - label: Experience Title
+                    name: experienceTitle
+                    widget: string
+                    required: true
+                  - label: Experience View All Label
+                    name: experienceViewAllLabel
+                    widget: string
+                    required: true
+                  - label: Latest Articles Title
+                    name: latestArticlesTitle
+                    widget: string
+                    required: true
+                  - label: Latest Articles View All Label
+                    name: latestArticlesViewAllLabel
+                    widget: string
+                    required: true
+          - label: Projects Index Page
+            name: projectsIndex
+            widget: object
+            fields:
+              - label: Meta Title
+                name: metaTitle
+                widget: string
+                required: true
+              - label: Meta Description
+                name: metaDescription
+                widget: text
+                required: true
+              - label: Heading
+                name: heading
+                widget: string
+                required: true
+              - label: Intro
+                name: intro
+                widget: text
+                required: true
+              - label: Empty State
+                name: emptyState
+                widget: string
+                required: true
+          - label: Blog Index Page
+            name: blogIndex
+            widget: object
+            fields:
+              - label: Meta Title
+                name: metaTitle
+                widget: string
+                required: true
+              - label: Meta Description
+                name: metaDescription
+                widget: text
+                required: true
+              - label: Heading
+                name: heading
+                widget: string
+                required: true
+              - label: Intro
+                name: intro
+                widget: text
+                required: true
+              - label: Empty State
+                name: emptyState
+                widget: string
+                required: true
+          - label: Experience Page
+            name: experience
+            widget: object
+            fields:
+              - label: Meta Title
+                name: metaTitle
+                widget: string
+                required: true
+              - label: Meta Description
+                name: metaDescription
+                widget: text
+                required: true
+              - label: Heading
+                name: heading
+                widget: string
+                required: true
+              - label: Subheading Template
+                name: subheadingTemplate
+                widget: string
+                required: true
+                hint: 'Use {yearsOfExperience} for dynamic injection.'
+              - label: Intro
+                name: intro
+                widget: text
+                required: true
+              - label: Work Experience Section Title
+                name: workExperienceTitle
+                widget: string
+                required: true
+              - label: Career Highlights Section Title
+                name: careerHighlightsTitle
+                widget: string
+                required: true
+              - label: Key Achievements Title
+                name: keyAchievementsTitle
+                widget: string
+                required: true
+              - label: Core Competencies Title
+                name: coreCompetenciesTitle
+                widget: string
+                required: true
+              - label: Core Competencies Items
+                name: coreCompetencies
+                widget: list
+                required: true
+                fields:
+                  - label: Title
+                    name: title
+                    widget: string
+                    required: true
+                  - label: Description
+                    name: description
+                    widget: string
+                    required: true
+          - label: Contact Page
+            name: contact
+            widget: object
+            fields:
+              - label: Meta Title
+                name: metaTitle
+                widget: string
+                required: true
+              - label: Meta Description
+                name: metaDescription
+                widget: text
+                required: true
+              - label: Heading
+                name: heading
+                widget: string
+                required: true
+              - label: Intro
+                name: intro
+                widget: text
+                required: true
+              - label: Form Title
+                name: formTitle
+                widget: string
+                required: true
+              - label: Why Work With Me Title
+                name: whyWorkWithMeTitle
+                widget: string
+                required: true
+              - label: Why Work With Me Items
+                name: whyWorkWithMeItems
+                widget: list
+                required: true
+                fields:
+                  - label: Title
+                    name: title
+                    widget: string
+                    required: true
+                  - label: Description
+                    name: description
+                    widget: string
+                    required: true
+              - label: Response Time Title
+                name: responseTimeTitle
+                widget: string
+                required: true
+              - label: Response Time Items
+                name: responseTimeItems
+                widget: list
+                required: true
+                field:
+                  label: Item
+                  name: item
+                  widget: string
+              - label: Ready To Start Title
+                name: readyToStartTitle
+                widget: string
+                required: true
+              - label: Ready To Start Description
+                name: readyToStartDescription
+                widget: text
+                required: true
+              - label: Ready Links
+                name: readyLinks
+                widget: object
+                fields:
+                  - label: View Projects Label
+                    name: viewProjectsLabel
+                    widget: string
+                    required: true
+                  - label: View Experience Label
+                    name: viewExperienceLabel
+                    widget: string
+                    required: true
+              - label: Social Section Title
+                name: socialSectionTitle
+                widget: string
+                required: true
+              - label: Social Section Description
+                name: socialSectionDescription
+                widget: text
+                required: true
       - name: homepage
         label: Homepage
         file: src/content/site/homepage.json
@@ -56,10 +475,14 @@ collections:
         name: slug
         widget: string
         required: true
-      - label: Date
-        name: date
+      - label: Publish Date
+        name: publishDate
         widget: datetime
         required: true
+      - label: Updated Date
+        name: updatedDate
+        widget: datetime
+        required: false
       - label: Description
         name: description
         widget: string
@@ -156,6 +579,10 @@ collections:
         name: link
         widget: string
         required: false
+      - label: GitHub Link
+        name: githubLink
+        widget: string
+        required: false
       - label: Body
         name: body
         widget: markdown
@@ -213,6 +640,14 @@ collections:
         name: role
         widget: string
         required: true
+      - label: Company
+        name: company
+        widget: string
+        required: false
+      - label: Description
+        name: description
+        widget: text
+        required: false
       - label: Responsibilities
         name: responsibilities
         widget: list
@@ -225,6 +660,20 @@ collections:
         name: tools
         widget: list
         required: true
+      - label: Logo
+        name: logo
+        widget: image
+        required: false
+        allow_multiple: false
+      - label: Website URL
+        name: url
+        widget: string
+        required: false
+      - label: Current Role
+        name: current
+        widget: boolean
+        default: false
+        required: false
       - label: Projects
         name: projects
         widget: relation

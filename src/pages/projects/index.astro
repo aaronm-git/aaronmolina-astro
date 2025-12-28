@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/main-layout.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 import CTA from '@/components/CTA.astro';
+import pages from '@/content/site/pages.json';
 
 const projects = await getCollection('projects');
 // Sort projects by completion date (newest first), then by pinned status
@@ -20,10 +21,10 @@ const sortedProjects = projects
   });
 ---
 
-<MainLayout title="Projects - Aaron Molina" description="A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.">
+<MainLayout title={pages.projectsIndex.metaTitle} description={pages.projectsIndex.metaDescription}>
   <section class="animate-section mb-12">
-    <h1 class="text-foreground mb-4 text-4xl font-bold">Projects</h1>
-    <p class="text-foreground-muted text-xl">A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.</p>
+    <h1 class="text-foreground mb-4 text-4xl font-bold">{pages.projectsIndex.heading}</h1>
+    <p class="text-foreground-muted text-xl">{pages.projectsIndex.intro}</p>
   </section>
 
   <div class="animate-section grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -33,7 +34,7 @@ const sortedProjects = projects
   {
     projects.length === 0 && (
       <div class="py-12 text-center">
-        <p class="text-foreground-muted">No projects yet. Check back soon!</p>
+        <p class="text-foreground-muted">{pages.projectsIndex.emptyState}</p>
       </div>
     )
   }

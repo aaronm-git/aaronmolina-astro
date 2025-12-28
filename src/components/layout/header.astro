@@ -2,8 +2,40 @@
 import { Image } from 'astro:assets';
 import { FaHouse, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars, FaPencil } from 'react-icons/fa6';
 import ProfilePicture from '@/images/profile.jpg';
+import navigation from '@/content/site/navigation.json';
+import settings from '@/content/site/settings.json';
 
 const isDev = import.meta.env.DEV;
+
+const iconForNavItem = (iconKey?: string) => {
+  switch (iconKey) {
+    case 'home':
+      return FaHouse;
+    case 'projects':
+      return FaBriefcase;
+    case 'experience':
+      return FaUser;
+    case 'blog':
+      return FaBookOpen;
+    case 'contact':
+      return FaEnvelope;
+    default:
+      return null;
+  }
+};
+
+const socialIconForPlatform = (platform?: string) => {
+  switch ((platform || '').toLowerCase()) {
+    case 'github':
+      return FaGithub;
+    case 'linkedin':
+      return FaLinkedin;
+    case 'instagram':
+      return FaInstagram;
+    default:
+      return null;
+  }
+};
 ---
 
 <header class="bg-surface border-border fixed top-0 right-0 left-0 z-50 border-b shadow-xl">
@@ -14,36 +46,26 @@ const isDev = import.meta.env.DEV;
         <a href="/" class="text-foreground hover:text-secondary flex items-center gap-3 text-xl font-bold transition-colors">
           <Image
             src={ProfilePicture}
-            alt="Aaron Molina - Software Web Engineer"
+            alt={navigation.brandAlt}
             class="border-border h-8 w-8 rounded-full border-2 object-cover object-[20%_40%]"
             width={40}
             height={40}
           />
-          AaronMolina.me
+          {navigation.brandText}
         </a>
       </div>
 
       <div class="flex items-center gap-4">
         <!-- Navigation -->
         <nav class="hidden md:flex">
-          <a href="/" class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
-            <FaHouse className="icon-sm" /> Home
-          </a>
-          <a href="/projects" class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
-            <FaBriefcase className="icon-sm" /> Projects
-          </a>
-          <a
-            href="/experience"
-            class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors"
-          >
-            <FaUser className="icon-sm" /> Experience
-          </a>
-          <a href="/blog" class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
-            <FaBookOpen className="icon-sm" /> Blog
-          </a>
-          <a href="/contact" class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
-            <FaEnvelope className="icon-sm" /> Contact
-          </a>
+          {navigation.navItems.map((item) => {
+            const Icon = iconForNavItem(item.icon);
+            return (
+              <a href={item.href} class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
+                {Icon ? <Icon className="icon-sm" /> : null} {item.label}
+              </a>
+            );
+          })}
           {
             isDev && (
               <a
@@ -59,33 +81,21 @@ const isDev = import.meta.env.DEV;
 
         <!-- Social Links (minimal, right side) -->
         <div class="hidden items-center md:flex">
-          <a
-            href="https://github.com/aaronm-git"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
-            aria-label="GitHub @aaronm-git"
-          >
-            <FaGithub className="icon-sm" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/aaronmolinag"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
-            aria-label="LinkedIn @aaronmolinag"
-          >
-            <FaLinkedin className="icon-sm" />
-          </a>
-          <a
-            href="https://www.instagram.com/chillsloth09"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
-            aria-label="Instagram @chillsloth09"
-          >
-            <FaInstagram className="icon-sm" />
-          </a>
+          {settings.author.socialLinks?.map((link) => {
+            const Icon = socialIconForPlatform(link.platform);
+            if (!Icon) return null;
+            return (
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
+                aria-label={link.ariaLabel || link.label}
+              >
+                <Icon className="icon-sm" />
+              </a>
+            );
+          })}
 
           <!-- Theme toggle -->
           <button
@@ -113,11 +123,11 @@ const isDev = import.meta.env.DEV;
     <!-- Mobile menu -->
     <div class="hidden md:hidden" id="mobile-menu">
       <div class="border-border space-y-1 border-t px-2 pt-2 pb-3">
-        <a href="/" class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"> Home </a>
-        <a href="/projects" class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"> Projects </a>
-        <a href="/experience" class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"> Experience </a>
-        <a href="/blog" class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"> Blog </a>
-        <a href="/contact" class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"> Contact </a>
+        {navigation.navItems.map((item) => (
+          <a href={item.href} class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors">
+            {item.label}
+          </a>
+        ))}
         {
           isDev && (
             <a

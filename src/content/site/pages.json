@@ -1,0 +1,109 @@
+{
+  "home": {
+    "buttons": {
+      "viewWorkLabel": "View My Work",
+      "readBlogLabel": "Read My Blog"
+    },
+    "sections": {
+      "featuredProjectsTitle": "Featured Projects",
+      "featuredProjectsViewAllLabel": "View all projects",
+      "experienceTitle": "Professional Experience",
+      "experienceViewAllLabel": "View all experience",
+      "latestArticlesTitle": "Latest Articles",
+      "latestArticlesViewAllLabel": "View all posts"
+    }
+  },
+  "projectsIndex": {
+    "metaTitle": "Projects - Aaron Molina",
+    "metaDescription": "A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.",
+    "heading": "Projects",
+    "intro": "A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.",
+    "emptyState": "No projects yet. Check back soon!"
+  },
+  "blogIndex": {
+    "metaTitle": "Blog - Aaron Molina",
+    "metaDescription": "Thoughts on modern web development, performance optimization, and senior-level technical decisions.",
+    "heading": "Blog",
+    "intro": "Thoughts on modern web development, performance optimization, and senior-level technical decisions.",
+    "emptyState": "No blog posts yet. Check back soon!"
+  },
+  "experience": {
+    "metaTitle": "Experience - Aaron Molina",
+    "metaDescription": "A comprehensive overview of my professional experience, skills, and achievements across modern web development.",
+    "heading": "Professional Experience",
+    "subheadingTemplate": "{yearsOfExperience}+ years of building exceptional web experiences",
+    "intro": "My journey as a developer has taken me through various technologies, teams, and challenges. Here's a comprehensive overview of my professional experience, skills, and achievements.",
+    "workExperienceTitle": "Work Experience",
+    "careerHighlightsTitle": "Career Highlights",
+    "keyAchievementsTitle": "Key Achievements",
+    "coreCompetenciesTitle": "Core Competencies",
+    "coreCompetencies": [
+      {
+        "title": "Full-stack web development with modern frameworks",
+        "description": "Design and build scalable web applications with modern architectures."
+      },
+      {
+        "title": "Responsive design and mobile-first development",
+        "description": "Create adaptive interfaces optimized for every device."
+      },
+      {
+        "title": "Performance optimization and Core Web Vitals",
+        "description": "Improve load times and UX through measurable performance work."
+      },
+      {
+        "title": "Cross-functional team collaboration and leadership",
+        "description": "Partner with design, product, and engineering to ship quality work."
+      },
+      {
+        "title": "Accessibility standards and inclusive design",
+        "description": "Build experiences that meet accessibility standards and serve all users."
+      },
+      {
+        "title": "Cloud platforms and DevOps practices",
+        "description": "Deploy and maintain reliable systems with modern cloud tooling."
+      }
+    ]
+  },
+  "contact": {
+    "metaTitle": "Contact - Aaron Molina",
+    "metaDescription": "Get in touch to discuss a project, collaboration, or consulting opportunity.",
+    "heading": "Get In Touch",
+    "intro": "Ready to start your next project? I'd love to hear about your ideas and discuss how we can work together to bring them to life.",
+    "formTitle": "Send a Message",
+    "whyWorkWithMeTitle": "Why Work With Me?",
+    "whyWorkWithMeItems": [
+      {
+        "title": "Experience",
+        "description": "I've been in the industry for over 10 years and have worked with some of the biggest brands in the world"
+      },
+      {
+        "title": "Fast & Efficient",
+        "description": "Quick turnaround times without compromising quality"
+      },
+      {
+        "title": "Collaborative Approach",
+        "description": "Regular communication and feedback throughout the project"
+      },
+      {
+        "title": "Quality Assurance",
+        "description": "Clean, tested code with focus on performance and accessibility"
+      }
+    ],
+    "responseTimeTitle": "Response Time",
+    "responseTimeItems": [
+      "I typically respond within 24 hours",
+      "Free consultation calls available",
+      "Available for remote projects worldwide"
+    ],
+    "readyToStartTitle": "Ready to Start?",
+    "readyToStartDescription": "Looking for something specific? Check out my recent work and technical expertise.",
+    "readyLinks": {
+      "viewProjectsLabel": "View Projects",
+      "viewExperienceLabel": "My Experience"
+    },
+    "socialSectionTitle": "Connect With Me",
+    "socialSectionDescription": "Prefer social media? Find me on these platforms or check out my latest projects and articles."
+  }
+}
+
+

@@ -1,14 +1,19 @@
 ---
 import { FaEnvelope } from 'react-icons/fa6';
+import ctaContent from '@/content/site/cta.json';
 
 interface Props {
   title?: string;
   description?: string;
+  buttonLabel?: string;
+  buttonHref?: string;
 }
 
 const {
-  title = "Let's Work Together",
-  description = "I'm always interested in new opportunities and challenging projects. Whether you need a frontend developer, fullstack solution, or technical consultation, let's connect.",
+  title = ctaContent.title,
+  description = ctaContent.description,
+  buttonLabel = ctaContent.buttonLabel,
+  buttonHref = ctaContent.buttonHref,
 } = Astro.props;
 ---
 
@@ -18,9 +23,9 @@ const {
     {description}
   </p>
   <div class="flex justify-center">
-    <a href="/contact" class="bg-secondary hover:bg-secondary-hover text-on-secondary inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors">
+    <a href={buttonHref} class="bg-secondary hover:bg-secondary-hover text-on-secondary inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors">
       <FaEnvelope className="icon-sm" />
-      Get In Touch
+      {buttonLabel}
     </a>
   </div>
 </section>

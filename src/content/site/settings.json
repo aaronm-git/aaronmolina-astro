@@ -1,0 +1,72 @@
+{
+  "siteTitle": "Aaron Molina - Sr. Software and Web Engineer",
+  "siteDescription": "Aaron Molina is a Sr. Software and Web Engineer with a passion for building scalable and efficient web applications.",
+  "siteUrl": "https://www.aaronmolina.me",
+  "keywords": [
+    "Aaron Molina",
+    "Software Engineer",
+    "Web Developer",
+    "Full Stack Developer",
+    "Frontend Developer",
+    "Backend Developer",
+    "React Developer",
+    "Next.js Developer",
+    "Astro Developer",
+    "Tailwind CSS Developer",
+    "Jamstack Developer",
+    "TypeScript Developer",
+    "Node.js Developer",
+    "Python Developer",
+    "SQL Developer",
+    "NoSQL Developer",
+    "Database Developer",
+    "DevOps Engineer",
+    "AWS Engineer",
+    "GCP Engineer",
+    "CI/CD Engineer",
+    "Agile Engineer",
+    "Technical Lead",
+    "Team Lead",
+    "Architect",
+    "Consultant",
+    "Freelancer"
+  ],
+  "author": {
+    "name": "Aaron Molina",
+    "email": "aaron@aaronmolina.me",
+    "url": "https://aaronmolina.me",
+    "bio": "Aaron Molina is a Sr. Software and Web Engineer with a passion for building scalable and efficient web applications.",
+    "location": "Miami, FL",
+    "socialLinks": [
+      {
+        "platform": "github",
+        "label": "GitHub",
+        "url": "https://github.com/aaronm-git",
+        "ariaLabel": "GitHub @aaronm-git"
+      },
+      {
+        "platform": "linkedin",
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/aaronmolinag",
+        "ariaLabel": "LinkedIn @aaronmolinag"
+      },
+      {
+        "platform": "instagram",
+        "label": "Instagram",
+        "url": "https://www.instagram.com/chillsloth09",
+        "ariaLabel": "Instagram @chillsloth09"
+      }
+    ]
+  },
+  "contact": {
+    "email": "hire@aaronmolina.me",
+    "phone": "(305) 414-9289",
+    "address": "Miami, FL"
+  },
+  "analytics": {
+    "umamiScriptSrc": "https://cloud.umami.is/script.js",
+    "umamiWebsiteId": "065ec9e6-3b6b-4868-a29b-6d9538c525a6"
+  }
+}
+
+

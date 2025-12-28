@@ -1,6 +1,7 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
 import { getCollection } from 'astro:content';
+import pages from '@/content/site/pages.json';
 
 const posts = await getCollection('blog');
 const currentDate = new Date();
@@ -11,11 +12,11 @@ const postsToShow = posts
   .sort((a, b) => b.data.publishDate!.getTime() - a.data.publishDate!.getTime());
 ---
 
-<MainLayout title="Blog - Aaron Molina" description="Thoughts on modern web development, performance optimization, and senior-level technical decisions.">
+<MainLayout title={pages.blogIndex.metaTitle} description={pages.blogIndex.metaDescription}>
   <div class="mx-auto max-w-4xl px-4 py-8">
     <section class="animate-section mb-12">
-      <h1 class="text-foreground mb-4 text-4xl font-bold">Blog</h1>
-      <p class="text-foreground-muted text-xl">Thoughts on modern web development, performance optimization, and senior-level technical decisions.</p>
+      <h1 class="text-foreground mb-4 text-4xl font-bold">{pages.blogIndex.heading}</h1>
+      <p class="text-foreground-muted text-xl">{pages.blogIndex.intro}</p>
     </section>
 
     <div class="animate-section space-y-8">
@@ -57,7 +58,7 @@ const postsToShow = posts
     {
       posts.length === 0 && (
         <div class="py-12 text-center">
-          <p class="text-foreground-muted">No blog posts yet. Check back soon!</p>
+          <p class="text-foreground-muted">{pages.blogIndex.emptyState}</p>
         </div>
       )
     }

@@ -1,0 +1,9 @@
+{
+  "yearsOfExperienceStartYear": 2012,
+  "hero": {
+    "name": "Aaron Molina",
+    "headline": "Senior Frontend & Fullstack Developer",
+    "description": "Building modern, high-performance websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over {yearsOfExperience} years of experience, I've worked with a variety of technologies, including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences."
+  }
+}
+

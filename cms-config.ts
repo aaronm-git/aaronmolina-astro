@@ -10,6 +10,58 @@ export const cmsConfig: CmsConfig = {
   media_folder: "public/images",
   public_folder: "/images",
   collections: [
+    // Site (singletons)
+    {
+      name: "site",
+      label: "Site",
+      files: [
+        {
+          name: "homepage",
+          label: "Homepage",
+          file: "src/content/site/homepage.json",
+          format: "json",
+          editor: {
+            preview: false,
+          },
+          fields: [
+            {
+              label: "Years of Experience Start Year",
+              name: "yearsOfExperienceStartYear",
+              widget: "number",
+              value_type: "int",
+              min: 1900,
+              required: true,
+            },
+            {
+              label: "Hero",
+              name: "hero",
+              widget: "object",
+              fields: [
+                {
+                  label: "Name",
+                  name: "name",
+                  widget: "string",
+                  required: true,
+                },
+                {
+                  label: "Headline",
+                  name: "headline",
+                  widget: "string",
+                  required: true,
+                },
+                {
+                  label: "Description",
+                  name: "description",
+                  widget: "text",
+                  required: true,
+                  hint: "Use {yearsOfExperience} to dynamically inject the calculated years.",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // Blog Posts
     {
       name: "posts",

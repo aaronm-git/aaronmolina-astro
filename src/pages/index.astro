@@ -7,6 +7,7 @@ import { getCollection } from 'astro:content';
 import ProfilePicture from '@/images/profile.jpg';
 import { Image } from 'astro:assets';
 import { FaBriefcase, FaBookOpen, FaStar, FaArrowRight, FaPencil, FaCalendar } from 'react-icons/fa6';
+import homepageContent from '@/content/site/homepage.json';
 
 const posts = await getCollection('blog');
 const currentDate = new Date();
@@ -35,7 +36,8 @@ const featuredProjects = projects
   })
   .slice(0, 3);
 
-const yearsOfExperience = new Date().getFullYear() - 2012;
+const yearsOfExperience = new Date().getFullYear() - homepageContent.yearsOfExperienceStartYear;
+const heroDescription = homepageContent.hero.description.replaceAll('{yearsOfExperience}', String(yearsOfExperience));
 ---
 
 <MainLayout>
@@ -49,11 +51,10 @@ const yearsOfExperience = new Date().getFullYear() - 2012;
         loading="eager"
       />
     </div>
-    <h1 class="hero-title text-foreground mb-1 text-4xl font-bold md:mb-6 md:text-6xl">Aaron Molina</h1>
-    <p class="hero-subtitle text-foreground-muted mb-4 text-lg font-medium md:text-2xl">Senior Frontend & Fullstack Developer</p>
+    <h1 class="hero-title text-foreground mb-1 text-4xl font-bold md:mb-6 md:text-6xl">{homepageContent.hero.name}</h1>
+    <p class="hero-subtitle text-foreground-muted mb-4 text-lg font-medium md:text-2xl">{homepageContent.hero.headline}</p>
     <p class="hero-description text-foreground-muted mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
-      Building modern, high-performannt web websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over {yearsOfExperience} years of experience, I've worked with a variety
-      of technologies, including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences.
+      {heroDescription}
     </p>
     <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
       <a

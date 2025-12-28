@@ -1,8 +1,8 @@
 {
-  "title": "Photoshop",
   "slug": "photoshop",
   "category": "tool",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "Photoshop"
 }

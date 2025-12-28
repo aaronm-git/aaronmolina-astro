@@ -1,8 +1,8 @@
 {
-  "title": "MongoDB",
   "slug": "mongodb",
   "category": "platform",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "MongoDB"
 }

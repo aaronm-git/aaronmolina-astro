@@ -1,8 +1,8 @@
 {
-  "title": "Astro",
+  "name": "Astro",
   "slug": "astro",
-  "category": "other",
-  "url": "",
+  "category": "framework",
+  "url": "https://astro.build",
   "featured": false,
   "sortOrder": 0
 }

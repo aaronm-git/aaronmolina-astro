@@ -1,8 +1,8 @@
 {
-  "title": "PHP",
   "slug": "php",
   "category": "language",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "PHP"
 }

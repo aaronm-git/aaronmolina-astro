@@ -1,8 +1,8 @@
 {
-  "title": "Next.js",
   "slug": "nextjs",
   "category": "framework",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "Next.js"
 }

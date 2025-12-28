@@ -1,8 +1,8 @@
 {
-  "title": "Google Cloud Platform",
   "slug": "gcp",
   "category": "platform",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "Google Cloud Platform"
 }

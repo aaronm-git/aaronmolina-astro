@@ -1,8 +1,8 @@
 {
-  "title": "WCAG testing",
   "slug": "wcag-testing",
   "category": "other",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "WCAG testing"
 }

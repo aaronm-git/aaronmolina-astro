@@ -1,8 +1,8 @@
 {
-  "title": "DecapCMS",
+  "name": "DecapCMS",
   "slug": "decapcms",
   "category": "cms",
-  "url": "",
+  "url": "https://decapcms.org",
   "featured": false,
   "sortOrder": 0
 }

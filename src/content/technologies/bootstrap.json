@@ -1,8 +1,8 @@
 {
-  "title": "Bootstrap",
   "slug": "bootstrap",
   "category": "library",
   "url": "",
   "featured": false,
-  "sortOrder": 0
+  "sortOrder": 0,
+  "name": "Bootstrap"
 }

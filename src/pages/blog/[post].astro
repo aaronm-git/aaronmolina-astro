@@ -5,14 +5,21 @@ import { FaArrowLeft } from 'react-icons/fa6';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
+  const technologies = await getCollection('technologies');
+  const techMap = new Map(technologies.map(t => [t.data.slug, t.data.name]));
+  
   return posts.map(p => ({
     params: { post: p.data.slug },
-    props: { post: p },
+    props: { post: p, techMap: Object.fromEntries(techMap) },
   }));
 }
 
-const { post } = Astro.props;
+const { post, techMap } = Astro.props;
 const { Content } = await render(post);
+
+function getTechName(slug) {
+  return techMap[slug] || slug;
+}
 ---
 
 <MainLayout title={post.data.title} description={post.data.description}>
@@ -66,7 +73,7 @@ const { Content } = await render(post);
           post.data.tags && post.data.tags.length > 0 && (
             <div class="mb-6 flex flex-wrap gap-2">
               {post.data.tags.map(tag => (
-                <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{tag}</span>
+                <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{getTechName(tag)}</span>
               ))}
             </div>
           )

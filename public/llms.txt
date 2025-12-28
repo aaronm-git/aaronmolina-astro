@@ -32,15 +32,15 @@ Important notes:
 - [Building a Modern Portfolio with Astro: A Senior Developer's Approach](https://www.aaronmolina.me/blog/2025-07-07-building-a-modern-portfolio-with-astro): Exploring the architecture and implementation of a modern portfolio site built with Astro, TypeScript, Content Collections, and Tailwind CSS. A deep dive into the technical decisions that make this stack ideal for developer portfolios. (2025-07-07; tags: astro, typescript, frontend, fullstack, tailwindcss, github)
 
 ## Experience (items listed on /experience)
-- AVINTIV Media, LLC — Senior WordPress Developer (Miami, Florida, United States) — 2024-09-01 → 2025-05-01; skills: WordPress, PHP, HTML, CSS, JavaScript
-- LA Clippers — Lead Frontend Developer (Miami, Florida, United States) — 2024-08-01; skills: Vue.js, Nuxt, TailwindCSS, HTML, CSS, JavaScript
-- PageLyft, LLC — Owner / Full Stack Developer (Miami, Florida, United States) — 2023-10-01; skills: WordPress, PHP, JavaScript, SEO
-- Bomnin Chevrolet — Senior React Developer (Miami, Florida, United States) — 2022-07-01 → 2023-01-01; skills: React, TypeScript, Node.js, GraphQL, AWS
-- Azamara Cruises — Lead Frontend Developer (Miami, Florida, United States) — 2022-01-01 → 2024-04-01; skills: React, TypeScript, GraphQL, HTML, CSS, JavaScript
-- Miami HEAT — Frontend Web Developer (Miami, Florida, United States) — 2022-01-01 → 2022-07-01; skills: React, HTML, CSS, JavaScript, Bootstrap
-- CORSAIR Memory, Inc — Frontend Web Developer (Miami, Florida, United States) — 2020-01-01 → 2022-05-01; skills: React, JavaScript, HTML, CSS, Bootstrap
-- Uplyft Capital — Full-stack Developer (Miami, Florida, United States) — 2019-01-01 → 2020-01-01; skills: Node.js, MongoDB, Express.js, OAuth2
-- Flying Academy — Frontend Web Developer (Miami, Florida, United States) — 2018-02-01 → 2018-12-01; skills: HTML, CSS, WordPress
+- LA Clippers — Lead Frontend Developer (Miami, Florida, United States) — 2024-08-01 → present; skills: vue-js, nuxt, tailwindcss, html5, css3, javascript, git, rest-api, shopify, liquid
+- PageLyft, LLC — Owner / Full Stack Developer (Miami, Florida, United States) — 2023-10-01 → present; skills: wordpress, php, javascript, seo, elementor-pro, google-business-profile, rest-api
+- AVINTIV Media, LLC — Senior WordPress Developer (Miami, Florida, United States) — 2024-09-01 → 2025-05-01; skills: wordpress, php, html5, css3, javascript, elementor-pro, figma, core-web-vitals, rest-api
+- Bomnin Chevrolet — Senior React Developer (Miami, Florida, United States) — 2022-07-01 → 2023-01-01; skills: react, typescript, nodejs, graphql, aws, aws-lambda, cognito, amplify, material-ui
+- Azamara Cruises — Lead Frontend Developer (Miami, Florida, United States) — 2022-01-01 → 2024-04-01; skills: react, typescript, graphql, html5, css3, javascript, aws, appsync, craftercms, python
+- Miami HEAT — Frontend Web Developer (Miami, Florida, United States) — 2022-01-01 → 2022-07-01; skills: react, html5, css3, javascript, bootstrap, wordpress, drupal, rest-api, gtm, ga4
+- CORSAIR Memory, Inc — Frontend Web Developer (Miami, Florida, United States) — 2020-01-01 → 2022-05-01; skills: react, javascript, html5, css3, bootstrap, 3dmark-api, photoshop, wcag-testing, git
+- Uplyft Capital — Full-stack Developer (Miami, Florida, United States) — 2019-01-01 → 2020-01-01; skills: nodejs, mongodb, express-js, oauth2, nunjucks, mailgun, salesforce-api, bootstrap
+- Flying Academy — Frontend Web Developer (Miami, Florida, United States) — 2018-02-01 → 2018-12-01; skills: html5, css3, wordpress, foundation-6, plugins
 
 ## Topics
 - frontend

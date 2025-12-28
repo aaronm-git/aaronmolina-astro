@@ -5,10 +5,11 @@ import yaml from 'js-yaml';
 const ROOT = process.cwd();
 
 const PATHS = {
-  siteConfig: path.join(ROOT, 'src', 'config', 'site.ts'),
+  siteSettings: path.join(ROOT, 'src', 'content', 'site', 'settings.json'),
   blogDir: path.join(ROOT, 'src', 'content', 'blog'),
   projectsDir: path.join(ROOT, 'src', 'content', 'projects'),
-  experienceDir: path.join(ROOT, 'src', 'content', 'experience'),
+  rolesDir: path.join(ROOT, 'src', 'content', 'roles'),
+  organizationsDir: path.join(ROOT, 'src', 'content', 'organizations'),
   outFile: path.join(ROOT, 'public', 'llms.txt'),
 };
 
@@ -57,31 +58,26 @@ function asArray(value) {
   return [];
 }
 
-function parseSiteConfig(tsSource) {
-  const pick = re => tsSource.match(re)?.[1]?.trim();
-
-  const title = pick(/title:\s*'([^']+)'/);
-  const description = pick(/description:\s*'([^']+)'/);
-  const url = pick(/url:\s*'([^']+)'/);
-
-  const authorName = pick(/name:\s*'([^']+)'/);
-  const authorEmail = pick(/email:\s*'([^']+)'/);
-
-  const contactEmail = pick(/contact:\s*\{\s*[\s\S]*?email:\s*'([^']+)'/);
-
-  const github = pick(/github:\s*'([^']+)'/);
-  const linkedin = pick(/linkedin:\s*'([^']+)'/);
-  const instagram = pick(/instagram:\s*'([^']+)'/);
+function parseSiteSettings(jsonData) {
+  const socialLinks = (jsonData.author?.socialLinks || []).reduce((acc, link) => {
+    const platform = String(link.platform || '').toLowerCase();
+    if (link.url) acc[platform] = link.url;
+    return acc;
+  }, {});
 
   return {
-    title: title || 'Website',
-    description: description || '',
-    url: (url || '').replace(/\/$/, ''),
+    title: jsonData.siteTitle || 'Website',
+    description: jsonData.siteDescription || '',
+    url: (jsonData.siteUrl || '').replace(/\/$/, ''),
     author: {
-      name: authorName || '',
-      email: authorEmail || '',
-      contactEmail: contactEmail || '',
-      social: { github, linkedin, instagram },
+      name: jsonData.author?.name || '',
+      email: jsonData.author?.email || '',
+      contactEmail: jsonData.contact?.email || jsonData.author?.email || '',
+      social: {
+        github: socialLinks.github || '',
+        linkedin: socialLinks.linkedin || '',
+        instagram: socialLinks.instagram || '',
+      },
     },
   };
 }
@@ -106,8 +102,9 @@ function freqMapAdd(map, items) {
 async function main() {
   const now = new Date();
 
-  const siteConfigSource = await fs.readFile(PATHS.siteConfig, 'utf8');
-  const site = parseSiteConfig(siteConfigSource);
+  const siteSettingsSource = await fs.readFile(PATHS.siteSettings, 'utf8');
+  const siteSettings = JSON.parse(siteSettingsSource);
+  const site = parseSiteSettings(siteSettings);
   const baseUrl = site.url || '';
 
   // Blog
@@ -158,19 +155,19 @@ async function main() {
     if (!slug) continue;
 
     const title = String(data.title || slug).trim();
-    const description = String(data.description || '').trim() || stripMarkdownToText(body).slice(0, 180);
-    const tags = asArray(data.tags);
+    const summary = String(data.summary || data.description || '').trim() || stripMarkdownToText(body).slice(0, 180);
+    const technologies = asArray(data.technologies || data.tags);
     const completedOn = safeDate(data.completedOn);
-    const link = typeof data.link === 'string' && data.link.trim() ? data.link.trim() : null;
+    const liveUrl = typeof data.liveUrl === 'string' && data.liveUrl.trim() ? data.liveUrl.trim() : null;
 
     projects.push({
       title,
       slug,
       url: `${baseUrl}/projects/${slug}`,
       completedOn,
-      link,
-      description,
-      tags,
+      link: liveUrl,
+      description: summary,
+      tags: technologies,
     });
   }
 
@@ -180,35 +177,51 @@ async function main() {
     return bT - aT;
   });
 
-  // Experience
-  const experienceFiles = await readDirFiles(PATHS.experienceDir, n => n.endsWith('.json'));
+  // Roles (experience entries)
+  const rolesFiles = await readDirFiles(PATHS.rolesDir, n => n.endsWith('.json'));
+  const organizationsMap = new Map();
+  
+  // Load organizations for role titles
+  try {
+    const orgFiles = await readDirFiles(PATHS.organizationsDir, n => n.endsWith('.json'));
+    for (const filename of orgFiles) {
+      const fullPath = path.join(PATHS.organizationsDir, filename);
+      const raw = await fs.readFile(fullPath, 'utf8');
+      const org = JSON.parse(raw);
+      organizationsMap.set(org.slug, org.name);
+    }
+  } catch (err) {
+    // Organizations dir might not exist yet
+  }
+
   const experience = [];
 
-  for (const filename of experienceFiles) {
-    const fullPath = path.join(PATHS.experienceDir, filename);
+  for (const filename of rolesFiles) {
+    const fullPath = path.join(PATHS.rolesDir, filename);
     const raw = await fs.readFile(fullPath, 'utf8');
     const data = JSON.parse(raw);
 
-    const title = String(data.title || '').trim();
+    const roleTitle = String(data.title || '').trim();
+    const orgSlug = String(data.organization || '').trim();
+    const orgName = organizationsMap.get(orgSlug) || orgSlug;
+    const title = orgName;
     const slug = String(data.slug || filename.replace(/\.json$/, '')).trim();
-    if (!title || !slug) continue;
+    if (!roleTitle || !slug) continue;
 
-    const start = safeDate(data.date);
+    const start = safeDate(data.startDate);
     const end = safeDate(data.endDate);
-    const role = String(data.role || '').trim();
     const location = String(data.location || '').trim();
-    const tools = asArray(data.tools);
-    const skills = asArray(data.skills);
+    const technologies = asArray(data.technologies);
 
     experience.push({
       title,
       slug,
-      role,
+      role: roleTitle,
       location,
       start,
       end,
-      skills,
-      tools,
+      skills: technologies,
+      tools: [],
       isActive: data.isActive !== false,
       current: !!data.current,
     });

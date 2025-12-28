@@ -1,0 +1,39 @@
+{
+  "title": "Lead Frontend Developer",
+  "slug": "la-clippers-2024-lead-frontend-developer",
+  "organization": "la-clippers",
+  "location": "Miami, Florida, United States",
+  "employmentType": "",
+  "startDate": "2024-08-01T00:00:00Z",
+  "endDate": "",
+  "current": true,
+  "summary": "",
+  "highlights": [
+    "Led development of Clippers.com and ClippersCamp.com",
+    "Integrated REST APIs for third-party systems",
+    "Mentored junior developers",
+    "Managed Git workflows and QA testing",
+    "Collaborated with UX/UI, marketing, and product teams"
+  ],
+  "achievements": [
+    "Enhanced ADA compliance and UX",
+    "Standardized development workflows"
+  ],
+  "technologies": [
+    "vue-js",
+    "nuxt",
+    "tailwindcss",
+    "html5",
+    "css3",
+    "javascript",
+    "git",
+    "rest-api",
+    "shopify",
+    "liquid",
+    "qa-testing"
+  ],
+  "projects": [],
+  "featured": false,
+  "sortOrder": 0,
+  "isActive": true
+}

@@ -1,0 +1,38 @@
+{
+  "title": "Frontend Web Developer",
+  "slug": "miami-heat-2022-frontend-web-developer",
+  "organization": "miami-heat",
+  "location": "Miami, Florida, United States",
+  "employmentType": "",
+  "startDate": "2022-01-01T00:00:00Z",
+  "endDate": "2022-07-01T00:00:00Z",
+  "current": false,
+  "summary": "",
+  "highlights": [
+    "Migrated HEAT.com to a modern tech stack",
+    "Designed responsive pages using Bootstrap",
+    "Implemented real-time data integrations via REST APIs",
+    "Improved frontend performance and load times"
+  ],
+  "achievements": [
+    "Boosted user engagement by 30%",
+    "Increased mobile traffic by 50%",
+    "Improved merchandise sales by 20%"
+  ],
+  "technologies": [
+    "react",
+    "html5",
+    "css3",
+    "javascript",
+    "bootstrap",
+    "wordpress",
+    "drupal",
+    "rest-api",
+    "gtm",
+    "ga4"
+  ],
+  "projects": [],
+  "featured": false,
+  "sortOrder": 0,
+  "isActive": false
+}

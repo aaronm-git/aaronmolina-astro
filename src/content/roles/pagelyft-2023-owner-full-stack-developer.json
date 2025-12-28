@@ -1,0 +1,33 @@
+{
+  "title": "Owner / Full Stack Developer",
+  "slug": "pagelyft-2023-owner-full-stack-developer",
+  "organization": "pagelyft",
+  "location": "Miami, Florida, United States",
+  "employmentType": "",
+  "startDate": "2023-10-01T00:00:00Z",
+  "endDate": "",
+  "current": true,
+  "summary": "",
+  "highlights": [
+    "Built SEO-optimized WordPress websites using Elementor",
+    "Implemented local SEO and performance strategies",
+    "Built custom plugins and REST integrations",
+    "Managed client content architecture"
+  ],
+  "achievements": [
+    "Improved local search visibility and performance metrics"
+  ],
+  "technologies": [
+    "wordpress",
+    "php",
+    "javascript",
+    "seo",
+    "elementor-pro",
+    "google-business-profile",
+    "rest-api"
+  ],
+  "projects": [],
+  "featured": false,
+  "sortOrder": 0,
+  "isActive": true
+}

@@ -1,0 +1,36 @@
+{
+  "title": "Senior WordPress Developer",
+  "slug": "avintiv-media-2024-senior-wordpress-developer",
+  "organization": "avintiv-media",
+  "location": "Miami, Florida, United States",
+  "employmentType": "",
+  "startDate": "2024-09-01T00:00:00Z",
+  "endDate": "2025-05-01T00:00:00Z",
+  "current": false,
+  "summary": "",
+  "highlights": [
+    "Built high-performance WordPress sites with Elementor Pro",
+    "Translated Figma designs into responsive websites",
+    "Implemented Core Web Vitals improvements and SEO practices",
+    "Created custom plugins and features"
+  ],
+  "achievements": [
+    "Improved SEO rankings and page speed",
+    "Improved development process for new client sites"
+  ],
+  "technologies": [
+    "wordpress",
+    "php",
+    "html5",
+    "css3",
+    "javascript",
+    "elementor-pro",
+    "figma",
+    "core-web-vitals",
+    "rest-api"
+  ],
+  "projects": [],
+  "featured": false,
+  "sortOrder": 0,
+  "isActive": true
+}

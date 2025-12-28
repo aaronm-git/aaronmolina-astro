@@ -1,21 +1,6 @@
 ---
 title: CORSAIR Accessibility Overhaul
 slug: originpc-accessibility
-description: >-
-  Led a comprehensive WCAG 2.1 accessibility audit and remediation effort for CORSAIR's OriginPC.com platform, improving
-  inclusivity and compliance across key product and checkout flows.
-tags:
-  - accessibility
-  - frontend
-  - css3
-  - javascript
-  - git
-  - bootstrap
-featuredImage: ../../images/project-corsair-ada.jpg
-link: https://www.originpc.com
-completedOn: 2025-04-01T00:00:00.000Z
-isActive: true
-pinned: false
 summary: >-
   Led a comprehensive WCAG 2.1 accessibility audit and remediation effort for CORSAIR's OriginPC.com platform, improving
   inclusivity and compliance across key product and checkout flows.
@@ -26,9 +11,15 @@ technologies:
   - javascript
   - git
   - bootstrap
+featuredImage: ../../images/project-corsair-ada.jpg
 liveUrl: https://www.originpc.com
+completedOn: 2025-04-01T00:00:00.000Z
+isActive: true
 featured: false
 sortOrder: 0
+organization: corsair-memory
+roles:
+  - corsair-memory-2020-frontend-web-developer
 ---
 As a **Senior Frontend Developer** working with CORSAIR’s OriginPC division, I led the accessibility overhaul for their eCommerce platform. My goal was to make the site work better for everyone, including users who rely on assistive tech like screen readers.
 

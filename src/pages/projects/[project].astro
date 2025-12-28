@@ -17,7 +17,7 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 ---
 
-<MainLayout title={project.data.title} description={project.data.description}>
+<MainLayout title={project.data.title} description={project.data.summary}>
   <article class="mx-auto max-w-screen-lg">
     <!-- Back Navigation -->
     <nav class="mb-8">
@@ -31,14 +31,12 @@ const { Content } = await render(project);
     <header class="mb-12">
       <!-- Meta Info -->
       <div class="mb-6 flex flex-wrap items-center gap-3">
-        {
-          ((project.data.featured ?? false) || (project.data.pinned ?? false)) && (
-            <span class="bg-secondary/10 text-secondary border-secondary/20 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-              <FaTag className="icon-xs" />
-              {pages.home.sections.featuredProjectsTitle}
-            </span>
-          )
-        }
+        {project.data.featured && (
+          <span class="bg-secondary/10 text-secondary border-secondary/20 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+            <FaTag className="icon-xs" />
+            Featured
+          </span>
+        )}
         {
           project.data.completedOn && (
             <span class="text-foreground-muted inline-flex items-center gap-1.5 text-sm">
@@ -58,52 +56,44 @@ const { Content } = await render(project);
       </h1>
 
       <!-- Description -->
-      {(project.data.summary || project.data.description) && (
-        <p class="text-foreground-muted mb-8 text-xl leading-relaxed md:text-2xl">{project.data.summary || project.data.description}</p>
-      )}
+      {project.data.summary && <p class="text-foreground-muted mb-8 text-xl leading-relaxed md:text-2xl">{project.data.summary}</p>}
 
       <!-- Technologies -->
-      {
-        ((project.data.technologies ?? project.data.tags) && (project.data.technologies ?? project.data.tags).length > 0) && (
-          <div class="mb-8 flex flex-wrap gap-2">
-            {(project.data.technologies?.length ? project.data.technologies : project.data.tags).slice(0, 8).map(tagSlug => (
-              <span class="bg-muted text-foreground border-border hover:bg-muted/80 inline-flex items-center rounded-md border px-3 py-1 text-sm font-medium transition-colors">
-                {tagSlug}
-              </span>
-            ))}
-          </div>
-        )
-      }
+      {project.data.technologies.length > 0 && (
+        <div class="mb-8 flex flex-wrap gap-2">
+          {project.data.technologies.slice(0, 8).map((tagSlug) => (
+            <span class="bg-muted text-foreground border-border hover:bg-muted/80 inline-flex items-center rounded-md border px-3 py-1 text-sm font-medium transition-colors">
+              {tagSlug}
+            </span>
+          ))}
+        </div>
+      )}
 
       <!-- Action Buttons -->
       <div class="flex flex-wrap items-center gap-3">
-        {
-          (project.data.liveUrl || project.data.link) && (
-            <a
-              href={project.data.liveUrl || project.data.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="bg-secondary hover:bg-secondary-hover text-on-secondary group inline-flex items-center gap-2 rounded-md px-4 py-2 font-medium transition-colors"
-            >
-              <span>Visit Live Project</span>
-              <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
-            </a>
-          )
-        }
+        {project.data.liveUrl && (
+          <a
+            href={project.data.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-secondary hover:bg-secondary-hover text-on-secondary group inline-flex items-center gap-2 rounded-md px-4 py-2 font-medium transition-colors"
+          >
+            <span>Visit Live Project</span>
+            <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
+          </a>
+        )}
 
-        {
-          (project.data.repoUrl || project.data.githubLink) && (
-            <a
-              href={project.data.repoUrl || project.data.githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="bg-surface hover:bg-muted border-border text-foreground group inline-flex items-center gap-2 rounded-md border px-4 py-2 font-medium transition-colors"
-            >
-              <FaGithub className="icon-sm" />
-              <span>View Source</span>
-            </a>
-          )
-        }
+        {project.data.repoUrl && (
+          <a
+            href={project.data.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-surface hover:bg-muted border-border text-foreground group inline-flex items-center gap-2 rounded-md border px-4 py-2 font-medium transition-colors"
+          >
+            <FaGithub className="icon-sm" />
+            <span>View Source</span>
+          </a>
+        )}
 
         <a href="#project-details" class="text-foreground-muted hover:text-secondary group inline-flex items-center gap-2 px-3 py-2 font-medium transition-colors">
           <FaCircleInfo className="icon-sm" />
@@ -152,54 +142,48 @@ const { Content } = await render(project);
           )
         }
 
-        {
-          (project.data.liveUrl || project.data.link) && (
-            <div class="bg-surface border-border rounded-lg border p-4">
-              <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Project URL</dt>
-              <dd class="text-base">
-                <a
-                  href={project.data.liveUrl || project.data.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
-                >
-                  {project.data.liveUrl || project.data.link}
-                </a>
-              </dd>
-            </div>
-          )
-        }
+        {project.data.liveUrl && (
+          <div class="bg-surface border-border rounded-lg border p-4">
+            <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Project URL</dt>
+            <dd class="text-base">
+              <a
+                href={project.data.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
+              >
+                {project.data.liveUrl}
+              </a>
+            </dd>
+          </div>
+        )}
 
-        {
-          (project.data.repoUrl || project.data.githubLink) && (
-            <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
-              <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">GitHub Repository</dt>
-              <dd class="text-base">
-                <a
-                  href={project.data.repoUrl || project.data.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
-                >
-                  {project.data.repoUrl || project.data.githubLink}
-                </a>
-              </dd>
-            </div>
-          )
-        }
+        {project.data.repoUrl && (
+          <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
+            <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Repository</dt>
+            <dd class="text-base">
+              <a
+                href={project.data.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
+              >
+                {project.data.repoUrl}
+              </a>
+            </dd>
+          </div>
+        )}
 
-        {
-          (project.data.technologies?.length || project.data.tags?.length) && (
-            <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
-              <dt class="text-foreground-muted mb-3 text-xs font-semibold tracking-wide uppercase">Technologies Used</dt>
-              <dd class="flex flex-wrap gap-2">
-                {(project.data.technologies?.length ? project.data.technologies : project.data.tags).map(tagSlug => (
-                  <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{tagSlug}</span>
-                ))}
-              </dd>
-            </div>
-          )
-        }
+        {project.data.technologies.length > 0 && (
+          <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
+            <dt class="text-foreground-muted mb-3 text-xs font-semibold tracking-wide uppercase">Technologies</dt>
+            <dd class="flex flex-wrap gap-2">
+              {project.data.technologies.map((tagSlug) => (
+                <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{tagSlug}</span>
+              ))}
+            </dd>
+          </div>
+        )}
       </dl>
     </div>
 

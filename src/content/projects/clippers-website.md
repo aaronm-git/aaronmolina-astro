@@ -1,21 +1,6 @@
 ---
 title: LA Clippers Website and Other Online Properties
 slug: clippers-website
-description: Modern Vue/Nuxt-based frontend for Clippers.com and ClippersCamp.com with RESTful API integrations.
-tags:
-  - vue
-  - nuxt
-  - seo
-  - css3
-  - frontend
-  - aws
-  - accessibility
-  - fullstack
-featuredImage: ../../images/project-la-clippers.jpg
-link: https://www.nba.com/clippers
-completedOn: 2025-06-01T00:00:00.000Z
-isActive: true
-pinned: true
 summary: Modern Vue/Nuxt-based frontend for Clippers.com and ClippersCamp.com with RESTful API integrations.
 technologies:
   - vue
@@ -26,9 +11,15 @@ technologies:
   - aws
   - accessibility
   - fullstack
+featuredImage: ../../images/project-la-clippers.jpg
 liveUrl: https://www.nba.com/clippers
+completedOn: 2025-06-01T00:00:00.000Z
+isActive: true
 featured: true
 sortOrder: 0
+organization: la-clippers
+roles:
+  - la-clippers-2024-lead-frontend-developer
 ---
 I led frontend and platform development for three key digital properties under the LA Clippers organization: **Clippers.com**, **ClippersHQ.com**, and **FireAidLA.org**. Each project served different needs, from fan engagement to internal compliance to humanitarian crisis response.
 

@@ -41,11 +41,9 @@ const projects = await getCollection('projects');
 const featuredProjects = projects
   .filter(project => project.data.isActive !== false)
   .sort((a, b) => {
-    // featured first (new model), fallback to pinned (legacy)
-    const aFeatured = (a.data.featured ?? false) || (a.data.pinned ?? false);
-    const bFeatured = (b.data.featured ?? false) || (b.data.pinned ?? false);
-    if (aFeatured && !bFeatured) return -1;
-    if (!aFeatured && bFeatured) return 1;
+    // featured first
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
     if ((a.data.sortOrder ?? 0) !== (b.data.sortOrder ?? 0)) return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
     return (b.data.completedOn?.getTime() || 0) - (a.data.completedOn?.getTime() || 0);
   })

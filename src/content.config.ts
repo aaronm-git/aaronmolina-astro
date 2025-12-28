@@ -15,18 +15,6 @@ const blog = defineCollection({
     }),
 });
 
-// Legacy tags collection (pre-entity model). Kept temporarily to avoid breaking older content.
-// New taxonomy should live in `technologies`.
-const tags = defineCollection({
-  loader: glob({ pattern: './src/content/tags/**/*.json' }),
-  schema: z.object({
-    title: z.string(),
-    slug: z.string(),
-    description: z.string().optional(),
-    color: z.string().default('#000000'),
-  }),
-});
-
 const technologies = defineCollection({
   loader: glob({ pattern: './src/content/technologies/**/*.json' }),
   schema: z.object({
@@ -108,49 +96,12 @@ const profile = defineCollection({
     }),
 });
 
-const experience = defineCollection({
-  loader: glob({ pattern: './src/content/experience/**/*.json' }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      slug: z.string(),
-      description: z.string().optional(),
-      company: z.string().optional(),
-      location: z.string(),
-      date: z.union([z.string(), z.date()]).transform((val) => {
-        if (typeof val === 'string') return new Date(val);
-        return val;
-      }),
-      endDate: z
-        .union([z.string(), z.date(), z.null()])
-        .optional()
-        .transform((val) => {
-          if (typeof val === 'string') return new Date(val);
-          if (val === null) return undefined;
-          return val;
-        }),
-      role: z.string(),
-      responsibilities: z.array(z.string()).default([]),
-      skills: z.array(z.string()).default([]),
-      tools: z.array(z.string()).default([]),
-      tags: z.array(z.string()).default([]),
-      projects: z.array(z.string()).default([]),
-      achievements: z.array(z.string()).default([]),
-      body: z.string().optional(),
-      isActive: z.boolean().default(true),
-      current: z.boolean().default(false),
-      logo: image().optional(),
-      url: z.string().optional(),
-    }),
-});
-
 const projects = defineCollection({
   loader: glob({ pattern: './src/content/projects/**/*.md' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      slug: z.string().optional(),
-      // New entity-model fields
+      slug: z.string(),
       summary: z.string().optional(),
       technologies: z.array(z.string()).default([]),
       liveUrl: z.string().optional(),
@@ -159,11 +110,7 @@ const projects = defineCollection({
       roles: z.array(z.string()).default([]),
       featured: z.boolean().default(false),
       sortOrder: z.number().int().default(0),
-      // Legacy fields (kept during migration)
-      description: z.string().optional(),
-      tags: z.array(z.string()).default([]),
       featuredImage: image().optional(),
-      link: z.string().optional(),
       body: z.string().optional(),
       completedOn: z
         .union([z.string(), z.date()])
@@ -179,9 +126,6 @@ const projects = defineCollection({
           return val;
         }),
       isActive: z.boolean().default(true),
-      pinned: z.boolean().default(false),
-      experience: z.string().optional(),
-      githubLink: z.string().optional(),
     }),
 });
 
@@ -261,9 +205,6 @@ const services = defineCollection({
 
 export const collections = {
   blog,
-  // legacy:
-  tags,
-  experience,
   // entity model:
   technologies,
   organizations,

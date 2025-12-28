@@ -1,7 +1,7 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
-import ExperienceCard from '@/components/ExperienceCard.astro';
+import RoleCard from '@/components/RoleCard.astro';
 import CTA from '@/components/CTA.astro';
 import { getCollection } from 'astro:content';
 import ProfilePicture from '@/images/profile.jpg';
@@ -19,21 +19,34 @@ const recentPosts = posts
   .sort((a, b) => b.data.publishDate!.getTime() - a.data.publishDate!.getTime())
   .slice(0, 3);
 
-const experience = await getCollection('experience');
-const sortedExperience = experience
+const roles = await getCollection('roles');
+const organizations = await getCollection('organizations');
+
+const orgBySlug = new Map(organizations.map((o) => [o.data.slug, o]));
+
+const featuredRoles = roles
+  .filter((r) => r.data.isActive !== false)
   .sort((a, b) => {
-    if (a.data.current && !b.data.current) return -1;
-    if (!a.data.current && b.data.current) return 1;
-    return b.data.date.getTime() - a.data.date.getTime();
+    // featured first
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    // then sortOrder
+    if ((a.data.sortOrder ?? 0) !== (b.data.sortOrder ?? 0)) return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
+    // then by startDate (newest first)
+    return b.data.startDate.getTime() - a.data.startDate.getTime();
   })
   .slice(0, 4);
 
 const projects = await getCollection('projects');
 const featuredProjects = projects
-  .filter(project => project.data.pinned)
+  .filter(project => project.data.isActive !== false)
   .sort((a, b) => {
-    if (a.data.pinned && !b.data.pinned) return -1;
-    if (!a.data.pinned && b.data.pinned) return 1;
+    // featured first (new model), fallback to pinned (legacy)
+    const aFeatured = (a.data.featured ?? false) || (a.data.pinned ?? false);
+    const bFeatured = (b.data.featured ?? false) || (b.data.pinned ?? false);
+    if (aFeatured && !bFeatured) return -1;
+    if (!aFeatured && bFeatured) return 1;
+    if ((a.data.sortOrder ?? 0) !== (b.data.sortOrder ?? 0)) return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
     return (b.data.completedOn?.getTime() || 0) - (a.data.completedOn?.getTime() || 0);
   })
   .slice(0, 3);
@@ -107,7 +120,7 @@ const heroDescription = homepageContent.hero.description.replaceAll('{yearsOfExp
     </div>
 
     <div class="animate-content space-y-8">
-      {sortedExperience.map(exp => <ExperienceCard experience={exp} showAllDetails={false} />)}
+      {featuredRoles.map((role) => <RoleCard role={role} organization={orgBySlug.get(role.data.organization)} showAllDetails={false} />)}
     </div>
 
     <a href="/experience" class="text-secondary hover:text-secondary-hover mt-6 flex items-center justify-end gap-2 font-medium md:hidden">

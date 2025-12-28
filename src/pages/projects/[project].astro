@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/main-layout.astro';
 import { getCollection, render } from 'astro:content';
 import { FaGithub, FaArrowRight, FaCircleInfo, FaClock, FaTag, FaArrowLeft } from 'react-icons/fa6';
 import { Image } from 'astro:assets';
+import pages from '@/content/site/pages.json';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -31,10 +32,10 @@ const { Content } = await render(project);
       <!-- Meta Info -->
       <div class="mb-6 flex flex-wrap items-center gap-3">
         {
-          project.data.pinned && (
+          ((project.data.featured ?? false) || (project.data.pinned ?? false)) && (
             <span class="bg-secondary/10 text-secondary border-secondary/20 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide uppercase">
               <FaTag className="icon-xs" />
-              Featured Project
+              {pages.home.sections.featuredProjectsTitle}
             </span>
           )
         }
@@ -57,13 +58,15 @@ const { Content } = await render(project);
       </h1>
 
       <!-- Description -->
-      {project.data.description && <p class="text-foreground-muted mb-8 text-xl leading-relaxed md:text-2xl">{project.data.description}</p>}
+      {(project.data.summary || project.data.description) && (
+        <p class="text-foreground-muted mb-8 text-xl leading-relaxed md:text-2xl">{project.data.summary || project.data.description}</p>
+      )}
 
       <!-- Technologies -->
       {
-        project.data.tags && project.data.tags.length > 0 && (
+        ((project.data.technologies ?? project.data.tags) && (project.data.technologies ?? project.data.tags).length > 0) && (
           <div class="mb-8 flex flex-wrap gap-2">
-            {project.data.tags.slice(0, 8).map(tagSlug => (
+            {(project.data.technologies?.length ? project.data.technologies : project.data.tags).slice(0, 8).map(tagSlug => (
               <span class="bg-muted text-foreground border-border hover:bg-muted/80 inline-flex items-center rounded-md border px-3 py-1 text-sm font-medium transition-colors">
                 {tagSlug}
               </span>
@@ -75,9 +78,9 @@ const { Content } = await render(project);
       <!-- Action Buttons -->
       <div class="flex flex-wrap items-center gap-3">
         {
-          project.data.link && (
+          (project.data.liveUrl || project.data.link) && (
             <a
-              href={project.data.link}
+              href={project.data.liveUrl || project.data.link}
               target="_blank"
               rel="noopener noreferrer"
               class="bg-secondary hover:bg-secondary-hover text-on-secondary group inline-flex items-center gap-2 rounded-md px-4 py-2 font-medium transition-colors"
@@ -89,9 +92,9 @@ const { Content } = await render(project);
         }
 
         {
-          project.data.githubLink && (
+          (project.data.repoUrl || project.data.githubLink) && (
             <a
-              href={project.data.githubLink}
+              href={project.data.repoUrl || project.data.githubLink}
               target="_blank"
               rel="noopener noreferrer"
               class="bg-surface hover:bg-muted border-border text-foreground group inline-flex items-center gap-2 rounded-md border px-4 py-2 font-medium transition-colors"
@@ -150,17 +153,17 @@ const { Content } = await render(project);
         }
 
         {
-          project.data.link && (
+          (project.data.liveUrl || project.data.link) && (
             <div class="bg-surface border-border rounded-lg border p-4">
               <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Project URL</dt>
               <dd class="text-base">
                 <a
-                  href={project.data.link}
+                  href={project.data.liveUrl || project.data.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
                 >
-                  {project.data.link}
+                  {project.data.liveUrl || project.data.link}
                 </a>
               </dd>
             </div>
@@ -168,17 +171,17 @@ const { Content } = await render(project);
         }
 
         {
-          project.data.githubLink && (
+          (project.data.repoUrl || project.data.githubLink) && (
             <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
               <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">GitHub Repository</dt>
               <dd class="text-base">
                 <a
-                  href={project.data.githubLink}
+                  href={project.data.repoUrl || project.data.githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
                 >
-                  {project.data.githubLink}
+                  {project.data.repoUrl || project.data.githubLink}
                 </a>
               </dd>
             </div>
@@ -186,11 +189,11 @@ const { Content } = await render(project);
         }
 
         {
-          project.data.tags && project.data.tags.length > 0 && (
+          (project.data.technologies?.length || project.data.tags?.length) && (
             <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
               <dt class="text-foreground-muted mb-3 text-xs font-semibold tracking-wide uppercase">Technologies Used</dt>
               <dd class="flex flex-wrap gap-2">
-                {project.data.tags.map(tagSlug => (
+                {(project.data.technologies?.length ? project.data.technologies : project.data.tags).map(tagSlug => (
                   <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{tagSlug}</span>
                 ))}
               </dd>

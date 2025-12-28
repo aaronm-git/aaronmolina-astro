@@ -9,11 +9,16 @@ interface Props {
       title: string;
       slug?: string;
       description?: string;
+      summary?: string;
       tags: string[];
+      technologies: string[];
       featuredImage?: ImageMetadata;
       link?: string;
+      liveUrl?: string;
       completedOn?: Date;
       pinned?: boolean;
+      featured?: boolean;
+      sortOrder?: number;
     };
   };
   showCompletedDate?: boolean;
@@ -37,7 +42,7 @@ const { project, showCompletedDate = false, showViewProjectLink = true } = Astro
       )
     }
     {
-      project.data.pinned && (
+      (project.data.featured || project.data.pinned) && (
         <div class="absolute right-0 bottom-0 z-10 flex w-full">
           <span class="bg-secondary text-on-secondary w-full px-2 py-1 text-center text-xs font-semibold">Featured</span>
         </div>
@@ -70,11 +75,13 @@ const { project, showCompletedDate = false, showViewProjectLink = true } = Astro
       )
     }
 
-    {project.data.description && <p class="text-foreground-muted mb-4 text-sm leading-relaxed">{project.data.description}</p>}
+    {(project.data.summary || project.data.description) && (
+      <p class="text-foreground-muted mb-4 text-sm leading-relaxed">{project.data.summary || project.data.description}</p>
+    )}
 
     <div class="mb-4 flex flex-wrap gap-2">
       {
-        project.data.tags.slice(0, 3).map(tagSlug => {
+        (project.data.technologies?.length ? project.data.technologies : project.data.tags).slice(0, 3).map(tagSlug => {
           return <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{tagSlug}</span>;
         })
       }
@@ -85,8 +92,8 @@ const { project, showCompletedDate = false, showViewProjectLink = true } = Astro
         Learn more <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
       </a>
       {
-        showViewProjectLink && project.data.link && (
-          <a href={project.data.link} class="text-foreground-muted hover:text-secondary group flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+        showViewProjectLink && (project.data.liveUrl || project.data.link) && (
+          <a href={project.data.liveUrl || project.data.link} class="text-foreground-muted hover:text-secondary group flex items-center gap-1" target="_blank" rel="noopener noreferrer">
             View project <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
           </a>
         )

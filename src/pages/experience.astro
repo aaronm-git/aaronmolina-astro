@@ -1,18 +1,24 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import ExperienceCard from '@/components/ExperienceCard.astro';
+import RoleCard from '@/components/RoleCard.astro';
 import { getCollection } from 'astro:content';
 import CTA from '@/components/CTA.astro';
 import { FaBriefcase, FaBrain, FaAward, FaCheck, FaChartLine, FaCode, FaMobile, FaBolt, FaUsers, FaEye, FaCloud } from 'react-icons/fa6';
 import homepageContent from '@/content/site/homepage.json';
 import pages from '@/content/site/pages.json';
 
-const experience = await getCollection('experience');
-const sortedExperience = experience.sort((a, b) => {
-  if (a.data.current && !b.data.current) return -1;
-  if (!a.data.current && b.data.current) return 1;
-  return b.data.date.getTime() - a.data.date.getTime();
-});
+const roles = await getCollection('roles');
+const organizations = await getCollection('organizations');
+const orgBySlug = new Map(organizations.map((o) => [o.data.slug, o]));
+
+const sortedRoles = roles
+  .filter((r) => r.data.isActive !== false)
+  .sort((a, b) => {
+    if (a.data.current && !b.data.current) return -1;
+    if (!a.data.current && b.data.current) return 1;
+    if ((a.data.sortOrder ?? 0) !== (b.data.sortOrder ?? 0)) return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
+    return b.data.startDate.getTime() - a.data.startDate.getTime();
+  });
 
 const yearsOfExperience = new Date().getFullYear() - homepageContent.yearsOfExperienceStartYear;
 const experienceSubheading = pages.experience.subheadingTemplate.replaceAll('{yearsOfExperience}', String(yearsOfExperience));
@@ -39,7 +45,7 @@ const competencyIcons = [FaCode, FaMobile, FaBolt, FaUsers, FaEye, FaCloud];
     </h2>
 
     <div class="animate-content space-y-8">
-      {sortedExperience.map(exp => <ExperienceCard experience={exp} showAllDetails={true} />)}
+      {sortedRoles.map((role) => <RoleCard role={role} organization={orgBySlug.get(role.data.organization)} showAllDetails={true} />)}
     </div>
   </section>
 
@@ -58,8 +64,8 @@ const competencyIcons = [FaCode, FaMobile, FaBolt, FaUsers, FaEye, FaCloud];
         </h3>
         <ul class="space-y-3">
           {
-            experience
-              .flatMap(exp => exp.data.achievements)
+            roles
+              .flatMap(r => r.data.achievements)
               .slice(0, 6)
               .map(achievement => (
                 <li class="text-foreground-muted flex items-start gap-2 text-sm">

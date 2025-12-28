@@ -1,0 +1,156 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import { FaBriefcase, FaArrowRight, FaCheck, FaAward } from 'react-icons/fa6';
+
+interface Props {
+  role: {
+    data: {
+      title: string;
+      slug: string;
+      organization: string;
+      location?: string;
+      startDate: Date;
+      endDate?: Date;
+      current?: boolean;
+      summary?: string;
+      highlights: string[];
+      achievements: string[];
+      technologies: string[];
+      isActive?: boolean;
+    };
+  };
+  organization?: {
+    data: {
+      name: string;
+      slug: string;
+      logo?: ImageMetadata;
+      website?: string;
+      location?: string;
+    };
+  };
+  showAllDetails?: boolean;
+}
+
+const { role, organization, showAllDetails = false } = Astro.props;
+
+function calculateDuration(startDate: Date, endDate?: Date): string {
+  const end = endDate ? endDate : new Date();
+  const start = startDate;
+
+  let years = end.getFullYear() - start.getFullYear();
+  let months = end.getMonth() - start.getMonth();
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  const parts = [];
+  if (years > 0) parts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
+  if (months > 0) parts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
+
+  return parts.length > 0 ? parts.join(', ') : '1 month';
+}
+
+const duration = calculateDuration(role.data.startDate, role.data.endDate);
+const orgName = organization?.data.name || role.data.organization;
+const logoAlt = `${orgName.trim()} logo`;
+---
+
+<article class="animate-card bg-surface border-border rounded-lg border p-6 shadow-md transition-shadow hover:shadow-lg" id={role.data.slug}>
+  <div class="mb-4 flex flex-col md:flex-row md:items-start md:justify-between">
+    <div class="flex flex-col items-start gap-4 md:flex-row">
+      <div class="bg-muted border-border flex aspect-square w-20 items-center justify-center overflow-hidden rounded border">
+        {
+          organization?.data.logo ? (
+            <Image src={organization.data.logo} alt={logoAlt} loading="lazy" width={100} height={100} />
+          ) : (
+            <span class="text-foreground-muted text-center text-xs">
+              <FaBriefcase className="icon-lg" />
+            </span>
+          )
+        }
+      </div>
+      <div class="space-y-1">
+        <h3 class="text-foreground text-xl font-semibold">{role.data.title}</h3>
+        <h4 class="text-secondary text-lg font-medium">
+          {orgName}
+          {
+            organization?.data.website && (
+              <a href={organization.data.website} target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-secondary-hover transition-colors">
+                <>
+                  <FaArrowRight className="inline icon-sm" />
+                  <span class="sr-only">Visit Site</span>
+                </>
+              </a>
+            )
+          }
+        </h4>
+        {role.data.location && <p class="text-foreground-muted text-sm">{role.data.location}</p>}
+      </div>
+    </div>
+    <div class="md:text-right">
+      <p class="text-foreground-muted font-medium">
+        {role.data.startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+        {role.data.endDate && !role.data.current ? ` - ${role.data.endDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}` : ''}
+        {role.data.current ? ' - Present' : ''}
+      </p>
+      <p class="text-foreground-muted mt-1 text-sm">{duration}</p>
+      {role.data.current && <span class="bg-secondary text-on-secondary mt-1 inline-block rounded-full px-2 py-1 text-xs">Current</span>}
+    </div>
+  </div>
+
+  {showAllDetails && role.data.summary && (
+    <div class="border-border mb-8 max-w-2xl rounded-md border p-4">
+      <p class="text-foreground-muted text-sm">{role.data.summary}</p>
+    </div>
+  )}
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <div>
+      <h5 class="text-foreground mb-3 font-medium">Highlights</h5>
+      <ul class="space-y-2">
+        {role.data.highlights.slice(0, showAllDetails ? undefined : 3).map((highlight) => (
+          <li class="text-foreground-muted flex items-start gap-2 text-sm">
+            <FaCheck className="text-secondary size-icon-sm mt-0.5" />
+            {highlight}
+          </li>
+        ))}
+      </ul>
+
+      {!showAllDetails && (
+        <div class="mt-4">
+          <a href={`/experience#${role.data.slug}`} class="text-secondary hover:text-secondary-hover group flex items-center gap-1 text-sm font-medium transition-colors">
+            See more details <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
+          </a>
+        </div>
+      )}
+    </div>
+
+    <div>
+      <h5 class="text-foreground mb-3 font-medium">Technologies</h5>
+      <div class="flex flex-wrap gap-2">
+        {role.data.technologies.slice(0, showAllDetails ? undefined : 10).map((slug) => (
+          <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{slug}</span>
+        ))}
+      </div>
+
+      {role.data.achievements.length > 0 && (
+        <div class="mt-4">
+          <h5 class="text-foreground mb-2 font-medium">Key Achievements</h5>
+          <ul class="space-y-1">
+            {role.data.achievements.map((achievement) => (
+              <li class="text-foreground-muted flex items-start gap-2 text-sm">
+                <FaAward className="text-secondary size-icon-sm mt-0.5" />
+                {achievement}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+</article>
+
+

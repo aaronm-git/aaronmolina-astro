@@ -458,6 +458,295 @@ collections:
                 widget: text
                 required: true
                 hint: 'Use {yearsOfExperience} to dynamically inject the calculated years.'
+
+  # Profile (singleton entity)
+  - name: profile
+    label: Profile
+    files:
+      - name: profile
+        label: Profile
+        file: src/content/profile/profile.json
+        format: json
+        editor:
+          preview: false
+        fields:
+          - label: Full Name
+            name: fullName
+            widget: string
+            required: true
+          - label: Headline
+            name: headline
+            widget: string
+            required: true
+          - label: Summary
+            name: summary
+            widget: text
+            required: true
+          - label: Location
+            name: location
+            widget: string
+            required: false
+          - label: Website
+            name: website
+            widget: string
+            required: false
+          - label: Email
+            name: email
+            widget: string
+            required: false
+          - label: Phone
+            name: phone
+            widget: string
+            required: false
+          - label: Avatar
+            name: avatar
+            widget: image
+            required: false
+            allow_multiple: false
+          - label: Availability
+            name: availability
+            widget: select
+            required: false
+            options:
+              - open_to_work
+              - available_for_contract
+              - not_available
+          - label: Primary Roles
+            name: primaryRoles
+            widget: list
+            required: false
+            field:
+              label: Role
+              name: role
+              widget: string
+
+  # Technologies (unified taxonomy: skills/tools/platforms/concepts)
+  - name: technologies
+    label: Technologies
+    folder: src/content/technologies
+    create: true
+    slug: '{{slug}}'
+    label_singular: Technology
+    description: Unified taxonomy for skills, tools, platforms, frameworks, concepts, etc.
+    format: json
+    editor:
+      preview: false
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Slug
+        name: slug
+        widget: string
+        required: true
+      - label: Category
+        name: category
+        widget: select
+        required: true
+        options:
+          - language
+          - framework
+          - library
+          - tool
+          - platform
+          - service
+          - cms
+          - concept
+          - other
+      - label: URL
+        name: url
+        widget: string
+        required: false
+      - label: Level
+        name: level
+        widget: select
+        required: false
+        options:
+          - beginner
+          - intermediate
+          - advanced
+          - expert
+      - label: Years (optional)
+        name: years
+        widget: number
+        value_type: float
+        required: false
+        min: 0
+      - label: Featured
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+      - label: Sort Order
+        name: sortOrder
+        widget: number
+        value_type: int
+        required: false
+        default: 0
+
+  # Organizations
+  - name: organizations
+    label: Organizations
+    folder: src/content/organizations
+    create: true
+    slug: '{{slug}}'
+    label_singular: Organization
+    description: Companies/clients/teams you worked with.
+    format: json
+    editor:
+      preview: false
+    fields:
+      - label: Name
+        name: name
+        widget: string
+        required: true
+      - label: Slug
+        name: slug
+        widget: string
+        required: true
+      - label: Website
+        name: website
+        widget: string
+        required: false
+      - label: Location
+        name: location
+        widget: string
+        required: false
+      - label: Logo
+        name: logo
+        widget: image
+        required: false
+        allow_multiple: false
+      - label: Industry
+        name: industry
+        widget: string
+        required: false
+      - label: Summary
+        name: summary
+        widget: text
+        required: false
+      - label: Featured
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+      - label: Sort Order
+        name: sortOrder
+        widget: number
+        value_type: int
+        required: false
+        default: 0
+
+  # Roles (experience entries)
+  - name: roles
+    label: Roles
+    folder: src/content/roles
+    create: true
+    slug: '{{slug}}'
+    label_singular: Role
+    description: A role you held at an organization (employment/contract).
+    format: json
+    editor:
+      preview: false
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Slug
+        name: slug
+        widget: string
+        required: true
+      - label: Organization
+        name: organization
+        widget: relation
+        collection: organizations
+        search_fields: [name, slug]
+        value_field: slug
+        display_fields: [name]
+        required: true
+      - label: Location
+        name: location
+        widget: string
+        required: false
+      - label: Employment Type
+        name: employmentType
+        widget: select
+        required: false
+        options:
+          - full_time
+          - part_time
+          - contract
+          - freelance
+          - internship
+      - label: Start Date
+        name: startDate
+        widget: datetime
+        required: true
+      - label: End Date
+        name: endDate
+        widget: datetime
+        required: false
+      - label: Current
+        name: current
+        widget: boolean
+        default: false
+        required: false
+      - label: Summary
+        name: summary
+        widget: text
+        required: false
+      - label: Highlights
+        name: highlights
+        widget: list
+        required: false
+        field:
+          label: Highlight
+          name: highlight
+          widget: string
+      - label: Achievements
+        name: achievements
+        widget: list
+        required: false
+        field:
+          label: Achievement
+          name: achievement
+          widget: string
+      - label: Technologies
+        name: technologies
+        widget: relation
+        collection: technologies
+        search_fields: [title, slug]
+        value_field: slug
+        display_fields: [title]
+        multiple: true
+        required: false
+      - label: Projects
+        name: projects
+        widget: relation
+        collection: projects
+        search_fields: [title, slug]
+        value_field: slug
+        display_fields: [title]
+        multiple: true
+        required: false
+      - label: Featured
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+      - label: Sort Order
+        name: sortOrder
+        widget: number
+        value_type: int
+        required: false
+        default: 0
+      - label: Active (show on site)
+        name: isActive
+        widget: boolean
+        default: true
+        required: false
   - name: posts
     label: Blog Posts
     label_singular: Blog Post
@@ -495,7 +784,7 @@ collections:
       - label: Tags
         name: tags
         widget: relation
-        collection: tags
+        collection: technologies
         search_fields:
           - title
           - slug
@@ -506,34 +795,6 @@ collections:
       - label: Body
         name: body
         widget: markdown
-        required: true
-  - name: tags
-    label: Tags
-    folder: src/content/tags
-    create: true
-    slug: '{{slug}}'
-    label_singular: Tag
-    description: Tags for blog posts
-    format: json
-    editor:
-      preview: false
-    fields:
-      - label: Title
-        name: title
-        widget: string
-        required: true
-      - label: Slug
-        name: slug
-        widget: string
-        required: true
-      - label: Description
-        name: description
-        widget: string
-        required: false
-      - label: Color
-        name: color
-        widget: color
-        default: '#000000'
         required: true
   - name: projects
     label: Projects
@@ -554,34 +815,49 @@ collections:
         name: slug
         widget: string
         required: true
-      - label: Description
-        name: description
-        widget: string
+      - label: Summary
+        name: summary
+        widget: text
         required: false
-      - label: Tags
-        name: tags
+      - label: Technologies
+        name: technologies
         widget: relation
-        collection: tags
-        search_fields:
-          - title
-          - slug
+        collection: technologies
+        search_fields: [title, slug]
         value_field: slug
-        display_fields:
-          - title
+        display_fields: [title]
         multiple: true
+        required: false
       - label: Featured Image
         name: featuredImage
         hint: This will be the image that appears on the project page
         widget: image
         required: false
         allow_multiple: false
-      - label: Link
-        name: link
+      - label: Live URL
+        name: liveUrl
         widget: string
         required: false
-      - label: GitHub Link
-        name: githubLink
+      - label: Repo URL
+        name: repoUrl
         widget: string
+        required: false
+      - label: Organization
+        name: organization
+        widget: relation
+        collection: organizations
+        search_fields: [name, slug]
+        value_field: slug
+        display_fields: [name]
+        required: false
+      - label: Roles
+        name: roles
+        widget: relation
+        collection: roles
+        search_fields: [title, slug]
+        value_field: slug
+        display_fields: [title]
+        multiple: true
         required: false
       - label: Body
         name: body
@@ -595,102 +871,140 @@ collections:
         name: isActive
         widget: boolean
         default: true
-      - label: Pinned
-        name: pinned
+      - label: Featured
+        name: featured
         widget: boolean
         default: false
         required: false
-      - label: Experience
-        name: experience
-        widget: string
+      - label: Sort Order
+        name: sortOrder
+        widget: number
+        value_type: int
         required: false
-  - name: experience
-    label: Experience
-    folder: src/content/experience
+        default: 0
+
+  # Resume-adjacent entities (optional to render now; useful for later export)
+  - name: education
+    label: Education
+    folder: src/content/education
     create: true
     slug: '{{slug}}'
-    label_singular: Experience
-    description: Experience for the portfolio
     format: json
     editor:
       preview: false
     fields:
-      - label: Title
-        name: title
-        widget: string
-        required: true
-      - label: Slug
-        name: slug
-        widget: string
-        required: true
-      - label: Location
-        name: location
-        widget: string
-        required: true
-      - label: Date
-        name: date
-        widget: datetime
-        required: true
-      - label: End Date
-        name: endDate
-        widget: datetime
-        required: false
-        date_format: YYYY-MM
-      - label: Role
-        name: role
-        widget: string
-        required: true
-      - label: Company
-        name: company
-        widget: string
-        required: false
-      - label: Description
-        name: description
-        widget: text
-        required: false
-      - label: Responsibilities
-        name: responsibilities
+      - { label: School, name: school, widget: string, required: true }
+      - { label: Slug, name: slug, widget: string, required: true }
+      - { label: Degree, name: degree, widget: string, required: false }
+      - { label: Field of Study, name: field, widget: string, required: false }
+      - { label: Start Date, name: startDate, widget: datetime, required: false }
+      - { label: End Date, name: endDate, widget: datetime, required: false }
+      - { label: Location, name: location, widget: string, required: false }
+      - label: Highlights
+        name: highlights
         widget: list
-        required: true
-      - label: Skills
-        name: skills
-        widget: list
-        required: true
-      - label: Tools
-        name: tools
-        widget: list
-        required: true
-      - label: Logo
-        name: logo
-        widget: image
         required: false
-        allow_multiple: false
-      - label: Website URL
-        name: url
-        widget: string
-        required: false
-      - label: Current Role
-        name: current
-        widget: boolean
-        default: false
-        required: false
-      - label: Projects
-        name: projects
+        field: { label: Highlight, name: highlight, widget: string }
+      - { label: Sort Order, name: sortOrder, widget: number, value_type: int, required: false, default: 0 }
+      - { label: Active (show on site), name: isActive, widget: boolean, default: true, required: false }
+
+  - name: certifications
+    label: Certifications
+    folder: src/content/certifications
+    create: true
+    slug: '{{slug}}'
+    format: json
+    editor:
+      preview: false
+    fields:
+      - { label: Name, name: name, widget: string, required: true }
+      - { label: Slug, name: slug, widget: string, required: true }
+      - { label: Issuer, name: issuer, widget: string, required: false }
+      - { label: Issue Date, name: issueDate, widget: datetime, required: false }
+      - { label: Expiration Date, name: expirationDate, widget: datetime, required: false }
+      - { label: Credential URL, name: url, widget: string, required: false }
+      - label: Technologies
+        name: technologies
         widget: relation
-        collection: projects
-        search_fields:
-          - title
-          - slug
+        collection: technologies
+        search_fields: [title, slug]
         value_field: slug
-        display_fields:
-          - title
+        display_fields: [title]
         multiple: true
         required: false
-      - label: Achievements
-        name: achievements
+      - { label: Sort Order, name: sortOrder, widget: number, value_type: int, required: false, default: 0 }
+      - { label: Active (show on site), name: isActive, widget: boolean, default: true, required: false }
+
+  - name: awards
+    label: Awards
+    folder: src/content/awards
+    create: true
+    slug: '{{slug}}'
+    format: json
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string, required: true }
+      - { label: Slug, name: slug, widget: string, required: true }
+      - { label: Issuer, name: issuer, widget: string, required: false }
+      - { label: Date, name: date, widget: datetime, required: false }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: URL, name: url, widget: string, required: false }
+      - { label: Sort Order, name: sortOrder, widget: number, value_type: int, required: false, default: 0 }
+      - { label: Active (show on site), name: isActive, widget: boolean, default: true, required: false }
+
+  - name: testimonials
+    label: Testimonials
+    folder: src/content/testimonials
+    create: true
+    slug: '{{slug}}'
+    format: json
+    editor:
+      preview: false
+    fields:
+      - { label: Name, name: name, widget: string, required: true }
+      - { label: Slug, name: slug, widget: string, required: true }
+      - { label: Role/Title, name: role, widget: string, required: false }
+      - label: Organization
+        name: organization
+        widget: relation
+        collection: organizations
+        search_fields: [name, slug]
+        value_field: slug
+        display_fields: [name]
+        required: false
+      - { label: Quote, name: quote, widget: text, required: true }
+      - { label: URL, name: url, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false, required: false }
+      - { label: Sort Order, name: sortOrder, widget: number, value_type: int, required: false, default: 0 }
+      - { label: Active (show on site), name: isActive, widget: boolean, default: true, required: false }
+
+  - name: services
+    label: Services
+    folder: src/content/services
+    create: true
+    slug: '{{slug}}'
+    format: json
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string, required: true }
+      - { label: Slug, name: slug, widget: string, required: true }
+      - { label: Summary, name: summary, widget: text, required: true }
+      - label: Deliverables
+        name: deliverables
         widget: list
-        required: true
-      - label: Is Active
-        name: isActive
-        widget: boolean
-        default: true
+        required: false
+        field: { label: Deliverable, name: deliverable, widget: string }
+      - label: Technologies
+        name: technologies
+        widget: relation
+        collection: technologies
+        search_fields: [title, slug]
+        value_field: slug
+        display_fields: [title]
+        multiple: true
+        required: false
+      - { label: Featured, name: featured, widget: boolean, default: false, required: false }
+      - { label: Sort Order, name: sortOrder, widget: number, value_type: int, required: false, default: 0 }
+      - { label: Active (show on site), name: isActive, widget: boolean, default: true, required: false }

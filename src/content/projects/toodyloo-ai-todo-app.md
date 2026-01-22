@@ -101,6 +101,29 @@ I built Toodyloo using **TanStack Start**, **React**, **TypeScript**, **PostgreS
 - **Database Migrations**: Drizzle migrations for schema management
 - **Environment Configuration**: Support for multiple deployment environments
 
+## Why I switched to TanStack Start (vs Next.js App Router)
+
+I’ve built a lot of production React, and I’m pretty opinionated about frameworks: I want **clarity**, **type-safety**, and **control**—not “magic” that’s impressive until it’s 2am and you’re debugging a cache/SSR/RSC edge case. Next.js App Router is powerful, but the modern model asks you to internalize a lot of implicit behavior (especially around caching and where code runs) and I got tired of fighting it. ([Next.js Caching](https://nextjs.org/docs/app/guides/caching))
+
+So for Toodyloo, I chose TanStack Start. These are *my* reasons:
+
+1. **I’m done with RSC mental gymnastics as the default**  
+   I don’t want to constantly think “server component or client component?”, “what invalidates what?”, and “why did this render on the server again?” TanStack Start’s model keeps boundaries more explicit and easier to reason about. ([TanStack Start Comparison](https://tanstack.com/start/latest/docs/framework/react/comparison))
+
+2. **Server Functions feel like the pragmatic middle ground**  
+   I want backend logic colocated with my app, but I want it *explicit* and callable in a way that’s easy to test and instrument. TanStack Start’s Server Functions are a clear abstraction for full-stack work without turning every mutation into framework ceremony. ([TanStack Start Server Functions](https://tanstack.com/start/latest/docs/framework/react/guide/server-functions))
+
+3. **Type-safe routing is non‑negotiable for serious apps**  
+   When routes are a stringly-typed minefield, refactors get scary. TanStack Router’s type-safety makes route params and navigation fail at compile time instead of in production. ([TanStack Start vs Next.js](https://tanstack.com/start/latest/docs/framework/react/start-vs-nextjs))
+
+4. **The data layer is predictable (TanStack Query + explicit patterns)**  
+   I already trust TanStack Query’s primitives for caching, invalidation, optimistic updates, and retries. Start fits that mental model cleanly, which makes app behavior more consistent and debugging way less painful. ([TanStack Start Overview](https://tanstack.com/start/latest/docs))
+
+5. **Portability matters (I don’t want my framework picking my platform)**  
+   I deploy where it makes sense. This app runs on Netlify with first‑class support (SSR + server functions) via an official framework guide. ([Netlify: TanStack Start setup guide](https://docs.netlify.com/build/frameworks/framework-setup-guides/tanstack-start/))
+
+Next.js still has a place—Route Handlers and Server Actions can be great— but the tradeoffs are real, and for this project I wanted a system that stays understandable as it grows. ([Next.js Route Handlers](https://nextjs.org/docs/app/getting-started/route-handlers))
+
 ## Obstacles and Solutions
 
 ### Obstacle: Optimistic UI with Error Handling
@@ -153,44 +176,6 @@ I implemented:
 The AI features are clearly marked, and users are informed that their input may be processed by third-party services.
 
 - - -
-
-## Try It Out
-
-### Installation
-
-```bash
-git clone https://github.com/aaronm-git/tanstack-start-todo.git
-cd tanstack-start-todo
-pnpm install
-```
-
-#### Environment Variables
-
-```bash
-# Database
-DATABASE_URL=postgres://user:password@localhost:5432/todos
-
-# Authentication
-BETTER_AUTH_SECRET=your-secret-key
-BETTER_AUTH_URL=http://localhost:3000
-
-# AI (Optional)
-OPENAI_API_KEY=your-openai-key
-
-# Sentry (Optional)
-VITE_SENTRY_DSN=your-sentry-dsn
-```
-
-### Setup
-
-1. Create a PostgreSQL database
-2. Copy `example.env` to `.env.local` and fill in your values
-3. Run migrations: `pnpm db:migrate`
-4. Start dev server: `pnpm dev`
-
-### License
-
-MIT
 
 ### Author
 

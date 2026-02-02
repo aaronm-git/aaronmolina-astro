@@ -19,7 +19,7 @@ technologies:
   - zustand
   - swr
   - monaco-editor
-featuredImage: ../../images/project-toodyloo.jpg
+featuredImage: ../../images/project-pdf-generator.png
 liveUrl: https://pdf-generator-web-app.vercel.app
 repoUrl: https://github.com/aaronm-git/pdf-generator-web-app
 completedOn: 2025-01-30T00:00:00.000Z

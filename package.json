@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev --host",
-    "build": "astro build",
+    "dev": "node scripts/generate-skill-labels.js && astro dev --host",
+    "build": "node scripts/generate-skill-labels.js && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "cms:dev": "npx decap-server",
@@ -14,7 +14,8 @@
     "images:watch": "gulp watchImages",
     "images:check": "node scripts/image-size-check.js",
     "images:to-jpg": "node scripts/convert-images-to-jpg.mjs",
-    "llms:generate": "node scripts/generate-llms-txt.mjs"
+    "llms:generate": "node scripts/generate-llms-txt.mjs",
+    "skills:generate": "node scripts/generate-skill-labels.js"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.0",

@@ -22,10 +22,10 @@ technologies:
 featuredImage: ../../images/project-pdf-generator.png
 liveUrl: https://pdf-generator-web-app.vercel.app
 repoUrl: https://github.com/aaronm-git/pdf-generator-web-app
-completedOn: 2025-01-30T00:00:00.000Z
+completedOn: 2026-02-01T00:00:00.000Z
 isActive: true
-featured: false
-sortOrder: 0
+featured: true
+sortOrder: -1
 ---
 
 PDF Generator is an intelligent document creation platform that transforms natural language descriptions into professionally formatted PDFs. Built with modern full-stack technologies, it demonstrates seamless AI integration, robust authentication, and production-grade database architecture.

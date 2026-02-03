@@ -1,5 +1,6 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
 import InfoBox from '@/components/molecules/InfoBox.astro';
 import ListItem from '@/components/molecules/ListItem.astro';
 import Button from '@/components/atoms/Button.astro';
@@ -16,13 +17,12 @@ const responseIconNames = ['clock', 'calendar', 'globe'];
 ---
 
 <MainLayout title={pages.contact.metaTitle} description={pages.contact.metaDescription}>
-  <!-- Header -->
-  <section class="animate-section mb-12 text-center">
-    <h1 class="text-foreground mb-4 text-5xl font-bold">{pages.contact.heading}</h1>
-    <p class="text-foreground-muted mx-auto max-w-2xl text-lg">
-      {pages.contact.intro}
-    </p>
-  </section>
+  <HeroSection
+    variant="minimal"
+    headline={pages.contact.heading}
+    description={pages.contact.intro}
+    class="py-8 mb-4"
+  />
 
   <!-- Contact Form -->
   <div class="animate-section mb-16 grid gap-12 lg:grid-cols-2">

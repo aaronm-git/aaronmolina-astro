@@ -1,9 +1,10 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import BlogSection from '@/components/organisms/sections/BlogSection.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
-import { formatDate, toISODateString } from '@/utils/date-format';
-import TagList from '@/components/molecules/TagList.astro';
 import pages from '@/content/site/pages.json';
 
 const posts = await getCollection('blog');
@@ -18,48 +19,27 @@ const postsToShow = posts
 ---
 
 <MainLayout title={pages.blogIndex.metaTitle} description={pages.blogIndex.metaDescription}>
-  <div class="mx-auto max-w-4xl px-4 py-8">
-    <section class="animate-section mb-12">
-      <h1 class="text-foreground mb-4 text-4xl font-bold">{pages.blogIndex.heading}</h1>
-      <p class="text-foreground-muted text-xl">{pages.blogIndex.intro}</p>
-    </section>
+  <HeroSection
+    variant="minimal"
+    headline={pages.blogIndex.heading}
+    description={pages.blogIndex.intro}
+    class="py-8"
+  />
 
-    <div class="animate-section space-y-8">
-      {
-        postsToShow.map(post => (
-          <article class="animate-content border-border border-b pb-8 last:border-b-0">
-            <header class="mb-4">
-              <h2 class="text-foreground mb-2 text-2xl font-semibold">
-                <a href={`/blog/${post.data.slug}`} class="hover:text-secondary transition-colors">
-                  {post.data.title}
-                </a>
-              </h2>
-
-              <div class="text-foreground-muted mb-3 flex items-center">
-                {post.data.publishDate && (
-                  <time datetime={toISODateString(post.data.publishDate)}>
-                    {formatDate(post.data.publishDate, 'long')}
-                  </time>
-                )}
-              </div>
-
-              {post.data.description && <p class="text-foreground-muted mb-4">{post.data.description}</p>}
-
-              {post.data.tags && post.data.tags.length > 0 && (
-                <TagList tags={post.data.tags} techMap={techMap} />
-              )}
-            </header>
-          </article>
-        ))
-      }
+  {postsToShow.length > 0 ? (
+    <BlogSection
+      title=""
+      posts={postsToShow}
+      techMap={techMap}
+      variant="list"
+      showTags
+      class="animate-section py-0 max-w-4xl mx-auto"
+    />
+  ) : (
+    <div class="py-12 text-center">
+      <p class="text-foreground-muted">{pages.blogIndex.emptyState}</p>
     </div>
+  )}
 
-    {
-      posts.length === 0 && (
-        <div class="py-12 text-center">
-          <p class="text-foreground-muted">{pages.blogIndex.emptyState}</p>
-        </div>
-      )
-    }
-  </div>
+  <CTASection class="animate-section mt-12" />
 </MainLayout>

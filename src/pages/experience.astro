@@ -1,6 +1,8 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import RoleCard from '@/components/organisms/cards/RoleCard.astro';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import ExperienceSection from '@/components/organisms/sections/ExperienceSection.astro';
+import FeaturesSection from '@/components/organisms/sections/FeaturesSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
 import InfoBox from '@/components/molecules/InfoBox.astro';
@@ -35,29 +37,32 @@ const sortedRoles = roles
 
 const yearsOfExperience = new Date().getFullYear() - homepageContent.yearsOfExperienceStartYear;
 const experienceSubheading = pages.experience.subheadingTemplate.replaceAll('{yearsOfExperience}', String(yearsOfExperience));
-const competencyIconNames = ['code', 'rocket', 'bolt', 'users', 'lightbulb', 'globe'];
+
+// Build features from core competencies for FeaturesSection
+const competencyFeatures = pages.experience.coreCompetencies.map((item: { title: string; description?: string }, idx: number) => ({
+  icon: ['code', 'rocket', 'bolt', 'users', 'lightbulb', 'globe'][idx] || 'code',
+  title: item.title,
+  description: item.description || '',
+}));
 ---
 
 <MainLayout title={pages.experience.metaTitle} description={pages.experience.metaDescription}>
-  <!-- Header Section -->
-  <section class="animate-section mb-12 text-center">
-    <h1 class="text-foreground mb-4 text-5xl font-bold">{pages.experience.heading}</h1>
-    <p class="text-foreground-muted mb-6 text-xl">
-      {experienceSubheading}
-    </p>
-    <p class="text-foreground-muted mx-auto max-w-3xl text-lg leading-relaxed">
-      {pages.experience.intro}
-    </p>
-  </section>
+  <HeroSection
+    variant="minimal"
+    headline={pages.experience.heading}
+    subheadline={experienceSubheading}
+    description={pages.experience.intro}
+    class="py-8 text-center"
+  />
 
-  <!-- Experience Timeline -->
-  <section class="animate-section mb-16">
-    <SectionHeader title={pages.experience.workExperienceTitle} icon="briefcase" />
-
-    <div class="animate-content space-y-8">
-      {sortedRoles.map((role) => <RoleCard role={role} organization={orgBySlug.get(role.data.organization)} showAllDetails={true} />)}
-    </div>
-  </section>
+  <ExperienceSection
+    title={pages.experience.workExperienceTitle}
+    roles={sortedRoles}
+    organizations={orgBySlug}
+    variant="cards"
+    showAllDetails
+    class="animate-section mb-8"
+  />
 
   <!-- Career Highlights -->
   <section class="animate-section mb-16">
@@ -81,8 +86,8 @@ const competencyIconNames = ['code', 'rocket', 'bolt', 'users', 'lightbulb', 'gl
 
       <InfoBox title={pages.experience.coreCompetenciesTitle} icon="lightbulb" variant="surface">
         <ul class="space-y-3">
-          {pages.experience.coreCompetencies.map((item, idx) => {
-            const iconName = competencyIconNames[idx] || 'code';
+          {pages.experience.coreCompetencies.map((item: { title: string }, idx: number) => {
+            const iconName = ['code', 'rocket', 'bolt', 'users', 'lightbulb', 'globe'][idx] || 'code';
             return (
               <ListItem icon={iconName} iconColor="secondary">
                 {item.title}
@@ -94,7 +99,5 @@ const competencyIconNames = ['code', 'rocket', 'bolt', 'users', 'lightbulb', 'gl
     </div>
   </section>
 
-  <div class="animate-section">
-    <CTASection />
-  </div>
+  <CTASection class="animate-section" />
 </MainLayout>

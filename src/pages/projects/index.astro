@@ -1,23 +1,20 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import ProjectCard from '@/components/organisms/cards/ProjectCard.astro';
-import { getCollection } from 'astro:content';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import ProjectsSection from '@/components/organisms/sections/ProjectsSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
+import { getCollection } from 'astro:content';
 import pages from '@/content/site/pages.json';
 
 const projects = await getCollection('projects');
+
 // Sort projects by featured/sortOrder, then completion date (newest first)
 const sortedProjects = projects
   .filter(project => project.data.isActive)
   .sort((a, b) => {
-    // First sort by featured status
     if (a.data.featured && !b.data.featured) return -1;
     if (!a.data.featured && b.data.featured) return 1;
-
-    // Then by sortOrder
     if ((a.data.sortOrder ?? 0) !== (b.data.sortOrder ?? 0)) return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
-
-    // Then by completion date
     const aDate = a.data.completedOn ? new Date(a.data.completedOn).getTime() : 0;
     const bDate = b.data.completedOn ? new Date(b.data.completedOn).getTime() : 0;
     return bDate - aDate;
@@ -25,24 +22,28 @@ const sortedProjects = projects
 ---
 
 <MainLayout title={pages.projectsIndex.metaTitle} description={pages.projectsIndex.metaDescription}>
-  <section class="animate-section mb-12">
-    <h1 class="text-foreground mb-4 text-4xl font-bold">{pages.projectsIndex.heading}</h1>
-    <p class="text-foreground-muted text-xl">{pages.projectsIndex.intro}</p>
-  </section>
+  <HeroSection
+    variant="minimal"
+    headline={pages.projectsIndex.heading}
+    description={pages.projectsIndex.intro}
+    class="py-8"
+  />
 
-  <div class="animate-section grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-    {sortedProjects.map(project => <ProjectCard project={project} showCompletedDate={true} />)}
-  </div>
+  {sortedProjects.length > 0 ? (
+    <ProjectsSection
+      title=""
+      projects={sortedProjects}
+      variant="grid"
+      columns={3}
+      showCompletedDate
+      showViewProjectLink
+      class="animate-section py-0"
+    />
+  ) : (
+    <div class="py-12 text-center">
+      <p class="text-foreground-muted">{pages.projectsIndex.emptyState}</p>
+    </div>
+  )}
 
-  {
-    projects.length === 0 && (
-      <div class="py-12 text-center">
-        <p class="text-foreground-muted">{pages.projectsIndex.emptyState}</p>
-      </div>
-    )
-  }
-
-  <div class="animate-section mt-12">
-    <CTASection />
-  </div>
+  <CTASection class="animate-section mt-12" />
 </MainLayout>

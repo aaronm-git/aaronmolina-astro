@@ -1,6 +1,14 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import {
+  easing,
+  duration,
+  stagger,
+  presets,
+  hoverEffects,
+  scrollTriggerDefaults,
+} from '@/lib/gsap-presets';
 
 // Register the plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -18,8 +26,8 @@ export class AnimationUtils {
 
     // Set up global animation settings - Tactile Maximalism: bouncy, elastic
     gsap.defaults({
-      duration: 0.5,
-      ease: 'elastic.out(1, 0.5)',
+      duration: duration.normal,
+      ease: easing.elastic,
     });
   }
 
@@ -317,29 +325,120 @@ export class AnimationUtils {
   static initCardAnimations() {
     const cards = document.querySelectorAll('.animate-card');
 
-    cards.forEach((card, index) => {
+    cards.forEach((card) => {
       gsap.fromTo(
         card,
+        presets.cardEntrance.from,
         {
-          y: 40,
-          scale: 0.95,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          scale: 1,
-          opacity: 1,
-          duration: 0.6,
-          ease: 'back.out(1.7)',
+          ...presets.cardEntrance.to,
           scrollTrigger: {
             trigger: card,
-            start: 'top 85%',
-            end: 'bottom 15%',
-            toggleActions: 'play none none none',
-            once: true,
+            ...scrollTriggerDefaults.card,
           },
         },
       );
+    });
+  }
+
+  // Staggered grid animations for card grids
+  static initGridAnimations() {
+    const grids = document.querySelectorAll('.animate-grid');
+
+    grids.forEach((grid) => {
+      const children = grid.querySelectorAll('.animate-grid-item');
+      if (children.length === 0) return;
+
+      gsap.fromTo(
+        children,
+        presets.cardEntrance.from,
+        {
+          ...presets.cardEntrance.to,
+          stagger: {
+            amount: 0.4,
+            from: 'start',
+            grid: 'auto',
+          },
+          scrollTrigger: {
+            trigger: grid,
+            ...scrollTriggerDefaults.section,
+          },
+        },
+      );
+    });
+  }
+
+  // Card hover lift effects
+  static initCardHoverEffects() {
+    const hoverCards = document.querySelectorAll('.hover-lift');
+
+    hoverCards.forEach((card) => {
+      // Set initial state for GPU acceleration
+      gsap.set(card, { willChange: 'transform' });
+
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, hoverEffects.lift);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          y: 0,
+          scale: 1,
+          duration: duration.hover,
+          ease: easing.powerOut,
+        });
+      });
+    });
+
+    // Subtle hover for smaller elements
+    const subtleHoverCards = document.querySelectorAll('.hover-lift-subtle');
+
+    subtleHoverCards.forEach((card) => {
+      gsap.set(card, { willChange: 'transform' });
+
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, hoverEffects.liftSubtle);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          y: 0,
+          scale: 1,
+          duration: duration.hover,
+          ease: easing.powerOut,
+        });
+      });
+    });
+  }
+
+  // Button micro-interactions
+  static initButtonAnimations() {
+    const tactileButtons = document.querySelectorAll('.btn-tactile, [data-animate="button"]');
+
+    tactileButtons.forEach((btn) => {
+      // Press effect
+      btn.addEventListener('mousedown', () => {
+        gsap.to(btn, {
+          scale: 0.95,
+          duration: duration.press,
+          ease: easing.powerIn,
+        });
+      });
+
+      btn.addEventListener('mouseup', () => {
+        gsap.to(btn, {
+          scale: 1,
+          duration: duration.bounce,
+          ease: easing.elastic,
+        });
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, {
+          scale: 1,
+          duration: duration.hover,
+          ease: easing.powerOut,
+        });
+      });
     });
   }
 
@@ -465,7 +564,10 @@ export class AnimationUtils {
     this.init();
     this.initHeroAnimations();
     this.initCardAnimations();
+    this.initGridAnimations();
     this.initSectionAnimations();
+    this.initCardHoverEffects();
+    this.initButtonAnimations();
     this.initSmoothScrolling();
     this.initSmoothScrollOnPageLoad();
     this.initHashScrolling();

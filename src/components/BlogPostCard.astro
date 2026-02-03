@@ -1,0 +1,96 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, toISODateString } from '@/utils/date-format';
+import { FaArrowRight, FaCalendar } from '@/utils/icons';
+import TagList from '@/components/ui/TagList.astro';
+import type { TechMap } from '@/utils/tech-lookup';
+
+type CardVariant = 'default' | 'compact' | 'featured';
+
+interface Props {
+  /** Blog post collection entry */
+  post: CollectionEntry<'blog'>;
+  /** Technology lookup map for tags */
+  techMap?: TechMap;
+  /** Card display variant */
+  variant?: CardVariant;
+  /** Whether to show tags */
+  showTags?: boolean;
+  /** Whether to show date */
+  showDate?: boolean;
+  /** Whether to show description */
+  showDescription?: boolean;
+}
+
+const {
+  post,
+  techMap,
+  variant = 'default',
+  showTags = false,
+  showDate = true,
+  showDescription = true,
+} = Astro.props;
+
+// Variant-specific classes - using tactile-card as base
+const cardClasses: Record<CardVariant, string> = {
+  default: 'tactile-card flex flex-col justify-between p-6',
+  compact: 'tactile-card p-4',
+  featured: 'tactile-card p-8',
+};
+
+const titleClasses: Record<CardVariant, string> = {
+  default: 'text-foreground mb-3 line-clamp-2 h-14 text-lg font-semibold',
+  compact: 'text-foreground mb-2 line-clamp-1 text-base font-semibold',
+  featured: 'text-foreground mb-4 text-xl font-bold',
+};
+
+const dateClasses = 'text-foreground-muted flex items-center gap-2 text-sm';
+---
+
+<article class={cardClasses[variant]}>
+  <div>
+    <h3 class={titleClasses[variant]}>
+      <a
+        title={post.data.title}
+        href={`/blog/${post.data.slug}`}
+        class="hover:text-secondary transition-colors"
+      >
+        {post.data.title}
+      </a>
+    </h3>
+
+    {showDate && post.data.publishDate && (
+      <div class={`${dateClasses} ${variant === 'compact' ? 'mb-2' : 'mb-3'}`}>
+        <FaCalendar className="size-icon-sm" />
+        <time datetime={toISODateString(post.data.publishDate)}>
+          {formatDate(post.data.publishDate, variant === 'compact' ? 'short' : 'long')}
+        </time>
+      </div>
+    )}
+
+    {showDescription && post.data.description && variant !== 'compact' && (
+      <p class="text-foreground-muted mb-4 text-sm leading-relaxed">
+        {post.data.description}
+      </p>
+    )}
+
+    {showTags && post.data.tags && post.data.tags.length > 0 && techMap && (
+      <div class="mb-4">
+        <TagList
+          tags={post.data.tags}
+          techMap={techMap}
+          limit={3}
+          size="xs"
+        />
+      </div>
+    )}
+  </div>
+
+  <a
+    href={`/blog/${post.data.slug}`}
+    class="text-secondary hover:text-secondary-hover group flex items-center gap-1 font-medium"
+  >
+    Read More
+    <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
+  </a>
+</article>

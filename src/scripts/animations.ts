@@ -16,21 +16,21 @@ export class AnimationUtils {
     // Initialize ScrollTrigger
     ScrollTrigger.refresh();
 
-    // Set up global animation settings
+    // Set up global animation settings - Tactile Maximalism: bouncy, elastic
     gsap.defaults({
-      duration: 1,
-      ease: 'power2.out',
+      duration: 0.5,
+      ease: 'elastic.out(1, 0.5)',
     });
   }
 
-  // Fade in animation from bottom
+  // Bounce in animation from bottom
   static fadeInUp(elements: string | Element | Element[], options: any = {}) {
     const defaultOptions = {
-      y: 50,
+      y: 40,
       opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power2.out',
+      duration: 0.6,
+      stagger: 0.08,
+      ease: 'back.out(1.7)',
     };
 
     const mergedOptions = { ...defaultOptions, ...options };
@@ -52,14 +52,14 @@ export class AnimationUtils {
     );
   }
 
-  // Fade in animation from left
+  // Bounce in animation from left
   static fadeInLeft(elements: string | Element | Element[], options: any = {}) {
     const defaultOptions = {
-      x: -50,
+      x: -40,
       opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power2.out',
+      duration: 0.6,
+      stagger: 0.08,
+      ease: 'back.out(1.7)',
     };
 
     const mergedOptions = { ...defaultOptions, ...options };
@@ -81,14 +81,14 @@ export class AnimationUtils {
     );
   }
 
-  // Fade in animation from right
+  // Bounce in animation from right
   static fadeInRight(elements: string | Element | Element[], options: any = {}) {
     const defaultOptions = {
-      x: 50,
+      x: 40,
       opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power2.out',
+      duration: 0.6,
+      stagger: 0.08,
+      ease: 'back.out(1.7)',
     };
 
     const mergedOptions = { ...defaultOptions, ...options };
@@ -110,14 +110,14 @@ export class AnimationUtils {
     );
   }
 
-  // Scale in animation
+  // Pop in animation with elastic bounce
   static scaleIn(elements: string | Element | Element[], options: any = {}) {
     const defaultOptions = {
-      scale: 0.8,
+      scale: 0.5,
       opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'back.out(1.7)',
+      duration: 0.7,
+      stagger: 0.08,
+      ease: 'elastic.out(1, 0.5)',
     };
 
     const mergedOptions = { ...defaultOptions, ...options };
@@ -139,14 +139,14 @@ export class AnimationUtils {
     );
   }
 
-  // Text reveal animation
+  // Text reveal animation with punch
   static textReveal(elements: string | Element | Element[], options: any = {}) {
     const defaultOptions = {
-      y: 100,
+      y: 60,
       opacity: 0,
-      duration: 0.8,
-      stagger: 0.05,
-      ease: 'power2.out',
+      duration: 0.6,
+      stagger: 0.04,
+      ease: 'back.out(2)',
     };
 
     const mergedOptions = { ...defaultOptions, ...options };
@@ -216,38 +216,42 @@ export class AnimationUtils {
 
     const tl = gsap.timeline();
 
-    // Animate profile image if it exists
+    // Animate profile image with elastic pop
     if (heroImage) {
       tl.fromTo(
         heroImage,
         {
-          scale: 0.8,
+          scale: 0.5,
           opacity: 0,
+          rotate: -5,
         },
         {
           scale: 1,
           opacity: 1,
-          duration: 1,
-          ease: 'back.out(1.7)',
+          rotate: 0,
+          duration: 0.8,
+          ease: 'elastic.out(1, 0.5)',
         },
       );
     }
 
-    // Animate hero text if it exists
+    // Animate hero text with punchy entrance
     if (heroTitle) {
       tl.fromTo(
         heroTitle,
         {
-          y: 50,
+          y: 40,
           opacity: 0,
+          skewX: -3,
         },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          ease: 'power2.out',
+          skewX: 0,
+          duration: 0.6,
+          ease: 'back.out(2)',
         },
-        '-=0.5',
+        '-=0.4',
       );
     }
 
@@ -261,10 +265,10 @@ export class AnimationUtils {
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          ease: 'power2.out',
+          duration: 0.5,
+          ease: 'back.out(1.7)',
         },
-        '-=0.6',
+        '-=0.4',
       );
     }
 
@@ -272,42 +276,44 @@ export class AnimationUtils {
       tl.fromTo(
         heroDescription,
         {
-          y: 30,
+          y: 25,
           opacity: 0,
         },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          ease: 'power2.out',
+          duration: 0.5,
+          ease: 'back.out(1.7)',
         },
-        '-=0.6',
+        '-=0.3',
       );
     }
 
-    // Animate CTA buttons if they exist
+    // Animate CTA buttons with bounce
     if (heroCtas.length > 0) {
       tl.fromTo(
         heroCtas,
         {
-          y: 30,
+          y: 20,
+          scale: 0.9,
           opacity: 0,
         },
         {
           y: 0,
+          scale: 1,
           opacity: 1,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power2.out',
+          duration: 0.5,
+          stagger: 0.08,
+          ease: 'back.out(2)',
         },
-        '-=0.4',
+        '-=0.3',
       );
     }
 
     return tl;
   }
 
-  // Card animations
+  // Card animations with bouncy entrance
   static initCardAnimations() {
     const cards = document.querySelectorAll('.animate-card');
 
@@ -315,14 +321,16 @@ export class AnimationUtils {
       gsap.fromTo(
         card,
         {
-          y: 50,
+          y: 40,
+          scale: 0.95,
           opacity: 0,
         },
         {
           y: 0,
+          scale: 1,
           opacity: 1,
-          duration: 0.8,
-          ease: 'power2.out',
+          duration: 0.6,
+          ease: 'back.out(1.7)',
           scrollTrigger: {
             trigger: card,
             start: 'top 85%',
@@ -335,7 +343,7 @@ export class AnimationUtils {
     });
   }
 
-  // Section reveal animations
+  // Section reveal animations with punch
   static initSectionAnimations() {
     const sections = document.querySelectorAll('.animate-section');
 
@@ -357,14 +365,14 @@ export class AnimationUtils {
         tl.fromTo(
           heading,
           {
-            y: 30,
+            y: 25,
             opacity: 0,
           },
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
-            ease: 'power2.out',
+            duration: 0.5,
+            ease: 'back.out(2)',
           },
         );
       }
@@ -373,17 +381,19 @@ export class AnimationUtils {
         tl.fromTo(
           content,
           {
-            y: 30,
+            y: 25,
+            scale: 0.98,
             opacity: 0,
           },
           {
             y: 0,
+            scale: 1,
             opacity: 1,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power2.out',
+            duration: 0.5,
+            stagger: 0.08,
+            ease: 'back.out(1.7)',
           },
-          '-=0.6',
+          '-=0.3',
         );
       }
     });

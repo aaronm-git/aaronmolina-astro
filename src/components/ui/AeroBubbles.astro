@@ -1,0 +1,83 @@
+---
+/**
+ * AeroBubbles - Decorative floating bubbles component
+ * Inspired by Windows Vista/7 Frutiger Aero aesthetic
+ */
+
+interface Props {
+  /** Number of bubbles to render */
+  count?: number;
+  /** Whether to animate the bubbles */
+  animate?: boolean;
+}
+
+const { count = 5, animate = true } = Astro.props;
+
+// Generate random bubble positions and sizes
+const bubbles = Array.from({ length: count }, (_, i) => ({
+  id: i,
+  size: 40 + Math.random() * 120, // 40-160px
+  left: 5 + Math.random() * 90, // 5-95%
+  top: 10 + Math.random() * 80, // 10-90%
+  delay: Math.random() * 5, // 0-5s animation delay
+  duration: 15 + Math.random() * 10, // 15-25s animation duration
+}));
+---
+
+<div class="aero-bubbles" aria-hidden="true">
+  {bubbles.map((bubble) => (
+    <div
+      class:list={['aero-orb', { 'bubble-float': animate }]}
+      style={`
+        width: ${bubble.size}px;
+        height: ${bubble.size}px;
+        left: ${bubble.left}%;
+        top: ${bubble.top}%;
+        --float-delay: ${bubble.delay}s;
+        --float-duration: ${bubble.duration}s;
+      `}
+    />
+  ))}
+</div>
+
+<style>
+  .aero-bubbles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .aero-bubbles .aero-orb {
+    position: absolute;
+    opacity: 0.6;
+  }
+
+  @keyframes bubble-float {
+    0%, 100% {
+      transform: translateY(0) translateX(0) scale(1);
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px) scale(1.02);
+    }
+    50% {
+      transform: translateY(-10px) translateX(-5px) scale(0.98);
+    }
+    75% {
+      transform: translateY(-25px) translateX(5px) scale(1.01);
+    }
+  }
+
+  .bubble-float {
+    animation: bubble-float var(--float-duration, 20s) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .bubble-float {
+      animation: none;
+    }
+  }
+</style>

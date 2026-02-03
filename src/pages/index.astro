@@ -3,15 +3,21 @@ import MainLayout from '@/layouts/main-layout.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
 import RoleCard from '@/components/RoleCard.astro';
 import CTA from '@/components/CTA.astro';
+import BlogPostCard from '@/components/BlogPostCard.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Button from '@/components/ui/Button.astro';
 import { getCollection } from 'astro:content';
+import { createTechMap } from '@/utils/tech-lookup';
 import ProfilePicture from '@/images/profile.jpg';
 import { Image } from 'astro:assets';
-import { FaBriefcase, FaBookOpen, FaStar, FaArrowRight, FaPencil, FaCalendar } from 'react-icons/fa6';
 import homepageContent from '@/content/site/homepage.json';
 import pages from '@/content/site/pages.json';
 import navigation from '@/content/site/navigation.json';
 
 const posts = await getCollection('blog');
+const technologies = await getCollection('technologies');
+const techMap = createTechMap(technologies);
+
 const currentDate = new Date();
 const recentPosts = posts
   .filter(post => post.data.publishDate !== null)
@@ -68,12 +74,12 @@ const heroDescription = homepageContent.hero.description.replaceAll('{yearsOfExp
 
 <MainLayout>
   <!-- Hero Section -->
-  <section class="my-16 text-center">
+  <section class="relative my-16 text-center">
     <div class="hero-image mb-8 flex justify-center">
       <Image
         src={ProfilePicture}
         alt={navigation.brandAlt}
-        class="border-border h-32 w-32 rounded-full border-2 object-cover object-[20%_40%] shadow-lg md:h-48 md:w-48"
+        class="tactile-profile-img h-32 w-32 rounded-2xl object-cover object-[20%_40%] md:h-48 md:w-48"
         loading="eager"
       />
     </div>
@@ -83,59 +89,50 @@ const heroDescription = homepageContent.hero.description.replaceAll('{yearsOfExp
       {heroDescription}
     </p>
     <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
-      <a
-        href="/projects"
-        class="hero-cta bg-secondary hover:bg-secondary-hover text-on-secondary inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium transition-colors"
-      >
-        <FaBriefcase className="icon-sm" />
+      <Button href="/projects" variant="secondary" icon="briefcase" size="lg" class="hero-cta">
         {pages.home.buttons.viewWorkLabel}
-      </a>
-      <a href="/blog" class="hero-cta bg-primary hover:bg-primary-hover text-on-primary inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium transition-colors">
-        <FaBookOpen className="icon-sm" />
+      </Button>
+      <Button href="/blog" variant="primary" icon="blog" size="lg" class="hero-cta">
         {pages.home.buttons.readBlogLabel}
-      </a>
+      </Button>
     </div>
   </section>
 
   <!-- Featured Projects Section -->
   <section class="animate-section mb-16">
-    <div class="mb-8 flex items-center justify-between">
-      <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
-        <FaStar className="text-secondary icon-base" />
-        {pages.home.sections.featuredProjectsTitle}
-      </h2>
-      <a href="/projects" class="text-secondary hover:text-secondary-hover group hidden items-center gap-1 font-medium md:flex">
-        {pages.home.sections.featuredProjectsViewAllLabel} <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
-      </a>
-    </div>
+    <SectionHeader
+      title={pages.home.sections.featuredProjectsTitle}
+      icon="star"
+      viewAllHref="/projects"
+      viewAllLabel={pages.home.sections.featuredProjectsViewAllLabel}
+      hideViewAllOnMobile
+    />
 
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {featuredProjects.map(project => <ProjectCard project={project} showCompletedDate={false} showViewProjectLink={false} />)}
     </div>
 
     <a href="/projects" class="text-secondary hover:text-secondary-hover mt-6 flex items-center justify-end gap-2 font-medium md:hidden">
-      {pages.home.sections.featuredProjectsViewAllLabel} <FaArrowRight className="icon-sm" />
+      {pages.home.sections.featuredProjectsViewAllLabel}
     </a>
   </section>
 
   <!-- Experience Section -->
   <section class="animate-section mb-16">
-    <div class="mb-8 flex items-center justify-between">
-      <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
-        <FaBriefcase className="text-secondary icon-base" />
-        {pages.home.sections.experienceTitle}
-      </h2>
-      <a href="/experience" class="text-secondary hover:text-secondary-hover group hidden items-center gap-1 font-medium md:flex">
-        {pages.home.sections.experienceViewAllLabel} <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
-      </a>
-    </div>
+    <SectionHeader
+      title={pages.home.sections.experienceTitle}
+      icon="briefcase"
+      viewAllHref="/experience"
+      viewAllLabel={pages.home.sections.experienceViewAllLabel}
+      hideViewAllOnMobile
+    />
 
     <div class="animate-content space-y-8">
       {featuredRoles.map((role) => <RoleCard role={role} organization={orgBySlug.get(role.data.organization)} showAllDetails={false} />)}
     </div>
 
     <a href="/experience" class="text-secondary hover:text-secondary-hover mt-6 flex items-center justify-end gap-2 font-medium md:hidden">
-      {pages.home.sections.experienceViewAllLabel} <FaArrowRight className="icon-sm" />
+      {pages.home.sections.experienceViewAllLabel}
     </a>
   </section>
 
@@ -143,41 +140,16 @@ const heroDescription = homepageContent.hero.description.replaceAll('{yearsOfExp
   {
     recentPosts.length > 0 && (
       <section class="animate-section mb-16">
-        <div class="mb-8 flex items-center justify-between">
-          <h2 class="text-foreground flex items-center gap-3 text-2xl font-bold md:text-3xl">
-            <FaPencil className="text-secondary icon-base" />
-            {pages.home.sections.latestArticlesTitle}
-          </h2>
-          <a href="/blog" class="text-secondary hover:text-secondary-hover group flex items-center gap-1 font-medium">
-            {pages.home.sections.latestArticlesViewAllLabel} <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
-          </a>
-        </div>
+        <SectionHeader
+          title={pages.home.sections.latestArticlesTitle}
+          icon="blog"
+          viewAllHref="/blog"
+          viewAllLabel={pages.home.sections.latestArticlesViewAllLabel}
+        />
 
         <div class="grid gap-6 md:grid-cols-3">
           {recentPosts.map(post => (
-            <article class="animate-content bg-surface border-border flex flex-col justify-between rounded-lg border p-6 shadow-md transition-shadow hover:shadow-lg">
-              <div>
-                <h3 class="text-foreground mb-3 line-clamp-2 h-14 text-lg font-semibold">
-                  <a title={post.data.title} href={`/blog/${post.data.slug}`} class="hover:text-secondary transition-colors">
-                    {post.data.title}
-                  </a>
-                </h3>
-                <div class="text-foreground-muted mb-3 flex items-center gap-2 text-sm">
-                  <FaCalendar className="size-icon-sm" />
-                  <time datetime={post.data.publishDate?.toISOString()}>
-                    {post.data.publishDate?.toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric',
-                    })}
-                  </time>
-                </div>
-                {post.data.description && <p class="text-foreground-muted mb-4 text-sm leading-relaxed">{post.data.description}</p>}
-              </div>
-              <a href={`/blog/${post.data.slug}`} class="text-secondary hover:text-secondary-hover group flex items-center gap-1 font-medium">
-                Read More <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
-              </a>
-            </article>
+            <BlogPostCard post={post} techMap={techMap} />
           ))}
         </div>
       </section>

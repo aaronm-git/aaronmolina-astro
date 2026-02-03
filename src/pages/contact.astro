@@ -1,28 +1,18 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import { FaBriefcase, FaBolt, FaUsers, FaShieldCat, FaClock, FaCalendar, FaGlobe, FaUser, FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa6';
+import InfoBox from '@/components/ui/InfoBox.astro';
+import ListItem from '@/components/ui/ListItem.astro';
+import Button from '@/components/ui/Button.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
+import { getCategoryIcon } from '@/utils/icons';
 import pages from '@/content/site/pages.json';
 import settings from '@/content/site/settings.json';
 
 // Netlify Turnstile site key - configure this in your Netlify dashboard
-// Go to Site settings > Security & privacy > Turnstile
 const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TURNSTILE_SITE_KEY';
 
-const whyIcons = [FaBriefcase, FaBolt, FaUsers, FaShieldCat];
-const responseIcons = [FaClock, FaCalendar, FaGlobe];
-
-const socialIconForPlatform = (platform?: string) => {
-  switch ((platform || '').toLowerCase()) {
-    case 'github':
-      return FaGithub;
-    case 'linkedin':
-      return FaLinkedin;
-    case 'instagram':
-      return FaInstagram;
-    default:
-      return null;
-  }
-};
+const whyIconNames = ['briefcase', 'bolt', 'users', 'shield'];
+const responseIconNames = ['clock', 'calendar', 'globe'];
 ---
 
 <MainLayout title={pages.contact.metaTitle} description={pages.contact.metaDescription}>
@@ -37,9 +27,7 @@ const socialIconForPlatform = (platform?: string) => {
   <!-- Contact Form -->
   <div class="animate-section mb-16 grid gap-12 lg:grid-cols-2">
     <!-- Form -->
-    <div class="animate-content bg-surface border-border rounded-lg border p-8 shadow-md">
-      <h2 class="text-foreground mb-6 text-2xl font-bold">{pages.contact.formTitle}</h2>
-
+    <InfoBox title={pages.contact.formTitle} variant="surface">
       <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
         <div class="grid gap-6 md:grid-cols-2">
           <div>
@@ -124,25 +112,21 @@ const socialIconForPlatform = (platform?: string) => {
         <!-- Netlify Turnstile Captcha -->
         <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
 
-        <button
-          type="submit"
-          class="bg-secondary hover:bg-secondary-hover text-on-secondary focus:ring-ring focus:ring-offset-background flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <span>Send Message</span>
-        </button>
+        <Button type="submit" variant="secondary" fullWidth size="lg">
+          Send Message
+        </Button>
       </form>
-    </div>
+    </InfoBox>
 
     <!-- Contact Info -->
     <div class="space-y-8">
-      <div class="animate-content bg-surface border-border rounded-lg border p-6 shadow-md">
-        <h3 class="text-foreground mb-4 text-xl font-bold">{pages.contact.whyWorkWithMeTitle}</h3>
+      <InfoBox title={pages.contact.whyWorkWithMeTitle} variant="surface">
         <div class="space-y-4">
           {pages.contact.whyWorkWithMeItems.map((item, idx) => {
-            const Icon = whyIcons[idx] ?? FaBriefcase;
+            const Icon = getCategoryIcon(whyIconNames[idx] || 'briefcase');
             return (
               <div class="flex items-start gap-3">
-                <Icon className="text-secondary icon-base mt-1 flex-shrink-0" />
+                {Icon && <Icon className="text-secondary icon-base mt-1 flex-shrink-0" />}
                 <div>
                   <h4 class="text-foreground font-medium">{item.title}</h4>
                   <p class="text-foreground-muted text-sm">{item.description}</p>
@@ -151,43 +135,29 @@ const socialIconForPlatform = (platform?: string) => {
             );
           })}
         </div>
-      </div>
+      </InfoBox>
 
-      <div class="animate-content bg-surface border-border rounded-lg border p-6 shadow-md">
-        <h3 class="text-foreground mb-4 text-xl font-bold">{pages.contact.responseTimeTitle}</h3>
-        <div class="space-y-3">
-          {pages.contact.responseTimeItems.map((text, idx) => {
-            const Icon = responseIcons[idx] ?? FaClock;
-            return (
-              <div class="flex items-center gap-2">
-                <Icon className="text-secondary size-icon-sm mt-0.5" />
-                <span class="text-foreground-muted text-sm">{text}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <InfoBox title={pages.contact.responseTimeTitle} variant="surface">
+        <ul class="space-y-3">
+          {pages.contact.responseTimeItems.map((text, idx) => (
+            <ListItem icon={responseIconNames[idx] || 'clock'} iconColor="secondary" compact>
+              {text}
+            </ListItem>
+          ))}
+        </ul>
+      </InfoBox>
 
-      <div class="animate-content bg-muted border-border rounded-lg border p-6">
-        <h3 class="text-foreground mb-3 text-lg font-bold">{pages.contact.readyToStartTitle}</h3>
+      <InfoBox title={pages.contact.readyToStartTitle} variant="muted">
         <p class="text-foreground-muted mb-4 text-sm">{pages.contact.readyToStartDescription}</p>
         <div class="flex gap-3">
-          <a
-            href="/projects"
-            class="text-secondary hover:text-secondary-hover border-secondary hover:border-secondary-hover flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
-          >
-            <FaBriefcase className="icon-sm" />
+          <Button href="/projects" variant="outline" icon="briefcase" size="sm">
             {pages.contact.readyLinks.viewProjectsLabel}
-          </a>
-          <a
-            href="/experience"
-            class="text-secondary hover:text-secondary-hover border-secondary hover:border-secondary-hover flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
-          >
-            <FaUser className="icon-sm" />
+          </Button>
+          <Button href="/experience" variant="outline" icon="user" size="sm">
             {pages.contact.readyLinks.viewExperienceLabel}
-          </a>
+          </Button>
         </div>
-      </div>
+      </InfoBox>
     </div>
   </div>
 
@@ -195,18 +165,11 @@ const socialIconForPlatform = (platform?: string) => {
   <section class="animate-section bg-muted border-border rounded-lg border p-8 text-center">
     <h2 class="text-foreground mb-4 text-3xl font-bold">{pages.contact.socialSectionTitle}</h2>
     <p class="text-foreground-muted mx-auto mb-6 max-w-2xl">{pages.contact.socialSectionDescription}</p>
-    <div class="flex flex-wrap justify-center gap-6">
-      {settings.author.socialLinks?.map((link) => {
-        const Icon = socialIconForPlatform(link.platform);
-        if (!Icon) return null;
-        return (
-          <a href={link.url} target="_blank" rel="noopener noreferrer" class="bg-primary hover:bg-primary-hover text-on-primary inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors">
-            <Icon className="icon-sm" />
-            {link.label}
-          </a>
-        );
-      })}
-    </div>
+    {settings.author.socialLinks && (
+      <div class="flex justify-center">
+        <SocialLinks links={settings.author.socialLinks} variant="button" size="base" />
+      </div>
+    )}
   </section>
 
   <!-- Netlify Turnstile Script -->

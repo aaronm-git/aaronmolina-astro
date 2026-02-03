@@ -1,0 +1,66 @@
+---
+import type { IconType } from 'react-icons';
+import { getNavIcon, getSocialIcon, getCategoryIcon, getUIIcon, getIcon } from '@/utils/icons';
+
+type IconSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl';
+
+interface Props {
+  /** Icon identifier - can be nav key, social platform, category, or UI icon name */
+  name?: string;
+  /** Icon type to help narrow down the search */
+  type?: 'nav' | 'social' | 'category' | 'ui' | 'auto';
+  /** Size of the icon - maps to icon-{size} classes */
+  size?: IconSize;
+  /** Additional CSS classes */
+  class?: string;
+  /** Direct icon component (use instead of name for custom icons) */
+  icon?: IconType;
+  /** Aria label for accessibility */
+  label?: string;
+}
+
+const {
+  name,
+  type = 'auto',
+  size = 'base',
+  class: className = '',
+  icon: directIcon,
+  label,
+} = Astro.props;
+
+// Get icon component
+let IconComponent: IconType | null = directIcon || null;
+
+if (!IconComponent && name) {
+  switch (type) {
+    case 'nav':
+      IconComponent = getNavIcon(name);
+      break;
+    case 'social':
+      IconComponent = getSocialIcon(name);
+      break;
+    case 'category':
+      IconComponent = getCategoryIcon(name);
+      break;
+    case 'ui':
+      IconComponent = getUIIcon(name);
+      break;
+    case 'auto':
+    default:
+      IconComponent = getIcon(name);
+      break;
+  }
+}
+
+// Build size class
+const sizeClass = size === 'base' ? 'icon-base' : `icon-${size}`;
+const combinedClass = [sizeClass, className].filter(Boolean).join(' ');
+---
+
+{IconComponent && (
+  <IconComponent
+    className={combinedClass}
+    aria-hidden={!label}
+    aria-label={label}
+  />
+)}

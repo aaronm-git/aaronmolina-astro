@@ -1,51 +1,21 @@
 ---
 import { Image } from 'astro:assets';
-import { FaHouse, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars } from 'react-icons/fa6';
+import { getNavIcon, getSocialIcon, FaSun, FaMoon, FaDesktop, FaBars } from '@/utils/icons';
 import ProfilePicture from '@/images/profile.jpg';
 import navigation from '@/content/site/navigation.json';
 import settings from '@/content/site/settings.json';
-
-const iconForNavItem = (iconKey?: string) => {
-  switch (iconKey) {
-    case 'home':
-      return FaHouse;
-    case 'projects':
-      return FaBriefcase;
-    case 'experience':
-      return FaUser;
-    case 'blog':
-      return FaBookOpen;
-    case 'contact':
-      return FaEnvelope;
-    default:
-      return null;
-  }
-};
-
-const socialIconForPlatform = (platform?: string) => {
-  switch ((platform || '').toLowerCase()) {
-    case 'github':
-      return FaGithub;
-    case 'linkedin':
-      return FaLinkedin;
-    case 'instagram':
-      return FaInstagram;
-    default:
-      return null;
-  }
-};
 ---
 
-<header class="bg-surface border-border fixed top-0 right-0 left-0 z-50 border-b shadow-xl">
+<header class="tactile-header fixed top-0 right-0 left-0 z-50">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between py-2">
       <!-- Logo/Brand -->
       <div class="flex-shrink-0">
-        <a href="/" class="text-foreground hover:text-secondary flex items-center gap-3 text-xl font-bold transition-colors">
+        <a href="/" class="text-foreground hover:text-primary flex items-center gap-3 text-xl font-bold transition-colors">
           <Image
             src={ProfilePicture}
             alt={navigation.brandAlt}
-            class="border-border h-8 w-8 rounded-full border-2 object-cover object-[20%_40%]"
+            class="border-primary h-8 w-8 rounded-full border-3 object-cover object-[20%_40%]"
             width={40}
             height={40}
           />
@@ -57,9 +27,9 @@ const socialIconForPlatform = (platform?: string) => {
         <!-- Navigation -->
         <nav class="hidden md:flex">
           {navigation.navItems.map((item) => {
-            const Icon = iconForNavItem(item.icon);
+            const Icon = getNavIcon(item.icon || '');
             return (
-              <a href={item.href} class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors">
+              <a href={item.href} class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold uppercase tracking-wide transition-colors">
                 {Icon ? <Icon className="icon-sm" /> : null} {item.label}
               </a>
             );
@@ -69,14 +39,14 @@ const socialIconForPlatform = (platform?: string) => {
         <!-- Social Links (minimal, right side) -->
         <div class="hidden items-center md:flex">
           {settings.author.socialLinks?.map((link) => {
-            const Icon = socialIconForPlatform(link.platform);
+            const Icon = getSocialIcon(link.platform);
             if (!Icon) return null;
             return (
               <a
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-foreground-muted hover:text-secondary hover:bg-muted rounded-md p-2"
+                class="text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2"
                 aria-label={link.ariaLabel || link.label}
               >
                 <Icon className="icon-sm" />
@@ -87,7 +57,7 @@ const socialIconForPlatform = (platform?: string) => {
           <!-- Theme toggle -->
           <button
             data-theme-toggle
-            class="text-foreground-muted hover:text-secondary hover:bg-muted ml-1 rounded-md p-2"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted ml-1 rounded-md p-2"
             aria-label="Toggle theme (light/dark/system)"
             title="Toggle Theme"
           >
@@ -99,7 +69,7 @@ const socialIconForPlatform = (platform?: string) => {
 
         <!-- Mobile menu button -->
         <div class="md:hidden">
-          <button type="button" data-mobile-menu-toggle class="text-foreground-muted hover:text-foreground focus:ring-ring p-2 focus:ring-2 focus:outline-none focus:ring-inset">
+          <button type="button" data-mobile-menu-toggle class="text-foreground-muted hover:text-foreground focus:ring-primary p-2 focus:ring-2 focus:outline-none focus:ring-inset">
             <span class="sr-only">Open main menu</span>
             <FaBars className="icon-sm" />
           </button>
@@ -111,7 +81,7 @@ const socialIconForPlatform = (platform?: string) => {
     <div class="hidden md:hidden" id="mobile-menu">
       <div class="border-border space-y-1 border-t px-2 pt-2 pb-3">
         {navigation.navItems.map((item) => (
-          <a href={item.href} class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors">
+          <a href={item.href} class="text-foreground-muted hover:text-foreground hover:bg-muted block rounded-md px-3 py-2 text-base font-medium transition-colors">
             {item.label}
           </a>
         ))}
@@ -119,7 +89,7 @@ const socialIconForPlatform = (platform?: string) => {
         <div class="border-border mt-2 border-t pt-2">
           <button
             data-theme-toggle
-            class="text-foreground-muted hover:text-foreground flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium transition-colors"
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium transition-colors"
             title="Toggle Theme"
           >
             <FaSun data-theme-icon="dark" className="sun-icon icon-sm hidden" />

@@ -1,9 +1,12 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
 import RoleCard from '@/components/RoleCard.astro';
-import { getCollection } from 'astro:content';
 import CTA from '@/components/CTA.astro';
-import { FaBriefcase, FaBrain, FaAward, FaCheck, FaChartLine, FaCode, FaMobile, FaBolt, FaUsers, FaEye, FaCloud } from 'react-icons/fa6';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import InfoBox from '@/components/ui/InfoBox.astro';
+import ListItem from '@/components/ui/ListItem.astro';
+import { getCollection } from 'astro:content';
+import { getCategoryIcon } from '@/utils/icons';
 import homepageContent from '@/content/site/homepage.json';
 import pages from '@/content/site/pages.json';
 
@@ -33,7 +36,7 @@ const sortedRoles = roles
 
 const yearsOfExperience = new Date().getFullYear() - homepageContent.yearsOfExperienceStartYear;
 const experienceSubheading = pages.experience.subheadingTemplate.replaceAll('{yearsOfExperience}', String(yearsOfExperience));
-const competencyIcons = [FaCode, FaMobile, FaBolt, FaUsers, FaEye, FaCloud];
+const competencyIconNames = ['code', 'rocket', 'bolt', 'users', 'lightbulb', 'globe'];
 ---
 
 <MainLayout title={pages.experience.metaTitle} description={pages.experience.metaDescription}>
@@ -50,10 +53,7 @@ const competencyIcons = [FaCode, FaMobile, FaBolt, FaUsers, FaEye, FaCloud];
 
   <!-- Experience Timeline -->
   <section class="animate-section mb-16">
-    <h2 class="text-foreground mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-      <FaBriefcase className="text-secondary icon-base" />
-      {pages.experience.workExperienceTitle}
-    </h2>
+    <SectionHeader title={pages.experience.workExperienceTitle} icon="briefcase" />
 
     <div class="animate-content space-y-8">
       {sortedRoles.map((role) => <RoleCard role={role} organization={orgBySlug.get(role.data.organization)} showAllDetails={true} />)}
@@ -62,49 +62,36 @@ const competencyIcons = [FaCode, FaMobile, FaBolt, FaUsers, FaEye, FaCloud];
 
   <!-- Career Highlights -->
   <section class="animate-section mb-16">
-    <h2 class="text-foreground mb-8 flex items-center gap-3 text-2xl font-bold md:text-3xl">
-      <FaAward className="text-secondary icon-base" />
-      {pages.experience.careerHighlightsTitle}
-    </h2>
+    <SectionHeader title={pages.experience.careerHighlightsTitle} icon="award" />
 
     <div class="grid gap-8 md:grid-cols-2">
-      <div class="animate-content bg-surface border-border rounded-lg border p-6 shadow-md">
-        <h3 class="text-foreground mb-4 flex items-center gap-2 text-lg font-semibold">
-          <FaChartLine className="text-secondary" />
-          {pages.experience.keyAchievementsTitle}
-        </h3>
+      <InfoBox title={pages.experience.keyAchievementsTitle} icon="star" variant="surface">
         <ul class="space-y-3">
           {
             roles
               .flatMap(r => r.data.achievements)
               .slice(0, 6)
               .map(achievement => (
-                <li class="text-foreground-muted flex items-start gap-2 text-sm">
-                  <FaCheck className="text-secondary mt-0.5" />
+                <ListItem icon="check" iconColor="secondary">
                   {achievement}
-                </li>
+                </ListItem>
               ))
           }
         </ul>
-      </div>
+      </InfoBox>
 
-      <div class="animate-content bg-surface border-border rounded-lg border p-6 shadow-md">
-        <h3 class="text-foreground mb-4 flex items-center gap-2 text-lg font-semibold">
-          <FaBrain className="text-secondary" />
-          {pages.experience.coreCompetenciesTitle}
-        </h3>
+      <InfoBox title={pages.experience.coreCompetenciesTitle} icon="lightbulb" variant="surface">
         <ul class="space-y-3">
           {pages.experience.coreCompetencies.map((item, idx) => {
-            const Icon = competencyIcons[idx] ?? FaCode;
+            const iconName = competencyIconNames[idx] || 'code';
             return (
-              <li class="text-foreground-muted flex items-start gap-2 text-sm">
-                <Icon className="text-secondary mt-0.5" />
-                <span>{item.title}</span>
-              </li>
+              <ListItem icon={iconName} iconColor="secondary">
+                {item.title}
+              </ListItem>
             );
           })}
         </ul>
-      </div>
+      </InfoBox>
     </div>
   </section>
 

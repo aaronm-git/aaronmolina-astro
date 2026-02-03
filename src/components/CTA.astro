@@ -1,5 +1,5 @@
 ---
-import { FaEnvelope } from 'react-icons/fa6';
+import Button from '@/components/ui/Button.astro';
 import ctaContent from '@/content/site/cta.json';
 
 interface Props {
@@ -17,15 +17,14 @@ const {
 } = Astro.props;
 ---
 
-<section class="bg-primary border-border rounded-lg border p-8 text-center">
+<section class="tactile-cta p-8 text-center">
   <h2 class="text-on-primary mb-4 text-3xl font-bold">{title}</h2>
   <p class="text-on-primary mx-auto mb-6 max-w-2xl">
     {description}
   </p>
   <div class="flex justify-center">
-    <a href={buttonHref} class="bg-secondary hover:bg-secondary-hover text-on-secondary inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors">
-      <FaEnvelope className="icon-sm" />
+    <Button href={buttonHref} variant="secondary" icon="contact" size="lg">
       {buttonLabel}
-    </a>
+    </Button>
   </div>
 </section>

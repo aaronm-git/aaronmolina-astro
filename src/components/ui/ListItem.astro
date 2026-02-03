@@ -1,0 +1,65 @@
+---
+import type { IconType } from 'react-icons';
+import { getIcon } from '@/utils/icons';
+
+type IconColor = 'primary' | 'secondary' | 'muted' | 'foreground' | 'success' | 'warning' | 'error';
+
+interface Props {
+  /** Icon name (uses getIcon to resolve) */
+  icon?: string;
+  /** Direct icon component */
+  iconComponent?: IconType;
+  /** Icon color variant */
+  iconColor?: IconColor;
+  /** Smaller, more compact variant */
+  compact?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  icon,
+  iconComponent,
+  iconColor = 'secondary',
+  compact = false,
+  class: className = '',
+} = Astro.props;
+
+// Resolve icon
+const IconComponent = iconComponent || (icon ? getIcon(icon) : null);
+
+// Icon color classes
+const iconColorClasses: Record<IconColor, string> = {
+  primary: 'text-primary',
+  secondary: 'text-secondary',
+  muted: 'text-foreground-muted',
+  foreground: 'text-foreground',
+  success: 'text-green-500',
+  warning: 'text-yellow-500',
+  error: 'text-red-500',
+};
+
+const baseClasses = 'flex items-start';
+const gapClasses = compact ? 'gap-2' : 'gap-3';
+const textClasses = compact ? 'text-sm' : '';
+
+const combinedClasses = [
+  baseClasses,
+  gapClasses,
+  textClasses,
+  className,
+].filter(Boolean).join(' ');
+
+const iconSizeClass = compact ? 'icon-xs' : 'icon-sm';
+---
+
+<li class={combinedClasses}>
+  {IconComponent && (
+    <span class={`${iconColorClasses[iconColor]} mt-0.5 flex-shrink-0`}>
+      <IconComponent className={iconSizeClass} />
+    </span>
+  )}
+  <span class="text-foreground-muted">
+    <slot />
+  </span>
+</li>

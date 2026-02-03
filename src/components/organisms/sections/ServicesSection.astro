@@ -1,0 +1,129 @@
+---
+import ServiceCard from '@/components/organisms/cards/ServiceCard.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import { cn } from '@/lib/cn';
+
+type ServicesVariant = 'grid' | 'list' | 'carousel';
+
+interface Service {
+  title: string;
+  description: string;
+  icon: string;
+  href?: string;
+  price?: string;
+  features?: string[];
+  badge?: string;
+  featured?: boolean;
+}
+
+interface Props {
+  /** Section title */
+  title: string;
+  /** Section subtitle */
+  subtitle?: string;
+  /** Array of services */
+  services: Service[];
+  /** Layout variant */
+  variant?: ServicesVariant;
+  /** Number of columns */
+  columns?: 2 | 3 | 4;
+  /** CTA link */
+  cta?: {
+    label: string;
+    href: string;
+  };
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  services,
+  variant = 'grid',
+  columns = 3,
+  cta,
+  class: className = '',
+} = Astro.props;
+
+// Column classes
+const columnClasses: Record<number, string> = {
+  2: 'md:grid-cols-2',
+  3: 'md:grid-cols-2 lg:grid-cols-3',
+  4: 'md:grid-cols-2 lg:grid-cols-4',
+};
+---
+
+<section class={cn('py-16 md:py-24', className)}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      title={title}
+      subtitle={subtitle}
+      viewAllHref={cta?.href}
+      viewAllLabel={cta?.label}
+      align="center"
+    />
+
+    {variant === 'grid' && (
+      <div class={cn('grid gap-6', columnClasses[columns])}>
+        {services.map(service => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+            icon={service.icon}
+            href={service.href}
+            price={service.price}
+            features={service.features}
+            badge={service.badge}
+            variant={service.featured ? 'featured' : 'default'}
+          />
+        ))}
+      </div>
+    )}
+
+    {variant === 'list' && (
+      <div class="space-y-4 max-w-3xl mx-auto">
+        {services.map(service => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+            icon={service.icon}
+            href={service.href}
+            variant="horizontal"
+          />
+        ))}
+      </div>
+    )}
+
+    {variant === 'carousel' && (
+      <div class="relative overflow-hidden">
+        <div class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          {services.map(service => (
+            <div class="flex-shrink-0 w-[300px] snap-start">
+              <ServiceCard
+                title={service.title}
+                description={service.description}
+                icon={service.icon}
+                href={service.href}
+                price={service.price}
+                features={service.features}
+                badge={service.badge}
+                variant={service.featured ? 'featured' : 'default'}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>

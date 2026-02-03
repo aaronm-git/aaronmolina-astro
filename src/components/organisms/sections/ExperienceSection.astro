@@ -1,0 +1,123 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
+import RoleCard from '@/components/organisms/cards/RoleCard.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import { cn } from '@/lib/cn';
+
+type ExperienceVariant = 'timeline' | 'cards' | 'compact';
+
+interface Organization {
+  data: {
+    name: string;
+    slug: string;
+    logo?: ImageMetadata;
+    website?: string;
+    location?: string;
+  };
+}
+
+interface Props {
+  /** Section title */
+  title: string;
+  /** Section subtitle */
+  subtitle?: string;
+  /** Array of roles */
+  roles: CollectionEntry<'roles'>[];
+  /** Organization lookup map (slug -> org) */
+  organizations?: Map<string, Organization>;
+  /** Layout variant */
+  variant?: ExperienceVariant;
+  /** Show all details on each card */
+  showAllDetails?: boolean;
+  /** CTA link */
+  cta?: {
+    label: string;
+    href: string;
+  };
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  roles,
+  organizations,
+  variant = 'timeline',
+  showAllDetails = false,
+  cta,
+  class: className = '',
+} = Astro.props;
+---
+
+<section class={cn('py-16 md:py-24', className)}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      title={title}
+      subtitle={subtitle}
+      viewAllHref={cta?.href}
+      viewAllLabel={cta?.label}
+      hideViewAllOnMobile
+    />
+
+    {variant === 'timeline' && (
+      <div class="relative">
+        {/* Timeline line */}
+        <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2 hidden md:block" />
+
+        <div class="space-y-8">
+          {roles.map((role, i) => (
+            <div class={cn(
+              'relative md:grid md:grid-cols-2 md:gap-8',
+              i % 2 === 0 ? 'md:[&>*:first-child]:text-right' : 'md:flex-row-reverse'
+            )}>
+              {/* Timeline dot */}
+              <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background -translate-x-1/2 top-6 hidden md:block" />
+
+              <div class={cn(i % 2 === 1 && 'md:col-start-2')}>
+                <RoleCard
+                  role={role}
+                  organization={organizations?.get(role.data.organization)}
+                  showAllDetails={showAllDetails}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {variant === 'cards' && (
+      <div class="space-y-8">
+        {roles.map(role => (
+          <RoleCard
+            role={role}
+            organization={organizations?.get(role.data.organization)}
+            showAllDetails={showAllDetails}
+          />
+        ))}
+      </div>
+    )}
+
+    {variant === 'compact' && (
+      <div class="grid gap-6 md:grid-cols-2">
+        {roles.map(role => (
+          <RoleCard
+            role={role}
+            organization={organizations?.get(role.data.organization)}
+            showAllDetails={false}
+          />
+        ))}
+      </div>
+    )}
+
+    {cta && (
+      <div class="mt-8 text-center md:hidden">
+        <a href={cta.href} class="text-secondary hover:text-secondary-hover font-medium">
+          {cta.label} →
+        </a>
+      </div>
+    )}
+  </div>
+</section>

@@ -1,0 +1,102 @@
+---
+import { cn } from '@/lib/cn';
+
+type CardVariant = 'default' | 'elevated' | 'outlined' | 'glass' | 'tactile';
+type CardPadding = 'none' | 'sm' | 'base' | 'lg' | 'xl';
+type CardRounded = 'none' | 'sm' | 'base' | 'lg' | 'xl' | '2xl';
+
+interface Props {
+  /** Visual variant */
+  variant?: CardVariant;
+  /** Padding size */
+  padding?: CardPadding;
+  /** Border radius */
+  rounded?: CardRounded;
+  /** Make card interactive (hover effects) */
+  interactive?: boolean;
+  /** Link href (makes entire card clickable) */
+  href?: string;
+  /** Open link in new tab */
+  external?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  padding = 'base',
+  rounded = 'lg',
+  interactive = false,
+  href,
+  external = false,
+  class: className = '',
+} = Astro.props;
+
+// Variant classes
+const variantClasses: Record<CardVariant, string> = {
+  default: 'bg-surface border border-border',
+  elevated: 'bg-surface border border-border shadow-lg',
+  outlined: 'bg-transparent border border-border',
+  glass: 'glass border border-white/10',
+  tactile: 'bg-surface border border-border shadow-lg card-tactile',
+};
+
+// Padding classes
+const paddingClasses: Record<CardPadding, string> = {
+  none: 'p-0',
+  sm: 'p-3',
+  base: 'p-4 md:p-6',
+  lg: 'p-6 md:p-8',
+  xl: 'p-8 md:p-10',
+};
+
+// Rounded classes
+const roundedClasses: Record<CardRounded, string> = {
+  none: 'rounded-none',
+  sm: 'rounded',
+  base: 'rounded-md',
+  lg: 'rounded-lg',
+  xl: 'rounded-xl',
+  '2xl': 'rounded-2xl',
+};
+
+// Interactive classes
+const interactiveClasses = interactive || href
+  ? 'transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer'
+  : '';
+
+const combinedClasses = cn(
+  variantClasses[variant],
+  paddingClasses[padding],
+  roundedClasses[rounded],
+  interactiveClasses,
+  'overflow-hidden',
+  className,
+);
+
+const Tag = href ? 'a' : 'div';
+const linkProps = href ? {
+  href,
+  target: external ? '_blank' : undefined,
+  rel: external ? 'noopener noreferrer' : undefined,
+} : {};
+---
+
+<Tag class={combinedClasses} {...linkProps}>
+  <slot />
+</Tag>
+
+<style>
+  .card-tactile {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card-tactile:hover {
+    transform: translateY(-4px) rotateX(2deg);
+    box-shadow:
+      0 20px 25px -5px rgb(0 0 0 / 0.1),
+      0 8px 10px -6px rgb(0 0 0 / 0.1),
+      0 -2px 0 0 var(--primary) inset;
+  }
+</style>

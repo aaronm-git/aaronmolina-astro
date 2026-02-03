@@ -1,0 +1,22 @@
+---
+import SocialLinks from '@/components/molecules/SocialLinks.astro';
+import Text from '@/components/atoms/Text.astro';
+import footer from '@/content/site/footer.json';
+import settings from '@/content/site/settings.json';
+---
+
+<footer class="tactile-footer py-6 pt-12">
+  <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 md:flex-row">
+    <Text size="sm" color="muted">
+      &copy; {new Date().getFullYear()} {footer.copyrightOwnerName}
+      {footer.copyrightSuffix ? ` — ${footer.copyrightSuffix}` : ''}
+    </Text>
+    {footer.showSocialLinks && settings.author.socialLinks?.length && (
+      <SocialLinks
+        links={settings.author.socialLinks}
+        variant="icon-only"
+        size="base"
+      />
+    )}
+  </div>
+</footer>

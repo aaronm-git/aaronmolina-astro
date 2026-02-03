@@ -1,0 +1,59 @@
+---
+/**
+ * BaseTemplate - Base layout template for all pages
+ * Provides consistent structure with header, main content, and footer
+ */
+import Header from '@/components/organisms/navigation/Header.astro';
+import Footer from '@/components/organisms/navigation/Footer.astro';
+import AeroBubbles from '@/components/organisms/decorative/AeroBubbles.astro';
+
+interface Props {
+  /** Page title */
+  title: string;
+  /** Page description for meta tags */
+  description?: string;
+  /** Show decorative bubbles */
+  showBubbles?: boolean;
+  /** Number of bubbles */
+  bubbleCount?: number;
+  /** Additional class for main content */
+  class?: string;
+  /** Use narrow content width */
+  narrow?: boolean;
+}
+
+const {
+  title,
+  description,
+  showBubbles = true,
+  bubbleCount = 5,
+  class: className = '',
+  narrow = false,
+} = Astro.props;
+
+const contentWidthClass = narrow ? 'max-w-4xl' : 'max-w-7xl';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <slot name="head" />
+  </head>
+  <body class="bg-background text-foreground min-h-screen">
+    {showBubbles && <AeroBubbles count={bubbleCount} />}
+
+    <Header />
+
+    <main class={`mx-auto px-4 pt-20 pb-12 sm:px-6 lg:px-8 ${contentWidthClass} ${className}`}>
+      <slot />
+    </main>
+
+    <Footer />
+
+    <slot name="scripts" />
+  </body>
+</html>

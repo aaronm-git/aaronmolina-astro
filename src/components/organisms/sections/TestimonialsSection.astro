@@ -1,0 +1,183 @@
+---
+import type { ImageMetadata } from 'astro';
+import TestimonialCard from '@/components/organisms/cards/TestimonialCard.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import { cn } from '@/lib/cn';
+
+type TestimonialsVariant = 'grid' | 'carousel' | 'featured' | 'marquee';
+
+interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+  company?: string;
+  avatar?: ImageMetadata | string;
+  rating?: number;
+}
+
+interface Props {
+  /** Section title */
+  title: string;
+  /** Section subtitle */
+  subtitle?: string;
+  /** Array of testimonials */
+  testimonials: Testimonial[];
+  /** Layout variant */
+  variant?: TestimonialsVariant;
+  /** Number of columns (for grid) */
+  columns?: 1 | 2 | 3;
+  /** Show star ratings */
+  showRatings?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  testimonials,
+  variant = 'grid',
+  columns = 3,
+  showRatings = true,
+  class: className = '',
+} = Astro.props;
+
+// Column classes
+const columnClasses: Record<number, string> = {
+  1: 'max-w-2xl mx-auto',
+  2: 'md:grid-cols-2 max-w-4xl mx-auto',
+  3: 'md:grid-cols-2 lg:grid-cols-3',
+};
+---
+
+<section class={cn('py-16 md:py-24', className)}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      title={title}
+      subtitle={subtitle}
+      align="center"
+    />
+
+    {variant === 'grid' && (
+      <div class={cn('grid gap-6', columnClasses[columns])}>
+        {testimonials.map(testimonial => (
+          <TestimonialCard
+            quote={testimonial.quote}
+            author={testimonial.author}
+            role={testimonial.role}
+            company={testimonial.company}
+            avatar={testimonial.avatar}
+            rating={showRatings ? testimonial.rating : undefined}
+          />
+        ))}
+      </div>
+    )}
+
+    {variant === 'featured' && (
+      <div class="space-y-8">
+        {testimonials.slice(0, 1).map(testimonial => (
+          <TestimonialCard
+            quote={testimonial.quote}
+            author={testimonial.author}
+            role={testimonial.role}
+            company={testimonial.company}
+            avatar={testimonial.avatar}
+            rating={showRatings ? testimonial.rating : undefined}
+            variant="featured"
+            class="max-w-3xl mx-auto"
+          />
+        ))}
+        {testimonials.length > 1 && (
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {testimonials.slice(1).map(testimonial => (
+              <TestimonialCard
+                quote={testimonial.quote}
+                author={testimonial.author}
+                role={testimonial.role}
+                company={testimonial.company}
+                avatar={testimonial.avatar}
+                rating={showRatings ? testimonial.rating : undefined}
+                variant="minimal"
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    )}
+
+    {variant === 'marquee' && (
+      <div class="relative overflow-hidden">
+        <div class="testimonial-marquee flex gap-6">
+          {[...testimonials, ...testimonials].map(testimonial => (
+            <TestimonialCard
+              quote={testimonial.quote}
+              author={testimonial.author}
+              role={testimonial.role}
+              company={testimonial.company}
+              avatar={testimonial.avatar}
+              rating={showRatings ? testimonial.rating : undefined}
+              class="w-[350px] flex-shrink-0"
+            />
+          ))}
+        </div>
+        <div class="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent" />
+        <div class="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent" />
+      </div>
+    )}
+
+    {variant === 'carousel' && (
+      <div class="relative">
+        <div class="overflow-hidden">
+          <div class="testimonial-carousel flex gap-6 transition-transform duration-500" data-carousel>
+            {testimonials.map(testimonial => (
+              <TestimonialCard
+                quote={testimonial.quote}
+                author={testimonial.author}
+                role={testimonial.role}
+                company={testimonial.company}
+                avatar={testimonial.avatar}
+                rating={showRatings ? testimonial.rating : undefined}
+                variant="featured"
+                class="w-full flex-shrink-0 md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+              />
+            ))}
+          </div>
+        </div>
+        <div class="mt-6 flex justify-center gap-2">
+          {testimonials.map((_, i) => (
+            <button
+              class="h-2 w-2 rounded-full bg-muted transition-colors hover:bg-primary data-[active]:bg-primary"
+              data-carousel-dot={i}
+              aria-label={`Go to testimonial ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .testimonial-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  .testimonial-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-marquee {
+      animation: none;
+    }
+  }
+</style>

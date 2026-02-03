@@ -1,0 +1,101 @@
+---
+import { cn } from '@/lib/cn';
+
+type SkeletonVariant = 'text' | 'circular' | 'rectangular' | 'rounded';
+
+interface Props {
+  /** Skeleton shape variant */
+  variant?: SkeletonVariant;
+  /** Width (CSS value) */
+  width?: string;
+  /** Height (CSS value) */
+  height?: string;
+  /** Number of text lines (for text variant) */
+  lines?: number;
+  /** Animation style */
+  animation?: 'pulse' | 'wave' | 'none';
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  variant = 'text',
+  width,
+  height,
+  lines = 1,
+  animation = 'pulse',
+  class: className = '',
+} = Astro.props;
+
+// Variant classes
+const variantClasses: Record<SkeletonVariant, string> = {
+  text: 'rounded',
+  circular: 'rounded-full',
+  rectangular: 'rounded-none',
+  rounded: 'rounded-lg',
+};
+
+// Animation classes
+const animationClasses: Record<string, string> = {
+  pulse: 'animate-pulse',
+  wave: 'skeleton-wave',
+  none: '',
+};
+
+// Default heights for text variant
+const textHeight = 'h-4';
+
+const baseClasses = cn(
+  'bg-muted',
+  variantClasses[variant],
+  animationClasses[animation],
+  variant === 'text' && !height && textHeight,
+  className,
+);
+
+const style = [
+  width && `width: ${width}`,
+  height && `height: ${height}`,
+  variant === 'circular' && !width && !height && 'width: 40px; height: 40px',
+].filter(Boolean).join('; ');
+---
+
+{variant === 'text' && lines > 1 ? (
+  <div class="space-y-2">
+    {Array.from({ length: lines }).map((_, i) => (
+      <div
+        class={cn(baseClasses, i === lines - 1 && 'w-3/4')}
+        style={style || undefined}
+      />
+    ))}
+  </div>
+) : (
+  <div class={baseClasses} style={style || undefined} />
+)}
+
+<style>
+  .skeleton-wave {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton-wave::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    animation: wave 1.5s infinite;
+  }
+
+  @keyframes wave {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+</style>

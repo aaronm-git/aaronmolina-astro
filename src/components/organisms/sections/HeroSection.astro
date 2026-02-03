@@ -1,0 +1,361 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Heading from '@/components/atoms/Heading.astro';
+import Text from '@/components/atoms/Text.astro';
+import Button from '@/components/atoms/Button.astro';
+import Badge from '@/components/atoms/Badge.astro';
+import Avatar from '@/components/atoms/Avatar.astro';
+import AeroBubbles from '@/components/organisms/decorative/AeroBubbles.astro';
+import { cn } from '@/lib/cn';
+
+type HeroVariant = 'centered' | 'split' | 'minimal' | 'fullscreen';
+type HeroHeight = 'auto' | 'screen' | 'half';
+
+interface CTA {
+  label: string;
+  href: string;
+  icon?: string;
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'tactile';
+}
+
+interface SocialProof {
+  avatars?: (ImageMetadata | string)[];
+  text: string;
+}
+
+interface Props {
+  /** Main headline */
+  headline: string;
+  /** Subheadline/tagline */
+  subheadline?: string;
+  /** Description text */
+  description?: string;
+  /** Primary CTA button */
+  primaryCta?: CTA;
+  /** Secondary CTA button */
+  secondaryCta?: CTA;
+  /** Hero image */
+  image?: ImageMetadata;
+  /** Image alt text */
+  imageAlt?: string;
+  /** Badge labels */
+  badges?: string[];
+  /** Social proof section */
+  socialProof?: SocialProof;
+  /** Layout variant */
+  variant?: HeroVariant;
+  /** Content alignment */
+  align?: 'left' | 'center' | 'right';
+  /** Section height */
+  height?: HeroHeight;
+  /** Show decorative bubbles */
+  showBubbles?: boolean;
+  /** Show gradient background */
+  showGradient?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  headline,
+  subheadline,
+  description,
+  primaryCta,
+  secondaryCta,
+  image,
+  imageAlt = '',
+  badges,
+  socialProof,
+  variant = 'centered',
+  align = variant === 'centered' ? 'center' : 'left',
+  height = 'auto',
+  showBubbles = true,
+  showGradient = false,
+  class: className = '',
+} = Astro.props;
+
+// Height classes
+const heightClasses: Record<HeroHeight, string> = {
+  auto: 'py-16 md:py-24',
+  screen: 'min-h-screen py-16',
+  half: 'min-h-[50vh] py-16',
+};
+
+// Alignment classes
+const alignClasses: Record<string, string> = {
+  left: 'text-left items-start',
+  center: 'text-center items-center',
+  right: 'text-right items-end',
+};
+
+const containerClasses = cn(
+  'relative',
+  heightClasses[height],
+  showGradient && 'bg-gradient-to-b from-primary/5 to-transparent',
+  className,
+);
+---
+
+<section class={containerClasses}>
+  {showBubbles && variant !== 'minimal' && <AeroBubbles count={3} />}
+
+  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {variant === 'centered' && (
+      <div class={cn('flex flex-col', alignClasses[align], 'max-w-4xl mx-auto')}>
+        {badges && badges.length > 0 && (
+          <div class="mb-6 flex flex-wrap justify-center gap-2">
+            {badges.map(badge => (
+              <Badge label={badge} variant="primary" size="sm" />
+            ))}
+          </div>
+        )}
+
+        <Heading level={1} size="hero" gradient class="mb-4 md:mb-6">
+          {headline}
+        </Heading>
+
+        {subheadline && (
+          <Text size="xl" color="secondary" weight="medium" class="mb-4">
+            {subheadline}
+          </Text>
+        )}
+
+        {description && (
+          <Text size="lg" color="muted" class="mb-8 max-w-2xl" balance>
+            {description}
+          </Text>
+        )}
+
+        {(primaryCta || secondaryCta) && (
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            {primaryCta && (
+              <Button
+                href={primaryCta.href}
+                variant={primaryCta.variant || 'tactile'}
+                icon={primaryCta.icon}
+                size="lg"
+                bounce
+              >
+                {primaryCta.label}
+              </Button>
+            )}
+            {secondaryCta && (
+              <Button
+                href={secondaryCta.href}
+                variant={secondaryCta.variant || 'outline'}
+                icon={secondaryCta.icon}
+                size="lg"
+              >
+                {secondaryCta.label}
+              </Button>
+            )}
+          </div>
+        )}
+
+        {image && (
+          <div class="mt-12 w-full">
+            <Image
+              src={image}
+              alt={imageAlt}
+              class="rounded-2xl shadow-2xl mx-auto"
+              width={1200}
+              height={675}
+            />
+          </div>
+        )}
+
+        {socialProof && (
+          <div class="mt-8 flex flex-col items-center gap-3">
+            {socialProof.avatars && socialProof.avatars.length > 0 && (
+              <div class="flex -space-x-2">
+                {socialProof.avatars.slice(0, 5).map((avatar, i) => (
+                  <Avatar
+                    src={avatar}
+                    alt={`User ${i + 1}`}
+                    size="sm"
+                    border
+                    borderColor="white"
+                  />
+                ))}
+              </div>
+            )}
+            <Text size="sm" color="muted">{socialProof.text}</Text>
+          </div>
+        )}
+
+        <slot />
+      </div>
+    )}
+
+    {variant === 'split' && (
+      <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+        <div class={cn('flex flex-col', alignClasses[align])}>
+          {badges && badges.length > 0 && (
+            <div class="mb-6 flex flex-wrap gap-2">
+              {badges.map(badge => (
+                <Badge label={badge} variant="primary" size="sm" />
+              ))}
+            </div>
+          )}
+
+          <Heading level={1} size="hero" class="mb-4 md:mb-6">
+            {headline}
+          </Heading>
+
+          {subheadline && (
+            <Text size="xl" color="secondary" weight="medium" class="mb-4">
+              {subheadline}
+            </Text>
+          )}
+
+          {description && (
+            <Text size="lg" color="muted" class="mb-8" balance>
+              {description}
+            </Text>
+          )}
+
+          {(primaryCta || secondaryCta) && (
+            <div class="flex flex-col sm:flex-row gap-4">
+              {primaryCta && (
+                <Button
+                  href={primaryCta.href}
+                  variant={primaryCta.variant || 'tactile'}
+                  icon={primaryCta.icon}
+                  size="lg"
+                  bounce
+                >
+                  {primaryCta.label}
+                </Button>
+              )}
+              {secondaryCta && (
+                <Button
+                  href={secondaryCta.href}
+                  variant={secondaryCta.variant || 'outline'}
+                  icon={secondaryCta.icon}
+                  size="lg"
+                >
+                  {secondaryCta.label}
+                </Button>
+              )}
+            </div>
+          )}
+
+          {socialProof && (
+            <div class="mt-8 flex items-center gap-3">
+              {socialProof.avatars && socialProof.avatars.length > 0 && (
+                <div class="flex -space-x-2">
+                  {socialProof.avatars.slice(0, 5).map((avatar, i) => (
+                    <Avatar
+                      src={avatar}
+                      alt={`User ${i + 1}`}
+                      size="sm"
+                      border
+                      borderColor="white"
+                    />
+                  ))}
+                </div>
+              )}
+              <Text size="sm" color="muted">{socialProof.text}</Text>
+            </div>
+          )}
+
+          <slot />
+        </div>
+
+        {image && (
+          <div class="relative">
+            <Image
+              src={image}
+              alt={imageAlt}
+              class="rounded-2xl shadow-2xl"
+              width={600}
+              height={600}
+            />
+          </div>
+        )}
+      </div>
+    )}
+
+    {variant === 'minimal' && (
+      <div class={cn('flex flex-col', alignClasses[align], 'max-w-3xl', align === 'center' && 'mx-auto')}>
+        {badges && badges.length > 0 && (
+          <div class={cn('mb-4 flex flex-wrap gap-2', align === 'center' && 'justify-center')}>
+            {badges.map(badge => (
+              <Badge label={badge} variant="outline" size="sm" />
+            ))}
+          </div>
+        )}
+
+        <Heading level={1} size="2xl" class="mb-4">
+          {headline}
+        </Heading>
+
+        {description && (
+          <Text size="lg" color="muted" balance>
+            {description}
+          </Text>
+        )}
+
+        <slot />
+      </div>
+    )}
+
+    {variant === 'fullscreen' && (
+      <div class="flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center text-center">
+        {badges && badges.length > 0 && (
+          <div class="mb-6 flex flex-wrap justify-center gap-2">
+            {badges.map(badge => (
+              <Badge label={badge} variant="primary" size="sm" />
+            ))}
+          </div>
+        )}
+
+        <Heading level={1} size="hero" gradient class="mb-6">
+          {headline}
+        </Heading>
+
+        {subheadline && (
+          <Text size="2xl" color="secondary" weight="medium" class="mb-4">
+            {subheadline}
+          </Text>
+        )}
+
+        {description && (
+          <Text size="xl" color="muted" class="mb-10 max-w-3xl" balance>
+            {description}
+          </Text>
+        )}
+
+        {(primaryCta || secondaryCta) && (
+          <div class="flex flex-col sm:flex-row gap-4">
+            {primaryCta && (
+              <Button
+                href={primaryCta.href}
+                variant={primaryCta.variant || 'tactile'}
+                icon={primaryCta.icon}
+                size="xl"
+                bounce
+                glow
+              >
+                {primaryCta.label}
+              </Button>
+            )}
+            {secondaryCta && (
+              <Button
+                href={secondaryCta.href}
+                variant={secondaryCta.variant || 'ghost'}
+                icon={secondaryCta.icon}
+                size="xl"
+              >
+                {secondaryCta.label}
+              </Button>
+            )}
+          </div>
+        )}
+
+        <slot />
+      </div>
+    )}
+  </div>
+</section>

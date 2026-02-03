@@ -3,8 +3,8 @@ import MainLayout from '@/layouts/main-layout.astro';
 import { getCollection, render } from 'astro:content';
 import { createTechMap, objectToTechMap } from '@/utils/tech-lookup';
 import { formatDate, toISODateString } from '@/utils/date-format';
-import { FaArrowLeft } from '@/utils/icons';
-import TagList from '@/components/ui/TagList.astro';
+import { FaArrowLeft } from '@/lib/icons';
+import TagList from '@/components/molecules/TagList.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');

@@ -1,0 +1,85 @@
+---
+import { cn } from '@/lib/cn';
+
+type DividerOrientation = 'horizontal' | 'vertical';
+type DividerVariant = 'solid' | 'dashed' | 'dotted' | 'gradient';
+type DividerSpacing = 'none' | 'sm' | 'base' | 'lg' | 'xl';
+
+interface Props {
+  /** Orientation */
+  orientation?: DividerOrientation;
+  /** Visual variant */
+  variant?: DividerVariant;
+  /** Spacing around divider */
+  spacing?: DividerSpacing;
+  /** Label text (for horizontal only) */
+  label?: string;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  orientation = 'horizontal',
+  variant = 'solid',
+  spacing = 'base',
+  label,
+  class: className = '',
+} = Astro.props;
+
+// Variant classes
+const variantClasses: Record<DividerVariant, string> = {
+  solid: 'border-solid',
+  dashed: 'border-dashed',
+  dotted: 'border-dotted',
+  gradient: 'divider-gradient',
+};
+
+// Spacing classes
+const horizontalSpacingClasses: Record<DividerSpacing, string> = {
+  none: '',
+  sm: 'my-2',
+  base: 'my-4',
+  lg: 'my-6',
+  xl: 'my-8',
+};
+
+const verticalSpacingClasses: Record<DividerSpacing, string> = {
+  none: '',
+  sm: 'mx-2',
+  base: 'mx-4',
+  lg: 'mx-6',
+  xl: 'mx-8',
+};
+
+const isHorizontal = orientation === 'horizontal';
+const spacingClass = isHorizontal ? horizontalSpacingClasses[spacing] : verticalSpacingClasses[spacing];
+
+const dividerClasses = cn(
+  variant !== 'gradient' && 'border-border',
+  variantClasses[variant],
+  isHorizontal ? 'w-full border-t' : 'h-full border-l self-stretch',
+  !label && spacingClass,
+  className,
+);
+---
+
+{label && isHorizontal ? (
+  <div class={cn('flex items-center', spacingClass)}>
+    <div class={cn(dividerClasses, 'flex-1')} />
+    <span class="px-3 text-foreground-muted text-sm">{label}</span>
+    <div class={cn(dividerClasses, 'flex-1')} />
+  </div>
+) : (
+  <div class={dividerClasses} role="separator" aria-orientation={orientation} />
+)}
+
+<style>
+  .divider-gradient {
+    border: none;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .divider-gradient[aria-orientation="vertical"] {
+    background: linear-gradient(180deg, transparent, var(--border), transparent);
+  }
+</style>

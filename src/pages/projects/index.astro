@@ -1,8 +1,8 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import ProjectCard from '@/components/ProjectCard.astro';
+import ProjectCard from '@/components/organisms/cards/ProjectCard.astro';
 import { getCollection } from 'astro:content';
-import CTA from '@/components/CTA.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
 import pages from '@/content/site/pages.json';
 
 const projects = await getCollection('projects');
@@ -43,6 +43,6 @@ const sortedProjects = projects
   }
 
   <div class="animate-section mt-12">
-    <CTA />
+    <CTASection />
   </div>
 </MainLayout>

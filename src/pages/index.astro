@@ -1,11 +1,11 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import ProjectCard from '@/components/ProjectCard.astro';
-import RoleCard from '@/components/RoleCard.astro';
-import CTA from '@/components/CTA.astro';
-import BlogPostCard from '@/components/BlogPostCard.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
-import Button from '@/components/ui/Button.astro';
+import ProjectCard from '@/components/organisms/cards/ProjectCard.astro';
+import RoleCard from '@/components/organisms/cards/RoleCard.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
+import BlogPostCard from '@/components/organisms/cards/BlogPostCard.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import Button from '@/components/atoms/Button.astro';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
 import ProfilePicture from '@/images/profile.jpg';
@@ -157,5 +157,5 @@ const heroDescription = homepageContent.hero.description.replaceAll('{yearsOfExp
   }
 
   <!-- Contact Section -->
-  <CTA />
+  <CTASection />
 </MainLayout>

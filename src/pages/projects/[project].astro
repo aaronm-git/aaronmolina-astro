@@ -3,12 +3,11 @@ import MainLayout from '@/layouts/main-layout.astro';
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import { createTechMap, objectToTechMap } from '@/utils/tech-lookup';
-import { FaGithub, FaArrowRight, FaArrowLeft } from '@/utils/icons';
-import Button from '@/components/ui/Button.astro';
-import TagList from '@/components/ui/TagList.astro';
-import Tag from '@/components/ui/Tag.astro';
-import InfoBox from '@/components/ui/InfoBox.astro';
-import pages from '@/content/site/pages.json';
+import { FaGithub, FaArrowLeft } from '@/lib/icons';
+import Button from '@/components/atoms/Button.astro';
+import TagList from '@/components/molecules/TagList.astro';
+import Tag from '@/components/atoms/Tag.astro';
+import InfoBox from '@/components/molecules/InfoBox.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -110,7 +109,7 @@ const techMap = objectToTechMap(techMapObj);
     }
 
     <!-- Project Details -->
-    <InfoBox variant="muted" class="mb-12" id="project-details">
+    <InfoBox variant="muted" class="mb-12">
       <div class="mb-4 flex items-end justify-between gap-4">
         <h2 class="text-foreground text-lg font-semibold">Project Details</h2>
         <span class="text-foreground-muted text-sm">Quick facts</span>

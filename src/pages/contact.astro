@@ -1,10 +1,10 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import InfoBox from '@/components/ui/InfoBox.astro';
-import ListItem from '@/components/ui/ListItem.astro';
-import Button from '@/components/ui/Button.astro';
-import SocialLinks from '@/components/SocialLinks.astro';
-import { getCategoryIcon } from '@/utils/icons';
+import InfoBox from '@/components/molecules/InfoBox.astro';
+import ListItem from '@/components/molecules/ListItem.astro';
+import Button from '@/components/atoms/Button.astro';
+import SocialLinks from '@/components/molecules/SocialLinks.astro';
+import { getCategoryIcon } from '@/lib/icons';
 import pages from '@/content/site/pages.json';
 import settings from '@/content/site/settings.json';
 
@@ -140,7 +140,7 @@ const responseIconNames = ['clock', 'calendar', 'globe'];
       <InfoBox title={pages.contact.responseTimeTitle} variant="surface">
         <ul class="space-y-3">
           {pages.contact.responseTimeItems.map((text, idx) => (
-            <ListItem icon={responseIconNames[idx] || 'clock'} iconColor="secondary" compact>
+            <ListItem icon={responseIconNames[idx] || 'clock'} iconColor="secondary" size="sm">
               {text}
             </ListItem>
           ))}

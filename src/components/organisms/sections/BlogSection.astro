@@ -1,0 +1,120 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BlogPostCard from '@/components/organisms/cards/BlogPostCard.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import { cn } from '@/lib/cn';
+import type { TechMap } from '@/utils/tech-lookup';
+
+type BlogVariant = 'grid' | 'list' | 'featured';
+
+interface Props {
+  /** Section title */
+  title: string;
+  /** Section subtitle */
+  subtitle?: string;
+  /** Array of blog posts */
+  posts: CollectionEntry<'blog'>[];
+  /** Technology lookup map */
+  techMap?: TechMap;
+  /** Layout variant */
+  variant?: BlogVariant;
+  /** Number of columns (for grid) */
+  columns?: 2 | 3;
+  /** Show tags on cards */
+  showTags?: boolean;
+  /** CTA link */
+  cta?: {
+    label: string;
+    href: string;
+  };
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  posts,
+  techMap,
+  variant = 'grid',
+  columns = 3,
+  showTags = false,
+  cta,
+  class: className = '',
+} = Astro.props;
+
+// Column classes
+const columnClasses: Record<number, string> = {
+  2: 'md:grid-cols-2',
+  3: 'md:grid-cols-2 lg:grid-cols-3',
+};
+---
+
+<section class={cn('py-16 md:py-24', className)}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      title={title}
+      subtitle={subtitle}
+      viewAllHref={cta?.href}
+      viewAllLabel={cta?.label}
+      hideViewAllOnMobile
+    />
+
+    {variant === 'grid' && (
+      <div class={cn('grid gap-6', columnClasses[columns])}>
+        {posts.map(post => (
+          <BlogPostCard
+            post={post}
+            techMap={techMap}
+            showTags={showTags}
+          />
+        ))}
+      </div>
+    )}
+
+    {variant === 'list' && (
+      <div class="space-y-6">
+        {posts.map(post => (
+          <BlogPostCard
+            post={post}
+            techMap={techMap}
+            variant="compact"
+            showTags={showTags}
+          />
+        ))}
+      </div>
+    )}
+
+    {variant === 'featured' && posts.length > 0 && (
+      <div class="grid gap-8 lg:grid-cols-2">
+        <BlogPostCard
+          post={posts[0]}
+          techMap={techMap}
+          variant="featured"
+          showTags={showTags}
+          showDescription
+        />
+        {posts.length > 1 && (
+          <div class="space-y-4">
+            {posts.slice(1).map(post => (
+              <BlogPostCard
+                post={post}
+                techMap={techMap}
+                variant="compact"
+                showTags={showTags}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    )}
+
+    {cta && (
+      <div class="mt-8 text-center md:hidden">
+        <a href={cta.href} class="text-secondary hover:text-secondary-hover font-medium">
+          {cta.label} →
+        </a>
+      </div>
+    )}
+  </div>
+</section>

@@ -1,0 +1,129 @@
+---
+import Heading from '@/components/atoms/Heading.astro';
+import Link from '@/components/atoms/Link.astro';
+import Icon from '@/components/atoms/Icon.astro';
+import { cn } from '@/lib/cn';
+import type { IconType } from 'react-icons';
+
+type HeadingLevel = 2 | 3 | 4;
+type HeaderAlign = 'left' | 'center' | 'between';
+
+interface Props {
+  /** Section title */
+  title: string;
+  /** Optional subtitle/description */
+  subtitle?: string;
+  /** Icon name (uses getIcon to resolve) */
+  icon?: string;
+  /** Direct icon component */
+  iconComponent?: IconType;
+  /** "View all" link href */
+  viewAllHref?: string;
+  /** "View all" link label */
+  viewAllLabel?: string;
+  /** Hide "View all" link on mobile */
+  hideViewAllOnMobile?: boolean;
+  /** Heading level (h2, h3, h4) */
+  level?: HeadingLevel;
+  /** Header alignment */
+  align?: HeaderAlign;
+  /** Use hero-sized heading (Tactile Maximalism) */
+  hero?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  icon,
+  iconComponent,
+  viewAllHref,
+  viewAllLabel = 'View All',
+  hideViewAllOnMobile = false,
+  level = 2,
+  align = 'between',
+  hero = false,
+  class: className = '',
+} = Astro.props;
+
+// Map level to heading size
+const levelSizeMap: Record<HeadingLevel, 'lg' | 'xl' | '2xl'> = {
+  2: '2xl',
+  3: 'xl',
+  4: 'lg',
+};
+
+// Alignment classes
+const alignClasses: Record<HeaderAlign, string> = {
+  left: 'justify-start',
+  center: 'justify-center text-center',
+  between: 'justify-between',
+};
+
+const containerClasses = cn(
+  'mb-8 flex items-start md:items-center gap-4',
+  alignClasses[align],
+  align === 'center' && 'flex-col',
+  className,
+);
+
+const viewAllClasses = cn(
+  hideViewAllOnMobile && 'hidden md:flex',
+);
+---
+
+<div class={containerClasses}>
+  <div class={cn(align === 'center' && 'flex flex-col items-center')}>
+    <div class="flex items-center gap-3">
+      {(icon || iconComponent) && (
+        <Icon
+          name={icon}
+          icon={iconComponent}
+          size="xl"
+          color="primary"
+        />
+      )}
+      <Heading
+        level={level}
+        size={hero ? 'hero' : levelSizeMap[level]}
+        gradient={hero}
+      >
+        {title}
+      </Heading>
+    </div>
+    {subtitle && (
+      <p class={cn(
+        'text-foreground-muted mt-2',
+        hero ? 'text-lg md:text-xl max-w-2xl' : 'text-base',
+        align === 'center' && 'text-center',
+      )}>
+        {subtitle}
+      </p>
+    )}
+  </div>
+
+  {viewAllHref && align !== 'center' && (
+    <Link
+      href={viewAllHref}
+      variant="primary"
+      showArrow
+      class={viewAllClasses}
+    >
+      {viewAllLabel}
+    </Link>
+  )}
+</div>
+
+{viewAllHref && align === 'center' && (
+  <div class="flex justify-center -mt-4 mb-8">
+    <Link
+      href={viewAllHref}
+      variant="primary"
+      showArrow
+      class={viewAllClasses}
+    >
+      {viewAllLabel}
+    </Link>
+  </div>
+)}

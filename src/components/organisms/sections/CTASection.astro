@@ -1,0 +1,49 @@
+---
+import Button from '@/components/atoms/Button.astro';
+import Heading from '@/components/atoms/Heading.astro';
+import Text from '@/components/atoms/Text.astro';
+import ctaContent from '@/content/site/cta.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+  /** Use tactile maximalism style */
+  tactile?: boolean;
+}
+
+const {
+  title = ctaContent.title,
+  description = ctaContent.description,
+  buttonLabel = ctaContent.buttonLabel,
+  buttonHref = ctaContent.buttonHref,
+  tactile = true,
+} = Astro.props;
+---
+
+<section class={tactile ? 'tactile-cta p-8 text-center' : 'bg-primary rounded-2xl p-8 md:p-12 text-center'}>
+  <Heading
+    level={2}
+    size="2xl"
+    class="text-on-primary mb-4"
+  >
+    {title}
+  </Heading>
+  <Text
+    size="lg"
+    class="text-on-primary mx-auto mb-6 max-w-2xl opacity-90"
+  >
+    {description}
+  </Text>
+  <div class="flex justify-center">
+    <Button
+      href={buttonHref}
+      variant="secondary"
+      icon="contact"
+      size="lg"
+    >
+      {buttonLabel}
+    </Button>
+  </div>
+</section>

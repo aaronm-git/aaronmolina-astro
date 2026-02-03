@@ -1,0 +1,67 @@
+---
+import SocialLink from './SocialLink.astro';
+import { cn } from '@/lib/cn';
+
+type LinkVariant = 'icon-only' | 'with-label' | 'button';
+type LinkSize = 'sm' | 'base' | 'lg';
+type LayoutDirection = 'horizontal' | 'vertical';
+
+interface SocialLinkData {
+  platform: string;
+  url: string;
+  label?: string;
+  ariaLabel?: string;
+}
+
+interface Props {
+  /** Array of social links */
+  links: SocialLinkData[];
+  /** Display variant */
+  variant?: LinkVariant;
+  /** Size of icons/buttons */
+  size?: LinkSize;
+  /** Layout direction */
+  direction?: LayoutDirection;
+  /** Gap between items */
+  gap?: 'sm' | 'base' | 'lg';
+  /** Additional CSS classes for the container */
+  class?: string;
+}
+
+const {
+  links,
+  variant = 'icon-only',
+  size = 'base',
+  direction = 'horizontal',
+  gap = 'base',
+  class: className = '',
+} = Astro.props;
+
+// Gap classes
+const gapClasses: Record<string, string> = {
+  sm: direction === 'horizontal' ? 'gap-2' : 'gap-1',
+  base: direction === 'horizontal' ? 'gap-4' : 'gap-2',
+  lg: direction === 'horizontal' ? 'gap-6' : 'gap-3',
+};
+
+const containerClasses = cn(
+  'flex items-center',
+  direction === 'vertical' && 'flex-col items-start',
+  variant === 'button' && 'flex-wrap',
+  gapClasses[gap],
+  className,
+);
+---
+
+<div class={containerClasses}>
+  {links.map((link) => (
+    <SocialLink
+      platform={link.platform}
+      url={link.url}
+      label={link.label}
+      ariaLabel={link.ariaLabel}
+      variant={variant}
+      size={size}
+    />
+  ))}
+</div>

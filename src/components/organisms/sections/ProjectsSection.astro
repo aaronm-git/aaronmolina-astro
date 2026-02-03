@@ -1,0 +1,128 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCard from '@/components/organisms/cards/ProjectCard.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import { cn } from '@/lib/cn';
+
+type ProjectsVariant = 'grid' | 'featured' | 'masonry';
+
+interface Props {
+  /** Section title */
+  title: string;
+  /** Section subtitle */
+  subtitle?: string;
+  /** Array of projects */
+  projects: CollectionEntry<'projects'>[] | { data: any }[];
+  /** Layout variant */
+  variant?: ProjectsVariant;
+  /** Number of columns */
+  columns?: 2 | 3;
+  /** Show completion dates */
+  showCompletedDate?: boolean;
+  /** Show view project links */
+  showViewProjectLink?: boolean;
+  /** CTA link */
+  cta?: {
+    label: string;
+    href: string;
+  };
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  projects,
+  variant = 'grid',
+  columns = 3,
+  showCompletedDate = false,
+  showViewProjectLink = false,
+  cta,
+  class: className = '',
+} = Astro.props;
+
+// Column classes
+const columnClasses: Record<number, string> = {
+  2: 'md:grid-cols-2',
+  3: 'md:grid-cols-2 lg:grid-cols-3',
+};
+---
+
+<section class={cn('py-16 md:py-24', className)}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      title={title}
+      subtitle={subtitle}
+      viewAllHref={cta?.href}
+      viewAllLabel={cta?.label}
+      hideViewAllOnMobile
+    />
+
+    {variant === 'grid' && (
+      <div class={cn('grid gap-8', columnClasses[columns])}>
+        {projects.map(project => (
+          <ProjectCard
+            project={project}
+            showCompletedDate={showCompletedDate}
+            showViewProjectLink={showViewProjectLink}
+          />
+        ))}
+      </div>
+    )}
+
+    {variant === 'featured' && projects.length > 0 && (
+      <div class="space-y-8">
+        {projects.slice(0, 1).map(project => (
+          <div class="grid gap-8 lg:grid-cols-2">
+            <ProjectCard
+              project={project}
+              showCompletedDate={showCompletedDate}
+              showViewProjectLink={showViewProjectLink}
+            />
+            <div class="flex flex-col justify-center">
+              <h3 class="text-2xl font-bold text-foreground mb-4">{project.data.title}</h3>
+              <p class="text-foreground-muted mb-6">{project.data.summary}</p>
+              <a href={`/projects/${project.data.slug}`} class="text-secondary hover:text-secondary-hover font-medium">
+                View project details →
+              </a>
+            </div>
+          </div>
+        ))}
+        {projects.length > 1 && (
+          <div class={cn('grid gap-8', columnClasses[columns])}>
+            {projects.slice(1).map(project => (
+              <ProjectCard
+                project={project}
+                showCompletedDate={showCompletedDate}
+                showViewProjectLink={showViewProjectLink}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    )}
+
+    {variant === 'masonry' && (
+      <div class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+        {projects.map(project => (
+          <div class="break-inside-avoid">
+            <ProjectCard
+              project={project}
+              showCompletedDate={showCompletedDate}
+              showViewProjectLink={showViewProjectLink}
+            />
+          </div>
+        ))}
+      </div>
+    )}
+
+    {cta && (
+      <div class="mt-8 text-center md:hidden">
+        <a href={cta.href} class="text-secondary hover:text-secondary-hover font-medium">
+          {cta.label} →
+        </a>
+      </div>
+    )}
+  </div>
+</section>

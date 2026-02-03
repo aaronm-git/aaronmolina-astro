@@ -1,0 +1,98 @@
+---
+import { cn } from '@/lib/cn';
+import { getIcon, FaArrowRight, FaUpRightFromSquare } from '@/lib/icons';
+import type { IconType } from 'react-icons';
+
+type LinkVariant = 'default' | 'muted' | 'primary' | 'secondary' | 'underline' | 'subtle';
+type LinkSize = 'sm' | 'base' | 'lg';
+
+interface Props {
+  /** Link URL */
+  href: string;
+  /** Visual variant */
+  variant?: LinkVariant;
+  /** Text size */
+  size?: LinkSize;
+  /** Open in new tab */
+  external?: boolean;
+  /** Show external indicator icon */
+  showExternalIcon?: boolean;
+  /** Show arrow icon */
+  showArrow?: boolean;
+  /** Icon name (left side) */
+  icon?: string;
+  /** Direct icon component */
+  iconComponent?: IconType;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'default',
+  size = 'base',
+  external = false,
+  showExternalIcon = true,
+  showArrow = false,
+  icon,
+  iconComponent,
+  class: className = '',
+} = Astro.props;
+
+// Resolve icon
+const IconComponent = iconComponent || (icon ? getIcon(icon) : null);
+
+// Auto-detect external links
+const isExternal = external || (href.startsWith('http') && !href.includes(Astro.site?.hostname || ''));
+
+// Variant classes
+const variantClasses: Record<LinkVariant, string> = {
+  default: 'text-foreground hover:text-primary',
+  muted: 'text-foreground-muted hover:text-foreground',
+  primary: 'text-primary hover:text-primary-hover',
+  secondary: 'text-secondary hover:text-secondary-hover',
+  underline: 'text-foreground underline underline-offset-4 hover:text-primary',
+  subtle: 'text-foreground-muted hover:text-secondary hover:underline underline-offset-4',
+};
+
+// Size classes
+const sizeClasses: Record<LinkSize, string> = {
+  sm: 'text-sm',
+  base: 'text-base',
+  lg: 'text-lg',
+};
+
+// Icon size classes
+const iconSizeClasses: Record<LinkSize, string> = {
+  sm: 'w-3 h-3',
+  base: 'w-4 h-4',
+  lg: 'w-5 h-5',
+};
+
+const combinedClasses = cn(
+  'inline-flex items-center gap-1.5 transition-colors group',
+  variantClasses[variant],
+  sizeClasses[size],
+  className,
+);
+
+const iconClass = iconSizeClasses[size];
+---
+
+<a
+  href={href}
+  class={combinedClasses}
+  target={isExternal ? '_blank' : undefined}
+  rel={isExternal ? 'noopener noreferrer' : undefined}
+>
+  {IconComponent && (
+    <IconComponent className={iconClass} />
+  )}
+  <slot />
+  {showArrow && !isExternal && (
+    <FaArrowRight className={cn(iconClass, 'transition-transform group-hover:translate-x-0.5')} />
+  )}
+  {isExternal && showExternalIcon && (
+    <FaUpRightFromSquare className={cn(iconClass, 'opacity-60')} />
+  )}
+</a>

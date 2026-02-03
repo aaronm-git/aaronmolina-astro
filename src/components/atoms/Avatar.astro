@@ -1,0 +1,139 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { cn } from '@/lib/cn';
+
+type AvatarSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl';
+type AvatarRounded = 'none' | 'sm' | 'base' | 'lg' | 'full';
+type AvatarStatus = 'online' | 'offline' | 'busy' | 'away';
+
+interface Props {
+  /** Image source */
+  src?: ImageMetadata | string;
+  /** Alt text */
+  alt: string;
+  /** Fallback text (initials) */
+  fallback?: string;
+  /** Avatar size */
+  size?: AvatarSize;
+  /** Border radius */
+  rounded?: AvatarRounded;
+  /** Show border */
+  border?: boolean;
+  /** Border color */
+  borderColor?: 'primary' | 'secondary' | 'border' | 'white';
+  /** Status indicator */
+  status?: AvatarStatus;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  fallback,
+  size = 'base',
+  rounded = 'full',
+  border = false,
+  borderColor = 'border',
+  status,
+  class: className = '',
+} = Astro.props;
+
+// Size classes
+const sizeClasses: Record<AvatarSize, string> = {
+  xs: 'w-6 h-6 text-xs',
+  sm: 'w-8 h-8 text-sm',
+  base: 'w-10 h-10 text-base',
+  lg: 'w-12 h-12 text-lg',
+  xl: 'w-16 h-16 text-xl',
+  '2xl': 'w-20 h-20 text-2xl',
+};
+
+// Size in pixels for Image component
+const sizePixels: Record<AvatarSize, number> = {
+  xs: 24,
+  sm: 32,
+  base: 40,
+  lg: 48,
+  xl: 64,
+  '2xl': 80,
+};
+
+// Rounded classes
+const roundedClasses: Record<AvatarRounded, string> = {
+  none: 'rounded-none',
+  sm: 'rounded',
+  base: 'rounded-md',
+  lg: 'rounded-lg',
+  full: 'rounded-full',
+};
+
+// Border color classes
+const borderColorClasses: Record<string, string> = {
+  primary: 'border-primary',
+  secondary: 'border-secondary',
+  border: 'border-border',
+  white: 'border-white',
+};
+
+// Status color classes
+const statusColorClasses: Record<AvatarStatus, string> = {
+  online: 'bg-green-500',
+  offline: 'bg-gray-400',
+  busy: 'bg-red-500',
+  away: 'bg-yellow-500',
+};
+
+// Get initials from fallback
+const initials = fallback?.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2) || '?';
+
+const containerClasses = cn(
+  'relative inline-flex items-center justify-center overflow-hidden bg-muted',
+  sizeClasses[size],
+  roundedClasses[rounded],
+  border && `border-2 ${borderColorClasses[borderColor]}`,
+  className,
+);
+
+const isAstroImage = src && typeof src !== 'string';
+---
+
+<div class={containerClasses}>
+  {src ? (
+    isAstroImage ? (
+      <Image
+        src={src as ImageMetadata}
+        alt={alt}
+        class="w-full h-full object-cover"
+        width={sizePixels[size]}
+        height={sizePixels[size]}
+      />
+    ) : (
+      <img
+        src={src as string}
+        alt={alt}
+        class="w-full h-full object-cover"
+        width={sizePixels[size]}
+        height={sizePixels[size]}
+      />
+    )
+  ) : (
+    <span class="text-foreground-muted font-medium">{initials}</span>
+  )}
+
+  {status && (
+    <span
+      class={cn(
+        'absolute bottom-0 right-0 block rounded-full ring-2 ring-background',
+        statusColorClasses[status],
+        size === 'xs' && 'w-1.5 h-1.5',
+        size === 'sm' && 'w-2 h-2',
+        size === 'base' && 'w-2.5 h-2.5',
+        size === 'lg' && 'w-3 h-3',
+        size === 'xl' && 'w-3.5 h-3.5',
+        size === '2xl' && 'w-4 h-4',
+      )}
+    />
+  )}
+</div>

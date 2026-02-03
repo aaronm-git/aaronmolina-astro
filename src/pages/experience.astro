@@ -1,12 +1,11 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import RoleCard from '@/components/RoleCard.astro';
-import CTA from '@/components/CTA.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
-import InfoBox from '@/components/ui/InfoBox.astro';
-import ListItem from '@/components/ui/ListItem.astro';
+import RoleCard from '@/components/organisms/cards/RoleCard.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import InfoBox from '@/components/molecules/InfoBox.astro';
+import ListItem from '@/components/molecules/ListItem.astro';
 import { getCollection } from 'astro:content';
-import { getCategoryIcon } from '@/utils/icons';
 import homepageContent from '@/content/site/homepage.json';
 import pages from '@/content/site/pages.json';
 
@@ -96,6 +95,6 @@ const competencyIconNames = ['code', 'rocket', 'bolt', 'users', 'lightbulb', 'gl
   </section>
 
   <div class="animate-section">
-    <CTA />
+    <CTASection />
   </div>
 </MainLayout>

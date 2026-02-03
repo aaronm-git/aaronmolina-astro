@@ -1,0 +1,93 @@
+---
+import Heading from '@/components/atoms/Heading.astro';
+import Icon from '@/components/atoms/Icon.astro';
+import { cn } from '@/lib/cn';
+import type { IconType } from 'react-icons';
+
+type InfoBoxVariant = 'default' | 'muted' | 'surface' | 'primary' | 'glass' | 'tactile';
+type InfoBoxPadding = 'sm' | 'base' | 'lg';
+
+interface Props {
+  /** Box title (optional) */
+  title?: string;
+  /** Visual variant */
+  variant?: InfoBoxVariant;
+  /** Padding size */
+  padding?: InfoBoxPadding;
+  /** Icon name (uses getIcon to resolve) */
+  icon?: string;
+  /** Direct icon component */
+  iconComponent?: IconType;
+  /** Whether to animate on scroll */
+  animate?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  variant = 'surface',
+  padding = 'base',
+  icon,
+  iconComponent,
+  class: className = '',
+  animate = true,
+} = Astro.props;
+
+// Variant classes
+const variantClasses: Record<InfoBoxVariant, string> = {
+  default: 'bg-background border-border border',
+  muted: 'bg-muted border-border border',
+  surface: 'bg-surface border-border border shadow-md',
+  primary: 'bg-primary/10 border-primary/20 border',
+  glass: 'glass border border-white/10',
+  tactile: 'bg-surface border-border border shadow-lg infobox-tactile',
+};
+
+// Padding classes
+const paddingClasses: Record<InfoBoxPadding, string> = {
+  sm: 'p-4',
+  base: 'p-6',
+  lg: 'p-8',
+};
+
+const combinedClasses = cn(
+  'rounded-lg',
+  variantClasses[variant],
+  paddingClasses[padding],
+  animate && 'animate-content',
+  className,
+);
+---
+
+<div class={combinedClasses}>
+  {title && (
+    <div class="flex items-center gap-3 mb-4">
+      {(icon || iconComponent) && (
+        <Icon
+          name={icon}
+          icon={iconComponent}
+          size="lg"
+          color="primary"
+        />
+      )}
+      <Heading level={3} size="lg">
+        {title}
+      </Heading>
+    </div>
+  )}
+  <slot />
+</div>
+
+<style>
+  .infobox-tactile {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .infobox-tactile:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+</style>

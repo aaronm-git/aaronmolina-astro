@@ -1,0 +1,140 @@
+---
+import StatItem from '@/components/molecules/StatItem.astro';
+import Heading from '@/components/atoms/Heading.astro';
+import Text from '@/components/atoms/Text.astro';
+import { cn } from '@/lib/cn';
+
+type StatsVariant = 'inline' | 'grid' | 'cards';
+
+interface Stat {
+  value: string | number;
+  label: string;
+  prefix?: string;
+  suffix?: string;
+  icon?: string;
+}
+
+interface Props {
+  /** Section title (optional) */
+  title?: string;
+  /** Section description (optional) */
+  description?: string;
+  /** Array of stats */
+  stats: Stat[];
+  /** Layout variant */
+  variant?: StatsVariant;
+  /** Number of columns */
+  columns?: 2 | 3 | 4;
+  /** Highlight stat values */
+  highlight?: boolean;
+  /** Background style */
+  background?: 'none' | 'muted' | 'primary' | 'gradient';
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  stats,
+  variant = 'grid',
+  columns = 4,
+  highlight = true,
+  background = 'none',
+  class: className = '',
+} = Astro.props;
+
+// Column classes
+const columnClasses: Record<number, string> = {
+  2: 'grid-cols-2',
+  3: 'grid-cols-2 md:grid-cols-3',
+  4: 'grid-cols-2 md:grid-cols-4',
+};
+
+// Background classes
+const bgClasses: Record<string, string> = {
+  none: '',
+  muted: 'bg-muted',
+  primary: 'bg-primary text-on-primary',
+  gradient: 'bg-gradient-to-r from-primary to-secondary text-white',
+};
+
+const sectionClasses = cn(
+  'py-12 md:py-16',
+  bgClasses[background],
+  background !== 'none' && 'rounded-2xl',
+  className,
+);
+---
+
+<section class={sectionClasses}>
+  <div class={cn('mx-auto max-w-7xl px-4 sm:px-6 lg:px-8', background !== 'none' && 'px-8')}>
+    {(title || description) && (
+      <div class="mb-10 text-center">
+        {title && (
+          <Heading level={2} size="2xl" class={cn('mb-3', background === 'primary' || background === 'gradient' ? 'text-white' : '')}>
+            {title}
+          </Heading>
+        )}
+        {description && (
+          <Text size="lg" color={background === 'primary' || background === 'gradient' ? 'inherit' : 'muted'} class="max-w-2xl mx-auto">
+            {description}
+          </Text>
+        )}
+      </div>
+    )}
+
+    {variant === 'inline' && (
+      <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+        {stats.map(stat => (
+          <StatItem
+            value={stat.value}
+            label={stat.label}
+            prefix={stat.prefix}
+            suffix={stat.suffix}
+            icon={stat.icon}
+            align="center"
+            highlight={highlight && (background === 'none' || background === 'muted')}
+            size="lg"
+          />
+        ))}
+      </div>
+    )}
+
+    {variant === 'grid' && (
+      <div class={cn('grid gap-8', columnClasses[columns])}>
+        {stats.map(stat => (
+          <StatItem
+            value={stat.value}
+            label={stat.label}
+            prefix={stat.prefix}
+            suffix={stat.suffix}
+            icon={stat.icon}
+            align="center"
+            highlight={highlight && (background === 'none' || background === 'muted')}
+            size="lg"
+          />
+        ))}
+      </div>
+    )}
+
+    {variant === 'cards' && (
+      <div class={cn('grid gap-6', columnClasses[columns])}>
+        {stats.map(stat => (
+          <div class="rounded-xl bg-surface border border-border p-6 text-center shadow-sm">
+            <StatItem
+              value={stat.value}
+              label={stat.label}
+              prefix={stat.prefix}
+              suffix={stat.suffix}
+              icon={stat.icon}
+              align="center"
+              highlight={highlight}
+              size="lg"
+            />
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

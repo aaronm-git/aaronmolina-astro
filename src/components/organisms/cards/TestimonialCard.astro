@@ -1,0 +1,132 @@
+---
+import type { ImageMetadata } from 'astro';
+import Card from '@/components/molecules/Card.astro';
+import Avatar from '@/components/atoms/Avatar.astro';
+import Text from '@/components/atoms/Text.astro';
+import { cn } from '@/lib/cn';
+import { FaQuoteLeft, FaStar } from '@/lib/icons';
+
+type CardVariant = 'default' | 'featured' | 'minimal';
+
+interface Props {
+  /** Testimonial quote */
+  quote: string;
+  /** Author name */
+  author: string;
+  /** Author role/title */
+  role: string;
+  /** Company name */
+  company?: string;
+  /** Author avatar */
+  avatar?: ImageMetadata | string;
+  /** Star rating (1-5) */
+  rating?: number;
+  /** Card variant */
+  variant?: CardVariant;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  quote,
+  author,
+  role,
+  company,
+  avatar,
+  rating,
+  variant = 'default',
+  class: className = '',
+} = Astro.props;
+
+const stars = rating ? Array.from({ length: 5 }, (_, i) => i < rating) : [];
+---
+
+{variant === 'featured' ? (
+  <Card variant="tactile" padding="lg" class={cn('relative', className)}>
+    <FaQuoteLeft className="absolute top-6 left-6 w-8 h-8 text-primary/20" />
+
+    <div class="relative">
+      {rating && (
+        <div class="mb-4 flex gap-1">
+          {stars.map(filled => (
+            <FaStar className={cn('w-5 h-5', filled ? 'text-yellow-500' : 'text-muted')} />
+          ))}
+        </div>
+      )}
+
+      <Text size="xl" class="mb-6 italic leading-relaxed">
+        "{quote}"
+      </Text>
+
+      <div class="flex items-center gap-4">
+        <Avatar
+          src={avatar}
+          alt={author}
+          fallback={author}
+          size="lg"
+        />
+        <div>
+          <Text weight="semibold" class="text-foreground">
+            {author}
+          </Text>
+          <Text size="sm" color="muted">
+            {role}{company && `, ${company}`}
+          </Text>
+        </div>
+      </div>
+    </div>
+  </Card>
+) : variant === 'minimal' ? (
+  <div class={cn('p-4', className)}>
+    <Text color="muted" class="mb-4 italic">
+      "{quote}"
+    </Text>
+    <div class="flex items-center gap-3">
+      <Avatar
+        src={avatar}
+        alt={author}
+        fallback={author}
+        size="sm"
+      />
+      <div>
+        <Text size="sm" weight="medium">{author}</Text>
+        {(role || company) && (
+          <Text size="xs" color="muted">
+            {role}{company && `, ${company}`}
+          </Text>
+        )}
+      </div>
+    </div>
+  </div>
+) : (
+  <Card variant="elevated" padding="base" class={cn('relative', className)}>
+    <FaQuoteLeft className="absolute top-4 right-4 w-6 h-6 text-primary/10" />
+
+    {rating && (
+      <div class="mb-3 flex gap-0.5">
+        {stars.map(filled => (
+          <FaStar className={cn('w-4 h-4', filled ? 'text-yellow-500' : 'text-muted')} />
+        ))}
+      </div>
+    )}
+
+    <Text color="muted" class="mb-4 italic leading-relaxed">
+      "{quote}"
+    </Text>
+
+    <div class="flex items-center gap-3 border-t border-border pt-4">
+      <Avatar
+        src={avatar}
+        alt={author}
+        fallback={author}
+        size="base"
+      />
+      <div>
+        <Text size="sm" weight="semibold">{author}</Text>
+        <Text size="xs" color="muted">
+          {role}{company && ` · ${company}`}
+        </Text>
+      </div>
+    </div>
+  </Card>
+)}

@@ -1,0 +1,113 @@
+---
+import Text from '@/components/atoms/Text.astro';
+import { cn } from '@/lib/cn';
+
+type FieldSize = 'sm' | 'base' | 'lg';
+
+interface Props {
+  /** Field label */
+  label: string;
+  /** Field name (for id/name attributes) */
+  name: string;
+  /** Input type */
+  type?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'number' | 'textarea';
+  /** Placeholder text */
+  placeholder?: string;
+  /** Required field */
+  required?: boolean;
+  /** Field size */
+  size?: FieldSize;
+  /** Error message */
+  error?: string;
+  /** Help text */
+  help?: string;
+  /** Disabled state */
+  disabled?: boolean;
+  /** Additional CSS classes for container */
+  class?: string;
+  /** Additional CSS classes for input */
+  inputClass?: string;
+}
+
+const {
+  label,
+  name,
+  type = 'text',
+  placeholder,
+  required = false,
+  size = 'base',
+  error,
+  help,
+  disabled = false,
+  class: className = '',
+  inputClass = '',
+} = Astro.props;
+
+// Size classes
+const sizeClasses: Record<FieldSize, { label: string; input: string }> = {
+  sm: { label: 'text-sm', input: 'px-3 py-2 text-sm' },
+  base: { label: 'text-base', input: 'px-4 py-2.5 text-base' },
+  lg: { label: 'text-lg', input: 'px-5 py-3 text-lg' },
+};
+
+const currentSize = sizeClasses[size];
+
+const inputBaseClasses = cn(
+  'w-full rounded-lg border bg-background text-foreground placeholder:text-foreground-muted',
+  'transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50',
+  error ? 'border-red-500 focus:border-red-500' : 'border-border focus:border-primary',
+  disabled && 'opacity-50 cursor-not-allowed bg-muted',
+  currentSize.input,
+  inputClass,
+);
+
+const isTextarea = type === 'textarea';
+---
+
+<div class={cn('space-y-1.5', className)}>
+  <label for={name} class={cn('block font-medium text-foreground', currentSize.label)}>
+    {label}
+    {required && <span class="text-red-500 ml-0.5">*</span>}
+  </label>
+
+  {isTextarea ? (
+    <textarea
+      id={name}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      disabled={disabled}
+      class={cn(inputBaseClasses, 'min-h-[120px] resize-y')}
+      aria-invalid={error ? 'true' : undefined}
+      aria-describedby={error ? `${name}-error` : help ? `${name}-help` : undefined}
+    />
+  ) : (
+    <input
+      type={type}
+      id={name}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      disabled={disabled}
+      class={inputBaseClasses}
+      aria-invalid={error ? 'true' : undefined}
+      aria-describedby={error ? `${name}-error` : help ? `${name}-help` : undefined}
+    />
+  )}
+
+  {error && (
+    <span id={`${name}-error`} role="alert">
+      <Text size="sm" color="error">
+        {error}
+      </Text>
+    </span>
+  )}
+
+  {help && !error && (
+    <span id={`${name}-help`}>
+      <Text size="sm" color="muted">
+        {help}
+      </Text>
+    </span>
+  )}
+</div>

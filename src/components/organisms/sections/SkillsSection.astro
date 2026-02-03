@@ -1,0 +1,146 @@
+---
+import Tag from '@/components/atoms/Tag.astro';
+import Heading from '@/components/atoms/Heading.astro';
+import Text from '@/components/atoms/Text.astro';
+import Icon from '@/components/atoms/Icon.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import { cn } from '@/lib/cn';
+import type { TechMap } from '@/utils/tech-lookup';
+
+type SkillsVariant = 'grid' | 'grouped' | 'cloud';
+
+interface SkillCategory {
+  name: string;
+  icon?: string;
+  skills: string[];
+}
+
+interface Props {
+  /** Section title */
+  title: string;
+  /** Section subtitle */
+  subtitle?: string;
+  /** Skills by category */
+  categories?: SkillCategory[];
+  /** Flat skills array (for cloud variant) */
+  skills?: string[];
+  /** Technology lookup map */
+  techMap?: TechMap;
+  /** Layout variant */
+  variant?: SkillsVariant;
+  /** Number of columns (for grid) */
+  columns?: 2 | 3 | 4;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  categories = [],
+  skills = [],
+  techMap,
+  variant = 'grouped',
+  columns = 3,
+  class: className = '',
+} = Astro.props;
+
+// Column classes
+const columnClasses: Record<number, string> = {
+  2: 'md:grid-cols-2',
+  3: 'md:grid-cols-2 lg:grid-cols-3',
+  4: 'md:grid-cols-2 lg:grid-cols-4',
+};
+
+// Flatten categories to skills if needed
+const allSkills = skills.length > 0 ? skills : categories.flatMap(c => c.skills);
+---
+
+<section class={cn('py-16 md:py-24', className)}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      title={title}
+      subtitle={subtitle}
+      align="center"
+    />
+
+    {variant === 'grouped' && categories.length > 0 && (
+      <div class={cn('grid gap-8', columnClasses[columns])}>
+        {categories.map(category => (
+          <div class="rounded-xl border border-border p-6">
+            <div class="flex items-center gap-3 mb-4">
+              {category.icon && (
+                <div class="rounded-lg bg-primary/10 p-2">
+                  <Icon name={category.icon} size="lg" color="primary" />
+                </div>
+              )}
+              <Heading level={3} size="lg">
+                {category.name}
+              </Heading>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              {category.skills.map(skill => (
+                <Tag
+                  slug={techMap ? skill : undefined}
+                  label={techMap ? undefined : skill}
+                  techMap={techMap}
+                  variant="default"
+                  size="sm"
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {variant === 'grid' && categories.length > 0 && (
+      <div class="space-y-12">
+        {categories.map(category => (
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              {category.icon && (
+                <Icon name={category.icon} size="lg" color="primary" />
+              )}
+              <Heading level={3} size="xl">
+                {category.name}
+              </Heading>
+            </div>
+            <div class={cn('grid gap-4', columnClasses[columns])}>
+              {category.skills.map(skill => {
+                const techName = techMap?.get(skill);
+                return (
+                  <div class="flex items-center gap-3 rounded-lg border border-border p-4 transition-colors hover:bg-muted/50">
+                    <Icon name={skill} size="lg" color="secondary" />
+                    <Text weight="medium">
+                      {techName || skill}
+                    </Text>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {variant === 'cloud' && (
+      <div class="flex flex-wrap justify-center gap-3">
+        {allSkills.map((skill, i) => {
+          // Vary sizes for cloud effect
+          const sizes: ('xs' | 'sm' | 'base')[] = ['xs', 'sm', 'base'];
+          const size = sizes[i % 3];
+          return (
+            <Tag
+              slug={techMap ? skill : undefined}
+              label={techMap ? undefined : skill}
+              techMap={techMap}
+              variant={i % 5 === 0 ? 'featured' : 'default'}
+              size={size}
+            />
+          );
+        })}
+      </div>
+    )}
+  </div>
+</section>

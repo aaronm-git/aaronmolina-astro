@@ -1,0 +1,192 @@
+---
+import Heading from '@/components/atoms/Heading.astro';
+import Text from '@/components/atoms/Text.astro';
+import Button from '@/components/atoms/Button.astro';
+import Icon from '@/components/atoms/Icon.astro';
+import InfoBox from '@/components/molecules/InfoBox.astro';
+import FormField from '@/components/molecules/FormField.astro';
+import SocialLinks from '@/components/molecules/SocialLinks.astro';
+import { cn } from '@/lib/cn';
+
+type ContactVariant = 'split' | 'centered' | 'minimal';
+
+interface ContactInfo {
+  icon: string;
+  label: string;
+  value: string;
+  href?: string;
+}
+
+interface SocialLink {
+  platform: string;
+  url: string;
+  label?: string;
+}
+
+interface Props {
+  /** Section title */
+  title: string;
+  /** Section description */
+  description?: string;
+  /** Layout variant */
+  variant?: ContactVariant;
+  /** Contact info items */
+  contactInfo?: ContactInfo[];
+  /** Social links */
+  socialLinks?: SocialLink[];
+  /** Form action URL */
+  formAction?: string;
+  /** Show form */
+  showForm?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  variant = 'split',
+  contactInfo = [],
+  socialLinks = [],
+  formAction = '#',
+  showForm = true,
+  class: className = '',
+} = Astro.props;
+---
+
+<section class={cn('py-16 md:py-24', className)}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {variant === 'split' && (
+      <div class="grid gap-12 lg:grid-cols-2">
+        {/* Info side */}
+        <div>
+          <Heading level={2} size="2xl" class="mb-4">
+            {title}
+          </Heading>
+          {description && (
+            <Text size="lg" color="muted" class="mb-8">
+              {description}
+            </Text>
+          )}
+
+          {contactInfo.length > 0 && (
+            <div class="space-y-4 mb-8">
+              {contactInfo.map(info => (
+                <div class="flex items-center gap-4">
+                  <div class="rounded-lg bg-primary/10 p-3">
+                    <Icon name={info.icon} size="lg" color="primary" />
+                  </div>
+                  <div>
+                    <Text size="sm" color="muted">{info.label}</Text>
+                    {info.href ? (
+                      <a href={info.href} class="text-foreground font-medium hover:text-secondary transition-colors">
+                        {info.value}
+                      </a>
+                    ) : (
+                      <Text weight="medium">{info.value}</Text>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {socialLinks.length > 0 && (
+            <div>
+              <Text size="sm" color="muted" class="mb-3">Follow me</Text>
+              <SocialLinks links={socialLinks} variant="icon-only" size="base" />
+            </div>
+          )}
+        </div>
+
+        {/* Form side */}
+        {showForm && (
+          <InfoBox variant="surface" padding="lg">
+            <form action={formAction} method="POST" class="space-y-6">
+              <div class="grid gap-4 md:grid-cols-2">
+                <FormField label="Name" name="name" required placeholder="Your name" />
+                <FormField label="Email" name="email" type="email" required placeholder="you@example.com" />
+              </div>
+              <FormField label="Subject" name="subject" placeholder="How can I help?" />
+              <FormField label="Message" name="message" type="textarea" required placeholder="Tell me about your project..." />
+              <Button type="submit" variant="tactile" fullWidth size="lg">
+                Send Message
+              </Button>
+            </form>
+          </InfoBox>
+        )}
+      </div>
+    )}
+
+    {variant === 'centered' && (
+      <div class="max-w-2xl mx-auto text-center">
+        <Heading level={2} size="2xl" class="mb-4">
+          {title}
+        </Heading>
+        {description && (
+          <Text size="lg" color="muted" class="mb-8">
+            {description}
+          </Text>
+        )}
+
+        {showForm && (
+          <InfoBox variant="surface" padding="lg" class="text-left">
+            <form action={formAction} method="POST" class="space-y-6">
+              <div class="grid gap-4 md:grid-cols-2">
+                <FormField label="Name" name="name" required placeholder="Your name" />
+                <FormField label="Email" name="email" type="email" required placeholder="you@example.com" />
+              </div>
+              <FormField label="Message" name="message" type="textarea" required placeholder="Tell me about your project..." />
+              <Button type="submit" variant="tactile" fullWidth size="lg">
+                Send Message
+              </Button>
+            </form>
+          </InfoBox>
+        )}
+
+        {socialLinks.length > 0 && (
+          <div class="mt-8">
+            <Text size="sm" color="muted" class="mb-3">Or connect with me</Text>
+            <div class="flex justify-center">
+              <SocialLinks links={socialLinks} variant="icon-only" size="lg" />
+            </div>
+          </div>
+        )}
+      </div>
+    )}
+
+    {variant === 'minimal' && (
+      <div class="max-w-xl mx-auto text-center">
+        <Heading level={2} size="xl" class="mb-4">
+          {title}
+        </Heading>
+        {description && (
+          <Text color="muted" class="mb-6">
+            {description}
+          </Text>
+        )}
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          {contactInfo.slice(0, 2).map(info => (
+            info.href ? (
+              <Button href={info.href} variant="outline" icon={info.icon}>
+                {info.value}
+              </Button>
+            ) : (
+              <div class="flex items-center gap-2 text-foreground-muted">
+                <Icon name={info.icon} size="sm" color="muted" />
+                <span>{info.value}</span>
+              </div>
+            )
+          ))}
+        </div>
+
+        {socialLinks.length > 0 && (
+          <div class="mt-6 flex justify-center">
+            <SocialLinks links={socialLinks} variant="icon-only" size="base" />
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+</section>

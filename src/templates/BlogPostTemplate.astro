@@ -22,12 +22,16 @@ import CTASection from '@/components/organisms/sections/CTASection.astro';
 import Button from '@/components/atoms/Button.astro';
 import Text from '@/components/atoms/Text.astro';
 import TagList from '@/components/molecules/TagList.astro';
+import AuthorBio from '@/components/molecules/AuthorBio.astro';
+import RelatedPosts from '@/components/molecules/RelatedPosts.astro';
 import { formatDate, toISODateString } from '@/utils/date-format';
 import type { TechMap } from '@/utils/tech-lookup';
 
 interface Props {
   /** Blog post entry from collection */
   post: CollectionEntry<'blog'>;
+  /** All blog posts for related posts feature */
+  allPosts?: CollectionEntry<'blog'>[];
   /** Technology map for resolving tag names */
   techMap?: TechMap;
   /** CTA title override */
@@ -38,6 +42,7 @@ interface Props {
 
 const {
   post,
+  allPosts = [],
   techMap,
   ctaTitle = 'Want to work together?',
   ctaDescription = "I'm available for Jamstack development, headless CMS integration, and frontend architecture consulting.",
@@ -93,8 +98,21 @@ const showUpdated = updatedDate && publishDate && updatedDate.getTime() !== publ
         <Text as="p" size="sm" color="muted" weight="semibold" class="mb-4 uppercase tracking-wide">
           Topics
         </Text>
-        <TagList tags={tags} techMap={techMap} />
+        <TagList tags={tags} techMap={techMap} linkToTagPage />
       </section>
+    )}
+
+    {/* Author Bio */}
+    <AuthorBio class="mx-4 my-8" />
+
+    {/* Related Posts */}
+    {allPosts.length > 0 && tags && tags.length > 0 && (
+      <RelatedPosts
+        currentSlug={post.data.slug}
+        currentTags={tags}
+        posts={allPosts}
+        class="mx-4 my-8"
+      />
     )}
 
     {/* CTA Section */}

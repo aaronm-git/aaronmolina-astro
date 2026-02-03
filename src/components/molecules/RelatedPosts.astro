@@ -1,0 +1,96 @@
+---
+/**
+ * RelatedPosts - Shows related blog posts based on shared tags
+ *
+ * Finds posts with the most tag overlap and displays them as cards.
+ * Excludes the current post from recommendations.
+ *
+ * @example
+ * <RelatedPosts currentSlug={post.data.slug} currentTags={post.data.tags} posts={allPosts} />
+ */
+import type { CollectionEntry } from 'astro:content';
+import Text from '@/components/atoms/Text.astro';
+import Button from '@/components/atoms/Button.astro';
+import { formatDate } from '@/utils/date-format';
+
+interface Props {
+  /** Slug of the current post to exclude */
+  currentSlug: string;
+  /** Tags of the current post for matching */
+  currentTags: string[];
+  /** All blog posts to search through */
+  posts: CollectionEntry<'blog'>[];
+  /** Maximum number of related posts to show */
+  maxPosts?: number;
+  /** Custom class for the container */
+  class?: string;
+}
+
+const {
+  currentSlug,
+  currentTags = [],
+  posts,
+  maxPosts = 3,
+  class: className = '',
+} = Astro.props;
+
+// Find related posts based on tag overlap
+const currentDate = new Date();
+const relatedPosts = posts
+  .filter(post => post.data.slug !== currentSlug)
+  .filter(post => post.data.publishDate !== null)
+  .filter(post => post.data.publishDate! <= currentDate)
+  .map(post => {
+    const postTags = post.data.tags || [];
+    const sharedTags = postTags.filter(tag => currentTags.includes(tag));
+    return {
+      post,
+      score: sharedTags.length,
+    };
+  })
+  .filter(item => item.score > 0)
+  .sort((a, b) => {
+    // Sort by score first, then by date
+    if (b.score !== a.score) return b.score - a.score;
+    return b.post.data.publishDate!.getTime() - a.post.data.publishDate!.getTime();
+  })
+  .slice(0, maxPosts)
+  .map(item => item.post);
+
+// Don't render if no related posts
+if (relatedPosts.length === 0) {
+  return null;
+}
+---
+
+<aside class:list={['border-border border-t pt-8', className]}>
+  <Text as="h2" size="xl" weight="bold" class="mb-6">
+    Related Articles
+  </Text>
+
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {relatedPosts.map(post => (
+      <a
+        href={`/blog/${post.data.slug}`}
+        class="group bg-surface border-border hover:border-primary/50 rounded-lg border p-4 transition-colors"
+      >
+        <Text
+          as="h3"
+          size="base"
+          weight="semibold"
+          class="mb-2 group-hover:text-primary transition-colors line-clamp-2"
+        >
+          {post.data.title}
+        </Text>
+        {post.data.description && (
+          <Text as="p" size="sm" color="muted" class="mb-3 line-clamp-2">
+            {post.data.description}
+          </Text>
+        )}
+        <Text as="time" size="xs" color="muted">
+          {formatDate(post.data.publishDate!, 'short')}
+        </Text>
+      </a>
+    ))}
+  </div>
+</aside>

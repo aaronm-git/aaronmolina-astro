@@ -14,15 +14,19 @@ export async function getStaticPaths() {
 
   return posts.map(p => ({
     params: { post: p.data.slug },
-    props: { post: p, techMapObj: Object.fromEntries(techMap) },
+    props: {
+      post: p,
+      allPosts: posts,
+      techMapObj: Object.fromEntries(techMap),
+    },
   }));
 }
 
-const { post, techMapObj } = Astro.props;
+const { post, allPosts, techMapObj } = Astro.props;
 const { Content } = await render(post);
 const techMap = objectToTechMap(techMapObj);
 ---
 
-<BlogPostTemplate post={post} techMap={techMap}>
+<BlogPostTemplate post={post} allPosts={allPosts} techMap={techMap}>
   <Content />
 </BlogPostTemplate>

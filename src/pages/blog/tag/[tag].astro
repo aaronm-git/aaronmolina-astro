@@ -1,0 +1,90 @@
+---
+/**
+ * Blog Tag Page
+ * Dynamic pages for each tag showing all posts with that tag
+ */
+import MainLayout from '@/layouts/main-layout.astro';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import BlogSection from '@/components/organisms/sections/BlogSection.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
+import Button from '@/components/atoms/Button.astro';
+import { getCollection } from 'astro:content';
+import { createTechMap } from '@/utils/tech-lookup';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const technologies = await getCollection('technologies');
+  const techMap = createTechMap(technologies);
+
+  // Get all unique tags from posts
+  const allTags = new Set<string>();
+  posts.forEach(post => {
+    post.data.tags?.forEach(tag => allTags.add(tag));
+  });
+
+  // Create a page for each tag
+  return Array.from(allTags).map(tag => ({
+    params: { tag },
+    props: {
+      tag,
+      techMapObj: Object.fromEntries(techMap),
+    },
+  }));
+}
+
+const { tag, techMapObj } = Astro.props;
+
+// Get all posts with this tag
+const posts = await getCollection('blog');
+const technologies = await getCollection('technologies');
+const techMap = createTechMap(technologies);
+const currentDate = new Date();
+
+const taggedPosts = posts
+  .filter(post => post.data.publishDate !== null)
+  .filter(post => post.data.publishDate! <= currentDate)
+  .filter(post => post.data.tags?.includes(tag))
+  .sort((a, b) => b.data.publishDate!.getTime() - a.data.publishDate!.getTime());
+
+// Get display name for tag (from techMap or format the slug)
+const tagInfo = techMap.get(tag);
+const tagDisplayName = tagInfo?.name || tag.split('-').map(word =>
+  word.charAt(0).toUpperCase() + word.slice(1)
+).join(' ');
+
+const metaTitle = `${tagDisplayName} Articles | Aaron Molina`;
+const metaDescription = `Read my articles about ${tagDisplayName}. Insights and tutorials from a senior Jamstack developer with 12+ years of experience.`;
+---
+
+<MainLayout title={metaTitle} description={metaDescription}>
+  {/* Back Navigation */}
+  <nav class="mb-4 px-4">
+    <Button href="/blog" variant="ghost" icon="arrowLeft" size="sm">
+      Back to Blog
+    </Button>
+  </nav>
+
+  <HeroSection
+    variant="minimal"
+    headline={tagDisplayName}
+    description={`${taggedPosts.length} article${taggedPosts.length !== 1 ? 's' : ''} tagged with ${tagDisplayName.toLowerCase()}`}
+    class="py-8"
+  />
+
+  {taggedPosts.length > 0 ? (
+    <BlogSection
+      title=""
+      posts={taggedPosts}
+      techMap={techMap}
+      variant="list"
+      showTags
+      class="animate-section py-0 max-w-4xl mx-auto"
+    />
+  ) : (
+    <div class="py-12 text-center">
+      <p class="text-foreground-muted">No posts found with this tag.</p>
+    </div>
+  )}
+
+  <CTASection class="animate-section mt-12" />
+</MainLayout>

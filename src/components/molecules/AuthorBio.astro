@@ -1,0 +1,78 @@
+---
+/**
+ * AuthorBio - Author information section for blog posts
+ *
+ * Displays author avatar, name, bio, and CTA link to hire page.
+ * Pulls data from site settings by default.
+ *
+ * @example
+ * <AuthorBio />
+ * <AuthorBio variant="compact" />
+ */
+import Avatar from '@/components/atoms/Avatar.astro';
+import Button from '@/components/atoms/Button.astro';
+import Text from '@/components/atoms/Text.astro';
+import settings from '@/content/site/settings.json';
+
+interface Props {
+  /** Display variant */
+  variant?: 'default' | 'compact';
+  /** Custom class for the container */
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+
+const { author } = settings;
+const isCompact = variant === 'compact';
+---
+
+<aside class:list={[
+  'bg-muted border-border rounded-lg border p-6',
+  isCompact ? 'flex items-center gap-4' : '',
+  className
+]}>
+  {isCompact ? (
+    <>
+      <Avatar
+        name={author.name}
+        size="md"
+        class="flex-shrink-0"
+      />
+      <div class="flex-1 min-w-0">
+        <Text as="p" weight="semibold" class="truncate">{author.name}</Text>
+        <Text as="p" size="sm" color="muted">{author.jobTitle}</Text>
+      </div>
+      <Button href="/hire" variant="outline" size="sm">
+        Hire Me
+      </Button>
+    </>
+  ) : (
+    <div class="flex flex-col sm:flex-row gap-6">
+      <Avatar
+        name={author.name}
+        size="lg"
+        class="flex-shrink-0 mx-auto sm:mx-0"
+      />
+      <div class="flex-1 text-center sm:text-left">
+        <Text as="p" size="lg" weight="semibold" class="mb-1">
+          {author.name}
+        </Text>
+        <Text as="p" size="sm" color="muted" class="mb-3">
+          {author.jobTitle} based in {author.location}
+        </Text>
+        <Text as="p" size="sm" color="muted" class="mb-4">
+          {author.bio}
+        </Text>
+        <div class="flex flex-wrap gap-3 justify-center sm:justify-start">
+          <Button href="/hire" variant="primary" size="sm" icon="briefcase">
+            Work With Me
+          </Button>
+          <Button href="/contact" variant="outline" size="sm" icon="mail">
+            Get in Touch
+          </Button>
+        </div>
+      </div>
+    </div>
+  )}
+</aside>

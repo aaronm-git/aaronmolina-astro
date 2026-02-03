@@ -1,23 +1,30 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import ProjectCard from '@/components/organisms/cards/ProjectCard.astro';
-import RoleCard from '@/components/organisms/cards/RoleCard.astro';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import StatsSection from '@/components/organisms/sections/StatsSection.astro';
+import SkillsSection from '@/components/organisms/sections/SkillsSection.astro';
+import ServicesSection from '@/components/organisms/sections/ServicesSection.astro';
+import FeaturesSection from '@/components/organisms/sections/FeaturesSection.astro';
+import ProjectsSection from '@/components/organisms/sections/ProjectsSection.astro';
+import ExperienceSection from '@/components/organisms/sections/ExperienceSection.astro';
+import BlogSection from '@/components/organisms/sections/BlogSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
-import BlogPostCard from '@/components/organisms/cards/BlogPostCard.astro';
-import SectionHeader from '@/components/molecules/SectionHeader.astro';
-import Button from '@/components/atoms/Button.astro';
+import Badge from '@/components/atoms/Badge.astro';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
 import ProfilePicture from '@/images/profile.jpg';
-import { Image } from 'astro:assets';
 import homepageContent from '@/content/site/homepage.json';
-import pages from '@/content/site/pages.json';
 import navigation from '@/content/site/navigation.json';
 
+// Fetch collections
 const posts = await getCollection('blog');
 const technologies = await getCollection('technologies');
 const techMap = createTechMap(technologies);
+const roles = await getCollection('roles');
+const organizations = await getCollection('organizations');
+const projects = await getCollection('projects');
 
+// Process blog posts
 const currentDate = new Date();
 const recentPosts = posts
   .filter(post => post.data.publishDate !== null)
@@ -25,12 +32,11 @@ const recentPosts = posts
   .sort((a, b) => b.data.publishDate!.getTime() - a.data.publishDate!.getTime())
   .slice(0, 3);
 
-const roles = await getCollection('roles');
-const organizations = await getCollection('organizations');
-
+// Process organizations
 const orgBySlug = new Map(organizations.map((o) => [o.data.slug, o]));
 const now = Date.now();
 
+// Process roles
 const featuredRoles = roles
   .filter((r) => r.data.isActive !== false)
   .sort((a, b) => {
@@ -46,21 +52,17 @@ const featuredRoles = roles
       if (!aCurrent && bCurrent) return 1;
     }
 
-    // featured first for non-current (or tie-breaking)
     if (a.data.featured && !b.data.featured) return -1;
     if (!a.data.featured && b.data.featured) return 1;
-    // then sortOrder
     if ((a.data.sortOrder ?? 0) !== (b.data.sortOrder ?? 0)) return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
-    // then by startDate (newest first)
     return b.data.startDate.getTime() - a.data.startDate.getTime();
   })
-  .slice(0, 4);
+  .slice(0, 3);
 
-const projects = await getCollection('projects');
+// Process projects
 const featuredProjects = projects
   .filter(project => project.data.isActive !== false)
   .sort((a, b) => {
-    // featured first
     if (a.data.featured && !b.data.featured) return -1;
     if (!a.data.featured && b.data.featured) return 1;
     if ((a.data.sortOrder ?? 0) !== (b.data.sortOrder ?? 0)) return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
@@ -68,94 +70,134 @@ const featuredProjects = projects
   })
   .slice(0, 3);
 
+// Compute dynamic content
 const yearsOfExperience = new Date().getFullYear() - homepageContent.yearsOfExperienceStartYear;
 const heroDescription = homepageContent.hero.description.replaceAll('{yearsOfExperience}', String(yearsOfExperience));
+
+// Process stats with dynamic year
+const statsItems = homepageContent.stats.items.map(item => ({
+  ...item,
+  value: String(item.value).replaceAll('{yearsOfExperience}', String(yearsOfExperience))
+}));
 ---
 
-<MainLayout>
+<MainLayout
+  title={homepageContent.meta.title}
+  description={homepageContent.meta.description}
+>
   <!-- Hero Section -->
-  <section class="relative my-16 text-center">
-    <div class="hero-image mb-8 flex justify-center">
-      <Image
-        src={ProfilePicture}
-        alt={navigation.brandAlt}
-        class="tactile-profile-img h-32 w-32 rounded-2xl object-cover object-[20%_40%] md:h-48 md:w-48"
-        loading="eager"
-      />
+  <HeroSection
+    variant="profile"
+    avatar={ProfilePicture}
+    avatarAlt={navigation.brandAlt}
+    headline={homepageContent.hero.name}
+    subheadline={homepageContent.hero.headline}
+    description={heroDescription}
+    primaryCta={{
+      label: homepageContent.buttons.viewWorkLabel,
+      href: '/projects',
+      icon: 'briefcase',
+      variant: 'secondary',
+    }}
+    secondaryCta={{
+      label: homepageContent.buttons.hireMeLabel,
+      href: '/contact',
+      icon: 'arrowRight',
+      variant: 'primary',
+    }}
+    showBubbles={false}
+    class="my-16 py-0"
+  >
+    <div class="mt-4 flex flex-wrap justify-center gap-2">
+      <Badge label={homepageContent.hero.subheadline} variant="primary" size="sm" />
+      <Badge label={homepageContent.hero.location} variant="outline" size="sm" />
+      <Badge label={homepageContent.hero.availability} variant="secondary" size="sm" />
     </div>
-    <h1 class="hero-title text-foreground mb-1 text-4xl font-bold md:mb-6 md:text-6xl">{homepageContent.hero.name}</h1>
-    <p class="hero-subtitle text-foreground-muted mb-4 text-lg font-medium md:text-2xl">{homepageContent.hero.headline}</p>
-    <p class="hero-description text-foreground-muted mx-auto max-w-3xl text-base leading-relaxed md:text-lg">
-      {heroDescription}
-    </p>
-    <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
-      <Button href="/projects" variant="secondary" icon="briefcase" size="lg" class="hero-cta">
-        {pages.home.buttons.viewWorkLabel}
-      </Button>
-      <Button href="/blog" variant="primary" icon="blog" size="lg" class="hero-cta">
-        {pages.home.buttons.readBlogLabel}
-      </Button>
-    </div>
-  </section>
+  </HeroSection>
+
+  <!-- Stats Section -->
+  <StatsSection
+    stats={statsItems}
+    variant="cards"
+    columns={4}
+    highlight
+    class="animate-section mb-16"
+  />
+
+  <!-- Services Section -->
+  <ServicesSection
+    title={homepageContent.services.title}
+    subtitle={homepageContent.services.subtitle}
+    services={homepageContent.services.items}
+    variant="grid"
+    columns={2}
+    class="animate-section mb-16 bg-muted/30 rounded-2xl"
+  />
+
+  <!-- Tech Stack Section -->
+  <SkillsSection
+    title={homepageContent.techStack.title}
+    subtitle={homepageContent.techStack.subtitle}
+    categories={homepageContent.techStack.categories}
+    techMap={techMap}
+    variant="grouped"
+    columns={2}
+    class="animate-section mb-16"
+  />
 
   <!-- Featured Projects Section -->
-  <section class="animate-section mb-16">
-    <SectionHeader
-      title={pages.home.sections.featuredProjectsTitle}
-      icon="star"
-      viewAllHref="/projects"
-      viewAllLabel={pages.home.sections.featuredProjectsViewAllLabel}
-      hideViewAllOnMobile
-    />
+  <ProjectsSection
+    title={homepageContent.featuredProjects.title}
+    projects={featuredProjects}
+    cta={{
+      label: homepageContent.featuredProjects.viewAllLabel,
+      href: homepageContent.featuredProjects.viewAllHref,
+    }}
+    class="animate-section mb-16"
+  />
 
-    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {featuredProjects.map(project => <ProjectCard project={project} showCompletedDate={false} showViewProjectLink={false} />)}
-    </div>
-
-    <a href="/projects" class="text-secondary hover:text-secondary-hover mt-6 flex items-center justify-end gap-2 font-medium md:hidden">
-      {pages.home.sections.featuredProjectsViewAllLabel}
-    </a>
-  </section>
+  <!-- Why Work With Me Section -->
+  <FeaturesSection
+    title={homepageContent.valueProps.title}
+    features={homepageContent.valueProps.items}
+    variant="cards"
+    columns={2}
+    class="animate-section mb-16 bg-muted/30 rounded-2xl"
+  />
 
   <!-- Experience Section -->
-  <section class="animate-section mb-16">
-    <SectionHeader
-      title={pages.home.sections.experienceTitle}
-      icon="briefcase"
-      viewAllHref="/experience"
-      viewAllLabel={pages.home.sections.experienceViewAllLabel}
-      hideViewAllOnMobile
+  <ExperienceSection
+    title={homepageContent.experience.title}
+    roles={featuredRoles}
+    organizations={orgBySlug}
+    variant="cards"
+    cta={{
+      label: homepageContent.experience.viewAllLabel,
+      href: homepageContent.experience.viewAllHref,
+    }}
+    class="animate-section mb-16"
+  />
+
+  <!-- Blog Section -->
+  {recentPosts.length > 0 && (
+    <BlogSection
+      title={homepageContent.blog.title}
+      subtitle={homepageContent.blog.subtitle}
+      posts={recentPosts}
+      techMap={techMap}
+      cta={{
+        label: homepageContent.blog.viewAllLabel,
+        href: homepageContent.blog.viewAllHref,
+      }}
+      class="animate-section mb-16"
     />
+  )}
 
-    <div class="animate-content space-y-8">
-      {featuredRoles.map((role) => <RoleCard role={role} organization={orgBySlug.get(role.data.organization)} showAllDetails={false} />)}
-    </div>
-
-    <a href="/experience" class="text-secondary hover:text-secondary-hover mt-6 flex items-center justify-end gap-2 font-medium md:hidden">
-      {pages.home.sections.experienceViewAllLabel}
-    </a>
-  </section>
-
-  <!-- Recent Blog Posts -->
-  {
-    recentPosts.length > 0 && (
-      <section class="animate-section mb-16">
-        <SectionHeader
-          title={pages.home.sections.latestArticlesTitle}
-          icon="blog"
-          viewAllHref="/blog"
-          viewAllLabel={pages.home.sections.latestArticlesViewAllLabel}
-        />
-
-        <div class="grid gap-6 md:grid-cols-3">
-          {recentPosts.map(post => (
-            <BlogPostCard post={post} techMap={techMap} />
-          ))}
-        </div>
-      </section>
-    )
-  }
-
-  <!-- Contact Section -->
-  <CTASection />
+  <!-- CTA Section -->
+  <CTASection
+    title={homepageContent.cta.title}
+    description={homepageContent.cta.description}
+    buttonLabel={homepageContent.cta.primaryButton.label}
+    buttonHref={homepageContent.cta.primaryButton.href}
+  />
 </MainLayout>

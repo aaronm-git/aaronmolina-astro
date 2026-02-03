@@ -9,7 +9,7 @@ import Avatar from '@/components/atoms/Avatar.astro';
 import AeroBubbles from '@/components/organisms/decorative/AeroBubbles.astro';
 import { cn } from '@/lib/cn';
 
-type HeroVariant = 'centered' | 'split' | 'minimal' | 'fullscreen';
+type HeroVariant = 'centered' | 'split' | 'minimal' | 'fullscreen' | 'profile';
 type HeroHeight = 'auto' | 'screen' | 'half';
 
 interface CTA {
@@ -39,6 +39,10 @@ interface Props {
   image?: ImageMetadata;
   /** Image alt text */
   imageAlt?: string;
+  /** Profile/avatar image (for profile variant) */
+  avatar?: ImageMetadata;
+  /** Avatar alt text */
+  avatarAlt?: string;
   /** Badge labels */
   badges?: string[];
   /** Social proof section */
@@ -65,10 +69,12 @@ const {
   secondaryCta,
   image,
   imageAlt = '',
+  avatar,
+  avatarAlt = '',
   badges,
   socialProof,
   variant = 'centered',
-  align = variant === 'centered' ? 'center' : 'left',
+  align = (variant === 'centered' || variant === 'profile') ? 'center' : 'left',
   height = 'auto',
   showBubbles = true,
   showGradient = false,
@@ -347,6 +353,68 @@ const containerClasses = cn(
                 variant={secondaryCta.variant || 'ghost'}
                 icon={secondaryCta.icon}
                 size="xl"
+              >
+                {secondaryCta.label}
+              </Button>
+            )}
+          </div>
+        )}
+
+        <slot />
+      </div>
+    )}
+
+    {variant === 'profile' && (
+      <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+        {avatar && (
+          <div class="mb-8">
+            <Image
+              src={avatar}
+              alt={avatarAlt}
+              class="tactile-profile-img h-32 w-32 rounded-2xl object-cover object-[20%_40%] md:h-48 md:w-48"
+              loading="eager"
+              width={192}
+              height={192}
+            />
+          </div>
+        )}
+
+        <Heading level={1} size="hero" class="mb-1 md:mb-6">
+          {headline}
+        </Heading>
+
+        {subheadline && (
+          <Text size="lg" color="muted" weight="medium" class="mb-4 md:text-2xl">
+            {subheadline}
+          </Text>
+        )}
+
+        {description && (
+          <Text size="base" color="muted" class="mx-auto max-w-3xl leading-relaxed md:text-lg" balance>
+            {description}
+          </Text>
+        )}
+
+        {(primaryCta || secondaryCta) && (
+          <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
+            {primaryCta && (
+              <Button
+                href={primaryCta.href}
+                variant={primaryCta.variant || 'secondary'}
+                icon={primaryCta.icon}
+                size="lg"
+                class="hero-cta"
+              >
+                {primaryCta.label}
+              </Button>
+            )}
+            {secondaryCta && (
+              <Button
+                href={secondaryCta.href}
+                variant={secondaryCta.variant || 'primary'}
+                icon={secondaryCta.icon}
+                size="lg"
+                class="hero-cta"
               >
                 {secondaryCta.label}
               </Button>

@@ -1,9 +1,156 @@
 {
   "yearsOfExperienceStartYear": 2012,
+  "meta": {
+    "title": "Aaron Molina | Jamstack Developer - Astro, Next.js, Sanity Expert",
+    "description": "Senior Jamstack developer with 12+ years experience. I build high-performance websites with Astro, Next.js, Sanity, and Tailwind CSS. Available for hire, remote US or Miami."
+  },
   "hero": {
     "name": "Aaron Molina",
-    "headline": "Senior Frontend & Fullstack Developer",
-    "description": "Building modern, high-performance websites with Sanity.io, Next.js, Astro, and Tailwind CSS. With over {yearsOfExperience} years of experience, I've worked with a variety of technologies, including Supabase, MongoDB, Cloudinary, and AWS, where I focus on scalable architecture and best practices for user experiences."
+    "headline": "Jamstack Developer",
+    "subheadline": "Astro, Next.js & Sanity Expert",
+    "description": "I build fast, scalable websites that marketing teams love and developers enjoy maintaining. With {yearsOfExperience}+ years of experience, I specialize in headless CMS architecture, React, and modern web performance.",
+    "location": "Remote US / Miami, FL",
+    "availability": "Available for W2 or Contract"
+  },
+  "stats": {
+    "title": "By the Numbers",
+    "items": [
+      {
+        "value": "{yearsOfExperience}",
+        "suffix": "+",
+        "label": "Years of Experience",
+        "icon": "calendar"
+      },
+      {
+        "value": "50",
+        "suffix": "+",
+        "label": "Projects Delivered",
+        "icon": "briefcase"
+      },
+      {
+        "value": "100",
+        "suffix": "%",
+        "label": "Remote Ready",
+        "icon": "globe"
+      },
+      {
+        "value": "24",
+        "suffix": "hr",
+        "label": "Response Time",
+        "icon": "clock"
+      }
+    ]
+  },
+  "techStack": {
+    "title": "Tech Stack",
+    "subtitle": "Modern tools for modern websites",
+    "categories": [
+      {
+        "name": "Frontend Frameworks",
+        "icon": "code",
+        "skills": ["react", "nextjs", "astro", "typescript"]
+      },
+      {
+        "name": "Headless CMS",
+        "icon": "globe",
+        "skills": ["sanity", "contentful", "strapi"]
+      },
+      {
+        "name": "Styling & UI",
+        "icon": "lightbulb",
+        "skills": ["tailwindcss", "css", "framer-motion"]
+      },
+      {
+        "name": "Backend & Data",
+        "icon": "bolt",
+        "skills": ["nodejs", "supabase", "mongodb", "postgresql"]
+      }
+    ]
+  },
+  "services": {
+    "title": "How I Can Help",
+    "subtitle": "From concept to production, I deliver websites that perform",
+    "items": [
+      {
+        "icon": "rocket",
+        "title": "Jamstack Development",
+        "description": "High-performance static and hybrid sites built with Astro, Next.js, or your framework of choice. Fast load times, great SEO, and easy content updates."
+      },
+      {
+        "icon": "globe",
+        "title": "Headless CMS Integration",
+        "description": "Connect your marketing team to a modern content platform. I specialize in Sanity, Contentful, and custom CMS solutions that scale."
+      },
+      {
+        "icon": "bolt",
+        "title": "Performance Optimization",
+        "description": "Improve Core Web Vitals and page speed scores. I audit, optimize, and rebuild sites to meet Google's performance standards."
+      },
+      {
+        "icon": "code",
+        "title": "React & Frontend Architecture",
+        "description": "Component libraries, design systems, and frontend infrastructure. Clean, typed code that your team can maintain and extend."
+      }
+    ]
+  },
+  "valueProps": {
+    "title": "Why Work With Me",
+    "items": [
+      {
+        "icon": "award",
+        "title": "Senior-Level Experience",
+        "description": "Over a decade of shipping production code for startups, agencies, and enterprise clients including Corsair, the LA Clippers, and Azamara Cruises."
+      },
+      {
+        "icon": "users",
+        "title": "Team Player",
+        "description": "I integrate smoothly with existing teams. Clear communication, thorough documentation, and collaborative code reviews are my standard practice."
+      },
+      {
+        "icon": "shield",
+        "title": "Quality Focus",
+        "description": "TypeScript, testing, accessibility, and performance are not afterthoughts. I build with best practices from day one."
+      },
+      {
+        "icon": "clock",
+        "title": "Reliable Delivery",
+        "description": "Clear timelines, regular updates, and no surprises. I scope accurately and communicate proactively when things change."
+      }
+    ]
+  },
+  "featuredProjects": {
+    "title": "Featured Work",
+    "viewAllLabel": "View all projects",
+    "viewAllHref": "/projects"
+  },
+  "experience": {
+    "title": "Professional Experience",
+    "viewAllLabel": "View full experience",
+    "viewAllHref": "/experience"
+  },
+  "blog": {
+    "title": "Latest Articles",
+    "subtitle": "Thoughts on web development, Jamstack, and frontend architecture",
+    "viewAllLabel": "Read the blog",
+    "viewAllHref": "/blog"
+  },
+  "cta": {
+    "title": "Ready to Build Something Great?",
+    "description": "Whether you need a new website, a headless CMS migration, or help scaling your frontend team, I am here to help.",
+    "primaryButton": {
+      "label": "Get in Touch",
+      "href": "/contact",
+      "icon": "arrowRight"
+    },
+    "secondaryButton": {
+      "label": "View My Work",
+      "href": "/projects",
+      "icon": "briefcase"
+    }
+  },
+  "buttons": {
+    "viewWorkLabel": "View My Work",
+    "readBlogLabel": "Read the Blog",
+    "hireMeLabel": "Hire Me"
   }
 }
-

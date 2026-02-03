@@ -27,6 +27,7 @@ export function generateBreadcrumbs(pathname: string): BreadcrumbItem[] {
 
   const labelMap: Record<string, string> = {
     hire: 'Services',
+    jamstack: 'Jamstack Developer',
     projects: 'Projects',
     experience: 'Experience',
     blog: 'Blog',

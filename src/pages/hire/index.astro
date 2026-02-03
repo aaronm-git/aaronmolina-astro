@@ -1,76 +1,104 @@
 ---
 /**
- * Hire Page - Main hub for hiring inquiries
- * Target: "hire jamstack developer" (vol 50, KD 1)
- * Secondary: "jamstack developer", "remote frontend developer"
+ * Hire Services - Main overview page
+ * Showcases all hiring service offerings
  */
-import { HireTemplate } from '@/templates';
-import { getCollection } from 'astro:content';
-import { createTechMap } from '@/utils/tech-lookup';
-import hireContent from '@/content/site/hire.json';
+import MainLayout from '@/layouts/main-layout.astro';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import ServicesSection from '@/components/organisms/sections/ServicesSection.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
 
-// Fetch data
-const technologies = await getCollection('technologies');
-const techMap = createTechMap(technologies);
-const projects = await getCollection('projects');
+const serviceOfferings = [
+  {
+    icon: 'code',
+    title: 'Jamstack Development',
+    description: 'High-performance static and hybrid sites with Astro, Next.js, and modern frameworks',
+  },
+  {
+    icon: 'react',
+    title: 'React Developer',
+    description: 'Expert React development with TypeScript, hooks, and modern patterns',
+  },
+  {
+    icon: 'nextjs',
+    title: 'Next.js Developer',
+    description: 'Full-stack React with server components, API routes, and optimization',
+  },
+  {
+    icon: 'globe',
+    title: 'Headless CMS',
+    description: 'Sanity, Contentful, and custom CMS implementation and migration',
+  },
+];
 
-// Get featured projects
-const featuredProjects = projects
-  .filter(p => p.data.isActive !== false)
-  .filter(p => p.data.featured)
-  .sort((a, b) => (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0))
-  .slice(0, 3);
-
-// Calculate years of experience
-const yearsOfExperience = new Date().getFullYear() - hireContent.yearsOfExperienceStartYear;
-
-// Process content with dynamic values
-const heroDescription = hireContent.main.hero.description.replace('{yearsOfExperience}', String(yearsOfExperience));
-
-const stats = hireContent.shared.stats.map(stat => ({
-  ...stat,
-  value: String(stat.value).replace('{yearsOfExperience}', String(yearsOfExperience)),
-}));
+const title = 'Hire a Developer | Services & Expertise | Aaron Molina';
+const description = 'Hire a senior developer for Jamstack, React, Next.js, and Headless CMS projects. 12+ years experience, remote US / Miami.';
 ---
 
-<HireTemplate
-  title={hireContent.main.meta.title}
-  description={hireContent.main.meta.description}
-  currentPath="/hire"
-  hero={{
-    headline: hireContent.main.hero.headline,
-    subheadline: hireContent.main.hero.subheadline,
-    description: heroDescription,
-    badges: hireContent.main.hero.badges,
-    primaryCta: hireContent.main.hero.primaryCta,
-    secondaryCta: hireContent.main.hero.secondaryCta,
-  }}
-  stats={stats}
-  services={{
-    title: hireContent.main.services.title,
-    subtitle: hireContent.main.services.subtitle,
-    items: hireContent.main.services.items,
-  }}
-  features={{
-    title: hireContent.main.features.title,
-    items: hireContent.main.features.items,
-  }}
-  skills={{
-    title: hireContent.main.skills.title,
-    subtitle: hireContent.main.skills.subtitle,
-    categories: hireContent.main.skills.categories,
-    techMap: techMap,
-  }}
-  projects={{
-    title: hireContent.main.projects.title,
-    items: featuredProjects,
-    viewAllHref: hireContent.main.projects.viewAllHref,
-    viewAllLabel: hireContent.main.projects.viewAllLabel,
-  }}
-  faq={{
-    title: "Frequently Asked Questions",
-    subtitle: "Common questions about working with me",
-    items: hireContent.shared.faq,
-  }}
-  cta={hireContent.shared.cta}
-/>
+<MainLayout title={title} description={description}>
+  <HeroSection
+    variant="split"
+    headline="Let's Build Something Great"
+    subheadline="Choose Your Expertise"
+    description="I offer specialized services across multiple technologies. Select a service below to learn more about how I can help with your project."
+    primaryCta={{
+      label: 'Get in Touch',
+      href: '/contact',
+      icon: 'arrowRight',
+    }}
+    class="mb-16"
+  />
+
+  <ServicesSection
+    title="My Services"
+    subtitle="Pick the expertise that fits your needs"
+    services={serviceOfferings}
+    variant="grid"
+    columns={2}
+    class="animate-section mb-16 bg-muted/30 rounded-2xl"
+  />
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+    {serviceOfferings.map((service) => {
+      const slugMap: Record<string, string> = {
+        'Jamstack Development': '/hire/jamstack',
+        'React Developer': '/hire/react-developer',
+        'Next.js Developer': '/hire/nextjs-developer',
+        'Headless CMS': '/hire/headless-cms',
+      };
+
+      return (
+        <a
+          href={slugMap[service.title]}
+          class="group relative p-6 rounded-xl border border-border hover:border-primary bg-card hover:bg-muted/50 transition-all duration-200"
+        >
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                <span class="text-lg">→</span>
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                {service.title}
+              </h3>
+              <p class="mt-2 text-sm text-foreground-muted">{service.description}</p>
+              <div class="mt-4 flex items-center text-primary font-medium text-sm">
+                Learn more
+                <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+
+  <CTASection
+    title="Ready to Start Your Project?"
+    description="Whether you need a new website, optimization, or scaling your team, I'm here to help."
+    buttonLabel="Get in Touch"
+    buttonHref="/contact"
+    class="animate-section"
+  />
+</MainLayout>

@@ -1,30 +1,36 @@
 {
-  "title": "Owner / Full Stack Developer",
+  "title": "Founder",
   "slug": "pagelyft-2023-owner-full-stack-developer",
   "organization": "pagelyft",
   "location": "Miami, Florida, United States",
   "employmentType": "",
   "startDate": "2023-10-01T00:00:00Z",
-  "endDate": "",
+  "endDate": null,
   "current": true,
-  "summary": "",
+  "summary": "Lead the vision and execution of modern Jamstack sites and composable commerce experiences focused on speed, scalability, and creativity.",
   "highlights": [
-    "Built SEO-optimized WordPress websites using Elementor",
-    "Implemented local SEO and performance strategies",
-    "Built custom plugins and REST integrations",
-    "Managed client content architecture"
+    "Lead web design and development for marketing and eCommerce websites",
+    "Implement Jamstack architecture to improve performance, security, and scalability",
+    "Build headless commerce integrations with Shopify and BigCommerce",
+    "Create component-based design systems to improve consistency and speed to market",
+    "Manage end-to-end delivery from strategy and UX to deployment and optimization",
+    "Ensure sites meet Core Web Vitals, accessibility, and SEO best practices"
   ],
   "achievements": [
-    "Improved local search visibility and performance metrics"
+    "Delivered high-performance sites optimized for Core Web Vitals and accessibility",
+    "Enabled faster marketing updates with composable, CMS-driven workflows"
   ],
   "technologies": [
-    "wordpress",
-    "php",
-    "javascript",
-    "seo",
-    "elementor-pro",
-    "google-business-profile",
-    "rest-api"
+    "astro",
+    "nextjs",
+    "react",
+    "typescript",
+    "graphql",
+    "sanity",
+    "shopify",
+    "bigcommerce",
+    "core-web-vitals",
+    "seo"
   ],
   "projects": [],
   "featured": false,

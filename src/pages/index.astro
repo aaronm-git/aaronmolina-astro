@@ -23,11 +23,24 @@ const roles = await getCollection('roles');
 const organizations = await getCollection('organizations');
 
 const orgBySlug = new Map(organizations.map((o) => [o.data.slug, o]));
+const now = Date.now();
 
 const featuredRoles = roles
   .filter((r) => r.data.isActive !== false)
   .sort((a, b) => {
-    // featured first
+    const aCurrent = Boolean(a.data.current);
+    const bCurrent = Boolean(b.data.current);
+
+    if (aCurrent && bCurrent) {
+      const aDuration = (a.data.endDate?.getTime() ?? now) - a.data.startDate.getTime();
+      const bDuration = (b.data.endDate?.getTime() ?? now) - b.data.startDate.getTime();
+      if (aDuration !== bDuration) return aDuration - bDuration;
+    } else {
+      if (aCurrent && !bCurrent) return -1;
+      if (!aCurrent && bCurrent) return 1;
+    }
+
+    // featured first for non-current (or tie-breaking)
     if (a.data.featured && !b.data.featured) return -1;
     if (!a.data.featured && b.data.featured) return 1;
     // then sortOrder

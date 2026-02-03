@@ -1,38 +1,32 @@
 {
-  "title": "Frontend Web Developer",
+  "title": "Full-stack Developer",
   "slug": "miami-heat-2022-frontend-web-developer",
   "organization": "miami-heat",
   "location": "Miami, Florida, United States",
-  "employmentType": "",
+  "employmentType": "full_time",
   "startDate": "2022-01-01T00:00:00Z",
   "endDate": "2022-07-01T00:00:00Z",
   "current": false,
-  "summary": "",
+  "summary": "Migrated HEAT.com from Drupal to WordPress/EJS, refreshed site content, and integrated real-time game data APIs.",
   "highlights": [
-    "Migrated HEAT.com to a modern tech stack",
-    "Designed responsive pages using Bootstrap",
-    "Implemented real-time data integrations via REST APIs",
-    "Improved frontend performance and load times"
+    "Key contributor in migrating HEAT.com from Drupal to WordPress and EJS",
+    "Updated content across HEAT.com, KaseyaCenter.com, and HeatCheckGaming.com",
+    "Redesigned the website experience to improve user engagement",
+    "Integrated RESTful APIs for real-time game and team data"
   ],
   "achievements": [
-    "Boosted user engagement by 30%",
-    "Increased mobile traffic by 50%",
-    "Improved merchandise sales by 20%"
+    "Improved user engagement by 20% after the redesign"
   ],
   "technologies": [
-    "react",
-    "html5",
-    "css3",
-    "javascript",
-    "bootstrap",
     "wordpress",
     "drupal",
+    "javascript",
+    "bootstrap",
     "rest-api",
-    "gtm",
-    "ga4"
+    "nba"
   ],
   "projects": [],
   "featured": false,
   "sortOrder": 0,
-  "isActive": false
+  "isActive": true
 }

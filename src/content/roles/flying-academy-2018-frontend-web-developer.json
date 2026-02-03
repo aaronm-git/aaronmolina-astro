@@ -2,29 +2,27 @@
   "title": "Frontend Web Developer",
   "slug": "flying-academy-2018-frontend-web-developer",
   "organization": "flying-academy",
-  "location": "Miami, Florida, United States",
-  "employmentType": "",
+  "location": "Miami/Fort Lauderdale Area",
+  "employmentType": "full_time",
   "startDate": "2018-02-01T00:00:00Z",
   "endDate": "2018-12-01T00:00:00Z",
   "current": false,
-  "summary": "",
+  "summary": "Redesigned and rebuilt the flight school website with a mobile-first approach and a custom WordPress theme.",
   "highlights": [
-    "Redesigned and rebuilt aviation school website",
-    "Used baseline grid theory for pixel-perfect design",
-    "Built WordPress theme using Foundation 6"
+    "Redesigned and developed the flight school website from the ground up",
+    "Implemented mobile-first responsive design for all devices",
+    "Built a custom WordPress theme using Foundation 6"
   ],
-  "achievements": [
-    "Modernized outdated web presence"
-  ],
+  "achievements": [],
   "technologies": [
-    "html5",
-    "css3",
     "wordpress",
     "foundation-6",
-    "plugins"
+    "javascript",
+    "html5",
+    "css3"
   ],
   "projects": [],
   "featured": false,
   "sortOrder": 0,
-  "isActive": false
+  "isActive": true
 }

@@ -3,36 +3,29 @@
   "slug": "corsair-memory-2020-frontend-web-developer",
   "organization": "corsair-memory",
   "location": "Miami, Florida, United States",
-  "employmentType": "",
+  "employmentType": "full_time",
   "startDate": "2020-01-01T00:00:00Z",
-  "endDate": "2022-05-01T00:00:00Z",
+  "endDate": "2022-03-01T00:00:00Z",
   "current": false,
-  "summary": "",
+  "summary": "Built marketing landing pages and email campaigns, collaborating with marketing and influencer teams to grow engagement.",
   "highlights": [
-    "Created landing pages and e-commerce tools using React",
-    "Integrated 3DMark API into PC recommendation tool",
-    "Remediated ADA compliance issues across OriginPC.com",
-    "Collaborated with influencers and marketing teams",
-    "Developed responsive email campaigns and web graphics"
+    "Designed and developed landing pages with Photoshop, React, HTML, CSS, and JavaScript",
+    "Created HTML email campaigns that improved open and click-through rates",
+    "Partnered with influencers to launch dedicated landing pages and live-show experiences"
   ],
   "achievements": [
-    "Improved conversion rates by 20%",
-    "Boosted brand visibility by 30%",
-    "Increased email open rates by 15%"
+    "Increased landing-page engagement by 20%",
+    "Improved email open rates by 15% and click-through rates by 10%"
   ],
   "technologies": [
     "react",
     "javascript",
     "html5",
     "css3",
-    "bootstrap",
-    "3dmark-api",
-    "photoshop",
-    "wcag-testing",
-    "git"
+    "photoshop"
   ],
   "projects": [],
   "featured": false,
   "sortOrder": 0,
-  "isActive": false
+  "isActive": true
 }

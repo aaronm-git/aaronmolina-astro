@@ -3,16 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "node scripts/generate-skill-labels.js && astro dev --host",
-    "build": "node scripts/generate-skill-labels.js && astro build",
+    "dev": "astro dev",
+    "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "images:webp": "gulp createWebp",
-    "images:watch": "gulp watchImages",
-    "images:check": "node scripts/image-size-check.js",
-    "images:to-jpg": "node scripts/convert-images-to-jpg.mjs",
-    "llms:generate": "node scripts/generate-llms-txt.mjs",
-    "skills:generate": "node scripts/generate-skill-labels.js"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.0",
@@ -30,10 +24,6 @@
     "@astrojs/check": "^0.9.6",
     "chalk": "^5.3.0",
     "fast-glob": "^3.3.3",
-    "gulp": "^5.0.1",
-    "gulp-imagemin": "^9.1.0",
-    "gulp-rename": "^2.0.0",
-    "imagemin-webp": "^8.0.0",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.14",

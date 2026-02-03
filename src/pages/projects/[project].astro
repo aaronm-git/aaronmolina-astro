@@ -1,13 +1,15 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
-import { createTechMap, objectToTechMap } from '@/utils/tech-lookup';
-import { FaGithub, FaArrowLeft } from '@/lib/icons';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
 import Button from '@/components/atoms/Button.astro';
+import Badge from '@/components/atoms/Badge.astro';
 import TagList from '@/components/molecules/TagList.astro';
-import Tag from '@/components/atoms/Tag.astro';
 import InfoBox from '@/components/molecules/InfoBox.astro';
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import { createTechMap, objectToTechMap } from '@/utils/tech-lookup';
+import { FaGithub } from '@/lib/icons';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -23,54 +25,49 @@ export async function getStaticPaths() {
 const { project, techMapObj } = Astro.props;
 const { Content } = await render(project);
 const techMap = objectToTechMap(techMapObj);
+
+// Format completion date
+const completionDate = project.data.completedOn?.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+});
 ---
 
 <MainLayout title={project.data.title} description={project.data.summary}>
   <article class="mx-auto max-w-screen-lg">
     <!-- Back Navigation -->
-    <nav class="mb-8">
-      <a href="/projects" class="text-foreground-muted hover:text-foreground group inline-flex items-center gap-1 font-medium transition-colors">
-        <FaArrowLeft className="icon-sm transition-transform group-hover:-translate-x-1" />
+    <nav class="mb-4 px-4">
+      <Button href="/projects" variant="ghost" icon="arrowLeft" size="sm">
         Back to Projects
-      </a>
+      </Button>
     </nav>
 
     <!-- Project Header -->
-    <header class="mb-12">
-      <!-- Meta Info -->
-      <div class="mb-6 flex flex-wrap items-center gap-3">
+    <HeroSection
+      variant="minimal"
+      headline={project.data.title}
+      description={project.data.summary}
+      class="py-4"
+    >
+      <!-- Meta badges -->
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
         {project.data.featured && (
-          <Tag label="Featured" variant="featured" size="sm" />
+          <Badge label="Featured" variant="primary" size="sm" />
         )}
-        {
-          project.data.completedOn && (
-            <span class="text-foreground-muted inline-flex items-center gap-1.5 text-sm">
-              {project.data.completedOn.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-              })}
-            </span>
-          )
-        }
+        {completionDate && (
+          <Badge label={completionDate} variant="outline" size="sm" />
+        )}
       </div>
-
-      <!-- Title -->
-      <h1 class="text-foreground mb-6 text-4xl leading-tight font-bold tracking-tight md:text-5xl lg:text-6xl">
-        {project.data.title}
-      </h1>
-
-      <!-- Description -->
-      {project.data.summary && <p class="text-foreground-muted mb-8 text-xl leading-relaxed md:text-2xl">{project.data.summary}</p>}
 
       <!-- Technologies -->
       {project.data.technologies.length > 0 && (
-        <div class="mb-8">
+        <div class="mt-6 flex justify-center">
           <TagList tags={project.data.technologies.slice(0, 8)} techMap={techMap} size="base" />
         </div>
       )}
 
       <!-- Action Buttons -->
-      <div class="flex flex-wrap items-center gap-3">
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         {project.data.liveUrl && (
           <Button href={project.data.liveUrl} variant="secondary" icon="arrowRight" iconPosition="right" external>
             Visit Live Project
@@ -83,104 +80,97 @@ const techMap = objectToTechMap(techMapObj);
             View Source
           </Button>
         )}
-
-        <Button href="#project-details" variant="ghost" icon="info">
-          More Details
-        </Button>
       </div>
+    </HeroSection>
 
-      <!-- Featured Image -->
-      {
-        project.data.featuredImage && (
-          <div class="border-border mt-12 overflow-hidden rounded-xl border shadow-2xl">
-            <Image src={project.data.featuredImage} alt={project.data.title} class="h-full w-full object-cover" loading="eager" width={1200} height={630} />
-          </div>
-        )
-      }
-    </header>
+    <!-- Featured Image -->
+    {project.data.featuredImage && (
+      <div class="border-border mx-4 mt-8 overflow-hidden rounded-xl border shadow-2xl">
+        <Image
+          src={project.data.featuredImage}
+          alt={project.data.title}
+          class="h-full w-full object-cover"
+          loading="eager"
+          width={1200}
+          height={630}
+        />
+      </div>
+    )}
 
     <!-- Project Content -->
-    {
-      project.body && (
-        <div class="typography mb-8 max-w-none">
-          <Content />
-        </div>
-      )
-    }
+    {project.body && (
+      <div class="typography mx-auto max-w-screen-md px-4 py-12">
+        <Content />
+      </div>
+    )}
 
     <!-- Project Details -->
-    <InfoBox variant="muted" class="mb-12">
-      <div class="mb-4 flex items-end justify-between gap-4">
-        <h2 class="text-foreground text-lg font-semibold">Project Details</h2>
-        <span class="text-foreground-muted text-sm">Quick facts</span>
-      </div>
+    <section id="project-details" class="px-4 py-8">
+      <InfoBox variant="muted">
+        <div class="mb-4 flex items-end justify-between gap-4">
+          <h2 class="text-foreground text-lg font-semibold">Project Details</h2>
+          <span class="text-foreground-muted text-sm">Quick facts</span>
+        </div>
 
-      <dl class="grid gap-4 md:grid-cols-2">
-        {
-          project.data.completedOn && (
+        <dl class="grid gap-4 md:grid-cols-2">
+          {completionDate && (
             <div class="bg-surface border-border rounded-lg border p-4">
               <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Completion Date</dt>
-              <dd class="text-foreground text-base font-medium">
-                {project.data.completedOn.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                })}
+              <dd class="text-foreground text-base font-medium">{completionDate}</dd>
+            </div>
+          )}
+
+          {project.data.liveUrl && (
+            <div class="bg-surface border-border rounded-lg border p-4">
+              <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Project URL</dt>
+              <dd class="text-base">
+                <a
+                  href={project.data.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
+                >
+                  {project.data.liveUrl}
+                </a>
               </dd>
             </div>
-          )
-        }
+          )}
 
-        {project.data.liveUrl && (
-          <div class="bg-surface border-border rounded-lg border p-4">
-            <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Project URL</dt>
-            <dd class="text-base">
-              <a
-                href={project.data.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
-              >
-                {project.data.liveUrl}
-              </a>
-            </dd>
-          </div>
-        )}
+          {project.data.repoUrl && (
+            <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
+              <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Repository</dt>
+              <dd class="text-base">
+                <a
+                  href={project.data.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
+                >
+                  {project.data.repoUrl}
+                </a>
+              </dd>
+            </div>
+          )}
 
-        {project.data.repoUrl && (
-          <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
-            <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Repository</dt>
-            <dd class="text-base">
-              <a
-                href={project.data.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
-              >
-                {project.data.repoUrl}
-              </a>
-            </dd>
-          </div>
-        )}
+          {project.data.technologies.length > 0 && (
+            <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
+              <dt class="text-foreground-muted mb-3 text-xs font-semibold tracking-wide uppercase">Technologies</dt>
+              <dd>
+                <TagList tags={project.data.technologies} techMap={techMap} size="sm" />
+              </dd>
+            </div>
+          )}
+        </dl>
+      </InfoBox>
+    </section>
 
-        {project.data.technologies.length > 0 && (
-          <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
-            <dt class="text-foreground-muted mb-3 text-xs font-semibold tracking-wide uppercase">Technologies</dt>
-            <dd>
-              <TagList tags={project.data.technologies} techMap={techMap} size="sm" />
-            </dd>
-          </div>
-        )}
-      </dl>
-    </InfoBox>
-
-    <!-- Project Footer -->
-    <footer class="border-border mt-16 border-t pt-8">
-      <div class="flex items-center justify-between">
-        <a href="/projects" class="text-secondary hover:text-secondary-hover group flex items-center gap-1 font-medium">
-          <FaArrowLeft className="icon-sm transition-transform group-hover:-translate-x-1" />
-          View All Projects
-        </a>
-      </div>
-    </footer>
+    <!-- CTA Section -->
+    <CTASection
+      title="Interested in working together?"
+      description="I build high-performance websites with modern Jamstack architecture. Let's discuss your next project."
+      buttonLabel="Get in Touch"
+      buttonHref="/contact"
+      class="mt-8"
+    />
   </article>
 </MainLayout>

@@ -36,6 +36,7 @@ import ProjectsSection from '@/components/organisms/sections/ProjectsSection.ast
 import TestimonialsSection from '@/components/organisms/sections/TestimonialsSection.astro';
 import FAQSection from '@/components/organisms/sections/FAQSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
+import HireNavigationTabs from '@/components/molecules/HireNavigationTabs.astro';
 import type { TechMap } from '@/utils/tech-lookup';
 
 interface HeroProps {
@@ -107,6 +108,8 @@ interface Props {
   title: string;
   /** Page description for meta tags */
   description?: string;
+  /** Current page path for active tab highlighting */
+  currentPath?: string;
   /** Hero section configuration */
   hero: HeroProps;
   /** Stats items (omit to hide section) */
@@ -156,6 +159,7 @@ interface Props {
 const {
   title,
   description,
+  currentPath,
   hero,
   stats,
   services,
@@ -169,6 +173,9 @@ const {
 ---
 
 <MainLayout title={title} description={description}>
+  {/* Hire Navigation Tabs */}
+  {currentPath && <HireNavigationTabs currentPath={currentPath} />}
+
   {/* Hero Section */}
   <HeroSection
     variant="split"

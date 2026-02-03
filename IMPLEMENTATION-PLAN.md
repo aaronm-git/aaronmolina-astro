@@ -33,7 +33,7 @@ This plan combines the Atomic Design Architecture restructure with SEO keyword i
 | 2 | Atoms & Molecules | Complete | 100% |
 | 3 | Organisms - Sections | Complete | 100% |
 | 4 | Page Refactoring | Complete | 100% |
-| 5 | Templates | Not Started | 0% |
+| 5 | Templates | Complete | 100% |
 | 6 | SEO - Hire Pages | Not Started | 0% |
 | 7 | SEO - Content Optimization | Not Started | 0% |
 | 8 | SEO - Blog Content | Not Started | 0% |
@@ -142,16 +142,26 @@ This plan combines the Atomic Design Architecture restructure with SEO keyword i
 
 ## Phase 5: Templates
 
-**Status:** Not Started
+**Status:** Complete
+**Commits:** `33817d4`
 
-### Tasks
+### Completed Tasks
 
-- [ ] Create `BaseTemplate.astro` - Core layout wrapper
-- [ ] Create `HireTemplate.astro` - For /hire/* pages
-- [ ] Create `BlogPostTemplate.astro` - Single post layout
-- [ ] Create `ProjectDetailTemplate.astro` - Single project layout
-- [ ] Refactor `blog/[post].astro` to use template
-- [ ] Refactor `projects/[project].astro` to use template
+- [x] Create `BaseTemplate.astro` - Core layout wrapper with back nav, hero, content, CTA slots
+- [x] Create `BlogPostTemplate.astro` - Blog post layout with dates, tags, CTA
+- [x] Create `ProjectDetailTemplate.astro` - Project layout with badges, image, details, CTA
+- [x] Create `HireTemplate.astro` - Comprehensive hire page layout with optional sections:
+  - Hero, Stats, Services, Features, Skills, Projects, Testimonials, FAQ, CTA
+- [x] Refactor `blog/[post].astro` to use BlogPostTemplate (83 lines -> 28 lines)
+- [x] Refactor `projects/[project].astro` to use ProjectDetailTemplate (186 lines -> 28 lines)
+- [x] Update barrel export (`src/templates/index.ts`)
+
+### Template Architecture
+
+Templates compose with MainLayout and section organisms (no HTML duplication):
+```
+Page -> Template -> MainLayout -> Section Organisms -> Molecules -> Atoms
+```
 
 ---
 
@@ -417,6 +427,8 @@ This plan combines the Atomic Design Architecture restructure with SEO keyword i
 | `71f1df9` | refactor: update pages to use section organisms (atomic design) | 4 |
 | `72e1d09` | docs: update architecture plan and create implementation roadmap | Docs |
 | `5b4768d` | refactor: update detail pages to use section organisms | 4 |
+| `5456a61` | docs: update implementation plan with detail page completion | Docs |
+| `33817d4` | feat: create page templates and refactor detail pages | 5 |
 
 ---
 

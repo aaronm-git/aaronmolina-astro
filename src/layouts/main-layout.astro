@@ -3,6 +3,8 @@ import '@/styles/global.css';
 import { ViewTransitions } from 'astro:transitions';
 import Header from '@/components/organisms/navigation/Header.astro';
 import Footer from '@/components/organisms/navigation/Footer.astro';
+import Breadcrumbs from '@/components/molecules/Breadcrumbs.astro';
+import { generateBreadcrumbs } from '@/utils/breadcrumbs';
 import settings from '@/content/site/settings.json';
 
 import favicon from '@/favicon_io/android-chrome-512x512.png';
@@ -13,6 +15,9 @@ export interface Props {
 }
 
 const { title = settings.siteTitle, description = settings.siteDescription } = Astro.props;
+
+// Generate breadcrumbs from current pathname
+const breadcrumbs = generateBreadcrumbs(Astro.url.pathname);
 ---
 
 <html lang="en" class="js">
@@ -126,6 +131,7 @@ const { title = settings.siteTitle, description = settings.siteDescription } = A
   <body class="bg-background text-foreground pt-13 antialiased transition-colors duration-200">
     <Header />
     <main class="mx-auto max-w-6xl px-4 py-8">
+      <Breadcrumbs items={breadcrumbs} />
       <slot />
     </main>
     <Footer />

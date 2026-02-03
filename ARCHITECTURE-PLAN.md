@@ -4,7 +4,9 @@
 **Date:** February 3, 2026
 **Design System:** Tactile Maximalism
 **Framework:** Astro + Tailwind CSS 4
-**Animation:** Motion (Framer Motion) or existing GSAP use whatever is best for the job and delete the other one.
+**Animation:** GSAP (with ScrollTrigger and ScrollToPlugin)
+**Package Manager:** pnpm
+**Validation:** Zod schemas for all data validation
 
 ---
 
@@ -729,67 +731,72 @@ const sectionsCollection = defineCollection({
 
 ---
 
-## Part 9: Animation Strategy (Motion)
+## Part 9: Animation Strategy (GSAP)
 
-### Migration from GSAP to Motion
+### GSAP Setup
 
-**Why Motion (Framer Motion):**
+**Current Stack:**
+- `gsap` (3.13.0)
+- `ScrollTrigger` - Scroll-based animations
+- `ScrollToPlugin` - Smooth scroll navigation
 
-- Declarative API fits better with Astro/React
-- Smaller bundle size
-- Better TypeScript support
-- Gesture support built-in
+**Why GSAP:**
+- Industry-standard animation library
+- Excellent performance and browser support
+- Powerful timeline and scroll-trigger capabilities
+- Works seamlessly with Astro's static rendering
 
-**Keep GSAP for:**
+### Animation Utility (Current Implementation)
 
-- Complex scroll-triggered timelines
-- SVG morphing
-- Text reveals
+**`/src/scripts/animations.ts`:**
 
-### Motion Utility Components
+```typescript
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
-**`/src/components/atoms/Animate.astro`:**
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-```astro
----
-interface Props {
-  animation?: 'fadeIn' | 'fadeInUp' | 'fadeInLeft' | 'fadeInRight' | 'scaleIn' | 'slideIn';
-  delay?: number;
-  duration?: number;
-  once?: boolean;
-  threshold?: number;
+export class AnimationUtils {
+  static initScrollAnimations() {
+    // Animate sections on scroll
+    gsap.utils.toArray('.animate-section').forEach((section) => {
+      gsap.from(section as Element, {
+        scrollTrigger: {
+          trigger: section as Element,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.6,
+        ease: 'power2.out',
+      });
+    });
+  }
 }
----
-
-<div data-animate={animation} data-delay={delay} data-duration={duration} data-once={once} data-threshold={threshold}>
-  <slot />
-</div>
-
-<script>
-  // Initialize Motion observer for scroll animations
-</script>
 ```
 
 ### Animation Presets
 
 ```typescript
-// src/lib/motion-presets.ts
+// src/lib/gsap-presets.ts
 
 export const animations = {
   fadeInUp: {
-    initial: { opacity: 0, y: 40 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    from: { opacity: 0, y: 40 },
+    to: { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
   },
 
   tactileBounce: {
-    whileHover: { scale: 1.02, y: -2 },
-    whileTap: { scale: 0.98, y: 2 },
-    transition: { type: 'spring', stiffness: 400, damping: 17 },
+    hover: { scale: 1.02, y: -2, duration: 0.2, ease: 'power2.out' },
+    tap: { scale: 0.98, y: 2, duration: 0.1, ease: 'power2.out' },
   },
 
   staggerChildren: {
-    animate: { transition: { staggerChildren: 0.1 } },
+    stagger: 0.1,
+    from: { opacity: 0, y: 20 },
+    to: { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' },
   },
 };
 ```
@@ -892,11 +899,11 @@ export const animations = {
 
 ### Phase 9: Animation Polish (Week 5-6)
 
-- [ ] Install Motion
-- [ ] Create animation utility
-- [ ] Add scroll animations to sections
-- [ ] Add micro-interactions to buttons/cards
-- [ ] Add page transitions
+- [x] GSAP already installed and configured
+- [x] Animation utility exists (`src/scripts/animations.ts`)
+- [ ] Enhance scroll animations for sections
+- [ ] Add micro-interactions to buttons/cards (tactile effects)
+- [ ] Add page transitions with GSAP
 
 ### Phase 10: Testing & Optimization (Week 6)
 
@@ -1048,7 +1055,7 @@ import { HireTemplate, BlogPostTemplate } from '@/templates';
 // Utilities
 import { cn } from '@/lib/cn';
 import { formatDate } from '@/lib/date-format';
-import { animations } from '@/lib/motion-presets';
+import { animations } from '@/lib/gsap-presets';
 ```
 
 ---

@@ -13,21 +13,25 @@ const serviceOfferings = [
     icon: 'code',
     title: 'Jamstack Development',
     description: 'High-performance static and hybrid sites with Astro, Next.js, and modern frameworks',
+    href: '/hire/jamstack',
   },
   {
     icon: 'react',
     title: 'React Developer',
     description: 'Expert React development with TypeScript, hooks, and modern patterns',
+    href: '/hire/react-developer',
   },
   {
     icon: 'nextjs',
     title: 'Next.js Developer',
     description: 'Full-stack React with server components, API routes, and optimization',
+    href: '/hire/nextjs-developer',
   },
   {
     icon: 'globe',
     title: 'Headless CMS',
     description: 'Sanity, Contentful, and custom CMS implementation and migration',
+    href: '/hire/headless-cms',
   },
 ];
 
@@ -59,39 +63,30 @@ const description = 'Hire a senior developer for Jamstack, React, Next.js, and H
   />
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-    {serviceOfferings.map((service) => {
-      const slugMap: Record<string, string> = {
-        'Jamstack Development': '/hire/jamstack',
-        'React Developer': '/hire/react-developer',
-        'Next.js Developer': '/hire/nextjs-developer',
-        'Headless CMS': '/hire/headless-cms',
-      };
-
-      return (
-        <a
-          href={slugMap[service.title]}
-          class="group relative p-6 rounded-xl border border-border hover:border-primary bg-card hover:bg-muted/50 transition-all duration-200"
-        >
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0">
-              <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                <span class="text-lg">→</span>
-              </div>
-            </div>
-            <div class="flex-1">
-              <h3 class="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                {service.title}
-              </h3>
-              <p class="mt-2 text-sm text-foreground-muted">{service.description}</p>
-              <div class="mt-4 flex items-center text-primary font-medium text-sm">
-                Learn more
-                <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-              </div>
+    {serviceOfferings.map((service) => (
+      <a
+        href={service.href}
+        class="group relative p-6 rounded-xl border border-border hover:border-primary bg-card hover:bg-muted/50 transition-all duration-200"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+              <span class="text-lg">→</span>
             </div>
           </div>
-        </a>
-      );
-    })}
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+              {service.title}
+            </h3>
+            <p class="mt-2 text-sm text-foreground-muted">{service.description}</p>
+            <div class="mt-4 flex items-center text-primary font-medium text-sm">
+              Learn more
+              <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    ))}
   </div>
 
   <CTASection

@@ -1,36 +1,28 @@
 {
-  "title": "Lead Frontend Developer",
+  "title": "Lead Full-stack Developer",
   "slug": "la-clippers-2024-lead-frontend-developer",
   "organization": "la-clippers",
   "location": "Miami, Florida, United States",
-  "employmentType": "",
-  "startDate": "2024-08-01T00:00:00Z",
-  "endDate": "",
-  "current": true,
-  "summary": "",
+  "employmentType": "full_time",
+  "startDate": "2024-11-01T00:00:00Z",
+  "endDate": "2025-06-01T00:00:00Z",
+  "current": false,
+  "summary": "Led frontend delivery for Clippers.com and FireAidLA.org, integrating APIs and partnering with cross-functional teams to improve UX across devices.",
   "highlights": [
-    "Led development of Clippers.com and ClippersCamp.com",
-    "Integrated REST APIs for third-party systems",
-    "Mentored junior developers",
-    "Managed Git workflows and QA testing",
-    "Collaborated with UX/UI, marketing, and product teams"
+    "Spearheaded frontend development for Clippers.com and FireAidLA.org",
+    "Integrated RESTful APIs to improve communication with third-party systems",
+    "Mentored junior developers and established best practices",
+    "Collaborated with cross-functional teams to build user-friendly web pages"
   ],
   "achievements": [
-    "Enhanced ADA compliance and UX",
-    "Standardized development workflows"
+    "Improved cross-device user experience for flagship properties"
   ],
   "technologies": [
     "vue-js",
     "nuxt",
-    "tailwindcss",
-    "html5",
-    "css3",
     "javascript",
-    "git",
     "rest-api",
-    "shopify",
-    "liquid",
-    "qa-testing"
+    "frontend"
   ],
   "projects": [],
   "featured": false,

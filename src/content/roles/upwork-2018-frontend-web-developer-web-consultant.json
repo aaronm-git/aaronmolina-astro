@@ -1,0 +1,31 @@
+{
+  "title": "Frontend Web Developer & Web Consultant",
+  "slug": "upwork-2018-frontend-web-developer-web-consultant",
+  "organization": "upwork",
+  "location": "Miami, Florida, United States",
+  "employmentType": "freelance",
+  "startDate": "2018-08-01T00:00:00Z",
+  "endDate": "2023-10-01T00:00:00Z",
+  "current": false,
+  "summary": "Freelance web development and consulting focused on responsive sites, WordPress theming, hosting, and SEO for small businesses.",
+  "highlights": [
+    "Developed responsive websites using HTML, CSS, and JavaScript",
+    "Created custom WordPress themes to help clients manage content and branding",
+    "Managed hosting and domain services to maintain high uptime",
+    "Implemented SEO and marketing campaigns to improve local visibility"
+  ],
+  "achievements": [],
+  "technologies": [
+    "html5",
+    "css3",
+    "javascript",
+    "wordpress",
+    "seo",
+    "react",
+    "graphql"
+  ],
+  "projects": [],
+  "featured": false,
+  "sortOrder": 0,
+  "isActive": true
+}

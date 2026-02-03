@@ -2,32 +2,24 @@
   "title": "Full-stack Developer",
   "slug": "uplyft-capital-2019-full-stack-developer",
   "organization": "uplyft-capital",
-  "location": "Miami, Florida, United States",
-  "employmentType": "",
+  "location": "Miami/Fort Lauderdale Area",
+  "employmentType": "full_time",
   "startDate": "2019-01-01T00:00:00Z",
   "endDate": "2020-01-01T00:00:00Z",
   "current": false,
-  "summary": "",
+  "summary": "Built a fintech CRM platform, implemented security protections, and integrated external lending APIs.",
   "highlights": [
-    "Assisted in development of custom CRM features",
-    "Built internal tools for chat, notes, reporting, and APIs",
-    "Ensured secure authentication and XSS protection"
+    "Developed and deployed a fintech CRM and onboarded five internal departments",
+    "Implemented security safeguards including XSS protections and auto-logout",
+    "Built REST APIs to integrate with external lending platforms"
   ],
-  "achievements": [
-    "Developed scalable internal systems for user interactions"
-  ],
+  "achievements": [],
   "technologies": [
-    "nodejs",
-    "mongodb",
-    "express-js",
-    "oauth2",
-    "nunjucks",
-    "mailgun",
-    "salesforce-api",
-    "bootstrap"
+    "javascript",
+    "rest-api"
   ],
   "projects": [],
   "featured": false,
   "sortOrder": 0,
-  "isActive": false
+  "isActive": true
 }

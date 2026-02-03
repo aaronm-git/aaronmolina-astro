@@ -1,39 +1,30 @@
 {
-  "title": "Lead Frontend Developer",
+  "title": "Lead Front-end Engineer",
   "slug": "azamara-cruises-2022-lead-frontend-developer",
   "organization": "azamara-cruises",
   "location": "Miami, Florida, United States",
-  "employmentType": "",
-  "startDate": "2022-01-01T00:00:00Z",
+  "employmentType": "full_time",
+  "startDate": "2023-01-01T00:00:00Z",
   "endDate": "2024-04-01T00:00:00Z",
   "current": false,
-  "summary": "",
+  "summary": "Built reusable content blocks in CrafterCMS and implemented REST/GraphQL APIs, partnering with design to deliver author-friendly components.",
   "highlights": [
-    "Led frontend architecture projects",
-    "Built reusable components with React and TypeScript",
-    "Integrated GraphQL and REST APIs",
-    "Collaborated with Figma design team",
-    "Maintained 99.9% uptime for deployments"
+    "Built reusable content block components in CrafterCMS for marketing teams",
+    "Implemented and managed RESTful and GraphQL APIs",
+    "Collaborated with Figma designers to ship reusable components for content authors"
   ],
-  "achievements": [
-    "Reduced deployment time by 40%",
-    "Ensured stable launches"
-  ],
+  "achievements": [],
   "technologies": [
-    "react",
-    "typescript",
+    "craftercms",
     "graphql",
+    "javascript",
     "html5",
     "css3",
-    "javascript",
-    "aws",
-    "appsync",
-    "craftercms",
-    "python",
-    "qa-testing"
+    "bootstrap",
+    "python"
   ],
   "projects": [],
   "featured": false,
   "sortOrder": 0,
-  "isActive": false
+  "isActive": true
 }

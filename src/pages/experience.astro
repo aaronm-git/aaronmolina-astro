@@ -10,12 +10,23 @@ import pages from '@/content/site/pages.json';
 const roles = await getCollection('roles');
 const organizations = await getCollection('organizations');
 const orgBySlug = new Map(organizations.map((o) => [o.data.slug, o]));
+const now = Date.now();
 
 const sortedRoles = roles
   .filter((r) => r.data.isActive !== false)
   .sort((a, b) => {
-    if (a.data.current && !b.data.current) return -1;
-    if (!a.data.current && b.data.current) return 1;
+    const aCurrent = Boolean(a.data.current);
+    const bCurrent = Boolean(b.data.current);
+
+    if (aCurrent && bCurrent) {
+      const aDuration = (a.data.endDate?.getTime() ?? now) - a.data.startDate.getTime();
+      const bDuration = (b.data.endDate?.getTime() ?? now) - b.data.startDate.getTime();
+      if (aDuration !== bDuration) return aDuration - bDuration;
+    } else {
+      if (aCurrent && !bCurrent) return -1;
+      if (!aCurrent && bCurrent) return 1;
+    }
+
     if ((a.data.sortOrder ?? 0) !== (b.data.sortOrder ?? 0)) return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
     return b.data.startDate.getTime() - a.data.startDate.getTime();
   });

@@ -1,0 +1,29 @@
+{
+  "title": "Senior Full-stack Engineer",
+  "slug": "dealer-automation-technologies-2022-senior-full-stack-engineer",
+  "organization": "dealer-automation-technologies",
+  "location": "Miami, Florida, United States",
+  "employmentType": "full_time",
+  "startDate": "2022-08-01T00:00:00Z",
+  "endDate": "2023-01-01T00:00:00Z",
+  "current": false,
+  "summary": "Built a dealership CRM SaaS platform and deployed it across multiple locations using React and AWS services.",
+  "highlights": [
+    "Contributed to a SaaS CRM tailored for dealerships, improving operational efficiency",
+    "Deployed and maintained the CRM across four dealerships",
+    "Supported junior developers and fostered a collaborative team environment"
+  ],
+  "achievements": [],
+  "technologies": [
+    "react",
+    "javascript",
+    "graphql",
+    "aws",
+    "aws-lambda",
+    "material-ui"
+  ],
+  "projects": [],
+  "featured": false,
+  "sortOrder": 0,
+  "isActive": true
+}

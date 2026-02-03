@@ -1,7 +1,7 @@
 {
   "tags": ["wordpress", "php", "html", "css", "javascript", "elementor-pro", "figma", "core-web-vitals", "rest-api"],
   "achievements": ["Improved SEO rankings and page speed", "Improved development process for new client sites"],
-  "endDate": "2025-05-01T00:00:00Z",
+  "endDate": null,
   "slug": "avintiv-media",
   "url": "https://avintivmedia.com",
   "description": "AVINTIV Media is a digital marketing agency that specializes in creating custom websites for small businesses.",
@@ -17,6 +17,6 @@
   "role": "Senior WordPress Developer",
   "title": "AVINTIV Media, LLC",
   "projects": [],
-  "current": false,
+  "current": true,
   "logo": "/images/experience-avintiv.jpg"
 }

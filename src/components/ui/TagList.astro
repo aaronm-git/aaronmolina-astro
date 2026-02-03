@@ -1,0 +1,68 @@
+---
+import Tag from './Tag.astro';
+import type { TechMap } from '@/utils/tech-lookup';
+
+type TagVariant = 'default' | 'muted' | 'outline' | 'featured' | 'aero';
+type TagSize = 'xs' | 'sm' | 'base';
+
+interface Props {
+  /** Array of tag labels or slugs */
+  tags: string[];
+  /** Technology lookup map (if tags are slugs) */
+  techMap?: TechMap;
+  /** Maximum number of tags to show */
+  limit?: number;
+  /** Visual variant for all tags */
+  variant?: TagVariant;
+  /** Size for all tags */
+  size?: TagSize;
+  /** Additional CSS classes for the container */
+  class?: string;
+  /** Gap between tags */
+  gap?: 'tight' | 'normal' | 'loose';
+}
+
+const {
+  tags,
+  techMap,
+  limit,
+  variant = 'default',
+  size = 'sm',
+  class: className = '',
+  gap = 'normal',
+} = Astro.props;
+
+// Apply limit if specified
+const displayTags = limit ? tags.slice(0, limit) : tags;
+const hasMore = limit && tags.length > limit;
+
+// Gap classes
+const gapClasses: Record<string, string> = {
+  tight: 'gap-1',
+  normal: 'gap-2',
+  loose: 'gap-3',
+};
+
+const combinedClasses = [
+  'flex flex-wrap',
+  gapClasses[gap],
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class={combinedClasses}>
+  {displayTags.map(tag => (
+    <Tag
+      slug={techMap ? tag : undefined}
+      label={techMap ? undefined : tag}
+      techMap={techMap}
+      variant={variant}
+      size={size}
+    />
+  ))}
+  {hasMore && (
+    <span class="text-foreground-muted text-xs self-center">
+      +{tags.length - limit!} more
+    </span>
+  )}
+</div>

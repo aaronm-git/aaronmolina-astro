@@ -1,0 +1,64 @@
+---
+import type { IconType } from 'react-icons';
+import { getIcon } from '@/utils/icons';
+
+type InfoBoxVariant = 'default' | 'muted' | 'surface' | 'primary' | 'glass';
+
+interface Props {
+  /** Box title (optional) */
+  title?: string;
+  /** Visual variant */
+  variant?: InfoBoxVariant;
+  /** Icon name (uses getIcon to resolve) */
+  icon?: string;
+  /** Direct icon component */
+  iconComponent?: IconType;
+  /** Additional CSS classes */
+  class?: string;
+  /** Whether to animate on scroll */
+  animate?: boolean;
+}
+
+const {
+  title,
+  variant = 'surface',
+  icon,
+  iconComponent,
+  class: className = '',
+  animate = true,
+} = Astro.props;
+
+// Resolve icon
+const IconComponent = iconComponent || (icon ? getIcon(icon) : null);
+
+// Variant classes
+const variantClasses: Record<InfoBoxVariant, string> = {
+  default: 'bg-background border-border border',
+  muted: 'bg-muted border-border border',
+  surface: 'bg-surface border-border border shadow-md',
+  primary: 'bg-primary/10 border-primary/20 border',
+  glass: 'glass',
+};
+
+const baseClasses = 'rounded-lg p-6';
+const animateClass = animate ? 'animate-content' : '';
+
+const combinedClasses = [
+  baseClasses,
+  variantClasses[variant],
+  animateClass,
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class={combinedClasses}>
+  {title && (
+    <h3 class="text-foreground mb-4 flex items-center gap-2 text-xl font-bold">
+      {IconComponent && (
+        <IconComponent className="text-secondary icon-base" />
+      )}
+      {title}
+    </h3>
+  )}
+  <slot />
+</div>

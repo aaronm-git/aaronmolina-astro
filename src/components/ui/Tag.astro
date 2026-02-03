@@ -1,0 +1,72 @@
+---
+import type { TechMap } from '@/utils/tech-lookup';
+import { getTechName } from '@/utils/tech-lookup';
+
+type TagVariant = 'default' | 'muted' | 'outline' | 'featured' | 'tactile';
+type TagSize = 'xs' | 'sm' | 'base';
+
+interface Props {
+  /** Display label (use this OR slug + techMap) */
+  label?: string;
+  /** Technology slug (requires techMap to resolve to name) */
+  slug?: string;
+  /** Technology lookup map for resolving slugs */
+  techMap?: TechMap;
+  /** Visual variant */
+  variant?: TagVariant;
+  /** Tag size */
+  size?: TagSize;
+  /** Optional link */
+  href?: string;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  label,
+  slug,
+  techMap,
+  variant = 'default',
+  size = 'sm',
+  href,
+  class: className = '',
+} = Astro.props;
+
+// Resolve display text
+const displayText = label || (slug && techMap ? getTechName(slug, techMap) : slug) || '';
+
+// Build variant classes
+const variantClasses: Record<TagVariant, string> = {
+  default: 'bg-muted text-foreground border-border border',
+  muted: 'bg-muted/50 text-foreground-muted border-border/50 border',
+  outline: 'bg-transparent text-foreground border-border border',
+  featured: 'bg-secondary text-on-secondary',
+  tactile: 'tactile-tag',
+};
+
+// Build size classes
+const sizeClasses: Record<TagSize, string> = {
+  xs: 'px-1.5 py-0.5 text-[10px]',
+  sm: 'px-2 py-1 text-xs',
+  base: 'px-3 py-1.5 text-sm',
+};
+
+const baseClasses = 'inline-flex items-center rounded font-medium transition-colors';
+const combinedClasses = [
+  baseClasses,
+  variantClasses[variant],
+  sizeClasses[size],
+  href ? 'hover:opacity-80 cursor-pointer' : '',
+  className,
+].filter(Boolean).join(' ');
+---
+
+{href ? (
+  <a href={href} class={combinedClasses}>
+    {displayText}
+  </a>
+) : (
+  <span class={combinedClasses}>
+    {displayText}
+  </span>
+)}

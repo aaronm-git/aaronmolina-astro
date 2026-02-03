@@ -1,27 +1,29 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
 import { getCollection, render } from 'astro:content';
-import { FaGithub, FaArrowRight, FaCircleInfo, FaClock, FaTag, FaArrowLeft } from 'react-icons/fa6';
 import { Image } from 'astro:assets';
+import { createTechMap, objectToTechMap } from '@/utils/tech-lookup';
+import { FaGithub, FaArrowRight, FaArrowLeft } from '@/utils/icons';
+import Button from '@/components/ui/Button.astro';
+import TagList from '@/components/ui/TagList.astro';
+import Tag from '@/components/ui/Tag.astro';
+import InfoBox from '@/components/ui/InfoBox.astro';
 import pages from '@/content/site/pages.json';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
   const technologies = await getCollection('technologies');
-  const techMap = new Map(technologies.map(t => [t.data.slug, t.data.name]));
-  
+  const techMap = createTechMap(technologies);
+
   return projects.map(p => ({
     params: { project: p.data.slug },
-    props: { project: p, techMap: Object.fromEntries(techMap) },
+    props: { project: p, techMapObj: Object.fromEntries(techMap) },
   }));
 }
 
-const { project, techMap } = Astro.props;
+const { project, techMapObj } = Astro.props;
 const { Content } = await render(project);
-
-function getTechName(slug) {
-  return techMap[slug] || slug;
-}
+const techMap = objectToTechMap(techMapObj);
 ---
 
 <MainLayout title={project.data.title} description={project.data.summary}>
@@ -39,15 +41,11 @@ function getTechName(slug) {
       <!-- Meta Info -->
       <div class="mb-6 flex flex-wrap items-center gap-3">
         {project.data.featured && (
-          <span class="bg-secondary/10 text-secondary border-secondary/20 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-            <FaTag className="icon-xs" />
-            Featured
-          </span>
+          <Tag label="Featured" variant="featured" size="sm" />
         )}
         {
           project.data.completedOn && (
             <span class="text-foreground-muted inline-flex items-center gap-1.5 text-sm">
-              <FaClock className="icon-xs" />
               {project.data.completedOn.toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
@@ -67,45 +65,29 @@ function getTechName(slug) {
 
       <!-- Technologies -->
       {project.data.technologies.length > 0 && (
-        <div class="mb-8 flex flex-wrap gap-2">
-          {project.data.technologies.slice(0, 8).map((tagSlug) => (
-            <span class="bg-muted text-foreground border-border hover:bg-muted/80 inline-flex items-center rounded-md border px-3 py-1 text-sm font-medium transition-colors">
-              {getTechName(tagSlug)}
-            </span>
-          ))}
+        <div class="mb-8">
+          <TagList tags={project.data.technologies.slice(0, 8)} techMap={techMap} size="base" />
         </div>
       )}
 
       <!-- Action Buttons -->
       <div class="flex flex-wrap items-center gap-3">
         {project.data.liveUrl && (
-          <a
-            href={project.data.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-secondary hover:bg-secondary-hover text-on-secondary group inline-flex items-center gap-2 rounded-md px-4 py-2 font-medium transition-colors"
-          >
-            <span>Visit Live Project</span>
-            <FaArrowRight className="icon-sm transition-transform group-hover:translate-x-1" />
-          </a>
+          <Button href={project.data.liveUrl} variant="secondary" icon="arrowRight" iconPosition="right" external>
+            Visit Live Project
+          </Button>
         )}
 
         {project.data.repoUrl && (
-          <a
-            href={project.data.repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-surface hover:bg-muted border-border text-foreground group inline-flex items-center gap-2 rounded-md border px-4 py-2 font-medium transition-colors"
-          >
+          <Button href={project.data.repoUrl} variant="outline" external>
             <FaGithub className="icon-sm" />
-            <span>View Source</span>
-          </a>
+            View Source
+          </Button>
         )}
 
-        <a href="#project-details" class="text-foreground-muted hover:text-secondary group inline-flex items-center gap-2 px-3 py-2 font-medium transition-colors">
-          <FaCircleInfo className="icon-sm" />
-          <span>More Details</span>
-        </a>
+        <Button href="#project-details" variant="ghost" icon="info">
+          More Details
+        </Button>
       </div>
 
       <!-- Featured Image -->
@@ -128,7 +110,7 @@ function getTechName(slug) {
     }
 
     <!-- Project Details -->
-    <div id="project-details" class="bg-muted border-border mb-12 rounded-lg border p-6">
+    <InfoBox variant="muted" class="mb-12" id="project-details">
       <div class="mb-4 flex items-end justify-between gap-4">
         <h2 class="text-foreground text-lg font-semibold">Project Details</h2>
         <span class="text-foreground-muted text-sm">Quick facts</span>
@@ -184,15 +166,13 @@ function getTechName(slug) {
         {project.data.technologies.length > 0 && (
           <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
             <dt class="text-foreground-muted mb-3 text-xs font-semibold tracking-wide uppercase">Technologies</dt>
-            <dd class="flex flex-wrap gap-2">
-              {project.data.technologies.map((tagSlug) => (
-                <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{getTechName(tagSlug)}</span>
-              ))}
+            <dd>
+              <TagList tags={project.data.technologies} techMap={techMap} size="sm" />
             </dd>
           </div>
         )}
       </dl>
-    </div>
+    </InfoBox>
 
     <!-- Project Footer -->
     <footer class="border-border mt-16 border-t pt-8">

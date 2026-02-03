@@ -1,8 +1,12 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
-import { FaBriefcase, FaArrowRight, FaCheck, FaAward } from 'react-icons/fa6';
+import { FaBriefcase, FaArrowRight, FaCheck, FaAward } from '@/utils/icons';
 import { getCollection } from 'astro:content';
+import { createTechMap } from '@/utils/tech-lookup';
+import { formatDateRange, calculateDuration } from '@/utils/date-format';
+import TagList from '@/components/ui/TagList.astro';
+import ListItem from '@/components/ui/ListItem.astro';
 
 interface Props {
   role: {
@@ -36,37 +40,15 @@ interface Props {
 const { role, organization, showAllDetails = false } = Astro.props;
 
 const technologies = await getCollection('technologies');
-const techMap = new Map(technologies.map(t => [t.data.slug, t.data.name]));
-
-function getTechName(slug) {
-  return techMap.get(slug) || slug;
-}
-
-function calculateDuration(startDate, endDate) {
-  const end = endDate ? endDate : new Date();
-  const start = startDate;
-
-  let years = end.getFullYear() - start.getFullYear();
-  let months = end.getMonth() - start.getMonth();
-
-  if (months < 0) {
-    years--;
-    months += 12;
-  }
-
-  const parts = [];
-  if (years > 0) parts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
-  if (months > 0) parts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
-
-  return parts.length > 0 ? parts.join(', ') : '1 month';
-}
+const techMap = createTechMap(technologies);
 
 const duration = calculateDuration(role.data.startDate, role.data.endDate);
+const dateRange = formatDateRange(role.data.startDate, role.data.endDate, role.data.current);
 const orgName = organization?.data.name || role.data.organization;
 const logoAlt = `${orgName.trim()} logo`;
 ---
 
-<article class="animate-card bg-surface border-border rounded-lg border p-6 shadow-md transition-shadow hover:shadow-lg" id={role.data.slug}>
+<article class="tactile-card p-6" id={role.data.slug}>
   <div class="mb-4 flex flex-col md:flex-row md:items-start md:justify-between">
     <div class="flex flex-col items-start gap-4 md:flex-row">
       <div class="bg-muted border-border flex aspect-square w-20 items-center justify-center overflow-hidden rounded border">
@@ -99,11 +81,7 @@ const logoAlt = `${orgName.trim()} logo`;
       </div>
     </div>
     <div class="md:text-right">
-      <p class="text-foreground-muted font-medium">
-        {role.data.startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-        {role.data.endDate && !role.data.current ? ` - ${role.data.endDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}` : ''}
-        {role.data.current ? ' - Present' : ''}
-      </p>
+      <p class="text-foreground-muted font-medium">{dateRange}</p>
       <p class="text-foreground-muted mt-1 text-sm">{duration}</p>
       {role.data.current && <span class="bg-secondary text-on-secondary mt-1 inline-block rounded-full px-2 py-1 text-xs">Current</span>}
     </div>
@@ -120,10 +98,9 @@ const logoAlt = `${orgName.trim()} logo`;
       <h5 class="text-foreground mb-3 font-medium">Highlights</h5>
       <ul class="space-y-2">
         {role.data.highlights.slice(0, showAllDetails ? undefined : 3).map((highlight) => (
-          <li class="text-foreground-muted flex items-start gap-2 text-sm">
-            <FaCheck className="text-secondary size-icon-sm mt-0.5" />
+          <ListItem icon="check" iconColor="secondary">
             {highlight}
-          </li>
+          </ListItem>
         ))}
       </ul>
 
@@ -138,21 +115,20 @@ const logoAlt = `${orgName.trim()} logo`;
 
     <div>
       <h5 class="text-foreground mb-3 font-medium">Technologies</h5>
-      <div class="flex flex-wrap gap-2">
-        {role.data.technologies.slice(0, showAllDetails ? undefined : 10).map((slug) => (
-          <span class="bg-muted text-foreground border-border rounded border px-2 py-1 text-xs font-medium">{getTechName(slug)}</span>
-        ))}
-      </div>
+      <TagList
+        tags={role.data.technologies}
+        techMap={techMap}
+        limit={showAllDetails ? undefined : 10}
+      />
 
       {role.data.achievements.length > 0 && (
         <div class="mt-4">
           <h5 class="text-foreground mb-2 font-medium">Key Achievements</h5>
           <ul class="space-y-1">
             {role.data.achievements.map((achievement) => (
-              <li class="text-foreground-muted flex items-start gap-2 text-sm">
-                <FaAward className="text-secondary size-icon-sm mt-0.5" />
+              <ListItem icon="award" iconColor="secondary" compact>
                 {achievement}
-              </li>
+              </ListItem>
             ))}
           </ul>
         </div>
@@ -160,5 +136,3 @@ const logoAlt = `${orgName.trim()} logo`;
     </div>
   </div>
 </article>
-
-

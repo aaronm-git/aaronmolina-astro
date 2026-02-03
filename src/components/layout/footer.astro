@@ -1,44 +1,23 @@
 ---
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa6';
+import SocialLinks from '@/components/SocialLinks.astro';
 import footer from '@/content/site/footer.json';
 import settings from '@/content/site/settings.json';
-
-const socialIconForPlatform = (platform?: string) => {
-  switch ((platform || '').toLowerCase()) {
-    case 'github':
-      return FaGithub;
-    case 'linkedin':
-      return FaLinkedin;
-    case 'instagram':
-      return FaInstagram;
-    default:
-      return null;
-  }
-};
 ---
 
-<footer class="bg-muted border-border border-t py-6 pt-12">
+<footer class="tactile-footer py-6 pt-12">
   <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 md:flex-row">
     <div class="text-foreground-muted text-sm">
       &copy; {new Date().getFullYear()} {footer.copyrightOwnerName}
       {footer.copyrightSuffix ? ` — ${footer.copyrightSuffix}` : ''}
     </div>
     {
-      footer.showSocialLinks && settings.author.socialLinks?.length ? (
-        <div class="flex items-center space-x-4">
-          {settings.author.socialLinks.map((link) => {
-            const Icon = socialIconForPlatform(link.platform);
-            if (!Icon) return null;
-            return (
-              <a href={link.url} target="_blank" rel="noopener noreferrer" class="text-foreground-muted hover:text-secondary" aria-label={link.ariaLabel || link.label}>
-                <Icon className="icon-sm" />
-              </a>
-            );
-          })}
-        </div>
-      ) : null
+      footer.showSocialLinks && settings.author.socialLinks?.length && (
+        <SocialLinks
+          links={settings.author.socialLinks}
+          variant="icon-only"
+          size="base"
+        />
+      )
     }
   </div>
 </footer>
-
-<!-- Feather Icons removed - now using React Icons -->

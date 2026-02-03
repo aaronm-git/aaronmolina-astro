@@ -3,82 +3,127 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 /**
- * Goldie palette
- * - Navy:     #14213D
- * - White:    #FFFFFF
- * - Platinum: #E5E5E5
- * - Orange:   #FCA311
- * - Black:    #000000
- *
- * Implementation note:
- * - We expose ONLY semantic tokens to Tailwind via @theme so templates use
- *   classes like bg-background, text-foreground, bg-primary, bg-secondary, etc.
- * - Theme switching is handled by [data-theme="dark"] (already wired in layout).
+ * Tactile Maximalism Design System
+ * Bold, textured, vigorous - "more is more" aesthetic
+ * Dense information, hard shadows, pressable depth, bouncy interactions
  */
 
 :root {
-  /* Palette */
-  --palette-navy: #14213d;
-  --palette-white: #ffffff;
-  --palette-platinum: #e5e5e5;
-  --palette-orange: #fca311;
-  --palette-black: #000000;
+  /* ====== TACTILE MAXIMALISM PALETTE ====== */
 
-  /* Icon sizing and spacing */
-  --icon-size-sm: 1rem; /* 16px - for buttons/links */
-  --icon-size-base: 1.25rem; /* 20px - for list items with text */
-  --icon-size-lg: 2rem; /* 32px - for section headings */
-  --icon-size-xl: 3rem; /* 48px - for hero/large standalone icons */
-  --icon-spacing: 0.75rem; /* 12px - spacing between icon and text */
+  /* Electric Purple - Primary */
+  --tactile-purple-deep: #4a0e78;
+  --tactile-purple-mid: #7c3aed;
+  --tactile-purple-bright: #a855f7;
+  --tactile-purple-light: #c4b5fd;
 
-  /* Semantic tokens (light) */
-  --background: var(--palette-white);
-  --surface: var(--palette-white);
-  --muted: var(--palette-platinum);
-  --border: var(--palette-platinum);
+  /* Electric Coral/Orange - Secondary */
+  --tactile-coral-deep: #9a3412;
+  --tactile-coral-dark: #c2410c;
+  --tactile-coral-mid: #f97316;
+  --tactile-coral-bright: #fb923c;
+  --tactile-coral-light: #fed7aa;
 
-  --foreground: var(--palette-black);
-  --foreground-muted: color-mix(in srgb, var(--foreground) 65%, transparent);
+  /* Electric Cyan - Accent */
+  --tactile-cyan-dark: #0e7490;
+  --tactile-cyan-mid: #06b6d4;
+  --tactile-cyan-bright: #22d3ee;
+  --tactile-cyan-light: #a5f3fc;
 
-  --primary: var(--palette-navy);
-  --primary-hover: color-mix(in srgb, var(--primary) 85%, var(--palette-black));
-  --on-primary: var(--palette-white);
+  /* Electric Green - Success */
+  --tactile-green-dark: #15803d;
+  --tactile-green-mid: #22c55e;
+  --tactile-green-bright: #4ade80;
 
-  --secondary: var(--palette-orange);
-  --secondary-hover: color-mix(in srgb, var(--secondary) 85%, var(--palette-black));
-  --on-secondary: var(--palette-black);
+  /* High-Contrast Neutrals */
+  --tactile-black: #0f0f0f;
+  --tactile-charcoal: #1a1a1a;
+  --tactile-slate: #2d2d2d;
+  --tactile-gray: #525252;
+  --tactile-silver: #a3a3a3;
+  --tactile-off-white: #f5f5f5;
+  --tactile-white: #fafafa;
 
-  --ring: var(--secondary);
+  /* Depth System */
+  --btn-depth: 4px;
+  --btn-depth-pressed: 2px;
+  --card-elevation: 6px;
+  --card-elevation-hover: 8px;
+
+  /* Texture */
+  --noise-opacity: 0.035;
+
+  /* Icon sizing */
+  --icon-size-xs: 0.75rem;
+  --icon-size-sm: 1rem;
+  --icon-size-base: 1.25rem;
+  --icon-size-lg: 2rem;
+  --icon-size-xl: 3rem;
+  --icon-spacing: 0.75rem;
+
+  /* ====== SEMANTIC TOKENS (Light Mode) ====== */
+  --background: var(--tactile-off-white);
+  --background-alt: var(--tactile-white);
+  --surface: var(--tactile-white);
+  --surface-elevated: var(--tactile-white);
+  --muted: #e5e5e5;
+  --border: var(--tactile-charcoal);
+  --border-strong: var(--tactile-black);
+
+  --foreground: var(--tactile-black);
+  --foreground-muted: var(--tactile-gray);
+
+  --primary: var(--tactile-purple-mid);
+  --primary-hover: var(--tactile-purple-deep);
+  --on-primary: var(--tactile-white);
+
+  --secondary: var(--tactile-coral-mid);
+  --secondary-hover: var(--tactile-coral-dark);
+  --on-secondary: var(--tactile-white);
+
+  --accent: var(--tactile-cyan-mid);
+  --accent-hover: var(--tactile-cyan-dark);
+
+  --ring: var(--tactile-purple-bright);
+
+  --shadow-color: var(--tactile-charcoal);
+  --shadow-color-strong: var(--tactile-black);
 }
 
 [data-theme='dark'] {
-  /* Semantic tokens (dark) */
-  --background: var(--palette-black);
-  --surface: var(--palette-navy);
+  /* ====== SEMANTIC TOKENS (Dark Mode) ====== */
+  --background: var(--tactile-charcoal);
+  --background-alt: var(--tactile-black);
+  --surface: var(--tactile-slate);
+  --surface-elevated: #3d3d3d;
+  --muted: #404040;
+  --border: var(--tactile-silver);
+  --border-strong: var(--tactile-white);
 
-  /* Use translucent neutrals in dark mode so UI stays calm */
-  --muted: color-mix(in srgb, var(--palette-platinum) 10%, transparent);
-  --border: color-mix(in srgb, var(--palette-platinum) 18%, transparent);
+  --foreground: var(--tactile-white);
+  --foreground-muted: var(--tactile-silver);
 
-  --foreground: var(--palette-white);
-  --foreground-muted: color-mix(in srgb, var(--foreground) 75%, transparent);
+  --primary: var(--tactile-purple-bright);
+  --primary-hover: var(--tactile-purple-mid);
+  --on-primary: var(--tactile-black);
 
-  /* Brand colors remain consistent */
-  --primary: var(--palette-navy);
-  --primary-hover: color-mix(in srgb, var(--primary) 85%, var(--palette-black));
-  --on-primary: var(--palette-white);
+  --secondary: var(--tactile-coral-bright);
+  --secondary-hover: var(--tactile-coral-mid);
+  --on-secondary: var(--tactile-black);
 
-  --secondary: var(--palette-orange);
-  --secondary-hover: color-mix(in srgb, var(--secondary) 85%, var(--palette-black));
-  --on-secondary: var(--palette-black);
+  --accent: var(--tactile-cyan-bright);
 
-  --ring: var(--secondary);
+  --noise-opacity: 0.05;
+
+  --shadow-color: #000000;
+  --shadow-color-strong: #000000;
 }
 
 @theme {
-  /* Semantic colors (Tailwind v4 tokens) */
+  /* Semantic colors */
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
   --color-muted: var(--muted);
   --color-border: var(--border);
 
@@ -93,20 +138,31 @@
   --color-secondary-hover: var(--secondary-hover);
   --color-on-secondary: var(--on-secondary);
 
+  --color-accent: var(--accent);
   --color-ring: var(--ring);
 
+  /* Tactile color tokens */
+  --color-tactile-purple: var(--tactile-purple-mid);
+  --color-tactile-coral: var(--tactile-coral-mid);
+  --color-tactile-cyan: var(--tactile-cyan-mid);
+
   /* Icon sizing */
+  --size-icon-xs: var(--icon-size-xs);
   --size-icon-sm: var(--icon-size-sm);
   --size-icon-base: var(--icon-size-base);
   --size-icon-lg: var(--icon-size-lg);
   --size-icon-xl: var(--icon-size-xl);
 
-  /* Icon spacing */
   --spacing-icon: var(--icon-spacing);
+
+  /* Hard shadows */
+  --shadow-tactile-sm: 0 2px 0 0 var(--shadow-color);
+  --shadow-tactile-md: 0 4px 0 0 var(--shadow-color);
+  --shadow-tactile-lg: 0 6px 0 0 var(--shadow-color);
 }
 
 @theme inline {
-  /* Custom colors for Atom theme */
+  /* Atom theme for code blocks */
   --color-atom-bg: #1d1f21;
   --color-atom-text: #c5c8c6;
   --color-atom-comment: #969896;
@@ -123,7 +179,6 @@
 
 /* ==========================================================================
    BASE LAYER
-   Default styles for HTML elements (resets, normalizations, defaults)
    ========================================================================== */
 
 @layer base {
@@ -132,15 +187,26 @@
   }
 
   body {
-    @apply bg-background;
+    @apply bg-background text-foreground;
+    min-height: 100vh;
+    position: relative;
   }
 
-  /* Scroll margin for anchor links */
+  /* Global noise texture overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: var(--noise-opacity);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
   [id] {
     scroll-margin-top: 2rem;
   }
 
-  /* Interactive elements should show pointer cursor */
   a:not([disabled]),
   button:not([disabled]) {
     @apply cursor-pointer;
@@ -149,17 +215,19 @@
 
 /* ==========================================================================
    COMPONENTS LAYER
-   Class-based component styles (.typography, .card, .btn, etc.)
-   These can be overridden by utility classes when needed.
    ========================================================================== */
 
 @layer components {
-  /* Main content minimum height (accounts for header/footer) */
   main {
     @apply min-h-[calc(100vh-53px-69px-24px)];
   }
 
-  /* Icon utility classes */
+  /* ====== ICON UTILITIES ====== */
+  .icon-xs {
+    width: var(--icon-size-xs);
+    height: var(--icon-size-xs);
+  }
+
   .icon-sm {
     width: var(--icon-size-sm);
     height: var(--icon-size-sm);
@@ -188,39 +256,241 @@
     margin-right: var(--icon-spacing);
   }
 
-  /* Typography component for rich text/markdown content */
+  /* ====== TACTILE MAXIMALISM COMPONENTS ====== */
+
+  /* Tactile Card - Hard shadow, bouncy hover */
+  .tactile-card {
+    background: var(--surface);
+    border: 3px solid var(--border);
+    border-radius: 12px;
+    position: relative;
+    box-shadow:
+      0 var(--card-elevation) 0 0 var(--shadow-color),
+      0 12px 24px -8px rgba(0, 0, 0, 0.12);
+    transition:
+      transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.15s ease;
+  }
+
+  .tactile-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 var(--card-elevation-hover) 0 0 var(--shadow-color),
+      0 20px 40px -12px rgba(0, 0, 0, 0.18);
+  }
+
+  .tactile-card:active {
+    transform: translateY(-2px);
+    box-shadow:
+      0 4px 0 0 var(--shadow-color),
+      0 8px 16px -4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Pressable Button - 3D depth effect */
+  .tactile-btn {
+    position: relative;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 3px solid var(--shadow-color-strong);
+    background: var(--primary);
+    color: var(--on-primary);
+    box-shadow:
+      0 var(--btn-depth) 0 0 var(--shadow-color-strong),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+    transform: translateY(0);
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease,
+      background-color 0.15s ease;
+  }
+
+  .tactile-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow:
+      0 calc(var(--btn-depth) + 2px) 0 0 var(--shadow-color-strong),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .tactile-btn:active {
+    transform: translateY(var(--btn-depth-pressed));
+    box-shadow:
+      0 calc(var(--btn-depth) - var(--btn-depth-pressed)) 0 0 var(--shadow-color-strong),
+      inset 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  /* Secondary button variant */
+  .tactile-btn-secondary {
+    background: var(--secondary);
+    color: var(--on-secondary);
+  }
+
+  .tactile-btn-secondary:hover {
+    background: var(--secondary-hover);
+  }
+
+  /* Outline button variant */
+  .tactile-btn-outline {
+    background: transparent;
+    color: var(--foreground);
+    border-color: var(--border);
+    box-shadow:
+      0 var(--btn-depth) 0 0 var(--border);
+  }
+
+  .tactile-btn-outline:hover {
+    background: var(--muted);
+    transform: translateY(-2px);
+    box-shadow:
+      0 calc(var(--btn-depth) + 2px) 0 0 var(--border);
+  }
+
+  .tactile-btn-outline:active {
+    transform: translateY(var(--btn-depth-pressed));
+    box-shadow:
+      0 calc(var(--btn-depth) - var(--btn-depth-pressed)) 0 0 var(--border);
+  }
+
+  /* Tactile Tag - Bold badge with hard shadow */
+  .tactile-tag {
+    background: var(--muted);
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 0 0 var(--shadow-color);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .tactile-tag:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 0 0 var(--shadow-color);
+  }
+
+  .tactile-tag-featured {
+    background: var(--secondary);
+    color: var(--on-secondary);
+    border-color: var(--secondary-hover);
+  }
+
+  /* Tactile Header */
+  .tactile-header {
+    background: var(--surface);
+    border-bottom: 3px solid var(--border);
+    box-shadow: 0 4px 0 0 var(--shadow-color);
+  }
+
+  /* Tactile Footer */
+  .tactile-footer {
+    background: var(--surface);
+    border-top: 3px solid var(--border);
+  }
+
+  /* Tactile CTA - Vibrant gradient */
+  .tactile-cta {
+    background: linear-gradient(
+      135deg,
+      var(--tactile-purple-mid) 0%,
+      var(--tactile-coral-mid) 50%,
+      var(--tactile-cyan-mid) 100%
+    );
+    border: 4px solid var(--border-strong);
+    border-radius: 16px;
+    box-shadow:
+      0 8px 0 0 var(--shadow-color-strong),
+      0 16px 32px -8px rgba(0, 0, 0, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Tactile Profile Image */
+  .tactile-profile-img {
+    border: 4px solid var(--border-strong);
+    box-shadow:
+      0 6px 0 0 var(--shadow-color-strong),
+      0 12px 24px -6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  }
+
+  .tactile-profile-img:hover {
+    transform: translateY(-4px) rotate(-2deg);
+    box-shadow:
+      0 10px 0 0 var(--shadow-color-strong),
+      0 20px 40px -10px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Tactile Divider - Dashed line */
+  .tactile-divider {
+    height: 4px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--border) 0px,
+      var(--border) 8px,
+      transparent 8px,
+      transparent 16px
+    );
+  }
+
+  /* Tactile Section Header underline */
+  .tactile-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .tactile-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--secondary);
+    border-radius: 2px;
+  }
+
+  /* ====== TYPOGRAPHY ====== */
   .typography {
     @apply text-foreground;
     line-height: var(--leading-relaxed);
 
     h1 {
-      font-size: var(--text-3xl);
-      font-weight: var(--font-weight-bold);
-      @apply text-foreground border-border border-b;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      @apply text-foreground;
       margin-top: 2rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--border);
     }
 
     h2 {
-      font-size: var(--text-2xl);
-      font-weight: var(--font-weight-semibold);
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      @apply text-foreground;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 700;
       @apply text-foreground;
       margin-top: 1.5rem;
       margin-bottom: 0.75rem;
     }
 
-    h3 {
-      font-size: var(--text-xl);
-      font-weight: var(--font-weight-semibold);
-      @apply text-foreground;
-      margin-top: 1.25rem;
-      margin-bottom: 0.5rem;
-    }
-
     h4 {
       font-size: var(--text-lg);
-      font-weight: var(--font-weight-semibold);
+      font-weight: 700;
       @apply text-foreground;
       margin-top: 1rem;
       margin-bottom: 0.5rem;
@@ -228,7 +498,7 @@
 
     h5 {
       font-size: var(--text-base);
-      font-weight: var(--font-weight-semibold);
+      font-weight: 700;
       @apply text-foreground;
       margin-top: 0.75rem;
       margin-bottom: 0.5rem;
@@ -236,7 +506,9 @@
 
     h6 {
       font-size: var(--text-sm);
-      font-weight: var(--font-weight-semibold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       @apply text-foreground;
       margin-top: 0.75rem;
       margin-bottom: 0.5rem;
@@ -250,17 +522,20 @@
     }
 
     a {
-      @apply text-secondary decoration-secondary;
+      @apply text-secondary;
       text-decoration: underline;
-      transition: color 0.2s ease;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      font-weight: 600;
+      transition: color 0.15s ease;
 
       &:hover {
-        @apply text-secondary-hover decoration-secondary-hover;
+        @apply text-secondary-hover;
       }
     }
 
     strong {
-      font-weight: var(--font-weight-semibold);
+      font-weight: 700;
       @apply text-foreground;
     }
 
@@ -279,8 +554,7 @@
         line-height: var(--leading-normal);
         margin-bottom: 0.5rem;
 
-        ul,
-        ol {
+        ul, ol {
           margin-top: 0.5rem;
           margin-left: 1.5rem;
           margin-bottom: 0;
@@ -298,8 +572,7 @@
         line-height: var(--leading-normal);
         margin-bottom: 0.5rem;
 
-        ul,
-        ol {
+        ul, ol {
           margin-top: 0.5rem;
           margin-left: 1.5rem;
           margin-bottom: 0;
@@ -308,66 +581,84 @@
     }
 
     blockquote {
-      @apply border-border text-foreground-muted bg-muted border-l-4;
-      padding-left: 1rem;
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
+      @apply text-foreground-muted;
+      background: var(--muted);
+      border-left: 4px solid var(--secondary);
+      padding: 1rem 1.5rem;
       font-style: italic;
-      margin: 1rem 0;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      @apply border-border border;
-      margin: 1rem 0;
+      border: 3px solid var(--border);
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      overflow: hidden;
 
       th {
-        @apply bg-muted border-border text-foreground border;
+        @apply bg-muted text-foreground;
+        border: 2px solid var(--border);
         padding: 0.75rem 1rem;
         text-align: left;
-        font-weight: var(--font-weight-semibold);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+        letter-spacing: 0.05em;
       }
 
       td {
-        @apply border-border text-foreground-muted border;
+        @apply text-foreground-muted;
+        border: 2px solid var(--border);
         padding: 0.75rem 1rem;
       }
     }
 
     hr {
       margin: 2rem 0;
-      @apply border-border border-t;
+      border: 0;
+      height: 4px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--border) 0px,
+        var(--border) 8px,
+        transparent 8px,
+        transparent 16px
+      );
     }
 
-    /* Inline code */
     code {
       @apply bg-muted text-foreground;
-      padding: 0.125rem 0.25rem;
-      border-radius: var(--radius-sm);
-      font-size: var(--text-sm);
-      font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.875em;
+      font-weight: 600;
+      border: 2px solid var(--border);
+      font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, monospace;
     }
 
-    /* Code blocks with Atom theme */
     pre {
       background-color: var(--color-atom-bg);
       color: var(--color-atom-text);
-      border-radius: var(--radius-lg);
+      border-radius: 8px;
+      border: 3px solid var(--border);
       overflow-x: auto;
-      margin: 1rem 0;
+      margin: 1.5rem 0;
       padding: 1rem;
       font-size: var(--text-sm);
       line-height: var(--leading-normal);
+      box-shadow: 0 4px 0 0 var(--shadow-color);
 
       code {
         background-color: transparent;
         color: inherit;
         padding: 0;
         border-radius: 0;
+        border: none;
         font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', ui-monospace, SFMono-Regular, monospace;
 
-        /* Atom Theme Syntax Highlighting */
         .token.comment,
         .token.prolog,
         .token.doctype,
@@ -426,18 +717,13 @@
 
         .token.important,
         .token.bold {
-          font-weight: var(--font-weight-bold);
+          font-weight: 700;
         }
 
         .token.italic {
           font-style: italic;
         }
 
-        .token.entity {
-          cursor: help;
-        }
-
-        /* Line highlighting */
         .highlight-line {
           background-color: var(--color-atom-line-highlight);
           display: block;
@@ -445,12 +731,11 @@
           margin-left: -1rem;
           padding-right: 1rem;
           padding-left: 0.75rem;
-          border-left: 0.25rem solid var(--color-atom-blue);
+          border-left: 4px solid var(--color-atom-blue);
         }
       }
     }
 
-    /* Code block with language label */
     pre[class*='language-'] {
       position: relative;
 
@@ -461,47 +746,40 @@
         right: 0;
         background-color: var(--color-atom-selection);
         color: var(--color-atom-text);
-        padding: 0.25rem 0.5rem;
-        font-size: var(--text-xs);
+        padding: 0.25rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: var(--tracking-wide);
-        border-bottom-left-radius: var(--radius-sm);
+        letter-spacing: 0.05em;
+        border-bottom-left-radius: 6px;
       }
     }
 
-    /* Inline code in headings */
-    h1 code,
-    h2 code,
-    h3 code,
-    h4 code,
-    h5 code,
-    h6 code {
+    h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
       @apply bg-muted text-foreground;
     }
 
-    /* Images */
     img {
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-md);
-      margin: 1rem 0;
+      border-radius: 8px;
+      border: 3px solid var(--border);
+      box-shadow: 0 4px 0 0 var(--shadow-color);
+      margin: 1.5rem 0;
       max-width: 100%;
       height: auto;
     }
 
-    /* Figure and figcaption */
     figure {
-      margin: 1.5rem 0;
+      margin: 2rem 0;
 
       figcaption {
         font-size: var(--text-sm);
         @apply text-foreground-muted;
         text-align: center;
-        margin-top: 0.5rem;
-        font-style: italic;
+        margin-top: 0.75rem;
+        font-weight: 600;
       }
     }
 
-    /* Responsive adjustments */
     @media (max-width: 640px) {
       h1 {
         font-size: var(--text-2xl);
@@ -521,36 +799,36 @@
     }
   }
 
-  /* Initial animation states to prevent jumping on load (JS-only) */
+  /* ====== ANIMATION INITIAL STATES ====== */
   .js .hero-image {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.8) rotate(-5deg);
   }
 
   .js .hero-title {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(60px) skewY(2deg);
   }
 
   .js .hero-subtitle,
   .js .hero-description,
   .js .hero-cta {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
 
   .js .animate-card {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(60px);
   }
 
   .js .animate-section h2 {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
 
   .js .animate-content {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
 }

@@ -45,6 +45,36 @@ const { title = settings.siteTitle, description = settings.siteDescription } = A
     <meta property="twitter:description" content={description} />
     <!-- <meta property="twitter:image" content={siteConfig.image} /> -->
 
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": settings.author.name,
+      "url": settings.siteUrl,
+      "email": settings.author.email,
+      "jobTitle": settings.author.jobTitle,
+      "description": settings.author.bio,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Miami",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "sameAs": settings.author.socialLinks?.map((link: { url: string }) => link.url) || [],
+      "knowsAbout": [
+        "Jamstack Development",
+        "React",
+        "Next.js",
+        "Astro",
+        "TypeScript",
+        "Sanity CMS",
+        "Headless CMS",
+        "Frontend Development",
+        "Web Performance",
+        "Tailwind CSS"
+      ]
+    })} />
+
     <!-- Theme -->
     <script is:inline>
       (function () {

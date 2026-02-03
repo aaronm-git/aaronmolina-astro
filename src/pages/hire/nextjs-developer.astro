@@ -1,0 +1,79 @@
+---
+/**
+ * Hire Next.js Developer Page
+ * Target: "hire next.js developer" (vol 150, KD 0)
+ * Secondary: "nextjs developer for hire", "freelance nextjs developer"
+ */
+import { HireTemplate } from '@/templates';
+import { getCollection } from 'astro:content';
+import { createTechMap } from '@/utils/tech-lookup';
+import hireContent from '@/content/site/hire.json';
+
+// Fetch data
+const technologies = await getCollection('technologies');
+const techMap = createTechMap(technologies);
+const projects = await getCollection('projects');
+
+// Get Next.js-related projects
+const nextjsProjects = projects
+  .filter(p => p.data.isActive !== false)
+  .filter(p => p.data.technologies?.some(t => ['nextjs', 'react', 'vercel'].includes(t)))
+  .sort((a, b) => {
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
+  })
+  .slice(0, 3);
+
+// Calculate years of experience
+const yearsOfExperience = new Date().getFullYear() - hireContent.yearsOfExperienceStartYear;
+
+// Process content with dynamic values
+const heroDescription = hireContent.nextjs.hero.description.replace('{yearsOfExperience}', String(yearsOfExperience));
+
+const stats = hireContent.shared.stats.map(stat => ({
+  ...stat,
+  value: String(stat.value).replace('{yearsOfExperience}', String(yearsOfExperience)),
+}));
+---
+
+<HireTemplate
+  title={hireContent.nextjs.meta.title}
+  description={hireContent.nextjs.meta.description}
+  hero={{
+    headline: hireContent.nextjs.hero.headline,
+    subheadline: hireContent.nextjs.hero.subheadline,
+    description: heroDescription,
+    badges: hireContent.nextjs.hero.badges,
+    primaryCta: hireContent.nextjs.hero.primaryCta,
+    secondaryCta: hireContent.nextjs.hero.secondaryCta,
+  }}
+  stats={stats}
+  services={{
+    title: hireContent.nextjs.services.title,
+    subtitle: hireContent.nextjs.services.subtitle,
+    items: hireContent.nextjs.services.items,
+  }}
+  features={{
+    title: hireContent.nextjs.features.title,
+    items: hireContent.nextjs.features.items,
+  }}
+  skills={{
+    title: hireContent.nextjs.skills.title,
+    subtitle: hireContent.nextjs.skills.subtitle,
+    categories: hireContent.nextjs.skills.categories,
+    techMap: techMap,
+  }}
+  projects={{
+    title: "Next.js Projects",
+    items: nextjsProjects,
+    viewAllHref: "/projects",
+    viewAllLabel: "View all projects",
+  }}
+  faq={{
+    title: "Frequently Asked Questions",
+    subtitle: "Common questions about Next.js development",
+    items: hireContent.shared.faq,
+  }}
+  cta={hireContent.shared.cta}
+/>

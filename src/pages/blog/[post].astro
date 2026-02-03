@@ -1,13 +1,11 @@
 ---
-import MainLayout from '@/layouts/main-layout.astro';
-import HeroSection from '@/components/organisms/sections/HeroSection.astro';
-import CTASection from '@/components/organisms/sections/CTASection.astro';
-import Button from '@/components/atoms/Button.astro';
-import TagList from '@/components/molecules/TagList.astro';
-import Text from '@/components/atoms/Text.astro';
+/**
+ * Blog Post Page
+ * Uses BlogPostTemplate for consistent structure
+ */
+import { BlogPostTemplate } from '@/templates';
 import { getCollection, render } from 'astro:content';
 import { createTechMap, objectToTechMap } from '@/utils/tech-lookup';
-import { formatDate, toISODateString } from '@/utils/date-format';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -23,66 +21,8 @@ export async function getStaticPaths() {
 const { post, techMapObj } = Astro.props;
 const { Content } = await render(post);
 const techMap = objectToTechMap(techMapObj);
-
-// Format dates for display
-const publishDateFormatted = post.data.publishDate ? formatDate(post.data.publishDate, 'long') : '';
-const publishDateISO = post.data.publishDate ? toISODateString(post.data.publishDate) : '';
-const updatedDateFormatted = post.data.updatedDate ? formatDate(post.data.updatedDate, 'long') : '';
-const showUpdated = post.data.updatedDate && post.data.publishDate &&
-  post.data.updatedDate.getTime() !== post.data.publishDate.getTime();
 ---
 
-<MainLayout title={post.data.title} description={post.data.description}>
-  <article class="mx-auto max-w-screen-md">
-    <!-- Back Navigation -->
-    <nav class="mb-4 px-4">
-      <Button href="/blog" variant="ghost" icon="arrowLeft" size="sm">
-        Back to Blog
-      </Button>
-    </nav>
-
-    <!-- Post Header -->
-    <HeroSection
-      variant="minimal"
-      headline={post.data.title}
-      description={post.data.description}
-      class="py-4"
-    >
-      <div class="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm text-foreground-muted">
-        {post.data.publishDate && (
-          <time datetime={publishDateISO}>{publishDateFormatted}</time>
-        )}
-        {showUpdated && (
-          <>
-            <span>•</span>
-            <span>Updated {updatedDateFormatted}</span>
-          </>
-        )}
-      </div>
-    </HeroSection>
-
-    <!-- Post Content -->
-    <div class="typography px-4 py-8">
-      <Content />
-    </div>
-
-    <!-- Tags Section -->
-    {post.data.tags && post.data.tags.length > 0 && (
-      <section class="border-border border-t px-4 py-8">
-        <Text as="p" size="sm" color="muted" weight="semibold" class="mb-4 uppercase tracking-wide">
-          Topics
-        </Text>
-        <TagList tags={post.data.tags} techMap={techMap} />
-      </section>
-    )}
-
-    <!-- CTA Section -->
-    <CTASection
-      title="Want to work together?"
-      description="I'm available for Jamstack development, headless CMS integration, and frontend architecture consulting."
-      buttonLabel="Get in Touch"
-      buttonHref="/contact"
-      class="mt-8"
-    />
-  </article>
-</MainLayout>
+<BlogPostTemplate post={post} techMap={techMap}>
+  <Content />
+</BlogPostTemplate>

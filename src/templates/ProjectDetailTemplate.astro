@@ -1,0 +1,199 @@
+---
+/**
+ * ProjectDetailTemplate - Template for individual project pages
+ *
+ * Provides consistent project structure with:
+ * - Back to projects navigation
+ * - Title, description, and badges hero
+ * - Technology tags
+ * - Action buttons (live site, repo)
+ * - Featured image
+ * - Content area
+ * - Project details info box
+ * - CTA for engagement
+ *
+ * @example
+ * <ProjectDetailTemplate project={project} techMap={techMap}>
+ *   <Content />
+ * </ProjectDetailTemplate>
+ */
+import type { CollectionEntry } from 'astro:content';
+import MainLayout from '@/layouts/main-layout.astro';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
+import Button from '@/components/atoms/Button.astro';
+import Badge from '@/components/atoms/Badge.astro';
+import TagList from '@/components/molecules/TagList.astro';
+import InfoBox from '@/components/molecules/InfoBox.astro';
+import { Image } from 'astro:assets';
+import { FaGithub } from '@/lib/icons';
+import type { TechMap } from '@/utils/tech-lookup';
+
+interface Props {
+  /** Project entry from collection */
+  project: CollectionEntry<'projects'>;
+  /** Technology map for resolving tag names */
+  techMap?: TechMap;
+  /** CTA title override */
+  ctaTitle?: string;
+  /** CTA description override */
+  ctaDescription?: string;
+}
+
+const {
+  project,
+  techMap,
+  ctaTitle = 'Interested in working together?',
+  ctaDescription = 'I build high-performance websites with modern Jamstack architecture. Let\'s discuss your next project.',
+} = Astro.props;
+
+const { title, summary, featured, completedOn, liveUrl, repoUrl, technologies, featuredImage } = project.data;
+
+// Format completion date
+const completionDate = completedOn?.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+});
+---
+
+<MainLayout title={title} description={summary}>
+  <article class="mx-auto max-w-screen-lg">
+    {/* Back Navigation */}
+    <nav class="mb-4 px-4">
+      <Button href="/projects" variant="ghost" icon="arrowLeft" size="sm">
+        Back to Projects
+      </Button>
+    </nav>
+
+    {/* Project Header */}
+    <HeroSection
+      variant="minimal"
+      headline={title}
+      description={summary}
+      class="py-4"
+    >
+      {/* Meta badges */}
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
+        {featured && (
+          <Badge label="Featured" variant="primary" size="sm" />
+        )}
+        {completionDate && (
+          <Badge label={completionDate} variant="outline" size="sm" />
+        )}
+      </div>
+
+      {/* Technologies */}
+      {technologies && technologies.length > 0 && techMap && (
+        <div class="mt-6 flex justify-center">
+          <TagList tags={technologies.slice(0, 8)} techMap={techMap} size="base" />
+        </div>
+      )}
+
+      {/* Action Buttons */}
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        {liveUrl && (
+          <Button href={liveUrl} variant="secondary" icon="arrowRight" iconPosition="right" external>
+            Visit Live Project
+          </Button>
+        )}
+
+        {repoUrl && (
+          <Button href={repoUrl} variant="outline" external>
+            <FaGithub className="icon-sm" />
+            View Source
+          </Button>
+        )}
+      </div>
+    </HeroSection>
+
+    {/* Featured Image */}
+    {featuredImage && (
+      <div class="border-border mx-4 mt-8 overflow-hidden rounded-xl border shadow-2xl">
+        <Image
+          src={featuredImage}
+          alt={title}
+          class="h-full w-full object-cover"
+          loading="eager"
+          width={1200}
+          height={630}
+        />
+      </div>
+    )}
+
+    {/* Project Content */}
+    {project.body && (
+      <div class="typography mx-auto max-w-screen-md px-4 py-12">
+        <slot />
+      </div>
+    )}
+
+    {/* Project Details */}
+    <section id="project-details" class="px-4 py-8">
+      <InfoBox variant="muted">
+        <div class="mb-4 flex items-end justify-between gap-4">
+          <h2 class="text-foreground text-lg font-semibold">Project Details</h2>
+          <span class="text-foreground-muted text-sm">Quick facts</span>
+        </div>
+
+        <dl class="grid gap-4 md:grid-cols-2">
+          {completionDate && (
+            <div class="bg-surface border-border rounded-lg border p-4">
+              <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Completion Date</dt>
+              <dd class="text-foreground text-base font-medium">{completionDate}</dd>
+            </div>
+          )}
+
+          {liveUrl && (
+            <div class="bg-surface border-border rounded-lg border p-4">
+              <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Project URL</dt>
+              <dd class="text-base">
+                <a
+                  href={liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
+                >
+                  {liveUrl}
+                </a>
+              </dd>
+            </div>
+          )}
+
+          {repoUrl && (
+            <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
+              <dt class="text-foreground-muted mb-1 text-xs font-semibold tracking-wide uppercase">Repository</dt>
+              <dd class="text-base">
+                <a
+                  href={repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-secondary hover:text-secondary-hover decoration-secondary/30 hover:decoration-secondary font-medium break-all underline underline-offset-2 transition-colors"
+                >
+                  {repoUrl}
+                </a>
+              </dd>
+            </div>
+          )}
+
+          {technologies && technologies.length > 0 && techMap && (
+            <div class="bg-surface border-border rounded-lg border p-4 md:col-span-2">
+              <dt class="text-foreground-muted mb-3 text-xs font-semibold tracking-wide uppercase">Technologies</dt>
+              <dd>
+                <TagList tags={technologies} techMap={techMap} size="sm" />
+              </dd>
+            </div>
+          )}
+        </dl>
+      </InfoBox>
+    </section>
+
+    {/* CTA Section */}
+    <CTASection
+      title={ctaTitle}
+      description={ctaDescription}
+      buttonLabel="Get in Touch"
+      buttonHref="/contact"
+      class="mt-8"
+    />
+  </article>
+</MainLayout>

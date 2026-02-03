@@ -1,0 +1,280 @@
+---
+/**
+ * HireTemplate - Template for hire/services pages
+ *
+ * Provides a comprehensive layout for hire pages with:
+ * - Hero section with CTA
+ * - Stats section (optional)
+ * - Services/features section (optional)
+ * - Skills section (optional)
+ * - Projects section (optional)
+ * - Testimonials section (optional)
+ * - FAQ section (optional)
+ * - Final CTA section
+ *
+ * All sections are optional and can be enabled via props.
+ *
+ * @example
+ * <HireTemplate
+ *   title="Hire a React Developer"
+ *   description="Expert React developer for hire"
+ *   hero={{ headline: "Hire a React Developer", ... }}
+ *   stats={statsItems}
+ *   services={serviceItems}
+ *   cta={{ title: "Ready to start?", ... }}
+ * />
+ */
+import type { CollectionEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
+import MainLayout from '@/layouts/main-layout.astro';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import StatsSection from '@/components/organisms/sections/StatsSection.astro';
+import ServicesSection from '@/components/organisms/sections/ServicesSection.astro';
+import FeaturesSection from '@/components/organisms/sections/FeaturesSection.astro';
+import SkillsSection from '@/components/organisms/sections/SkillsSection.astro';
+import ProjectsSection from '@/components/organisms/sections/ProjectsSection.astro';
+import TestimonialsSection from '@/components/organisms/sections/TestimonialsSection.astro';
+import FAQSection from '@/components/organisms/sections/FAQSection.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
+import type { TechMap } from '@/utils/tech-lookup';
+
+interface HeroProps {
+  headline: string;
+  subheadline?: string;
+  description?: string;
+  primaryCta?: {
+    label: string;
+    href: string;
+    icon?: string;
+  };
+  secondaryCta?: {
+    label: string;
+    href: string;
+    icon?: string;
+  };
+  image?: ImageMetadata;
+  imageAlt?: string;
+  badges?: string[];
+}
+
+interface StatItem {
+  value: string;
+  suffix?: string;
+  label: string;
+  icon?: string;
+}
+
+interface ServiceItem {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface FeatureItem {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface SkillCategory {
+  name: string;
+  icon?: string;
+  skills: string[];
+}
+
+interface TestimonialItem {
+  quote: string;
+  author: string;
+  role: string;
+  company?: string;
+  avatar?: ImageMetadata | string;
+}
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface CTAProps {
+  title: string;
+  description?: string;
+  buttonLabel: string;
+  buttonHref: string;
+}
+
+interface Props {
+  /** Page title for meta tags */
+  title: string;
+  /** Page description for meta tags */
+  description?: string;
+  /** Hero section configuration */
+  hero: HeroProps;
+  /** Stats items (omit to hide section) */
+  stats?: StatItem[];
+  /** Services/offerings (omit to hide section) */
+  services?: {
+    title: string;
+    subtitle?: string;
+    items: ServiceItem[];
+  };
+  /** Features/benefits (omit to hide section) */
+  features?: {
+    title: string;
+    subtitle?: string;
+    items: FeatureItem[];
+  };
+  /** Skills/tech stack (omit to hide section) */
+  skills?: {
+    title: string;
+    subtitle?: string;
+    categories: SkillCategory[];
+    techMap?: TechMap;
+  };
+  /** Featured projects (omit to hide section) */
+  projects?: {
+    title: string;
+    items: CollectionEntry<'projects'>[];
+    viewAllHref?: string;
+    viewAllLabel?: string;
+  };
+  /** Testimonials (omit to hide section) */
+  testimonials?: {
+    title: string;
+    subtitle?: string;
+    items: TestimonialItem[];
+  };
+  /** FAQ section (omit to hide section) */
+  faq?: {
+    title: string;
+    subtitle?: string;
+    items: FAQItem[];
+  };
+  /** Final CTA section */
+  cta: CTAProps;
+}
+
+const {
+  title,
+  description,
+  hero,
+  stats,
+  services,
+  features,
+  skills,
+  projects,
+  testimonials,
+  faq,
+  cta,
+} = Astro.props;
+---
+
+<MainLayout title={title} description={description}>
+  {/* Hero Section */}
+  <HeroSection
+    variant="split"
+    headline={hero.headline}
+    subheadline={hero.subheadline}
+    description={hero.description}
+    primaryCta={hero.primaryCta}
+    secondaryCta={hero.secondaryCta}
+    image={hero.image}
+    imageAlt={hero.imageAlt}
+    badges={hero.badges}
+    class="mb-16"
+  />
+
+  {/* Stats Section */}
+  {stats && stats.length > 0 && (
+    <StatsSection
+      stats={stats}
+      variant="cards"
+      columns={4}
+      highlight
+      class="animate-section mb-16"
+    />
+  )}
+
+  {/* Services Section */}
+  {services && services.items.length > 0 && (
+    <ServicesSection
+      title={services.title}
+      subtitle={services.subtitle}
+      services={services.items}
+      variant="grid"
+      columns={2}
+      class="animate-section mb-16 bg-muted/30 rounded-2xl"
+    />
+  )}
+
+  {/* Features Section */}
+  {features && features.items.length > 0 && (
+    <FeaturesSection
+      title={features.title}
+      subtitle={features.subtitle}
+      features={features.items}
+      variant="cards"
+      columns={2}
+      class="animate-section mb-16"
+    />
+  )}
+
+  {/* Skills Section */}
+  {skills && skills.categories.length > 0 && (
+    <SkillsSection
+      title={skills.title}
+      subtitle={skills.subtitle}
+      categories={skills.categories}
+      techMap={skills.techMap}
+      variant="grouped"
+      columns={2}
+      class="animate-section mb-16"
+    />
+  )}
+
+  {/* Projects Section */}
+  {projects && projects.items.length > 0 && (
+    <ProjectsSection
+      title={projects.title}
+      projects={projects.items}
+      variant="grid"
+      columns={3}
+      showCompletedDate
+      cta={projects.viewAllHref ? {
+        label: projects.viewAllLabel || 'View all projects',
+        href: projects.viewAllHref,
+      } : undefined}
+      class="animate-section mb-16"
+    />
+  )}
+
+  {/* Testimonials Section */}
+  {testimonials && testimonials.items.length > 0 && (
+    <TestimonialsSection
+      title={testimonials.title}
+      subtitle={testimonials.subtitle}
+      testimonials={testimonials.items}
+      variant="grid"
+      class="animate-section mb-16 bg-muted/30 rounded-2xl"
+    />
+  )}
+
+  {/* FAQ Section */}
+  {faq && faq.items.length > 0 && (
+    <FAQSection
+      title={faq.title}
+      subtitle={faq.subtitle}
+      faqs={faq.items}
+      variant="accordion"
+      class="animate-section mb-16"
+    />
+  )}
+
+  {/* CTA Section */}
+  <CTASection
+    title={cta.title}
+    description={cta.description}
+    buttonLabel={cta.buttonLabel}
+    buttonHref={cta.buttonHref}
+    class="animate-section"
+  />
+</MainLayout>

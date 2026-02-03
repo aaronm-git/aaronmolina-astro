@@ -1,105 +1,109 @@
 ---
 /**
  * BlogPostTemplate - Template for individual blog posts
+ *
+ * Provides consistent blog post structure with:
+ * - Back to blog navigation
+ * - Title and description hero
+ * - Publish/update dates
+ * - Content area with typography styles
+ * - Tags section
+ * - CTA for engagement
+ *
+ * @example
+ * <BlogPostTemplate post={post} techMap={techMap}>
+ *   <Content />
+ * </BlogPostTemplate>
  */
 import type { CollectionEntry } from 'astro:content';
-import Header from '@/components/organisms/navigation/Header.astro';
-import Footer from '@/components/organisms/navigation/Footer.astro';
-import AeroBubbles from '@/components/organisms/decorative/AeroBubbles.astro';
-import Breadcrumb from '@/components/molecules/Breadcrumb.astro';
-import TagList from '@/components/molecules/TagList.astro';
-import Heading from '@/components/atoms/Heading.astro';
+import MainLayout from '@/layouts/main-layout.astro';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
+import Button from '@/components/atoms/Button.astro';
 import Text from '@/components/atoms/Text.astro';
-import Divider from '@/components/atoms/Divider.astro';
+import TagList from '@/components/molecules/TagList.astro';
 import { formatDate, toISODateString } from '@/utils/date-format';
-import { FaCalendar, FaClock } from '@/lib/icons';
 import type { TechMap } from '@/utils/tech-lookup';
 
 interface Props {
-  /** Blog post entry */
+  /** Blog post entry from collection */
   post: CollectionEntry<'blog'>;
-  /** Technology map for tags */
+  /** Technology map for resolving tag names */
   techMap?: TechMap;
-  /** Estimated reading time in minutes */
-  readingTime?: number;
+  /** CTA title override */
+  ctaTitle?: string;
+  /** CTA description override */
+  ctaDescription?: string;
 }
 
-const { post, techMap, readingTime } = Astro.props;
-const { title, description, publishDate, tags } = post.data;
+const {
+  post,
+  techMap,
+  ctaTitle = 'Want to work together?',
+  ctaDescription = "I'm available for Jamstack development, headless CMS integration, and frontend architecture consulting.",
+} = Astro.props;
+
+const { title, description, publishDate, updatedDate, tags } = post.data;
+
+// Format dates
+const publishDateFormatted = publishDate ? formatDate(publishDate, 'long') : '';
+const publishDateISO = publishDate ? toISODateString(publishDate) : '';
+const updatedDateFormatted = updatedDate ? formatDate(updatedDate, 'long') : '';
+const showUpdated = updatedDate && publishDate && updatedDate.getTime() !== publishDate.getTime();
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    {description && <meta name="description" content={description} />}
-    <slot name="head" />
-  </head>
-  <body class="bg-background text-foreground min-h-screen">
-    <AeroBubbles count={3} />
+<MainLayout title={title} description={description}>
+  <article class="mx-auto max-w-screen-md">
+    {/* Back Navigation */}
+    <nav class="mb-4 px-4">
+      <Button href="/blog" variant="ghost" icon="arrowLeft" size="sm">
+        Back to Blog
+      </Button>
+    </nav>
 
-    <Header />
+    {/* Post Header */}
+    <HeroSection
+      variant="minimal"
+      headline={title}
+      description={description}
+      class="py-4"
+    >
+      {/* Date metadata */}
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm text-foreground-muted">
+        {publishDate && (
+          <time datetime={publishDateISO}>{publishDateFormatted}</time>
+        )}
+        {showUpdated && (
+          <>
+            <span>•</span>
+            <span>Updated {updatedDateFormatted}</span>
+          </>
+        )}
+      </div>
+    </HeroSection>
 
-    <main class="mx-auto max-w-4xl px-4 pt-20 pb-12 sm:px-6 lg:px-8">
-      <article>
-        <!-- Breadcrumb -->
-        <Breadcrumb
-          items={[
-            { label: 'Blog', href: '/blog' },
-            { label: title },
-          ]}
-          class="mb-8"
-        />
+    {/* Post Content */}
+    <div class="typography px-4 py-8">
+      <slot />
+    </div>
 
-        <!-- Header -->
-        <header class="mb-8">
-          <Heading level={1} size="hero" class="mb-4">
-            {title}
-          </Heading>
+    {/* Tags Section */}
+    {tags && tags.length > 0 && techMap && (
+      <section class="border-border border-t px-4 py-8">
+        <Text as="p" size="sm" color="muted" weight="semibold" class="mb-4 uppercase tracking-wide">
+          Topics
+        </Text>
+        <TagList tags={tags} techMap={techMap} />
+      </section>
+    )}
 
-          {description && (
-            <Text size="lg" color="muted" class="mb-6">
-              {description}
-            </Text>
-          )}
-
-          <div class="flex flex-wrap items-center gap-4 text-sm">
-            {publishDate && (
-              <div class="flex items-center gap-2 text-foreground-muted">
-                <FaCalendar className="w-4 h-4" />
-                <time datetime={toISODateString(publishDate)}>
-                  {formatDate(publishDate, 'long')}
-                </time>
-              </div>
-            )}
-            {readingTime && (
-              <div class="flex items-center gap-2 text-foreground-muted">
-                <FaClock className="w-4 h-4" />
-                <span>{readingTime} min read</span>
-              </div>
-            )}
-          </div>
-
-          {tags && tags.length > 0 && techMap && (
-            <div class="mt-4">
-              <TagList tags={tags} techMap={techMap} />
-            </div>
-          )}
-        </header>
-
-        <Divider class="mb-8" />
-
-        <!-- Content -->
-        <div class="prose prose-lg dark:prose-invert max-w-none">
-          <slot />
-        </div>
-      </article>
-    </main>
-
-    <Footer />
-
-    <slot name="scripts" />
-  </body>
-</html>
+    {/* CTA Section */}
+    <CTASection
+      title={ctaTitle}
+      description={ctaDescription}
+      buttonLabel="Get in Touch"
+      buttonHref="/contact"
+      class="mt-8"
+    />
+  </article>
+</MainLayout>

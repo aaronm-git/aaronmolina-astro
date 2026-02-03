@@ -1,59 +1,118 @@
 ---
 /**
- * BaseTemplate - Base layout template for all pages
- * Provides consistent structure with header, main content, and footer
+ * BaseTemplate - Core layout wrapper for content pages
+ *
+ * Provides consistent structure with:
+ * - Back navigation
+ * - HeroSection for title/description
+ * - Content slot
+ * - Optional CTA section
+ *
+ * @example
+ * <BaseTemplate
+ *   title="Page Title"
+ *   description="Page description"
+ *   headline="Main Headline"
+ *   backLink={{ href: '/blog', label: 'Back to Blog' }}
+ * >
+ *   <Content />
+ * </BaseTemplate>
  */
-import Header from '@/components/organisms/navigation/Header.astro';
-import Footer from '@/components/organisms/navigation/Footer.astro';
-import AeroBubbles from '@/components/organisms/decorative/AeroBubbles.astro';
+import MainLayout from '@/layouts/main-layout.astro';
+import HeroSection from '@/components/organisms/sections/HeroSection.astro';
+import CTASection from '@/components/organisms/sections/CTASection.astro';
+import Button from '@/components/atoms/Button.astro';
+
+interface BackLink {
+  href: string;
+  label: string;
+}
+
+interface CTAProps {
+  title: string;
+  description?: string;
+  buttonLabel: string;
+  buttonHref: string;
+}
 
 interface Props {
-  /** Page title */
+  /** Page title for meta tags */
   title: string;
   /** Page description for meta tags */
   description?: string;
-  /** Show decorative bubbles */
-  showBubbles?: boolean;
-  /** Number of bubbles */
-  bubbleCount?: number;
-  /** Additional class for main content */
+  /** Main headline displayed in hero */
+  headline: string;
+  /** Subheadline displayed below headline */
+  subheadline?: string;
+  /** Hero description text */
+  heroDescription?: string;
+  /** Back navigation link */
+  backLink?: BackLink;
+  /** CTA section props (omit to hide) */
+  cta?: CTAProps;
+  /** Maximum content width */
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  /** Additional class for the article wrapper */
   class?: string;
-  /** Use narrow content width */
-  narrow?: boolean;
 }
 
 const {
   title,
   description,
-  showBubbles = true,
-  bubbleCount = 5,
+  headline,
+  subheadline,
+  heroDescription,
+  backLink,
+  cta,
+  maxWidth = 'lg',
   class: className = '',
-  narrow = false,
 } = Astro.props;
 
-const contentWidthClass = narrow ? 'max-w-4xl' : 'max-w-7xl';
+const maxWidthClasses: Record<string, string> = {
+  sm: 'max-w-screen-sm',
+  md: 'max-w-screen-md',
+  lg: 'max-w-screen-lg',
+  xl: 'max-w-screen-xl',
+  full: 'max-w-full',
+};
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    {description && <meta name="description" content={description} />}
-    <slot name="head" />
-  </head>
-  <body class="bg-background text-foreground min-h-screen">
-    {showBubbles && <AeroBubbles count={bubbleCount} />}
+<MainLayout title={title} description={description}>
+  <article class={`mx-auto ${maxWidthClasses[maxWidth]} ${className}`}>
+    {/* Back Navigation */}
+    {backLink && (
+      <nav class="mb-4 px-4">
+        <Button href={backLink.href} variant="ghost" icon="arrowLeft" size="sm">
+          {backLink.label}
+        </Button>
+      </nav>
+    )}
 
-    <Header />
+    {/* Hero Section */}
+    <HeroSection
+      variant="minimal"
+      headline={headline}
+      subheadline={subheadline}
+      description={heroDescription}
+      class="py-4"
+    >
+      <slot name="hero-extra" />
+    </HeroSection>
 
-    <main class={`mx-auto px-4 pt-20 pb-12 sm:px-6 lg:px-8 ${contentWidthClass} ${className}`}>
+    {/* Main Content */}
+    <div class="px-4">
       <slot />
-    </main>
+    </div>
 
-    <Footer />
-
-    <slot name="scripts" />
-  </body>
-</html>
+    {/* CTA Section */}
+    {cta && (
+      <CTASection
+        title={cta.title}
+        description={cta.description}
+        buttonLabel={cta.buttonLabel}
+        buttonHref={cta.buttonHref}
+        class="mt-12"
+      />
+    )}
+  </article>
+</MainLayout>

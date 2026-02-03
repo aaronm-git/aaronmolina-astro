@@ -1,0 +1,192 @@
+---
+import { Image } from 'astro:assets';
+import { getNavIcon, getSocialIcon, FaSun, FaMoon, FaDesktop, FaBars } from '@/lib/icons';
+import Avatar from '@/components/atoms/Avatar.astro';
+import ProfilePicture from '@/images/profile.jpg';
+import navigation from '@/content/site/navigation.json';
+import settings from '@/content/site/settings.json';
+---
+
+<header class="tactile-header fixed top-0 right-0 left-0 z-50">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between py-2">
+      <!-- Logo/Brand -->
+      <div class="flex-shrink-0">
+        <a href="/" class="text-foreground hover:text-primary flex items-center gap-3 text-xl font-bold transition-colors">
+          <Avatar
+            src={ProfilePicture}
+            alt={navigation.brandAlt}
+            size="sm"
+            border
+            borderColor="primary"
+          />
+          {navigation.brandText}
+        </a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Navigation -->
+        <nav class="hidden md:flex">
+          {navigation.navItems.map((item) => {
+            const Icon = getNavIcon(item.icon || '');
+            return (
+              <a href={item.href} class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold uppercase tracking-wide transition-colors">
+                {Icon ? <Icon className="w-4 h-4" /> : null} {item.label}
+              </a>
+            );
+          })}
+        </nav>
+
+        <!-- Social Links (minimal, right side) -->
+        <div class="hidden items-center md:flex">
+          {settings.author.socialLinks?.map((link) => {
+            const Icon = getSocialIcon(link.platform);
+            if (!Icon) return null;
+            return (
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2"
+                aria-label={link.ariaLabel || link.label}
+              >
+                <Icon className="w-4 h-4" />
+              </a>
+            );
+          })}
+
+          <!-- Theme toggle -->
+          <button
+            data-theme-toggle
+            class="text-foreground-muted hover:text-foreground hover:bg-muted ml-1 rounded-md p-2"
+            aria-label="Toggle theme (light/dark/system)"
+            title="Toggle Theme"
+          >
+            <FaSun data-theme-icon="dark" className="sun-icon w-4 h-4 hidden" />
+            <FaMoon data-theme-icon="light" className="moon-icon w-4 h-4 hidden" />
+            <FaDesktop data-theme-icon="system" className="system-icon w-4 h-4" />
+          </button>
+        </div>
+
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button type="button" data-mobile-menu-toggle class="text-foreground-muted hover:text-foreground focus:ring-primary p-2 focus:ring-2 focus:outline-none focus:ring-inset">
+            <span class="sr-only">Open main menu</span>
+            <FaBars className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="hidden md:hidden" id="mobile-menu">
+      <div class="border-border space-y-1 border-t px-2 pt-2 pb-3">
+        {navigation.navItems.map((item) => (
+          <a href={item.href} class="text-foreground-muted hover:text-foreground hover:bg-muted block rounded-md px-3 py-2 text-base font-medium transition-colors">
+            {item.label}
+          </a>
+        ))}
+        <!-- Theme toggle for mobile -->
+        <div class="border-border mt-2 border-t pt-2">
+          <button
+            data-theme-toggle
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium transition-colors"
+            title="Toggle Theme"
+          >
+            <FaSun data-theme-icon="dark" className="sun-icon w-4 h-4 hidden" />
+            <FaMoon data-theme-icon="light" className="moon-icon w-4 h-4 hidden" />
+            <FaDesktop data-theme-icon="system" className="system-icon w-4 h-4" />
+            <span>Toggle Theme</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const themeToggleBtns = document.querySelectorAll('[data-theme-toggle]');
+  const themeBtnIcons = document.querySelectorAll('[data-theme-icon]');
+  const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  // Initialize theme on page load
+  const savedTheme = localStorage.getItem('theme') || 'system';
+  applyTheme(savedTheme);
+  updateThemeIcons(savedTheme);
+
+  // Theme toggle functionality
+  themeToggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      themeToggle();
+    });
+  });
+
+  // Mobile menu toggle functionality
+  mobileMenuToggle?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu when clicking on a link
+  const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
+  mobileMenuLinks?.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'system') {
+      applyTheme('system');
+    }
+  });
+
+  function themeToggle() {
+    const savedTheme = localStorage.getItem('theme') || 'system';
+    let newTheme;
+
+    switch (savedTheme) {
+      case 'dark':
+        newTheme = 'light';
+        break;
+      case 'light':
+        newTheme = 'system';
+        break;
+      case 'system':
+        newTheme = 'dark';
+        break;
+      default:
+        newTheme = 'dark';
+    }
+
+    updateTheme(newTheme);
+  }
+
+  function updateTheme(theme: string) {
+    applyTheme(theme);
+    updateThemeIcons(theme);
+    localStorage.setItem('theme', theme);
+  }
+
+  function applyTheme(theme: string) {
+    if (theme === 'system') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', systemTheme);
+    } else {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  }
+
+  function updateThemeIcons(theme: string) {
+    themeBtnIcons.forEach(icon => {
+      const iconTheme = icon.getAttribute('data-theme-icon');
+      if (iconTheme === theme) {
+        icon.classList.remove('hidden');
+      } else {
+        icon.classList.add('hidden');
+      }
+    });
+  }
+</script>

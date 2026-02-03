@@ -1,0 +1,85 @@
+---
+import Tag from '@/components/atoms/Tag.astro';
+import Text from '@/components/atoms/Text.astro';
+import { cn } from '@/lib/cn';
+import type { TechMap } from '@/utils/tech-lookup';
+
+type TagVariant = 'default' | 'muted' | 'outline' | 'featured' | 'tactile' | 'glass';
+type TagSize = 'xs' | 'sm' | 'base';
+type ListGap = 'tight' | 'normal' | 'loose';
+
+interface Props {
+  /** Array of tag labels or slugs */
+  tags: string[];
+  /** Technology lookup map (if tags are slugs) */
+  techMap?: TechMap;
+  /** Maximum number of tags to show */
+  limit?: number;
+  /** Visual variant for all tags */
+  variant?: TagVariant;
+  /** Size for all tags */
+  size?: TagSize;
+  /** Gap between tags */
+  gap?: ListGap;
+  /** Wrap tags or scroll horizontally */
+  wrap?: boolean;
+  /** Additional CSS classes for the container */
+  class?: string;
+}
+
+const {
+  tags,
+  techMap,
+  limit,
+  variant = 'default',
+  size = 'sm',
+  gap = 'normal',
+  wrap = true,
+  class: className = '',
+} = Astro.props;
+
+// Apply limit if specified
+const displayTags = limit ? tags.slice(0, limit) : tags;
+const hasMore = limit && tags.length > limit;
+
+// Gap classes
+const gapClasses: Record<ListGap, string> = {
+  tight: 'gap-1',
+  normal: 'gap-2',
+  loose: 'gap-3',
+};
+
+const combinedClasses = cn(
+  'flex items-center',
+  wrap ? 'flex-wrap' : 'overflow-x-auto scrollbar-hide',
+  gapClasses[gap],
+  className,
+);
+---
+
+<div class={combinedClasses}>
+  {displayTags.map(tag => (
+    <Tag
+      slug={techMap ? tag : undefined}
+      label={techMap ? undefined : tag}
+      techMap={techMap}
+      variant={variant}
+      size={size}
+    />
+  ))}
+  {hasMore && (
+    <Text size="xs" color="muted" class="self-center">
+      +{tags.length - limit!} more
+    </Text>
+  )}
+</div>
+
+<style>
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>

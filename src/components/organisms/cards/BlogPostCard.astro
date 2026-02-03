@@ -1,0 +1,104 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, toISODateString } from '@/utils/date-format';
+import { FaCalendar } from '@/lib/icons';
+import Card from '@/components/molecules/Card.astro';
+import TagList from '@/components/molecules/TagList.astro';
+import Heading from '@/components/atoms/Heading.astro';
+import Text from '@/components/atoms/Text.astro';
+import Link from '@/components/atoms/Link.astro';
+import Icon from '@/components/atoms/Icon.astro';
+import type { TechMap } from '@/utils/tech-lookup';
+
+type CardVariant = 'default' | 'compact' | 'featured';
+
+interface Props {
+  /** Blog post collection entry */
+  post: CollectionEntry<'blog'>;
+  /** Technology lookup map for tags */
+  techMap?: TechMap;
+  /** Card display variant */
+  variant?: CardVariant;
+  /** Whether to show tags */
+  showTags?: boolean;
+  /** Whether to show date */
+  showDate?: boolean;
+  /** Whether to show description */
+  showDescription?: boolean;
+}
+
+const {
+  post,
+  techMap,
+  variant = 'default',
+  showTags = false,
+  showDate = true,
+  showDescription = true,
+} = Astro.props;
+
+// Variant-specific padding
+const paddingMap: Record<CardVariant, 'sm' | 'base' | 'lg'> = {
+  default: 'base',
+  compact: 'sm',
+  featured: 'lg',
+};
+
+// Title sizes
+const titleSizeMap: Record<CardVariant, 'base' | 'lg' | 'xl'> = {
+  default: 'lg',
+  compact: 'base',
+  featured: 'xl',
+};
+---
+
+<Card variant="tactile" padding={paddingMap[variant]} class="flex flex-col justify-between h-full">
+  <div>
+    <Heading
+      level={3}
+      size={titleSizeMap[variant]}
+      class={variant === 'compact' ? 'mb-2 line-clamp-1' : 'mb-3 line-clamp-2 h-14'}
+    >
+      <a
+        title={post.data.title}
+        href={`/blog/${post.data.slug}`}
+        class="hover:text-secondary transition-colors"
+      >
+        {post.data.title}
+      </a>
+    </Heading>
+
+    {showDate && post.data.publishDate && (
+      <div class={`flex items-center gap-2 ${variant === 'compact' ? 'mb-2' : 'mb-3'}`}>
+        <Icon icon={FaCalendar} size="sm" color="muted" />
+        <time datetime={toISODateString(post.data.publishDate)} class="text-sm text-foreground-muted">
+          {formatDate(post.data.publishDate, variant === 'compact' ? 'short' : 'long')}
+        </time>
+      </div>
+    )}
+
+    {showDescription && post.data.description && variant !== 'compact' && (
+      <Text size="sm" color="muted" class="mb-4 leading-relaxed">
+        {post.data.description}
+      </Text>
+    )}
+
+    {showTags && post.data.tags && post.data.tags.length > 0 && techMap && (
+      <div class="mb-4">
+        <TagList
+          tags={post.data.tags}
+          techMap={techMap}
+          limit={3}
+          size="xs"
+        />
+      </div>
+    )}
+  </div>
+
+  <Link
+    href={`/blog/${post.data.slug}`}
+    variant="primary"
+    showArrow
+  >
+    Read More
+  </Link>
+</Card>

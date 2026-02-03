@@ -1,0 +1,105 @@
+---
+/**
+ * BlogPostTemplate - Template for individual blog posts
+ */
+import type { CollectionEntry } from 'astro:content';
+import Header from '@/components/organisms/navigation/Header.astro';
+import Footer from '@/components/organisms/navigation/Footer.astro';
+import AeroBubbles from '@/components/organisms/decorative/AeroBubbles.astro';
+import Breadcrumb from '@/components/molecules/Breadcrumb.astro';
+import TagList from '@/components/molecules/TagList.astro';
+import Heading from '@/components/atoms/Heading.astro';
+import Text from '@/components/atoms/Text.astro';
+import Divider from '@/components/atoms/Divider.astro';
+import { formatDate, toISODateString } from '@/utils/date-format';
+import { FaCalendar, FaClock } from '@/lib/icons';
+import type { TechMap } from '@/utils/tech-lookup';
+
+interface Props {
+  /** Blog post entry */
+  post: CollectionEntry<'blog'>;
+  /** Technology map for tags */
+  techMap?: TechMap;
+  /** Estimated reading time in minutes */
+  readingTime?: number;
+}
+
+const { post, techMap, readingTime } = Astro.props;
+const { title, description, publishDate, tags } = post.data;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <slot name="head" />
+  </head>
+  <body class="bg-background text-foreground min-h-screen">
+    <AeroBubbles count={3} />
+
+    <Header />
+
+    <main class="mx-auto max-w-4xl px-4 pt-20 pb-12 sm:px-6 lg:px-8">
+      <article>
+        <!-- Breadcrumb -->
+        <Breadcrumb
+          items={[
+            { label: 'Blog', href: '/blog' },
+            { label: title },
+          ]}
+          class="mb-8"
+        />
+
+        <!-- Header -->
+        <header class="mb-8">
+          <Heading level={1} size="hero" class="mb-4">
+            {title}
+          </Heading>
+
+          {description && (
+            <Text size="lg" color="muted" class="mb-6">
+              {description}
+            </Text>
+          )}
+
+          <div class="flex flex-wrap items-center gap-4 text-sm">
+            {publishDate && (
+              <div class="flex items-center gap-2 text-foreground-muted">
+                <FaCalendar className="w-4 h-4" />
+                <time datetime={toISODateString(publishDate)}>
+                  {formatDate(publishDate, 'long')}
+                </time>
+              </div>
+            )}
+            {readingTime && (
+              <div class="flex items-center gap-2 text-foreground-muted">
+                <FaClock className="w-4 h-4" />
+                <span>{readingTime} min read</span>
+              </div>
+            )}
+          </div>
+
+          {tags && tags.length > 0 && techMap && (
+            <div class="mt-4">
+              <TagList tags={tags} techMap={techMap} />
+            </div>
+          )}
+        </header>
+
+        <Divider class="mb-8" />
+
+        <!-- Content -->
+        <div class="prose prose-lg dark:prose-invert max-w-none">
+          <slot />
+        </div>
+      </article>
+    </main>
+
+    <Footer />
+
+    <slot name="scripts" />
+  </body>
+</html>

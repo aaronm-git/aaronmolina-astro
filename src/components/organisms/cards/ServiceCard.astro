@@ -1,0 +1,181 @@
+---
+import Card from '@/components/molecules/Card.astro';
+import Heading from '@/components/atoms/Heading.astro';
+import Text from '@/components/atoms/Text.astro';
+import Icon from '@/components/atoms/Icon.astro';
+import Link from '@/components/atoms/Link.astro';
+import Badge from '@/components/atoms/Badge.astro';
+import { cn } from '@/lib/cn';
+
+type CardVariant = 'default' | 'featured' | 'minimal' | 'horizontal';
+
+interface Props {
+  /** Service title */
+  title: string;
+  /** Service description */
+  description: string;
+  /** Icon name */
+  icon: string;
+  /** Link to service page */
+  href?: string;
+  /** Price or pricing text */
+  price?: string;
+  /** Features list */
+  features?: string[];
+  /** Badge text (e.g., "Popular", "New") */
+  badge?: string;
+  /** Card variant */
+  variant?: CardVariant;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  icon,
+  href,
+  price,
+  features,
+  badge,
+  variant = 'default',
+  class: className = '',
+} = Astro.props;
+---
+
+{variant === 'featured' ? (
+  <Card
+    variant="tactile"
+    padding="lg"
+    href={href}
+    interactive={!!href}
+    class={cn('relative', badge && 'ring-2 ring-primary', className)}
+  >
+    {badge && (
+      <Badge label={badge} variant="primary" size="sm" class="absolute -top-3 left-4" />
+    )}
+
+    <div class="mb-4 inline-flex rounded-xl bg-primary/10 p-4">
+      <Icon name={icon} size="xl" color="primary" />
+    </div>
+
+    <Heading level={3} size="xl" class="mb-2">
+      {title}
+    </Heading>
+
+    {price && (
+      <Text size="2xl" weight="bold" color="primary" class="mb-4">
+        {price}
+      </Text>
+    )}
+
+    <Text color="muted" class="mb-6">
+      {description}
+    </Text>
+
+    {features && features.length > 0 && (
+      <ul class="space-y-2 mb-6">
+        {features.map(feature => (
+          <li class="flex items-center gap-2 text-sm text-foreground-muted">
+            <Icon name="check" size="sm" color="primary" />
+            {feature}
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {href && (
+      <Link href={href} variant="primary" showArrow class="mt-auto">
+        Learn more
+      </Link>
+    )}
+  </Card>
+) : variant === 'horizontal' ? (
+  <Card
+    variant="elevated"
+    padding="base"
+    href={href}
+    interactive={!!href}
+    class={cn('flex gap-4', className)}
+  >
+    <div class="flex-shrink-0 rounded-lg bg-primary/10 p-3 self-start">
+      <Icon name={icon} size="lg" color="primary" />
+    </div>
+    <div>
+      <Heading level={3} size="lg" class="mb-1">
+        {title}
+      </Heading>
+      <Text color="muted" size="sm">
+        {description}
+      </Text>
+      {href && (
+        <Link href={href} variant="primary" size="sm" showArrow class="mt-2">
+          Learn more
+        </Link>
+      )}
+    </div>
+  </Card>
+) : variant === 'minimal' ? (
+  <div class={cn('group', className)}>
+    <div class="mb-3 inline-flex rounded-lg bg-muted p-2 transition-colors group-hover:bg-primary/10">
+      <Icon name={icon} size="base" color="muted" class="group-hover:text-primary transition-colors" />
+    </div>
+    <Heading level={3} size="base" class="mb-1">
+      {href ? (
+        <a href={href} class="hover:text-secondary transition-colors">
+          {title}
+        </a>
+      ) : title}
+    </Heading>
+    <Text color="muted" size="sm">
+      {description}
+    </Text>
+  </div>
+) : (
+  <Card
+    variant="elevated"
+    padding="base"
+    href={href}
+    interactive={!!href}
+    class={className}
+  >
+    {badge && (
+      <Badge label={badge} variant="secondary" size="xs" class="mb-3" />
+    )}
+
+    <div class="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
+      <Icon name={icon} size="lg" color="primary" />
+    </div>
+
+    <Heading level={3} size="lg" class="mb-2">
+      {title}
+    </Heading>
+
+    {price && (
+      <Text size="xl" weight="bold" color="primary" class="mb-2">
+        {price}
+      </Text>
+    )}
+
+    <Text color="muted" size="sm" class="mb-4">
+      {description}
+    </Text>
+
+    {features && features.length > 0 && (
+      <ul class="space-y-1.5 mb-4">
+        {features.slice(0, 4).map(feature => (
+          <li class="flex items-center gap-2 text-xs text-foreground-muted">
+            <Icon name="check" size="sm" color="secondary" />
+            {feature}
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {href && (
+      <Link href={href} variant="primary" size="sm" showArrow>
+        Learn more
+      </Link>
+    )}
+  </Card>
+)}

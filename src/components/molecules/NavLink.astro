@@ -1,0 +1,97 @@
+---
+import Icon from '@/components/atoms/Icon.astro';
+import { cn } from '@/lib/cn';
+import type { IconType } from 'react-icons';
+
+type NavLinkVariant = 'default' | 'underline' | 'pill' | 'subtle';
+type NavLinkSize = 'sm' | 'base' | 'lg';
+
+interface Props {
+  /** Link URL */
+  href: string;
+  /** Visual variant */
+  variant?: NavLinkVariant;
+  /** Size */
+  size?: NavLinkSize;
+  /** Currently active */
+  active?: boolean;
+  /** Icon name */
+  icon?: string;
+  /** Direct icon component */
+  iconComponent?: IconType;
+  /** External link */
+  external?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'default',
+  size = 'base',
+  active = false,
+  icon,
+  iconComponent,
+  external = false,
+  class: className = '',
+} = Astro.props;
+
+// Variant classes
+const variantClasses: Record<NavLinkVariant, { base: string; active: string; inactive: string }> = {
+  default: {
+    base: 'transition-colors',
+    active: 'text-foreground font-medium',
+    inactive: 'text-foreground-muted hover:text-foreground',
+  },
+  underline: {
+    base: 'relative transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-primary after:transition-all',
+    active: 'text-foreground after:w-full',
+    inactive: 'text-foreground-muted hover:text-foreground after:w-0 hover:after:w-full',
+  },
+  pill: {
+    base: 'rounded-full transition-all',
+    active: 'bg-primary text-on-primary',
+    inactive: 'text-foreground-muted hover:bg-muted hover:text-foreground',
+  },
+  subtle: {
+    base: 'rounded-md transition-colors',
+    active: 'bg-muted text-foreground',
+    inactive: 'text-foreground-muted hover:bg-muted/50 hover:text-foreground',
+  },
+};
+
+// Size classes
+const sizeClasses: Record<NavLinkSize, string> = {
+  sm: 'px-3 py-1.5 text-sm gap-1.5',
+  base: 'px-4 py-2 text-base gap-2',
+  lg: 'px-5 py-2.5 text-lg gap-2.5',
+};
+
+const currentVariant = variantClasses[variant];
+
+const combinedClasses = cn(
+  'inline-flex items-center',
+  currentVariant.base,
+  active ? currentVariant.active : currentVariant.inactive,
+  sizeClasses[size],
+  className,
+);
+---
+
+<a
+  href={href}
+  class={combinedClasses}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  aria-current={active ? 'page' : undefined}
+>
+  {(icon || iconComponent) && (
+    <Icon
+      name={icon}
+      icon={iconComponent}
+      size={size === 'sm' ? 'sm' : 'base'}
+      color={active ? 'foreground' : 'muted'}
+    />
+  )}
+  <slot />
+</a>

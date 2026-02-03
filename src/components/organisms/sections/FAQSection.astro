@@ -1,0 +1,175 @@
+---
+import Heading from '@/components/atoms/Heading.astro';
+import Text from '@/components/atoms/Text.astro';
+import Button from '@/components/atoms/Button.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import { cn } from '@/lib/cn';
+import { FaChevronDown } from '@/lib/icons';
+
+type FAQVariant = 'accordion' | 'grid' | 'simple';
+
+interface FAQ {
+  question: string;
+  answer: string;
+  category?: string;
+}
+
+interface Props {
+  /** Section title */
+  title: string;
+  /** Section subtitle */
+  subtitle?: string;
+  /** Array of FAQs */
+  faqs: FAQ[];
+  /** Layout variant */
+  variant?: FAQVariant;
+  /** Number of columns (for grid) */
+  columns?: 1 | 2;
+  /** Show categories */
+  showCategories?: boolean;
+  /** CTA at bottom */
+  cta?: {
+    label: string;
+    href: string;
+  };
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  faqs,
+  variant = 'accordion',
+  columns = 1,
+  showCategories = false,
+  cta,
+  class: className = '',
+} = Astro.props;
+
+// Group FAQs by category if needed
+const categories = showCategories
+  ? [...new Set(faqs.map(f => f.category).filter(Boolean))]
+  : [];
+
+const faqsByCategory = showCategories
+  ? categories.reduce((acc, cat) => {
+      acc[cat!] = faqs.filter(f => f.category === cat);
+      return acc;
+    }, {} as Record<string, FAQ[]>)
+  : { all: faqs };
+---
+
+<section class={cn('py-16 md:py-24', className)}>
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      title={title}
+      subtitle={subtitle}
+      align="center"
+    />
+
+    {variant === 'accordion' && (
+      <div class="space-y-4" data-faq-accordion>
+        {Object.entries(faqsByCategory).map(([category, categoryFaqs]) => (
+          <>
+            {showCategories && category !== 'all' && (
+              <Heading level={3} size="lg" class="mt-8 mb-4 first:mt-0">
+                {category}
+              </Heading>
+            )}
+            {categoryFaqs.map((faq, i) => (
+              <div class="border border-border rounded-lg overflow-hidden">
+                <button
+                  class="flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-muted/50"
+                  data-faq-trigger
+                  aria-expanded="false"
+                >
+                  <Text weight="medium" class="pr-4">
+                    {faq.question}
+                  </Text>
+                  <FaChevronDown className="w-5 h-5 text-foreground-muted transition-transform duration-200 flex-shrink-0" data-faq-icon />
+                </button>
+                <div class="hidden" data-faq-content>
+                  <div class="px-4 pb-4 pt-0">
+                    <Text color="muted">
+                      {faq.answer}
+                    </Text>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        ))}
+      </div>
+    )}
+
+    {variant === 'grid' && (
+      <div class={cn('grid gap-6', columns === 2 && 'md:grid-cols-2')}>
+        {faqs.map(faq => (
+          <div class="rounded-lg border border-border p-6">
+            <Heading level={3} size="base" class="mb-2">
+              {faq.question}
+            </Heading>
+            <Text color="muted" size="sm">
+              {faq.answer}
+            </Text>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {variant === 'simple' && (
+      <div class="space-y-8">
+        {faqs.map(faq => (
+          <div>
+            <Heading level={3} size="lg" class="mb-2">
+              {faq.question}
+            </Heading>
+            <Text color="muted">
+              {faq.answer}
+            </Text>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {cta && (
+      <div class="mt-12 text-center">
+        <Text color="muted" class="mb-4">
+          Still have questions?
+        </Text>
+        <Button href={cta.href} variant="outline">
+          {cta.label}
+        </Button>
+      </div>
+    )}
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-faq-accordion]').forEach(accordion => {
+    accordion.querySelectorAll('[data-faq-trigger]').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const content = trigger.nextElementSibling as HTMLElement;
+        const icon = trigger.querySelector('[data-faq-icon]') as HTMLElement;
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+        // Close other items
+        accordion.querySelectorAll('[data-faq-trigger]').forEach(otherTrigger => {
+          if (otherTrigger !== trigger) {
+            otherTrigger.setAttribute('aria-expanded', 'false');
+            const otherContent = otherTrigger.nextElementSibling as HTMLElement;
+            const otherIcon = otherTrigger.querySelector('[data-faq-icon]') as HTMLElement;
+            otherContent?.classList.add('hidden');
+            otherIcon?.style.setProperty('transform', 'rotate(0deg)');
+          }
+        });
+
+        // Toggle current item
+        trigger.setAttribute('aria-expanded', String(!isExpanded));
+        content?.classList.toggle('hidden');
+        icon?.style.setProperty('transform', isExpanded ? 'rotate(0deg)' : 'rotate(180deg)');
+      });
+    });
+  });
+</script>

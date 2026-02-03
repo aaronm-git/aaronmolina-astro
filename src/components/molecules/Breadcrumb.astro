@@ -1,0 +1,92 @@
+---
+import Link from '@/components/atoms/Link.astro';
+import { cn } from '@/lib/cn';
+import { FaChevronRight, FaHouse } from '@/lib/icons';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  /** Array of breadcrumb items */
+  items: BreadcrumbItem[];
+  /** Show home icon for first item */
+  showHome?: boolean;
+  /** Home href (default: /) */
+  homeHref?: string;
+  /** Separator style */
+  separator?: 'chevron' | 'slash' | 'dot';
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  items,
+  showHome = true,
+  homeHref = '/',
+  separator = 'chevron',
+  class: className = '',
+} = Astro.props;
+
+// Separator content
+const separatorContent: Record<string, string> = {
+  chevron: '',
+  slash: '/',
+  dot: '•',
+};
+
+const combinedClasses = cn(
+  'flex items-center flex-wrap gap-1 text-sm',
+  className,
+);
+---
+
+<nav aria-label="Breadcrumb" class={combinedClasses}>
+  {showHome && (
+    <>
+      <a
+        href={homeHref}
+        class="text-foreground-muted hover:text-foreground transition-colors p-1"
+        aria-label="Home"
+      >
+        <FaHouse className="w-4 h-4" />
+      </a>
+      {separator === 'chevron' ? (
+        <FaChevronRight className="w-3 h-3 text-foreground-muted mx-1" />
+      ) : (
+        <span class="text-foreground-muted mx-2">{separatorContent[separator]}</span>
+      )}
+    </>
+  )}
+
+  {items.map((item, index) => {
+    const isLast = index === items.length - 1;
+    return (
+      <>
+        {isLast || !item.href ? (
+          <span
+            class={cn(
+              isLast ? 'text-foreground font-medium' : 'text-foreground-muted',
+            )}
+            aria-current={isLast ? 'page' : undefined}
+          >
+            {item.label}
+          </span>
+        ) : (
+          <Link href={item.href} variant="muted" size="sm">
+            {item.label}
+          </Link>
+        )}
+
+        {!isLast && (
+          separator === 'chevron' ? (
+            <FaChevronRight className="w-3 h-3 text-foreground-muted mx-1" />
+          ) : (
+            <span class="text-foreground-muted mx-2">{separatorContent[separator]}</span>
+          )
+        )}
+      </>
+    );
+  })}
+</nav>

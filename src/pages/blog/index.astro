@@ -3,7 +3,7 @@ import MainLayout from '@/layouts/main-layout.astro';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
 import { formatDate, toISODateString } from '@/utils/date-format';
-import TagList from '@/components/ui/TagList.astro';
+import TagList from '@/components/molecules/TagList.astro';
 import pages from '@/content/site/pages.json';
 
 const posts = await getCollection('blog');

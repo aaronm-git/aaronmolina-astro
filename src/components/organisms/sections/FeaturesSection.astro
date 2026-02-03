@@ -1,0 +1,174 @@
+---
+import Heading from '@/components/atoms/Heading.astro';
+import Text from '@/components/atoms/Text.astro';
+import Icon from '@/components/atoms/Icon.astro';
+import Link from '@/components/atoms/Link.astro';
+import Card from '@/components/molecules/Card.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import { cn } from '@/lib/cn';
+
+type FeaturesVariant = 'grid' | 'bento' | 'alternating' | 'cards';
+
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+  href?: string;
+}
+
+interface Props {
+  /** Section title */
+  title: string;
+  /** Section subtitle */
+  subtitle?: string;
+  /** Section description */
+  description?: string;
+  /** Array of features */
+  features: Feature[];
+  /** Layout variant */
+  variant?: FeaturesVariant;
+  /** Number of columns (for grid/cards) */
+  columns?: 2 | 3 | 4;
+  /** CTA link */
+  cta?: {
+    label: string;
+    href: string;
+  };
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  description,
+  features,
+  variant = 'grid',
+  columns = 3,
+  cta,
+  class: className = '',
+} = Astro.props;
+
+// Column classes
+const columnClasses: Record<number, string> = {
+  2: 'md:grid-cols-2',
+  3: 'md:grid-cols-2 lg:grid-cols-3',
+  4: 'md:grid-cols-2 lg:grid-cols-4',
+};
+---
+
+<section class={cn('py-16 md:py-24', className)}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      title={title}
+      subtitle={subtitle || description}
+      viewAllHref={cta?.href}
+      viewAllLabel={cta?.label}
+      align="center"
+    />
+
+    {variant === 'grid' && (
+      <div class={cn('grid gap-8', columnClasses[columns])}>
+        {features.map(feature => (
+          <div class="group flex flex-col items-center text-center p-6">
+            <div class="mb-4 rounded-xl bg-primary/10 p-4 transition-colors group-hover:bg-primary/20">
+              <Icon name={feature.icon} size="xl" color="primary" />
+            </div>
+            <Heading level={3} size="lg" class="mb-2">
+              {feature.title}
+            </Heading>
+            <Text color="muted" balance>
+              {feature.description}
+            </Text>
+            {feature.href && (
+              <Link href={feature.href} variant="primary" showArrow class="mt-4">
+                Learn more
+              </Link>
+            )}
+          </div>
+        ))}
+      </div>
+    )}
+
+    {variant === 'cards' && (
+      <div class={cn('grid gap-6', columnClasses[columns])}>
+        {features.map(feature => (
+          <Card
+            variant="tactile"
+            padding="lg"
+            href={feature.href}
+            interactive={!!feature.href}
+          >
+            <div class="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
+              <Icon name={feature.icon} size="lg" color="primary" />
+            </div>
+            <Heading level={3} size="lg" class="mb-2">
+              {feature.title}
+            </Heading>
+            <Text color="muted">
+              {feature.description}
+            </Text>
+          </Card>
+        ))}
+      </div>
+    )}
+
+    {variant === 'bento' && (
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {features.map((feature, i) => {
+          const isLarge = i === 0 || i === 3;
+          return (
+            <Card
+              variant="tactile"
+              padding="lg"
+              href={feature.href}
+              interactive={!!feature.href}
+              class={cn(isLarge && 'md:col-span-2 lg:col-span-1 lg:row-span-2')}
+            >
+              <div class="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
+                <Icon name={feature.icon} size={isLarge ? 'xl' : 'lg'} color="primary" />
+              </div>
+              <Heading level={3} size={isLarge ? 'xl' : 'lg'} class="mb-2">
+                {feature.title}
+              </Heading>
+              <Text color="muted" size={isLarge ? 'lg' : 'base'}>
+                {feature.description}
+              </Text>
+            </Card>
+          );
+        })}
+      </div>
+    )}
+
+    {variant === 'alternating' && (
+      <div class="space-y-16">
+        {features.map((feature, i) => (
+          <div class={cn(
+            'flex flex-col gap-8 md:flex-row md:items-center',
+            i % 2 === 1 && 'md:flex-row-reverse'
+          )}>
+            <div class="flex-1">
+              <div class="mb-4 inline-flex rounded-xl bg-primary/10 p-4">
+                <Icon name={feature.icon} size="xl" color="primary" />
+              </div>
+              <Heading level={3} size="xl" class="mb-3">
+                {feature.title}
+              </Heading>
+              <Text color="muted" size="lg">
+                {feature.description}
+              </Text>
+              {feature.href && (
+                <Link href={feature.href} variant="primary" showArrow class="mt-4">
+                  Learn more
+                </Link>
+              )}
+            </div>
+            <div class="flex-1">
+              <div class="aspect-video rounded-2xl bg-muted" />
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

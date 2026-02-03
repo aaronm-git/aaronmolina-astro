@@ -1,0 +1,64 @@
+---
+import Icon from '@/components/atoms/Icon.astro';
+import { cn } from '@/lib/cn';
+import type { IconType } from 'react-icons';
+
+type IconColor = 'primary' | 'secondary' | 'muted' | 'foreground' | 'success' | 'warning' | 'error';
+type ListItemSize = 'sm' | 'base' | 'lg';
+
+interface Props {
+  /** Icon name (uses getIcon to resolve) */
+  icon?: string;
+  /** Direct icon component */
+  iconComponent?: IconType;
+  /** Icon color variant */
+  iconColor?: IconColor;
+  /** Size variant */
+  size?: ListItemSize;
+  /** Render as list item or div */
+  as?: 'li' | 'div';
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  icon,
+  iconComponent,
+  iconColor = 'secondary',
+  size = 'base',
+  as: Tag = 'li',
+  class: className = '',
+} = Astro.props as Props;
+
+// Size classes
+const sizeClasses: Record<ListItemSize, { gap: string; text: string; icon: 'sm' | 'base' | 'lg' }> = {
+  sm: { gap: 'gap-2', text: 'text-sm', icon: 'sm' },
+  base: { gap: 'gap-3', text: 'text-base', icon: 'base' },
+  lg: { gap: 'gap-4', text: 'text-lg', icon: 'lg' },
+};
+
+const currentSize = sizeClasses[size as ListItemSize];
+
+const combinedClasses = cn(
+  'flex items-start',
+  currentSize.gap,
+  currentSize.text,
+  className,
+);
+---
+
+<Tag class={combinedClasses}>
+  {(icon || iconComponent) && (
+    <span class="mt-0.5 flex-shrink-0">
+      <Icon
+        name={icon}
+        icon={iconComponent}
+        size={currentSize.icon}
+        color={iconColor}
+      />
+    </span>
+  )}
+  <span class="text-foreground-muted">
+    <slot />
+  </span>
+</Tag>

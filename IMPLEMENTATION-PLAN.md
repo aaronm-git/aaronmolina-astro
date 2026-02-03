@@ -34,7 +34,7 @@ This plan combines the Atomic Design Architecture restructure with SEO keyword i
 | 3 | Organisms - Sections | Complete | 100% |
 | 4 | Page Refactoring | Complete | 100% |
 | 5 | Templates | Complete | 100% |
-| 6 | SEO - Hire Pages | Not Started | 0% |
+| 6 | SEO - Hire Pages | Complete | 100% |
 | 7 | SEO - Content Optimization | Not Started | 0% |
 | 8 | SEO - Blog Content | Not Started | 0% |
 | 9 | Animation Polish | Partial | 30% |
@@ -167,78 +167,54 @@ Page -> Template -> MainLayout -> Section Organisms -> Molecules -> Atoms
 
 ## Phase 6: SEO - Hire Pages (Tier 1 Keywords)
 
-**Status:** Not Started
+**Status:** Complete
+**Commits:** `15f3416`
 **Reference:** SEO-KEYWORD-RESEARCH.md Part 5, Part 6
 
-### Tasks
+### Completed Tasks
 
 #### Main Hire Hub Page (`/hire`)
 
-- [ ] Create `/hire/index.astro`
-- [ ] Target keywords:
+- [x] Create `/hire/index.astro`
+- [x] Target keywords:
   - Primary: "hire jamstack developer" (vol 50, KD 1)
   - Secondary: "jamstack developer", "remote frontend developer"
-- [ ] Meta tags:
-  ```html
-  <title>Hire a Jamstack Developer | Aaron Molina - Astro, Next.js, Sanity</title>
-  <meta name="description" content="Looking to hire a Jamstack developer? I'm a senior frontend developer with 12+ years experience building high-performance sites with Astro, Next.js, and Sanity. Available for W2 or contract. Remote US / Miami.">
-  ```
-- [ ] Sections to include:
-  - HeroSection (split variant)
-  - StatsSection (experience highlights)
-  - ServicesSection (what I offer)
-  - SkillsSection (tech stack)
-  - ProjectsSection (relevant work)
-  - TestimonialsSection (if available)
-  - FAQSection (hiring FAQs)
-  - CTASection
+- [x] SEO-optimized meta tags
+- [x] Sections: Hero, Stats, Services, Features, Skills, Projects, FAQ, CTA
 
 #### React Developer Page (`/hire/react-developer`)
 
-- [ ] Create `/hire/react-developer.astro`
-- [ ] Target keywords:
-  - Primary: "hire react developer" (vol 1,000, KD 8)
-  - Secondary: "react developer for hire"
-- [ ] Meta tags:
-  ```html
-  <title>Hire a React Developer | Aaron Molina - Senior Frontend & Full Stack</title>
-  <meta name="description" content="Hire an experienced React developer for your next project. 12+ years building production applications with React, Next.js, and TypeScript. Available remote US or Miami-based.">
-  ```
+- [x] Create `/hire/react-developer.astro`
+- [x] Target: "hire react developer" (vol 1,000, KD 8)
+- [x] Projects filtered by React/Next.js/TypeScript technologies
 
 #### Next.js Developer Page (`/hire/nextjs-developer`)
 
-- [ ] Create `/hire/nextjs-developer.astro`
-- [ ] Target keywords:
-  - Primary: "hire next.js developer" (vol 150, KD 0)
-  - Secondary: "nextjs developer for hire", "freelance nextjs developer"
-- [ ] Meta tags:
-  ```html
-  <title>Hire a Next.js Developer | Aaron Molina - React & Jamstack Expert</title>
-  <meta name="description" content="Need to hire a Next.js developer? I specialize in building fast, SEO-friendly sites with Next.js, React, and headless CMS. W2 or freelance. Remote US / Miami.">
-  ```
+- [x] Create `/hire/nextjs-developer.astro`
+- [x] Target: "hire next.js developer" (vol 150, KD 0)
+- [x] Projects filtered by Next.js/React/Vercel technologies
 
 #### Headless CMS Page (`/hire/headless-cms`)
 
-- [ ] Create `/hire/headless-cms.astro`
-- [ ] Target keywords:
-  - Primary: "headless cms developer" (vol 150, KD 62 - harder)
-  - Secondary: "sanity developer", "contentful developer"
-- [ ] Meta tags:
-  ```html
-  <title>Headless CMS Developer | Aaron Molina - Sanity, Contentful & More</title>
-  <meta name="description" content="Expert headless CMS developer specializing in Sanity, Contentful, and composable architecture. I build content-driven sites that marketing teams love. Remote US / Miami.">
-  ```
+- [x] Create `/hire/headless-cms.astro`
+- [x] Target: "headless cms developer" (vol 150, KD 62)
+- [x] Projects filtered by Sanity/Contentful/Strapi technologies
 
-#### Content Collections for Hire Pages
+#### Content & Navigation
 
-- [ ] Create `src/content/hire/` collection
-- [ ] Add FAQs for hire pages
-- [ ] Add testimonials content (if available)
+- [x] Create `src/content/site/hire.json` with all page content
+- [x] Shared FAQ section for all hire pages
+- [x] Dynamic years of experience calculation
+- [x] Add "Hire Me" link to main navigation
 
-#### Navigation Updates
+### Pages Created
 
-- [ ] Add "Hire Me" link to main navigation
-- [ ] Update footer with hire page links
+| URL | Primary Keyword | Volume | KD |
+|-----|-----------------|--------|-----|
+| `/hire` | hire jamstack developer | 50 | 1 |
+| `/hire/react-developer` | hire react developer | 1,000 | 8 |
+| `/hire/nextjs-developer` | hire next.js developer | 150 | 0 |
+| `/hire/headless-cms` | headless cms developer | 150 | 62 |
 
 ---
 
@@ -429,6 +405,8 @@ Page -> Template -> MainLayout -> Section Organisms -> Molecules -> Atoms
 | `5b4768d` | refactor: update detail pages to use section organisms | 4 |
 | `5456a61` | docs: update implementation plan with detail page completion | Docs |
 | `33817d4` | feat: create page templates and refactor detail pages | 5 |
+| `2a373dc` | docs: mark Phase 5 (Templates) as complete | Docs |
+| `15f3416` | feat: create SEO-optimized hire pages | 6 |
 
 ---
 

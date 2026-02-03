@@ -1,0 +1,76 @@
+---
+/**
+ * Hire Jamstack Developer Page
+ * Target: "hire jamstack developer" (vol 50, KD 1)
+ * Secondary: "jamstack developer", "remote frontend developer"
+ */
+import { HireTemplate } from '@/templates';
+import { getCollection } from 'astro:content';
+import { createTechMap } from '@/utils/tech-lookup';
+import hireContent from '@/content/site/hire.json';
+
+// Fetch data
+const technologies = await getCollection('technologies');
+const techMap = createTechMap(technologies);
+const projects = await getCollection('projects');
+
+// Get featured projects
+const featuredProjects = projects
+  .filter(p => p.data.isActive !== false)
+  .filter(p => p.data.featured)
+  .sort((a, b) => (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0))
+  .slice(0, 3);
+
+// Calculate years of experience
+const yearsOfExperience = new Date().getFullYear() - hireContent.yearsOfExperienceStartYear;
+
+// Process content with dynamic values
+const heroDescription = hireContent.main.hero.description.replace('{yearsOfExperience}', String(yearsOfExperience));
+
+const stats = hireContent.shared.stats.map(stat => ({
+  ...stat,
+  value: String(stat.value).replace('{yearsOfExperience}', String(yearsOfExperience)),
+}));
+---
+
+<HireTemplate
+  title={hireContent.main.meta.title}
+  description={hireContent.main.meta.description}
+  currentPath="/hire/jamstack"
+  hero={{
+    headline: hireContent.main.hero.headline,
+    subheadline: hireContent.main.hero.subheadline,
+    description: heroDescription,
+    badges: hireContent.main.hero.badges,
+    primaryCta: hireContent.main.hero.primaryCta,
+    secondaryCta: hireContent.main.hero.secondaryCta,
+  }}
+  stats={stats}
+  services={{
+    title: hireContent.main.services.title,
+    subtitle: hireContent.main.services.subtitle,
+    items: hireContent.main.services.items,
+  }}
+  features={{
+    title: hireContent.main.features.title,
+    items: hireContent.main.features.items,
+  }}
+  skills={{
+    title: hireContent.main.skills.title,
+    subtitle: hireContent.main.skills.subtitle,
+    categories: hireContent.main.skills.categories,
+    techMap: techMap,
+  }}
+  projects={{
+    title: hireContent.main.projects.title,
+    items: featuredProjects,
+    viewAllHref: hireContent.main.projects.viewAllHref,
+    viewAllLabel: hireContent.main.projects.viewAllLabel,
+  }}
+  faq={{
+    title: "Frequently Asked Questions",
+    subtitle: "Common questions about working with me",
+    items: hireContent.shared.faq,
+  }}
+  cta={hireContent.shared.cta}
+/>

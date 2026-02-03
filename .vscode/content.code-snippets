@@ -1,0 +1,101 @@
+{
+  "New Technology": {
+    "scope": "json",
+    "prefix": "tech",
+    "body": [
+      "{",
+      "  \"name\": \"$1\",",
+      "  \"slug\": \"$2\",",
+      "  \"category\": \"${3|language,framework,library,tool,platform,service,cms,concept,other|}\",",
+      "  \"url\": \"$4\",",
+      "  \"featured\": false,",
+      "  \"sortOrder\": 0",
+      "}"
+    ],
+    "description": "New technology entry for src/content/technologies/"
+  },
+  "New Organization": {
+    "scope": "json",
+    "prefix": "org",
+    "body": [
+      "{",
+      "  \"name\": \"$1\",",
+      "  \"slug\": \"$2\",",
+      "  \"website\": \"$3\",",
+      "  \"location\": \"$4\",",
+      "  \"industry\": \"$5\",",
+      "  \"summary\": \"$6\",",
+      "  \"featured\": false,",
+      "  \"sortOrder\": 0",
+      "}"
+    ],
+    "description": "New organization entry for src/content/organizations/"
+  },
+  "New Role": {
+    "scope": "json",
+    "prefix": "role",
+    "body": [
+      "{",
+      "  \"title\": \"$1\",",
+      "  \"slug\": \"$2\",",
+      "  \"organization\": \"$3\",",
+      "  \"location\": \"$4\",",
+      "  \"employmentType\": \"${5|full_time,part_time,contract,freelance,internship|}\",",
+      "  \"startDate\": \"${6:2024}-01-01T00:00:00.000Z\",",
+      "  \"endDate\": \"\",",
+      "  \"current\": ${7|true,false|},",
+      "  \"summary\": \"$8\",",
+      "  \"highlights\": [",
+      "    \"$9\"",
+      "  ],",
+      "  \"achievements\": [],",
+      "  \"technologies\": [],",
+      "  \"projects\": [],",
+      "  \"featured\": false,",
+      "  \"sortOrder\": 0,",
+      "  \"isActive\": true",
+      "}"
+    ],
+    "description": "New role/experience entry for src/content/roles/"
+  },
+  "New Project Frontmatter": {
+    "scope": "markdown",
+    "prefix": "project",
+    "body": [
+      "---",
+      "title: $1",
+      "slug: $2",
+      "summary: $3",
+      "technologies:",
+      "  - $4",
+      "featuredImage: ../../images/$2.jpg",
+      "liveUrl: $5",
+      "repoUrl: $6",
+      "completedOn: ${7:2024}-01-01T00:00:00.000Z",
+      "isActive: true",
+      "featured: false",
+      "sortOrder: 0",
+      "---",
+      "",
+      "$0"
+    ],
+    "description": "New project frontmatter for src/content/projects/"
+  },
+  "New Blog Post Frontmatter": {
+    "scope": "markdown",
+    "prefix": "blogpost",
+    "body": [
+      "---",
+      "title: $1",
+      "slug: $2",
+      "publishDate: $CURRENT_YEAR-$CURRENT_MONTH-${CURRENT_DATE}T00:00:00.000Z",
+      "description: $3",
+      "tags:",
+      "  - $4",
+      "---",
+      "",
+      "$0"
+    ],
+    "description": "New blog post frontmatter for src/content/blog/"
+  }
+}

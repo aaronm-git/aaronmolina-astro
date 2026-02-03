@@ -1,11 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import { FaHouse, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars, FaPencil } from 'react-icons/fa6';
+import { FaHouse, FaBriefcase, FaUser, FaBookOpen, FaEnvelope, FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon, FaDesktop, FaBars } from 'react-icons/fa6';
 import ProfilePicture from '@/images/profile.jpg';
 import navigation from '@/content/site/navigation.json';
 import settings from '@/content/site/settings.json';
-
-const isDev = import.meta.env.DEV;
 
 const iconForNavItem = (iconKey?: string) => {
   switch (iconKey) {
@@ -66,19 +64,6 @@ const socialIconForPlatform = (platform?: string) => {
               </a>
             );
           })}
-          {
-            isDev && (
-              <a
-                href="/admin"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors"
-                title="DecapCMS Admin (Development Only)"
-              >
-                <FaPencil className="icon-sm" /> CMS
-              </a>
-            )
-          }
         </nav>
 
         <!-- Social Links (minimal, right side) -->
@@ -130,19 +115,6 @@ const socialIconForPlatform = (platform?: string) => {
             {item.label}
           </a>
         ))}
-        {
-          isDev && (
-            <a
-              href="/admin"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-foreground-muted hover:text-foreground block rounded-md px-3 py-2 text-base font-medium transition-colors"
-              title="DecapCMS Admin (Development Only)"
-            >
-              <FaPencil className="icon-sm inline mr-2" /> CMS Admin
-            </a>
-          )
-        }
         <!-- Theme toggle for mobile -->
         <div class="border-border mt-2 border-t pt-2">
           <button

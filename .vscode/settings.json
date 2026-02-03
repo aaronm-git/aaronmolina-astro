@@ -6,5 +6,72 @@
   "prettier.enable": true,
   "prettier.printWidth": 80,
   "prettier.useTabs": false,
-  "prettier.tabWidth": 2
+  "prettier.tabWidth": 2,
+  "json.schemas": [
+    {
+      "fileMatch": ["src/content/technologies/*.json"],
+      "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "required": ["name", "slug", "category"],
+        "properties": {
+          "name": { "type": "string", "description": "Display name (e.g., 'React.js')" },
+          "slug": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "URL-safe identifier" },
+          "category": {
+            "enum": ["language", "framework", "library", "tool", "platform", "service", "cms", "concept", "other"]
+          },
+          "url": { "type": "string", "format": "uri" },
+          "level": { "enum": ["beginner", "intermediate", "advanced", "expert"] },
+          "years": { "type": "number", "minimum": 0 },
+          "featured": { "type": "boolean", "default": false },
+          "sortOrder": { "type": "integer", "default": 0 }
+        }
+      }
+    },
+    {
+      "fileMatch": ["src/content/organizations/*.json"],
+      "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "required": ["name", "slug"],
+        "properties": {
+          "name": { "type": "string" },
+          "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "website": { "type": "string", "format": "uri" },
+          "location": { "type": "string" },
+          "logo": { "type": "string" },
+          "industry": { "type": "string" },
+          "summary": { "type": "string" },
+          "featured": { "type": "boolean", "default": false },
+          "sortOrder": { "type": "integer", "default": 0 }
+        }
+      }
+    },
+    {
+      "fileMatch": ["src/content/roles/*.json"],
+      "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "required": ["title", "slug", "organization", "startDate"],
+        "properties": {
+          "title": { "type": "string" },
+          "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "organization": { "type": "string", "description": "Slug of organization from src/content/organizations/" },
+          "location": { "type": "string" },
+          "employmentType": { "enum": ["full_time", "part_time", "contract", "freelance", "internship", ""] },
+          "startDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string" },
+          "current": { "type": "boolean", "default": false },
+          "summary": { "type": "string" },
+          "highlights": { "type": "array", "items": { "type": "string" } },
+          "achievements": { "type": "array", "items": { "type": "string" } },
+          "technologies": { "type": "array", "items": { "type": "string" }, "description": "Array of technology slugs" },
+          "projects": { "type": "array", "items": { "type": "string" }, "description": "Array of project slugs" },
+          "featured": { "type": "boolean", "default": false },
+          "sortOrder": { "type": "integer", "default": 0 },
+          "isActive": { "type": "boolean", "default": true }
+        }
+      }
+    }
+  ]
 }

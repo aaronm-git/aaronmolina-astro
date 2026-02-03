@@ -4,7 +4,23 @@
       "Bash(git checkout:*)",
       "Bash(npm run build:*)",
       "Bash(lsof:*)",
-      "Bash(git branch:*)"
+      "Bash(git branch:*)",
+      "Bash(git merge ui-update -m \"$\\(cat <<''EOF''\nMerge branch ''ui-update'': UI redesign\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git stash:*)",
+      "mcp__ahrefs__doc",
+      "mcp__ahrefs__keywords-explorer-overview",
+      "mcp__ahrefs__keywords-explorer-related-terms",
+      "mcp__ahrefs__serp-overview",
+      "mcp__ahrefs__site-explorer-organic-keywords",
+      "WebSearch",
+      "Bash(tree:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run:*)",
+      "Bash(npx astro check:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor: implement atomic design component architecture\n\nPhase 1 & 2 Complete:\n- Add atoms: Avatar, Badge, Button, Divider, Heading, Icon, Link, \n  Skeleton, Tag, Text\n- Add molecules: Breadcrumb, Card, FormField, InfoBox, ListItem, \n  MediaObject, NavLink, SectionHeader, SocialLink, SocialLinks, \n  StatItem, TagList\n- Add organisms: cards \\(BlogPostCard, ProjectCard, RoleCard, \n  ServiceCard, TestimonialCard\\), sections \\(12 section components\\), \n  navigation \\(Header, Footer\\), decorative \\(AeroBubbles\\)\n- Add templates: BaseTemplate, BlogPostTemplate\n- Add lib utilities: cn, date-format, icons, skill-labels, tech-lookup\n- Delete old component structure \\(src/components/ui/, layout/\\)\n- Update all pages to use new atomic imports\n- Fix all TypeScript errors from astro check\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)",
+      "Bash(pnpm build:*)"
     ]
   }
 }

@@ -1,0 +1,460 @@
+{
+  "yearsOfExperienceStartYear": 2012,
+  "shared": {
+    "stats": [
+      {
+        "value": "{yearsOfExperience}",
+        "suffix": "+",
+        "label": "Years Experience",
+        "icon": "calendar"
+      },
+      {
+        "value": "50",
+        "suffix": "+",
+        "label": "Projects Shipped",
+        "icon": "briefcase"
+      },
+      {
+        "value": "100",
+        "suffix": "%",
+        "label": "Remote Ready",
+        "icon": "globe"
+      },
+      {
+        "value": "24",
+        "suffix": "hr",
+        "label": "Response Time",
+        "icon": "clock"
+      }
+    ],
+    "cta": {
+      "title": "Ready to Start Your Project?",
+      "description": "Whether you need a new website, a headless CMS migration, or help scaling your frontend team, I am here to help. Let's discuss your project.",
+      "buttonLabel": "Get in Touch",
+      "buttonHref": "/contact"
+    },
+    "faq": [
+      {
+        "question": "What is your availability?",
+        "answer": "I am available for full-time W2 positions and select contract projects. My schedule typically allows me to start new engagements within 2-4 weeks, depending on the scope."
+      },
+      {
+        "question": "Do you work remotely?",
+        "answer": "Yes, I work remotely and have done so for over 8 years. I am based in Miami, FL and available for US-based remote positions. I am comfortable with async communication and can overlap with most US time zones."
+      },
+      {
+        "question": "What is your hourly rate or salary expectations?",
+        "answer": "Rates depend on the project scope, timeline, and engagement type. For contract work, I provide fixed-price quotes after understanding your requirements. For W2 positions, I am happy to discuss compensation that aligns with senior-level market rates."
+      },
+      {
+        "question": "Can you work with my existing team?",
+        "answer": "Absolutely. I have extensive experience integrating with existing development teams, following established workflows, and contributing to code reviews. Clear communication and documentation are priorities for me."
+      },
+      {
+        "question": "What is your typical project process?",
+        "answer": "I start with a discovery call to understand your goals and requirements. From there, I provide a proposal with timeline and deliverables. During development, I maintain regular communication through your preferred channels and provide demos at key milestones."
+      }
+    ]
+  },
+  "main": {
+    "meta": {
+      "title": "Hire a Jamstack Developer | Aaron Molina - Astro, Next.js, Sanity",
+      "description": "Looking to hire a Jamstack developer? I'm a senior frontend developer with 12+ years experience building high-performance sites with Astro, Next.js, and Sanity. Available for W2 or contract. Remote US / Miami."
+    },
+    "hero": {
+      "headline": "Hire a Jamstack Developer",
+      "subheadline": "Astro, Next.js & Sanity Expert",
+      "description": "I build high-performance, content-driven websites that load fast, rank well, and make content teams happy. With {yearsOfExperience}+ years of experience shipping production code, I can help you build or scale your web presence.",
+      "badges": ["Remote US", "Miami, FL", "W2 or Contract"],
+      "primaryCta": {
+        "label": "Get in Touch",
+        "href": "/contact",
+        "icon": "arrowRight"
+      },
+      "secondaryCta": {
+        "label": "View My Work",
+        "href": "/projects",
+        "icon": "briefcase"
+      }
+    },
+    "services": {
+      "title": "How I Can Help",
+      "subtitle": "From concept to production, I deliver websites that perform",
+      "items": [
+        {
+          "icon": "rocket",
+          "title": "Jamstack Development",
+          "description": "High-performance static and hybrid sites built with Astro, Next.js, or your framework of choice. Fast load times, great SEO, and easy content updates."
+        },
+        {
+          "icon": "globe",
+          "title": "Headless CMS Integration",
+          "description": "Connect your marketing team to a modern content platform. I specialize in Sanity, Contentful, and custom CMS solutions that scale with your business."
+        },
+        {
+          "icon": "bolt",
+          "title": "Performance Optimization",
+          "description": "Improve Core Web Vitals and page speed scores. I audit, optimize, and rebuild sites to meet Google's performance standards and improve user experience."
+        },
+        {
+          "icon": "code",
+          "title": "Frontend Architecture",
+          "description": "Component libraries, design systems, and frontend infrastructure. Clean, typed code that your team can maintain and extend for years to come."
+        }
+      ]
+    },
+    "features": {
+      "title": "Why Work With Me",
+      "items": [
+        {
+          "icon": "award",
+          "title": "Senior-Level Experience",
+          "description": "Over a decade of shipping production code for startups, agencies, and enterprise clients including Corsair, the LA Clippers, and Azamara Cruises."
+        },
+        {
+          "icon": "users",
+          "title": "Team Player",
+          "description": "I integrate smoothly with existing teams. Clear communication, thorough documentation, and collaborative code reviews are my standard practice."
+        },
+        {
+          "icon": "shield",
+          "title": "Quality Focus",
+          "description": "TypeScript, testing, accessibility, and performance are not afterthoughts. I build with best practices from day one to reduce technical debt."
+        },
+        {
+          "icon": "clock",
+          "title": "Reliable Delivery",
+          "description": "Clear timelines, regular updates, and no surprises. I scope accurately and communicate proactively when circumstances change."
+        }
+      ]
+    },
+    "skills": {
+      "title": "Tech Stack",
+      "subtitle": "Modern tools for modern websites",
+      "categories": [
+        {
+          "name": "Frontend Frameworks",
+          "icon": "code",
+          "skills": ["react", "nextjs", "astro", "typescript"]
+        },
+        {
+          "name": "Headless CMS",
+          "icon": "globe",
+          "skills": ["sanity", "contentful", "strapi"]
+        },
+        {
+          "name": "Styling & UI",
+          "icon": "lightbulb",
+          "skills": ["tailwindcss", "css", "framer-motion"]
+        },
+        {
+          "name": "Backend & Data",
+          "icon": "bolt",
+          "skills": ["nodejs", "supabase", "mongodb", "postgresql"]
+        }
+      ]
+    },
+    "projects": {
+      "title": "Recent Work",
+      "viewAllLabel": "View all projects",
+      "viewAllHref": "/projects"
+    }
+  },
+  "react": {
+    "meta": {
+      "title": "Hire a React Developer | Aaron Molina - Senior Frontend & Full Stack",
+      "description": "Hire an experienced React developer for your next project. 12+ years building production applications with React, Next.js, and TypeScript. Available remote US or Miami-based."
+    },
+    "hero": {
+      "headline": "Hire a React Developer",
+      "subheadline": "Senior Frontend & Full Stack Expert",
+      "description": "Looking for a React developer who can build scalable, maintainable applications? I have {yearsOfExperience}+ years of experience building production React apps for startups and enterprise clients alike.",
+      "badges": ["React Expert", "TypeScript", "Remote US"],
+      "primaryCta": {
+        "label": "Get in Touch",
+        "href": "/contact",
+        "icon": "arrowRight"
+      },
+      "secondaryCta": {
+        "label": "View React Projects",
+        "href": "/projects",
+        "icon": "briefcase"
+      }
+    },
+    "services": {
+      "title": "React Development Services",
+      "subtitle": "From component libraries to full applications",
+      "items": [
+        {
+          "icon": "code",
+          "title": "React Application Development",
+          "description": "Custom React applications built with modern best practices. Server components, hooks, context, and state management patterns that scale."
+        },
+        {
+          "icon": "rocket",
+          "title": "Next.js Development",
+          "description": "Full-stack React with Next.js. Server-side rendering, static generation, API routes, and optimized performance out of the box."
+        },
+        {
+          "icon": "lightbulb",
+          "title": "Component Libraries",
+          "description": "Reusable, accessible component libraries with Storybook documentation. Design system implementation that keeps your UI consistent."
+        },
+        {
+          "icon": "bolt",
+          "title": "Performance Optimization",
+          "description": "React performance audits and optimization. Bundle analysis, code splitting, lazy loading, and rendering optimization."
+        }
+      ]
+    },
+    "features": {
+      "title": "Why Choose Me for React Development",
+      "items": [
+        {
+          "icon": "award",
+          "title": "Deep React Expertise",
+          "description": "Building with React since 2016. I understand the ecosystem deeply, from class components to hooks to server components."
+        },
+        {
+          "icon": "shield",
+          "title": "TypeScript First",
+          "description": "All my React code is fully typed with TypeScript. Better developer experience, fewer bugs, and easier maintenance."
+        },
+        {
+          "icon": "users",
+          "title": "Accessible by Default",
+          "description": "I build with accessibility in mind from the start. WCAG compliance, keyboard navigation, and screen reader support."
+        },
+        {
+          "icon": "clock",
+          "title": "Production Ready",
+          "description": "Code that is tested, documented, and ready for production. No shortcuts that create technical debt."
+        }
+      ]
+    },
+    "skills": {
+      "title": "React Tech Stack",
+      "subtitle": "Tools I use for React development",
+      "categories": [
+        {
+          "name": "Core",
+          "icon": "code",
+          "skills": ["react", "typescript", "nextjs"]
+        },
+        {
+          "name": "State & Data",
+          "icon": "bolt",
+          "skills": ["tanstack-query", "zustand", "react-hook-form"]
+        },
+        {
+          "name": "Styling",
+          "icon": "lightbulb",
+          "skills": ["tailwindcss", "css", "framer-motion"]
+        },
+        {
+          "name": "Testing",
+          "icon": "shield",
+          "skills": ["vitest", "testing-library", "playwright"]
+        }
+      ]
+    }
+  },
+  "nextjs": {
+    "meta": {
+      "title": "Hire a Next.js Developer | Aaron Molina - React & Jamstack Expert",
+      "description": "Need to hire a Next.js developer? I specialize in building fast, SEO-friendly sites with Next.js, React, and headless CMS. W2 or freelance. Remote US / Miami."
+    },
+    "hero": {
+      "headline": "Hire a Next.js Developer",
+      "subheadline": "React & Jamstack Expert",
+      "description": "Need a Next.js developer who understands both the frontend and the full stack? I build fast, SEO-optimized Next.js applications with {yearsOfExperience}+ years of React experience.",
+      "badges": ["Next.js Expert", "App Router", "Remote US"],
+      "primaryCta": {
+        "label": "Get in Touch",
+        "href": "/contact",
+        "icon": "arrowRight"
+      },
+      "secondaryCta": {
+        "label": "View Next.js Projects",
+        "href": "/projects",
+        "icon": "briefcase"
+      }
+    },
+    "services": {
+      "title": "Next.js Development Services",
+      "subtitle": "Full-stack React applications with Next.js",
+      "items": [
+        {
+          "icon": "rocket",
+          "title": "Next.js App Development",
+          "description": "Modern Next.js applications using the App Router, Server Components, and Server Actions. Built for performance and SEO from day one."
+        },
+        {
+          "icon": "globe",
+          "title": "Headless CMS Integration",
+          "description": "Connect Next.js to Sanity, Contentful, or any headless CMS. Preview mode, incremental regeneration, and optimized data fetching."
+        },
+        {
+          "icon": "bolt",
+          "title": "E-commerce Solutions",
+          "description": "Next.js storefronts with Shopify, Stripe, or custom commerce backends. Fast checkout flows and optimized product pages."
+        },
+        {
+          "icon": "code",
+          "title": "API Development",
+          "description": "Next.js API routes and server actions for full-stack functionality. Authentication, database integration, and third-party APIs."
+        }
+      ]
+    },
+    "features": {
+      "title": "Why Choose Me for Next.js",
+      "items": [
+        {
+          "icon": "award",
+          "title": "Next.js Since v9",
+          "description": "Building with Next.js since 2019. I have shipped production apps with Pages Router and App Router, understanding the tradeoffs of each."
+        },
+        {
+          "icon": "rocket",
+          "title": "Performance Focused",
+          "description": "I optimize for Core Web Vitals. Image optimization, font loading, code splitting, and caching strategies are built into every project."
+        },
+        {
+          "icon": "globe",
+          "title": "SEO Expert",
+          "description": "Next.js is great for SEO, but only if implemented correctly. I ensure proper metadata, structured data, and crawlability."
+        },
+        {
+          "icon": "shield",
+          "title": "Vercel & Self-Hosted",
+          "description": "Experience deploying to Vercel, Netlify, AWS, and self-hosted infrastructure. I help you choose the right deployment strategy."
+        }
+      ]
+    },
+    "skills": {
+      "title": "Next.js Tech Stack",
+      "subtitle": "Tools I use for Next.js development",
+      "categories": [
+        {
+          "name": "Framework",
+          "icon": "code",
+          "skills": ["nextjs", "react", "typescript"]
+        },
+        {
+          "name": "Data & CMS",
+          "icon": "globe",
+          "skills": ["sanity", "contentful", "supabase"]
+        },
+        {
+          "name": "Deployment",
+          "icon": "rocket",
+          "skills": ["vercel", "netlify", "docker"]
+        },
+        {
+          "name": "Styling",
+          "icon": "lightbulb",
+          "skills": ["tailwindcss", "css", "framer-motion"]
+        }
+      ]
+    }
+  },
+  "headlessCms": {
+    "meta": {
+      "title": "Headless CMS Developer | Aaron Molina - Sanity, Contentful & More",
+      "description": "Expert headless CMS developer specializing in Sanity, Contentful, and composable architecture. I build content-driven sites that marketing teams love. Remote US / Miami."
+    },
+    "hero": {
+      "headline": "Headless CMS Developer",
+      "subheadline": "Sanity, Contentful & Composable Architecture",
+      "description": "Looking for a developer who understands both the technical and content sides of headless CMS? I build content platforms that marketing teams love and developers can maintain.",
+      "badges": ["Sanity Expert", "Contentful", "Remote US"],
+      "primaryCta": {
+        "label": "Get in Touch",
+        "href": "/contact",
+        "icon": "arrowRight"
+      },
+      "secondaryCta": {
+        "label": "View CMS Projects",
+        "href": "/projects",
+        "icon": "briefcase"
+      }
+    },
+    "services": {
+      "title": "Headless CMS Services",
+      "subtitle": "Content platforms that scale with your business",
+      "items": [
+        {
+          "icon": "globe",
+          "title": "CMS Implementation",
+          "description": "Full headless CMS setup with Sanity, Contentful, Strapi, or your platform of choice. Schema design, content modeling, and editor experience optimization."
+        },
+        {
+          "icon": "rocket",
+          "title": "CMS Migration",
+          "description": "Migrate from WordPress, Drupal, or legacy systems to modern headless architecture. Content mapping, data migration, and redirect strategies."
+        },
+        {
+          "icon": "code",
+          "title": "Custom Studio Development",
+          "description": "Custom Sanity Studio plugins, input components, and workflows. Tailored editing experiences that match your content team's needs."
+        },
+        {
+          "icon": "bolt",
+          "title": "Multi-Site Architecture",
+          "description": "Composable content architectures for multiple brands or regions. Shared content libraries, localization, and governance patterns."
+        }
+      ]
+    },
+    "features": {
+      "title": "Why Choose Me for Headless CMS",
+      "items": [
+        {
+          "icon": "award",
+          "title": "Sanity Certified",
+          "description": "Deep expertise in Sanity CMS including GROQ, custom schemas, plugins, and the Content Lake API. I can build complex content models that stay maintainable."
+        },
+        {
+          "icon": "users",
+          "title": "Content Team Focus",
+          "description": "I design CMS experiences with editors in mind. Intuitive interfaces, helpful validation, and workflows that reduce friction."
+        },
+        {
+          "icon": "globe",
+          "title": "Omnichannel Ready",
+          "description": "Structure content for web, mobile, and beyond. Portable text, image pipelines, and APIs that serve any frontend."
+        },
+        {
+          "icon": "shield",
+          "title": "Future-Proof Architecture",
+          "description": "Build content systems that can evolve. I plan for schema migrations, content versioning, and platform independence."
+        }
+      ]
+    },
+    "skills": {
+      "title": "Headless CMS Stack",
+      "subtitle": "Platforms and tools I work with",
+      "categories": [
+        {
+          "name": "CMS Platforms",
+          "icon": "globe",
+          "skills": ["sanity", "contentful", "strapi"]
+        },
+        {
+          "name": "Frontend",
+          "icon": "code",
+          "skills": ["nextjs", "astro", "react"]
+        },
+        {
+          "name": "Data & APIs",
+          "icon": "bolt",
+          "skills": ["graphql", "rest-api", "webhooks"]
+        },
+        {
+          "name": "Deployment",
+          "icon": "rocket",
+          "skills": ["vercel", "netlify", "cloudflare"]
+        }
+      ]
+    }
+  }
+}

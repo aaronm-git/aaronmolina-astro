@@ -1,0 +1,79 @@
+---
+/**
+ * Hire React Developer Page
+ * Target: "hire react developer" (vol 1,000, KD 8)
+ * Secondary: "react developer for hire"
+ */
+import { HireTemplate } from '@/templates';
+import { getCollection } from 'astro:content';
+import { createTechMap } from '@/utils/tech-lookup';
+import hireContent from '@/content/site/hire.json';
+
+// Fetch data
+const technologies = await getCollection('technologies');
+const techMap = createTechMap(technologies);
+const projects = await getCollection('projects');
+
+// Get React-related projects
+const reactProjects = projects
+  .filter(p => p.data.isActive !== false)
+  .filter(p => p.data.technologies?.some(t => ['react', 'nextjs', 'typescript'].includes(t)))
+  .sort((a, b) => {
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
+  })
+  .slice(0, 3);
+
+// Calculate years of experience
+const yearsOfExperience = new Date().getFullYear() - hireContent.yearsOfExperienceStartYear;
+
+// Process content with dynamic values
+const heroDescription = hireContent.react.hero.description.replace('{yearsOfExperience}', String(yearsOfExperience));
+
+const stats = hireContent.shared.stats.map(stat => ({
+  ...stat,
+  value: String(stat.value).replace('{yearsOfExperience}', String(yearsOfExperience)),
+}));
+---
+
+<HireTemplate
+  title={hireContent.react.meta.title}
+  description={hireContent.react.meta.description}
+  hero={{
+    headline: hireContent.react.hero.headline,
+    subheadline: hireContent.react.hero.subheadline,
+    description: heroDescription,
+    badges: hireContent.react.hero.badges,
+    primaryCta: hireContent.react.hero.primaryCta,
+    secondaryCta: hireContent.react.hero.secondaryCta,
+  }}
+  stats={stats}
+  services={{
+    title: hireContent.react.services.title,
+    subtitle: hireContent.react.services.subtitle,
+    items: hireContent.react.services.items,
+  }}
+  features={{
+    title: hireContent.react.features.title,
+    items: hireContent.react.features.items,
+  }}
+  skills={{
+    title: hireContent.react.skills.title,
+    subtitle: hireContent.react.skills.subtitle,
+    categories: hireContent.react.skills.categories,
+    techMap: techMap,
+  }}
+  projects={{
+    title: "React Projects",
+    items: reactProjects,
+    viewAllHref: "/projects",
+    viewAllLabel: "View all projects",
+  }}
+  faq={{
+    title: "Frequently Asked Questions",
+    subtitle: "Common questions about React development",
+    items: hireContent.shared.faq,
+  }}
+  cta={hireContent.shared.cta}
+/>

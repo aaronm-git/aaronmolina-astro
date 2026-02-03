@@ -127,6 +127,10 @@ This plan combines the Atomic Design Architecture restructure with SEO keyword i
   - Uses: HeroSection (minimal), ExperienceSection, CTASection
 - [x] Refactor `contact.astro`
   - Uses: HeroSection (minimal), custom form, InfoBox sections
+- [x] Refactor `blog/[post].astro` (detail page)
+  - Uses: HeroSection (minimal), CTASection, Button, TagList
+- [x] Refactor `projects/[project].astro` (detail page)
+  - Uses: HeroSection (minimal), CTASection, Badge, TagList, InfoBox
 
 ### Content Files Updated
 
@@ -411,6 +415,8 @@ This plan combines the Atomic Design Architecture restructure with SEO keyword i
 | `1911e69` | refactor: implement atomic design component architecture | 1, 2, 3 |
 | `441d1aa` | feat: enhance homepage with SEO-aligned content and section organisms | 3, 4 |
 | `71f1df9` | refactor: update pages to use section organisms (atomic design) | 4 |
+| `72e1d09` | docs: update architecture plan and create implementation roadmap | Docs |
+| `5b4768d` | refactor: update detail pages to use section organisms | 4 |
 
 ---
 

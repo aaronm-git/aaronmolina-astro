@@ -161,6 +161,15 @@ const responseIconNames = ['clock', 'calendar', 'globe'];
     </div>
   </div>
 
+  <!-- Hire CTA Section -->
+  <section class="animate-section bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border-primary/20 mb-16 rounded-lg border p-8 text-center">
+    <h2 class="text-foreground mb-4 text-3xl font-bold">{pages.contact.hireCta.title}</h2>
+    <p class="text-foreground-muted mx-auto mb-6 max-w-2xl">{pages.contact.hireCta.description}</p>
+    <Button href={pages.contact.hireCta.buttonHref} variant="primary" size="lg" icon="briefcase">
+      {pages.contact.hireCta.buttonLabel}
+    </Button>
+  </section>
+
   <!-- Social Media Section -->
   <section class="animate-section bg-muted border-border rounded-lg border p-8 text-center">
     <h2 class="text-foreground mb-4 text-3xl font-bold">{pages.contact.socialSectionTitle}</h2>

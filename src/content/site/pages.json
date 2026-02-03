@@ -14,25 +14,25 @@
     }
   },
   "projectsIndex": {
-    "metaTitle": "Projects - Aaron Molina",
-    "metaDescription": "A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.",
+    "metaTitle": "Projects | Jamstack, React & Next.js Portfolio - Aaron Molina",
+    "metaDescription": "Explore my portfolio of Jamstack, React, and Next.js projects. See real-world examples of high-performance websites built with Astro, Sanity, and modern web technologies.",
     "heading": "Projects",
-    "intro": "A showcase of my portfolio projects including web development, frontend engineering, and technical solutions.",
+    "intro": "Explore my portfolio of Jamstack, React, and Next.js projects built with modern technologies like Astro, Sanity, and Tailwind CSS.",
     "emptyState": "No projects yet. Check back soon!"
   },
   "blogIndex": {
-    "metaTitle": "Blog - Aaron Molina",
-    "metaDescription": "Thoughts on modern web development, performance optimization, and senior-level technical decisions.",
+    "metaTitle": "Blog | Jamstack, React & Web Development Insights - Aaron Molina",
+    "metaDescription": "Insights on Jamstack development, React best practices, and modern web performance. Tips from a senior frontend developer with 12+ years of experience.",
     "heading": "Blog",
-    "intro": "Thoughts on modern web development, performance optimization, and senior-level technical decisions.",
+    "intro": "Insights on Jamstack development, React best practices, and modern web performance from a senior frontend developer.",
     "emptyState": "No blog posts yet. Check back soon!"
   },
   "experience": {
-    "metaTitle": "Experience - Aaron Molina",
-    "metaDescription": "A comprehensive overview of my professional experience, skills, and achievements across modern web development.",
+    "metaTitle": "Experience | Senior React & Frontend Developer - Aaron Molina",
+    "metaDescription": "Senior frontend developer with 12+ years building React, Next.js, and Jamstack applications. See my professional experience at companies like Entercom, Audacy, and Brafton.",
     "heading": "Professional Experience",
-    "subheadingTemplate": "{yearsOfExperience}+ years of building exceptional web experiences",
-    "intro": "My journey as a developer has taken me through various technologies, teams, and challenges. Here's a comprehensive overview of my professional experience, skills, and achievements.",
+    "subheadingTemplate": "{yearsOfExperience}+ years as a senior frontend developer building exceptional web experiences",
+    "intro": "My journey as a senior frontend developer has taken me through React, Next.js, and Jamstack technologies at companies ranging from startups to enterprises. Here's a comprehensive overview of my experience.",
     "workExperienceTitle": "Work Experience",
     "careerHighlightsTitle": "Career Highlights",
     "keyAchievementsTitle": "Key Achievements",
@@ -65,16 +65,22 @@
     ]
   },
   "contact": {
-    "metaTitle": "Contact - Aaron Molina",
-    "metaDescription": "Get in touch to discuss a project, collaboration, or consulting opportunity.",
+    "metaTitle": "Contact | Hire a Jamstack Developer - Aaron Molina",
+    "metaDescription": "Looking to hire a Jamstack developer? Get in touch to discuss your React, Next.js, or Astro project. Remote US or Miami, FL based.",
     "heading": "Get In Touch",
-    "intro": "Ready to start your next project? I'd love to hear about your ideas and discuss how we can work together to bring them to life.",
+    "intro": "Looking to hire a Jamstack developer? I'd love to hear about your project and discuss how we can build something great together.",
+    "hireCta": {
+      "title": "Looking to Hire a Jamstack Developer?",
+      "description": "Learn more about my services, rates, and availability on my dedicated hire page.",
+      "buttonLabel": "View Hire Page",
+      "buttonHref": "/hire"
+    },
     "formTitle": "Send a Message",
     "whyWorkWithMeTitle": "Why Work With Me?",
     "whyWorkWithMeItems": [
       {
-        "title": "Experience",
-        "description": "I've been in the industry for over 10 years and have worked with some of the biggest brands in the world"
+        "title": "Senior Experience",
+        "description": "12+ years as a senior frontend developer working with React, Next.js, and headless CMS platforms"
       },
       {
         "title": "Fast & Efficient",

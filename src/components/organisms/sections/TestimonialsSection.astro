@@ -1,6 +1,7 @@
 ---
 import type { ImageMetadata } from 'astro';
 import TestimonialCard from '@/components/organisms/cards/TestimonialCard.astro';
+import Button from '@/components/atoms/Button.astro';
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
 import { cn } from '@/lib/cn';
 
@@ -128,7 +129,7 @@ const columnClasses: Record<number, string> = {
     {variant === 'carousel' && (
       <div class="relative">
         <div class="overflow-hidden">
-          <div class="testimonial-carousel flex gap-6 transition-transform duration-500" data-carousel>
+          <div class="testimonial-carousel flex gap-6" data-carousel>
             {testimonials.map(testimonial => (
               <TestimonialCard
                 quote={testimonial.quote}
@@ -145,10 +146,13 @@ const columnClasses: Record<number, string> = {
         </div>
         <div class="mt-6 flex justify-center gap-2">
           {testimonials.map((_, i) => (
-            <button
-              class="h-2 w-2 rounded-full bg-muted transition-colors hover:bg-primary data-[active]:bg-primary"
+            <Button
+              variant="outline"
+              size="xs"
+              type="button"
+              ariaLabel={`Go to testimonial ${i + 1}`}
               data-carousel-dot={i}
-              aria-label={`Go to testimonial ${i + 1}`}
+              class="!p-0 h-2 w-2 !rounded-full bg-muted"
             />
           ))}
         </div>
@@ -157,27 +161,3 @@ const columnClasses: Record<number, string> = {
   </div>
 </section>
 
-<style>
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  .testimonial-marquee {
-    animation: marquee 30s linear infinite;
-  }
-
-  .testimonial-marquee:hover {
-    animation-play-state: paused;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .testimonial-marquee {
-      animation: none;
-    }
-  }
-</style>

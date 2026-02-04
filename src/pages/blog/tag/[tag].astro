@@ -59,7 +59,7 @@ const metaDescription = `Read my articles about ${tagDisplayName}. Insights and 
 <MainLayout title={metaTitle} description={metaDescription}>
   {/* Back Navigation */}
   <nav class="mb-4 px-4">
-    <Button href="/blog" variant="ghost" icon="arrowLeft" size="sm">
+    <Button href="/blog" variant="outline" icon="arrowLeft" size="sm">
       Back to Blog
     </Button>
   </nav>
@@ -78,7 +78,7 @@ const metaDescription = `Read my articles about ${tagDisplayName}. Insights and 
       techMap={techMap}
       variant="list"
       showTags
-      class="animate-section py-0 max-w-4xl mx-auto"
+      class=" py-0 max-w-4xl mx-auto"
     />
   ) : (
     <div class="py-12 text-center">
@@ -86,5 +86,5 @@ const metaDescription = `Read my articles about ${tagDisplayName}. Insights and 
     </div>
   )}
 
-  <CTASection class="animate-section mt-12" />
+  <CTASection class=" mt-12" />
 </MainLayout>

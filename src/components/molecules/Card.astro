@@ -60,9 +60,9 @@ const roundedClasses: Record<CardRounded, string> = {
   '2xl': 'rounded-2xl',
 };
 
-// Interactive classes
+// Interactive classes (animations removed)
 const interactiveClasses = interactive || href
-  ? 'transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer'
+  ? 'cursor-pointer'
   : '';
 
 const combinedClasses = cn(
@@ -86,17 +86,3 @@ const linkProps = href ? {
   <slot />
 </Tag>
 
-<style>
-  .card-tactile {
-    transform-style: preserve-3d;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .card-tactile:hover {
-    transform: translateY(-4px) rotateX(2deg);
-    box-shadow:
-      0 20px 25px -5px rgb(0 0 0 / 0.1),
-      0 8px 10px -6px rgb(0 0 0 / 0.1),
-      0 -2px 0 0 var(--primary) inset;
-  }
-</style>

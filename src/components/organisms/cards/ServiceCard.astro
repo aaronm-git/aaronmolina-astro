@@ -117,12 +117,12 @@ const {
   </Card>
 ) : variant === 'minimal' ? (
   <div class={cn('group', className)}>
-    <div class="mb-3 inline-flex rounded-lg bg-muted p-2 transition-colors group-hover:bg-primary/10">
-      <Icon name={icon} size="base" color="muted" class="group-hover:text-primary transition-colors" />
+    <div class="mb-3 inline-flex rounded-lg bg-muted p-2">
+      <Icon name={icon} size="base" color="muted" />
     </div>
     <Heading level={3} size="base" class="mb-1">
       {href ? (
-        <a href={href} class="hover:text-secondary transition-colors">
+        <a href={href}>
           {title}
         </a>
       ) : title}

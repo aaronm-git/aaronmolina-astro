@@ -1,6 +1,5 @@
 ---
 import '@/styles/global.css';
-import { ViewTransitions } from 'astro:transitions';
 import Header from '@/components/organisms/navigation/Header.astro';
 import Footer from '@/components/organisms/navigation/Footer.astro';
 import Breadcrumbs from '@/components/molecules/Breadcrumbs.astro';
@@ -34,7 +33,7 @@ const breadcrumbs = generateBreadcrumbs(Astro.url.pathname);
     <!-- Umami Analytics -->
     {
       settings.analytics?.umamiScriptSrc && settings.analytics?.umamiWebsiteId ? (
-        <script is:inline defer src={settings.analytics.umamiScriptSrc} data-website-id={settings.analytics.umamiWebsiteId}></script>
+        <script is:inline defer src={settings.analytics.umamiScriptSrc} data-website-id={settings.analytics.umamiWebsiteId} />
       ) : null
     }
 
@@ -52,34 +51,26 @@ const breadcrumbs = generateBreadcrumbs(Astro.url.pathname);
     <!-- <meta property="twitter:image" content={siteConfig.image} /> -->
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": settings.author.name,
-      "url": settings.siteUrl,
-      "email": settings.author.email,
-      "jobTitle": settings.author.jobTitle,
-      "description": settings.author.bio,
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Miami",
-        "addressRegion": "FL",
-        "addressCountry": "US"
-      },
-      "sameAs": settings.author.socialLinks?.map((link: { url: string }) => link.url) || [],
-      "knowsAbout": [
-        "Jamstack Development",
-        "React",
-        "Next.js",
-        "Astro",
-        "TypeScript",
-        "Sanity CMS",
-        "Headless CMS",
-        "Frontend Development",
-        "Web Performance",
-        "Tailwind CSS"
-      ]
-    })} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: settings.author.name,
+        url: settings.siteUrl,
+        email: settings.author.email,
+        jobTitle: settings.author.jobTitle,
+        description: settings.author.bio,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Miami',
+          addressRegion: 'FL',
+          addressCountry: 'US',
+        },
+        sameAs: settings.author.socialLinks?.map((link: { url: string }) => link.url) || [],
+        knowsAbout: ['Jamstack Development', 'React', 'Next.js', 'Astro', 'TypeScript', 'Sanity CMS', 'Headless CMS', 'Frontend Development', 'Web Performance', 'Tailwind CSS'],
+      })}
+    />
 
     <!-- Theme -->
     <script is:inline>
@@ -99,65 +90,14 @@ const breadcrumbs = generateBreadcrumbs(Astro.url.pathname);
 
     <!-- Title -->
     <title>{title}</title>
-
-    <!-- View Transitions for smooth page navigation -->
-    <ViewTransitions fallback="swap" />
-    <style>
-      ::view-transition-old(root) {
-        animation: fade-out 0.3s ease-out forwards;
-      }
-      ::view-transition-new(root) {
-        animation: fade-in 0.3s ease-in forwards;
-      }
-      @keyframes fade-out {
-        from {
-          opacity: 1;
-        }
-        to {
-          opacity: 0;
-        }
-      }
-      @keyframes fade-in {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-    </style>
   </head>
   <!-- Body -->
-  <body class="bg-background text-foreground pt-13 antialiased transition-colors duration-200">
+  <body class="bg-background text-foreground pt-13 antialiased">
     <Header />
-    <main class="mx-auto max-w-6xl px-4 py-8">
+    <main class="mx-auto max-w-6xl px-4">
       <Breadcrumbs items={breadcrumbs} />
       <slot />
     </main>
     <Footer />
-
-    <!-- GSAP Animations -->
-    <script>
-      import { AnimationUtils } from '@/scripts/animations';
-
-      // Initialize animations when DOM is ready
-      document.addEventListener('DOMContentLoaded', () => {
-        AnimationUtils.initializeAll();
-      });
-
-      // Reinitialize animations after View Transitions navigation
-      document.addEventListener('astro:after-swap', () => {
-        AnimationUtils.cleanup();
-        AnimationUtils.initialized = false;
-        AnimationUtils.initializeAll();
-      });
-
-      // Also try on window load as a fallback for hash scrolling
-      window.addEventListener('load', () => {
-        if (window.location.hash) {
-          AnimationUtils.initSmoothScrollOnPageLoad();
-        }
-      });
-    </script>
   </body>
 </html>

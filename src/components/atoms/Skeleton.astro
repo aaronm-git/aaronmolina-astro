@@ -35,10 +35,10 @@ const variantClasses: Record<SkeletonVariant, string> = {
   rounded: 'rounded-lg',
 };
 
-// Animation classes
+// Animation classes (all animations removed)
 const animationClasses: Record<string, string> = {
-  pulse: 'animate-pulse',
-  wave: 'skeleton-wave',
+  pulse: '',
+  wave: '',
   none: '',
 };
 
@@ -73,29 +73,3 @@ const style = [
   <div class={baseClasses} style={style || undefined} />
 )}
 
-<style>
-  .skeleton-wave {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .skeleton-wave::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent
-    );
-    animation: wave 1.5s infinite;
-  }
-
-  @keyframes wave {
-    100% {
-      transform: translateX(100%);
-    }
-  }
-</style>

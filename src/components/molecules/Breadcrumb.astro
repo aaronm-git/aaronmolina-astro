@@ -21,13 +21,7 @@ interface Props {
   class?: string;
 }
 
-const {
-  items,
-  showHome = true,
-  homeHref = '/',
-  separator = 'chevron',
-  class: className = '',
-} = Astro.props;
+const { items, showHome = true, homeHref = '/', separator = 'chevron', class: className = '' } = Astro.props;
 
 // Separator content
 const separatorContent: Record<string, string> = {
@@ -36,57 +30,48 @@ const separatorContent: Record<string, string> = {
   dot: '•',
 };
 
-const combinedClasses = cn(
-  'flex items-center flex-wrap gap-1 text-sm',
-  className,
-);
+const combinedClasses = cn('flex items-center flex-wrap gap-1 text-sm', className);
 ---
 
 <nav aria-label="Breadcrumb" class={combinedClasses}>
-  {showHome && (
-    <>
-      <a
-        href={homeHref}
-        class="text-foreground-muted hover:text-foreground transition-colors p-1"
-        aria-label="Home"
-      >
-        <FaHouse className="w-4 h-4" />
-      </a>
-      {separator === 'chevron' ? (
-        <FaChevronRight className="w-3 h-3 text-foreground-muted mx-1" />
-      ) : (
-        <span class="text-foreground-muted mx-2">{separatorContent[separator]}</span>
-      )}
-    </>
-  )}
-
-  {items.map((item, index) => {
-    const isLast = index === items.length - 1;
-    return (
+  {
+    showHome && (
       <>
-        {isLast || !item.href ? (
-          <span
-            class={cn(
-              isLast ? 'text-foreground font-medium' : 'text-foreground-muted',
-            )}
-            aria-current={isLast ? 'page' : undefined}
-          >
-            {item.label}
-          </span>
+        <a href={homeHref} class="text-foreground-muted p-1" aria-label="Home">
+          <FaHouse />
+        </a>
+        {separator === 'chevron' ? (
+          <FaChevronRight className="w-3 h-3 text-foreground-muted mx-1" />
         ) : (
-          <Link href={item.href} variant="muted" size="sm">
-            {item.label}
-          </Link>
-        )}
-
-        {!isLast && (
-          separator === 'chevron' ? (
-            <FaChevronRight className="w-3 h-3 text-foreground-muted mx-1" />
-          ) : (
-            <span class="text-foreground-muted mx-2">{separatorContent[separator]}</span>
-          )
+          <span class="text-foreground-muted mx-2">{separatorContent[separator]}</span>
         )}
       </>
-    );
-  })}
+    )
+  }
+
+  {
+    items.map((item, index) => {
+      const isLast = index === items.length - 1;
+      return (
+        <>
+          {isLast || !item.href ? (
+            <span class={cn(isLast ? 'text-foreground font-medium' : 'text-foreground-muted')} aria-current={isLast ? 'page' : undefined}>
+              {item.label}
+            </span>
+          ) : (
+            <Link href={item.href} variant="muted" size="sm">
+              {item.label}
+            </Link>
+          )}
+
+          {!isLast &&
+            (separator === 'chevron' ? (
+              <FaChevronRight className="w-3 h-3 text-foreground-muted mx-1" />
+            ) : (
+              <span class="text-foreground-muted mx-2">{separatorContent[separator]}</span>
+            ))}
+        </>
+      );
+    })
+  }
 </nav>

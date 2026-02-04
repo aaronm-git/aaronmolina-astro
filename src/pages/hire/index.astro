@@ -59,29 +59,29 @@ const description = 'Hire a senior developer for Jamstack, React, Next.js, and H
     services={serviceOfferings}
     variant="grid"
     columns={2}
-    class="animate-section mb-16 bg-muted/30 rounded-2xl"
+    class="mb-16 bg-muted/30 rounded-2xl"
   />
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
     {serviceOfferings.map((service) => (
       <a
         href={service.href}
-        class="group relative p-6 rounded-xl border border-border hover:border-primary bg-card hover:bg-muted/50 transition-all duration-200"
+        class="group relative p-6 rounded-xl border border-border bg-card"
       >
         <div class="flex items-start gap-4">
           <div class="flex-shrink-0">
-            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10">
               <span class="text-lg">→</span>
             </div>
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+            <h3 class="text-lg font-semibold text-foreground">
               {service.title}
             </h3>
             <p class="mt-2 text-sm text-foreground-muted">{service.description}</p>
             <div class="mt-4 flex items-center text-primary font-medium text-sm">
               Learn more
-              <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              <span class="ml-2">→</span>
             </div>
           </div>
         </div>
@@ -94,6 +94,6 @@ const description = 'Hire a senior developer for Jamstack, React, Next.js, and H
     description="Whether you need a new website, optimization, or scaling your team, I'm here to help."
     buttonLabel="Get in Touch"
     buttonHref="/contact"
-    class="animate-section"
+    class=""
   />
 </MainLayout>

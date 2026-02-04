@@ -36,27 +36,27 @@ const {
   class: className = '',
 } = Astro.props;
 
-// Variant classes
+// Variant classes (transitions removed)
 const variantClasses: Record<NavLinkVariant, { base: string; active: string; inactive: string }> = {
   default: {
-    base: 'transition-colors',
+    base: '',
     active: 'text-foreground font-medium',
-    inactive: 'text-foreground-muted hover:text-foreground',
+    inactive: 'text-foreground-muted',
   },
   underline: {
-    base: 'relative transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-primary after:transition-all',
+    base: 'relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-primary',
     active: 'text-foreground after:w-full',
-    inactive: 'text-foreground-muted hover:text-foreground after:w-0 hover:after:w-full',
+    inactive: 'text-foreground-muted after:w-0',
   },
   pill: {
-    base: 'rounded-full transition-all',
+    base: 'rounded-full',
     active: 'bg-primary text-on-primary',
-    inactive: 'text-foreground-muted hover:bg-muted hover:text-foreground',
+    inactive: 'text-foreground-muted',
   },
   subtle: {
-    base: 'rounded-md transition-colors',
+    base: 'rounded-md',
     active: 'bg-muted text-foreground',
-    inactive: 'text-foreground-muted hover:bg-muted/50 hover:text-foreground',
+    inactive: 'text-foreground-muted',
   },
 };
 

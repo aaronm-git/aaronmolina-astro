@@ -105,78 +105,90 @@ const statsItems = homepageContent.stats.items.map(item => ({
       icon: 'arrowRight',
       variant: 'primary',
     }}
-    showBubbles={false}
-    class="my-16 py-0"
+    height="screen"
+    class="my-0"
   >
-    <div class="mt-4 flex flex-wrap justify-center gap-2">
-      <Badge label={homepageContent.hero.subheadline} variant="primary" size="sm" />
-      <Badge label={homepageContent.hero.location} variant="outline" size="sm" />
-      <Badge label={homepageContent.hero.availability} variant="secondary" size="sm" />
+    <div class="mt-6 flex flex-wrap justify-center gap-3">
+      <Badge label={homepageContent.hero.subheadline} variant="primary" size="base" class="tactile-tag font-extrabold" />
+      <Badge label={homepageContent.hero.location} variant="outline" size="base" class="tactile-tag font-extrabold" />
+      <Badge label={homepageContent.hero.availability} variant="secondary" size="base" class="tactile-tag-featured font-extrabold" />
     </div>
   </HeroSection>
 
   <!-- Stats Section -->
-  <StatsSection
-    stats={statsItems}
-    variant="cards"
-    columns={4}
-    highlight
-    class="animate-section mb-16"
-  />
+  <div class="md:min-h-screen md:flex md:items-center">
+    <StatsSection
+      stats={statsItems}
+      variant="cards"
+      columns={4}
+      highlight
+      class=" w-full"
+    />
+  </div>
 
   <!-- Services Section -->
-  <ServicesSection
-    title={homepageContent.services.title}
-    subtitle={homepageContent.services.subtitle}
-    services={homepageContent.services.items}
-    variant="grid"
-    columns={2}
-    class="animate-section mb-16 bg-muted/30 rounded-2xl"
-  />
+  <div class="md:min-h-screen md:flex md:items-center bg-muted/30">
+    <ServicesSection
+      title={homepageContent.services.title}
+      subtitle={homepageContent.services.subtitle}
+      services={homepageContent.services.items}
+      variant="grid"
+      columns={2}
+      class=" w-full"
+    />
+  </div>
 
   <!-- Tech Stack Section -->
-  <SkillsSection
-    title={homepageContent.techStack.title}
-    subtitle={homepageContent.techStack.subtitle}
-    categories={homepageContent.techStack.categories}
-    techMap={techMap}
-    variant="grouped"
-    columns={2}
-    class="animate-section mb-16"
-  />
+  <div class="md:min-h-screen md:flex md:items-center">
+    <SkillsSection
+      title={homepageContent.techStack.title}
+      subtitle={homepageContent.techStack.subtitle}
+      categories={homepageContent.techStack.categories}
+      techMap={techMap}
+      variant="grouped"
+      columns={2}
+      class=" w-full"
+    />
+  </div>
 
   <!-- Featured Projects Section -->
-  <ProjectsSection
-    title={homepageContent.featuredProjects.title}
-    projects={featuredProjects}
-    cta={{
-      label: homepageContent.featuredProjects.viewAllLabel,
-      href: homepageContent.featuredProjects.viewAllHref,
-    }}
-    class="animate-section mb-16"
-  />
+  <div class="md:min-h-screen md:flex md:items-center">
+    <ProjectsSection
+      title={homepageContent.featuredProjects.title}
+      projects={featuredProjects}
+      cta={{
+        label: homepageContent.featuredProjects.viewAllLabel,
+        href: homepageContent.featuredProjects.viewAllHref,
+      }}
+      class=" w-full"
+    />
+  </div>
 
   <!-- Why Work With Me Section -->
-  <FeaturesSection
-    title={homepageContent.valueProps.title}
-    features={homepageContent.valueProps.items}
-    variant="cards"
-    columns={2}
-    class="animate-section mb-16 bg-muted/30 rounded-2xl"
-  />
+  <div class="md:min-h-screen md:flex md:items-center bg-muted/30">
+    <FeaturesSection
+      title={homepageContent.valueProps.title}
+      features={homepageContent.valueProps.items}
+      variant="cards"
+      columns={2}
+      class=" w-full"
+    />
+  </div>
 
   <!-- Experience Section -->
-  <ExperienceSection
-    title={homepageContent.experience.title}
-    roles={featuredRoles}
-    organizations={orgBySlug}
-    variant="cards"
-    cta={{
-      label: homepageContent.experience.viewAllLabel,
-      href: homepageContent.experience.viewAllHref,
-    }}
-    class="animate-section mb-16"
-  />
+  <div class="md:min-h-screen md:flex md:items-center">
+    <ExperienceSection
+      title={homepageContent.experience.title}
+      roles={featuredRoles}
+      organizations={orgBySlug}
+      variant="cards"
+      cta={{
+        label: homepageContent.experience.viewAllLabel,
+        href: homepageContent.experience.viewAllHref,
+      }}
+      class=" w-full"
+    />
+  </div>
 
   <!-- Blog Section -->
   {recentPosts.length > 0 && (
@@ -189,15 +201,18 @@ const statsItems = homepageContent.stats.items.map(item => ({
         label: homepageContent.blog.viewAllLabel,
         href: homepageContent.blog.viewAllHref,
       }}
-      class="animate-section mb-16"
+      class=" mb-16"
     />
   )}
 
   <!-- CTA Section -->
-  <CTASection
-    title={homepageContent.cta.title}
-    description={homepageContent.cta.description}
-    buttonLabel={homepageContent.cta.primaryButton.label}
-    buttonHref={homepageContent.cta.primaryButton.href}
-  />
+  <div class="md:min-h-screen md:flex md:items-center">
+    <CTASection
+      title={homepageContent.cta.title}
+      description={homepageContent.cta.description}
+      buttonLabel={homepageContent.cta.primaryButton.label}
+      buttonHref={homepageContent.cta.primaryButton.href}
+      class="w-full"
+    />
+  </div>
 </MainLayout>

@@ -79,16 +79,21 @@ const faqsByCategory = showCategories
             )}
             {categoryFaqs.map((faq, i) => (
               <div class="border border-border rounded-lg overflow-hidden">
-                <button
-                  class="flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-muted/50"
+                <Button
+                  variant="outline"
+                  size="base"
+                  fullWidth
+                  type="button"
+                  ariaLabel={`Toggle ${faq.question}`}
                   data-faq-trigger
                   aria-expanded="false"
+                  class="justify-between"
                 >
                   <Text weight="medium" class="pr-4">
                     {faq.question}
                   </Text>
-                  <FaChevronDown className="w-5 h-5 text-foreground-muted transition-transform duration-200 flex-shrink-0" data-faq-icon />
-                </button>
+                  <FaChevronDown className="w-5 h-5 text-foreground-muted flex-shrink-0" data-faq-icon />
+                </Button>
                 <div class="hidden" data-faq-content>
                   <div class="px-4 pb-4 pt-0">
                     <Text color="muted">

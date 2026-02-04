@@ -7,10 +7,10 @@
   "hero": {
     "name": "Aaron Molina",
     "headline": "Jamstack Developer",
-    "subheadline": "Astro, Next.js & Sanity Expert",
-    "description": "I build fast, scalable websites that marketing teams love and developers enjoy maintaining. With {yearsOfExperience}+ years of experience, I specialize in headless CMS architecture, React, and modern web performance.",
+    "subheadline": "Astro • Next.js • Sanity",
+    "description": "I build lightning-fast, scalable websites that marketing teams love and developers enjoy maintaining. {yearsOfExperience}+ years crafting headless CMS solutions, React apps, and high-performance web experiences.",
     "location": "Remote US / Miami, FL",
-    "availability": "Available for W2 or Contract"
+    "availability": "Available Now"
   },
   "stats": {
     "title": "By the Numbers",

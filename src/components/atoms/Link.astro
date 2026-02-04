@@ -45,14 +45,14 @@ const IconComponent = iconComponent || (icon ? getIcon(icon) : null);
 // Auto-detect external links
 const isExternal = external || (href.startsWith('http') && !href.includes(Astro.site?.hostname || ''));
 
-// Variant classes
+// Variant classes (hover effects removed)
 const variantClasses: Record<LinkVariant, string> = {
-  default: 'text-foreground hover:text-primary',
-  muted: 'text-foreground-muted hover:text-foreground',
-  primary: 'text-primary hover:text-primary-hover',
-  secondary: 'text-secondary hover:text-secondary-hover',
-  underline: 'text-foreground underline underline-offset-4 hover:text-primary',
-  subtle: 'text-foreground-muted hover:text-secondary hover:underline underline-offset-4',
+  default: 'text-foreground',
+  muted: 'text-foreground-muted',
+  primary: 'text-primary',
+  secondary: 'text-secondary',
+  underline: 'text-foreground underline underline-offset-4',
+  subtle: 'text-foreground-muted underline-offset-4',
 };
 
 // Size classes
@@ -70,7 +70,7 @@ const iconSizeClasses: Record<LinkSize, string> = {
 };
 
 const combinedClasses = cn(
-  'inline-flex items-center gap-1.5 transition-colors group',
+  'inline-flex items-center gap-1.5 group',
   variantClasses[variant],
   sizeClasses[size],
   className,
@@ -90,7 +90,7 @@ const iconClass = iconSizeClasses[size];
   )}
   <slot />
   {showArrow && !isExternal && (
-    <FaArrowRight className={cn(iconClass, 'transition-transform group-hover:translate-x-0.5')} />
+    <FaArrowRight className={iconClass} />
   )}
   {isExternal && showExternalIcon && (
     <FaUpRightFromSquare className={cn(iconClass, 'opacity-60')} />

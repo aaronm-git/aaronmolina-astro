@@ -2,9 +2,9 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
-  loader: glob({ 
-    pattern: '**/*.md',
-    base: './src/content/blog'
+  loader: glob({
+    pattern: '**/*.mdx',
+    base: './src/content/blog',
   }),
   schema: ({ image }) =>
     z.object({
@@ -19,16 +19,14 @@ const blog = defineCollection({
 });
 
 const technologies = defineCollection({
-  loader: glob({ 
+  loader: glob({
     pattern: '**/*.json',
-    base: './src/content/technologies'
+    base: './src/content/technologies',
   }),
   schema: z.object({
     name: z.string(),
     slug: z.string(),
-    category: z
-      .enum(['language', 'framework', 'library', 'tool', 'platform', 'service', 'cms', 'concept', 'other'])
-      .default('other'),
+    category: z.enum(['language', 'framework', 'library', 'tool', 'platform', 'service', 'cms', 'concept', 'other']).default('other'),
     url: z.string().optional(),
     level: z.enum(['beginner', 'intermediate', 'advanced', 'expert']).optional(),
     years: z.number().optional(),
@@ -38,9 +36,9 @@ const technologies = defineCollection({
 });
 
 const organizations = defineCollection({
-  loader: glob({ 
+  loader: glob({
     pattern: '**/*.json',
-    base: './src/content/organizations'
+    base: './src/content/organizations',
   }),
   schema: ({ image }) =>
     z.object({
@@ -57,9 +55,9 @@ const organizations = defineCollection({
 });
 
 const roles = defineCollection({
-  loader: glob({ 
+  loader: glob({
     pattern: '**/*.json',
-    base: './src/content/roles'
+    base: './src/content/roles',
   }),
   schema: z.object({
     title: z.string(),
@@ -69,12 +67,12 @@ const roles = defineCollection({
     employmentType: z
       .union([z.enum(['full_time', 'part_time', 'contract', 'freelance', 'internship']), z.literal('')])
       .optional()
-      .transform((val) => (val === '' ? undefined : val)),
-    startDate: z.union([z.string(), z.date()]).transform((val) => (typeof val === 'string' ? new Date(val) : val)),
+      .transform(val => (val === '' ? undefined : val)),
+    startDate: z.union([z.string(), z.date()]).transform(val => (typeof val === 'string' ? new Date(val) : val)),
     endDate: z
       .union([z.string(), z.date(), z.null()])
       .optional()
-      .transform((val) => {
+      .transform(val => {
         if (typeof val === 'string') return new Date(val);
         if (val === null) return undefined;
         return val;
@@ -92,9 +90,9 @@ const roles = defineCollection({
 });
 
 const profile = defineCollection({
-  loader: glob({ 
+  loader: glob({
     pattern: '**/*.json',
-    base: './src/content/profile'
+    base: './src/content/profile',
   }),
   schema: ({ image }) =>
     z.object({
@@ -112,9 +110,9 @@ const profile = defineCollection({
 });
 
 const projects = defineCollection({
-  loader: glob({ 
+  loader: glob({
     pattern: '**/*.md',
-    base: './src/content/projects'
+    base: './src/content/projects',
   }),
   schema: ({ image }) =>
     z.object({
@@ -133,7 +131,7 @@ const projects = defineCollection({
       completedOn: z
         .union([z.string(), z.date()])
         .optional()
-        .transform((val) => {
+        .transform(val => {
           if (typeof val === 'string') {
             // Handle partial dates like "2022-07" by appending default day
             if (val.match(/^\d{4}-\d{2}$/)) {
@@ -148,9 +146,9 @@ const projects = defineCollection({
 });
 
 const education = defineCollection({
-  loader: glob({ 
+  loader: glob({
     pattern: '**/*.json',
-    base: './src/content/education'
+    base: './src/content/education',
   }),
   schema: z.object({
     school: z.string(),
@@ -167,9 +165,9 @@ const education = defineCollection({
 });
 
 const certifications = defineCollection({
-  loader: glob({ 
+  loader: glob({
     pattern: '**/*.json',
-    base: './src/content/certifications'
+    base: './src/content/certifications',
   }),
   schema: z.object({
     name: z.string(),
@@ -185,9 +183,9 @@ const certifications = defineCollection({
 });
 
 const awards = defineCollection({
-  loader: glob({ 
+  loader: glob({
     pattern: '**/*.json',
-    base: './src/content/awards'
+    base: './src/content/awards',
   }),
   schema: z.object({
     title: z.string(),
@@ -202,9 +200,9 @@ const awards = defineCollection({
 });
 
 const testimonials = defineCollection({
-  loader: glob({ 
+  loader: glob({
     pattern: '**/*.json',
-    base: './src/content/testimonials'
+    base: './src/content/testimonials',
   }),
   schema: z.object({
     name: z.string(),
@@ -220,9 +218,9 @@ const testimonials = defineCollection({
 });
 
 const services = defineCollection({
-  loader: glob({ 
+  loader: glob({
     pattern: '**/*.json',
-    base: './src/content/services'
+    base: './src/content/services',
   }),
   schema: z.object({
     title: z.string(),

@@ -61,12 +61,12 @@ const variantClasses: Record<SocialLinkVariant, Record<SocialLinkSize, string>> 
   },
 };
 
-// Build link classes
+// Build link classes (transitions removed)
 const linkClasses = cn(
-  'inline-flex items-center transition-colors',
-  variant === 'icon-only' && 'text-foreground-muted hover:text-secondary rounded-md hover:bg-muted',
-  variant === 'with-label' && 'text-foreground-muted hover:text-secondary',
-  variant === 'button' && 'bg-primary hover:bg-primary-hover text-on-primary rounded-lg font-medium',
+  'inline-flex items-center',
+  variant === 'icon-only' && 'text-foreground-muted rounded-md',
+  variant === 'with-label' && 'text-foreground-muted',
+  variant === 'button' && 'bg-primary text-on-primary rounded-lg font-medium',
   variantClasses[variant][size],
   className,
 );

@@ -6,7 +6,6 @@ import Text from '@/components/atoms/Text.astro';
 import Button from '@/components/atoms/Button.astro';
 import Badge from '@/components/atoms/Badge.astro';
 import Avatar from '@/components/atoms/Avatar.astro';
-import AeroBubbles from '@/components/organisms/decorative/AeroBubbles.astro';
 import { cn } from '@/lib/cn';
 
 type HeroVariant = 'centered' | 'split' | 'minimal' | 'fullscreen' | 'profile';
@@ -16,7 +15,7 @@ interface CTA {
   label: string;
   href: string;
   icon?: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'tactile';
+  variant?: 'primary' | 'secondary' | 'outline';
 }
 
 interface SocialProof {
@@ -53,8 +52,6 @@ interface Props {
   align?: 'left' | 'center' | 'right';
   /** Section height */
   height?: HeroHeight;
-  /** Show decorative bubbles */
-  showBubbles?: boolean;
   /** Show gradient background */
   showGradient?: boolean;
   /** Additional CSS classes */
@@ -76,7 +73,6 @@ const {
   variant = 'centered',
   align = (variant === 'centered' || variant === 'profile') ? 'center' : 'left',
   height = 'auto',
-  showBubbles = true,
   showGradient = false,
   class: className = '',
 } = Astro.props;
@@ -104,7 +100,6 @@ const containerClasses = cn(
 ---
 
 <section class={containerClasses}>
-  {showBubbles && variant !== 'minimal' && <AeroBubbles count={3} />}
 
   <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     {variant === 'centered' && (
@@ -138,10 +133,9 @@ const containerClasses = cn(
             {primaryCta && (
               <Button
                 href={primaryCta.href}
-                variant={primaryCta.variant || 'tactile'}
+                variant={primaryCta.variant || 'primary'}
                 icon={primaryCta.icon}
                 size="lg"
-                bounce
               >
                 {primaryCta.label}
               </Button>
@@ -226,10 +220,9 @@ const containerClasses = cn(
               {primaryCta && (
                 <Button
                   href={primaryCta.href}
-                  variant={primaryCta.variant || 'tactile'}
+                  variant={primaryCta.variant || 'primary'}
                   icon={primaryCta.icon}
                   size="lg"
-                  bounce
                 >
                   {primaryCta.label}
                 </Button>
@@ -338,11 +331,9 @@ const containerClasses = cn(
             {primaryCta && (
               <Button
                 href={primaryCta.href}
-                variant={primaryCta.variant || 'tactile'}
+                variant={primaryCta.variant || 'primary'}
                 icon={primaryCta.icon}
                 size="xl"
-                bounce
-                glow
               >
                 {primaryCta.label}
               </Button>
@@ -350,7 +341,7 @@ const containerClasses = cn(
             {secondaryCta && (
               <Button
                 href={secondaryCta.href}
-                variant={secondaryCta.variant || 'ghost'}
+                variant={secondaryCta.variant || 'outline'}
                 icon={secondaryCta.icon}
                 size="xl"
               >
@@ -365,9 +356,13 @@ const containerClasses = cn(
     )}
 
     {variant === 'profile' && (
-      <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+      <div class={cn(
+        'flex flex-col items-center text-center max-w-4xl mx-auto',
+        height === 'screen' && 'min-h-[calc(100vh-8rem)] justify-center'
+      )}>
         {avatar && (
-          <div class="mb-8">
+          <div class="mb-8 relative">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 rounded-2xl blur-2xl -z-10"></div>
             <Image
               src={avatar}
               alt={avatarAlt}
@@ -379,44 +374,47 @@ const containerClasses = cn(
           </div>
         )}
 
-        <Heading level={1} size="hero" class="mb-1 md:mb-6">
+        <Heading level={1} size="hero" class="mb-3 font-black tracking-tight md:mb-4">
           {headline}
         </Heading>
 
         {subheadline && (
-          <Text size="lg" color="muted" weight="medium" class="mb-4 md:text-2xl">
-            {subheadline}
-          </Text>
+          <div class="mb-4 inline-block">
+            <Text size="xl" color="primary" weight="bold" class="md:text-3xl uppercase tracking-wide">
+              {subheadline}
+            </Text>
+            <div class="h-1 bg-gradient-to-r from-primary via-secondary to-accent rounded-full mt-2"></div>
+          </div>
         )}
 
         {description && (
-          <Text size="base" color="muted" class="mx-auto max-w-3xl leading-relaxed md:text-lg" balance>
+          <Text size="base" color="muted" class="mx-auto max-w-3xl leading-relaxed md:text-lg mb-6" balance>
             {description}
           </Text>
         )}
 
         {(primaryCta || secondaryCta) && (
-          <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-2 md:flex-row">
-            {primaryCta && (
-              <Button
-                href={primaryCta.href}
-                variant={primaryCta.variant || 'secondary'}
-                icon={primaryCta.icon}
-                size="lg"
-                class="hero-cta"
-              >
-                {primaryCta.label}
-              </Button>
-            )}
+          <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-3 md:flex-row">
             {secondaryCta && (
               <Button
                 href={secondaryCta.href}
-                variant={secondaryCta.variant || 'primary'}
+                variant="primary"
                 icon={secondaryCta.icon}
-                size="lg"
-                class="hero-cta"
+                size="xl"
+                class="hero-cta font-bold uppercase tracking-wider"
               >
                 {secondaryCta.label}
+              </Button>
+            )}
+            {primaryCta && (
+              <Button
+                href={primaryCta.href}
+                variant="outline"
+                icon={primaryCta.icon}
+                size="xl"
+                class="hero-cta font-bold uppercase tracking-wider"
+              >
+                {primaryCta.label}
               </Button>
             )}
           </div>
@@ -427,3 +425,4 @@ const containerClasses = cn(
     )}
   </div>
 </section>
+

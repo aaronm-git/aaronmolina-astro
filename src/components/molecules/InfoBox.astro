@@ -55,7 +55,6 @@ const combinedClasses = cn(
   'rounded-lg',
   variantClasses[variant],
   paddingClasses[padding],
-  animate && 'animate-content',
   className,
 );
 ---
@@ -79,15 +78,3 @@ const combinedClasses = cn(
   <slot />
 </div>
 
-<style>
-  .infobox-tactile {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .infobox-tactile:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 10px 15px -3px rgb(0 0 0 / 0.1),
-      0 4px 6px -4px rgb(0 0 0 / 0.1);
-  }
-</style>

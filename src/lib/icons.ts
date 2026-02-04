@@ -39,12 +39,14 @@ import {
   FaTriangleExclamation,
   FaCircleCheck,
   FaCircleXmark,
+  FaHandshake,
 } from 'react-icons/fa6';
 import type { IconType } from 'react-icons';
 
 // Navigation icon mapping
 const navIcons: Record<string, IconType> = {
   home: FaHouse,
+  briefcase: FaHandshake,
   projects: FaBriefcase,
   experience: FaUser,
   blog: FaBookOpen,
@@ -149,6 +151,7 @@ export {
   FaCheck,
   FaAward,
   FaBriefcase,
+  FaHandshake,
   FaImage,
   FaSun,
   FaMoon,

@@ -110,7 +110,7 @@ const allSkills = skills.length > 0 ? skills : categories.flatMap(c => c.skills)
               {category.skills.map(skill => {
                 const techName = techMap?.get(skill);
                 return (
-                  <div class="flex items-center gap-3 rounded-lg border border-border p-4 transition-colors hover:bg-muted/50">
+                  <div class="flex items-center gap-3 rounded-lg border border-border p-4">
                     <Icon name={skill} size="lg" color="secondary" />
                     <Text weight="medium">
                       {techName || skill}

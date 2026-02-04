@@ -258,7 +258,7 @@
 
   /* ====== TACTILE MAXIMALISM COMPONENTS ====== */
 
-  /* Tactile Card - Hard shadow, bouncy hover */
+  /* Tactile Card - Hard shadow */
   .tactile-card {
     background: var(--surface);
     border: 3px solid var(--border);
@@ -267,90 +267,6 @@
     box-shadow:
       0 var(--card-elevation) 0 0 var(--shadow-color),
       0 12px 24px -8px rgba(0, 0, 0, 0.12);
-    transition:
-      transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.15s ease;
-  }
-
-  .tactile-card:hover {
-    transform: translateY(-4px);
-    box-shadow:
-      0 var(--card-elevation-hover) 0 0 var(--shadow-color),
-      0 20px 40px -12px rgba(0, 0, 0, 0.18);
-  }
-
-  .tactile-card:active {
-    transform: translateY(-2px);
-    box-shadow:
-      0 4px 0 0 var(--shadow-color),
-      0 8px 16px -4px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Pressable Button - 3D depth effect */
-  .tactile-btn {
-    position: relative;
-    border-radius: 8px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border: 3px solid var(--shadow-color-strong);
-    background: var(--primary);
-    color: var(--on-primary);
-    box-shadow:
-      0 var(--btn-depth) 0 0 var(--shadow-color-strong),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
-    transform: translateY(0);
-    transition:
-      transform 0.1s ease,
-      box-shadow 0.1s ease,
-      background-color 0.15s ease;
-  }
-
-  .tactile-btn:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow:
-      0 calc(var(--btn-depth) + 2px) 0 0 var(--shadow-color-strong),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
-  }
-
-  .tactile-btn:active {
-    transform: translateY(var(--btn-depth-pressed));
-    box-shadow:
-      0 calc(var(--btn-depth) - var(--btn-depth-pressed)) 0 0 var(--shadow-color-strong),
-      inset 0 2px 4px 0 rgba(0, 0, 0, 0.15);
-  }
-
-  /* Secondary button variant */
-  .tactile-btn-secondary {
-    background: var(--secondary);
-    color: var(--on-secondary);
-  }
-
-  .tactile-btn-secondary:hover {
-    background: var(--secondary-hover);
-  }
-
-  /* Outline button variant */
-  .tactile-btn-outline {
-    background: transparent;
-    color: var(--foreground);
-    border-color: var(--border);
-    box-shadow:
-      0 var(--btn-depth) 0 0 var(--border);
-  }
-
-  .tactile-btn-outline:hover {
-    background: var(--muted);
-    transform: translateY(-2px);
-    box-shadow:
-      0 calc(var(--btn-depth) + 2px) 0 0 var(--border);
-  }
-
-  .tactile-btn-outline:active {
-    transform: translateY(var(--btn-depth-pressed));
-    box-shadow:
-      0 calc(var(--btn-depth) - var(--btn-depth-pressed)) 0 0 var(--border);
   }
 
   /* Tactile Tag - Bold badge with hard shadow */
@@ -364,12 +280,6 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     box-shadow: 0 2px 0 0 var(--shadow-color);
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-  }
-
-  .tactile-tag:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 0 0 var(--shadow-color);
   }
 
   .tactile-tag-featured {
@@ -414,14 +324,6 @@
     box-shadow:
       0 6px 0 0 var(--shadow-color-strong),
       0 12px 24px -6px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
-  }
-
-  .tactile-profile-img:hover {
-    transform: translateY(-4px) rotate(-2deg);
-    box-shadow:
-      0 10px 0 0 var(--shadow-color-strong),
-      0 20px 40px -10px rgba(0, 0, 0, 0.25);
   }
 
   /* Tactile Divider - Dashed line */
@@ -527,11 +429,6 @@
       text-decoration-thickness: 2px;
       text-underline-offset: 2px;
       font-weight: 600;
-      transition: color 0.15s ease;
-
-      &:hover {
-        @apply text-secondary-hover;
-      }
     }
 
     strong {
@@ -799,207 +696,5 @@
     }
   }
 
-  /* ====== ANIMATION INITIAL STATES ====== */
-  .js .hero-image {
-    opacity: 0;
-    transform: scale(0.8) rotate(-5deg);
-  }
-
-  .js .hero-title {
-    opacity: 0;
-    transform: translateY(60px) skewY(2deg);
-  }
-
-  .js .hero-subtitle,
-  .js .hero-description,
-  .js .hero-cta {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-
-  .js .animate-card {
-    opacity: 0;
-    transform: translateY(60px);
-  }
-
-  .js .animate-section h2 {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-
-  .js .animate-content {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-
-  /* Grid animation initial states */
-  .js .animate-grid-item {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
 }
 
-/* ==========================================================================
-   ANIMATION UTILITIES
-   ========================================================================== */
-
-@layer utilities {
-  /* ====== PERFORMANCE OPTIMIZATION ====== */
-
-  /* GPU-accelerated transforms */
-  .gpu-accelerate {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-  }
-
-  /* Will-change hints for animations */
-  .will-change-transform {
-    will-change: transform;
-  }
-
-  .will-change-opacity {
-    will-change: opacity;
-  }
-
-  .will-change-auto {
-    will-change: auto;
-  }
-
-  /* ====== HOVER LIFT EFFECTS ====== */
-
-  /* Standard lift on hover */
-  .hover-lift {
-    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow:
-      0 20px 40px -12px rgba(0, 0, 0, 0.15),
-      0 8px 16px -8px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Subtle lift for smaller elements */
-  .hover-lift-subtle {
-    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-  }
-
-  .hover-lift-subtle:hover {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.12);
-  }
-
-  /* ====== STAGGERED ANIMATION HELPERS ====== */
-
-  /* Stagger delay utilities */
-  .stagger-1 { --stagger-delay: 0.05s; }
-  .stagger-2 { --stagger-delay: 0.1s; }
-  .stagger-3 { --stagger-delay: 0.15s; }
-  .stagger-4 { --stagger-delay: 0.2s; }
-  .stagger-5 { --stagger-delay: 0.25s; }
-  .stagger-6 { --stagger-delay: 0.3s; }
-
-  /* Apply stagger delay to children */
-  .stagger-children > *:nth-child(1) { animation-delay: calc(var(--stagger-delay, 0.05s) * 0); }
-  .stagger-children > *:nth-child(2) { animation-delay: calc(var(--stagger-delay, 0.05s) * 1); }
-  .stagger-children > *:nth-child(3) { animation-delay: calc(var(--stagger-delay, 0.05s) * 2); }
-  .stagger-children > *:nth-child(4) { animation-delay: calc(var(--stagger-delay, 0.05s) * 3); }
-  .stagger-children > *:nth-child(5) { animation-delay: calc(var(--stagger-delay, 0.05s) * 4); }
-  .stagger-children > *:nth-child(6) { animation-delay: calc(var(--stagger-delay, 0.05s) * 5); }
-  .stagger-children > *:nth-child(7) { animation-delay: calc(var(--stagger-delay, 0.05s) * 6); }
-  .stagger-children > *:nth-child(8) { animation-delay: calc(var(--stagger-delay, 0.05s) * 7); }
-
-  /* ====== PAGE TRANSITIONS ====== */
-
-  /* View Transitions API support */
-  @supports (view-transition-name: none) {
-    ::view-transition-old(root),
-    ::view-transition-new(root) {
-      animation-duration: 0.3s;
-      animation-timing-function: ease-out;
-    }
-
-    ::view-transition-old(root) {
-      animation-name: fade-out;
-    }
-
-    ::view-transition-new(root) {
-      animation-name: fade-in;
-    }
-  }
-
-  @keyframes fade-out {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(-10px); }
-  }
-
-  @keyframes fade-in {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ====== MICRO-INTERACTIONS ====== */
-
-  /* Press effect for buttons */
-  .press-effect {
-    transition: transform 0.1s ease;
-  }
-
-  .press-effect:active {
-    transform: scale(0.95);
-  }
-
-  /* Bounce on click */
-  .bounce-click {
-    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .bounce-click:active {
-    transform: scale(0.92);
-  }
-
-  /* Pulse animation */
-  .pulse {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  /* Bounce animation */
-  .bounce {
-    animation: bounce 1s infinite;
-  }
-
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(-5%);
-      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-    }
-    50% {
-      transform: translateY(0);
-      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    }
-  }
-
-  /* ====== REDUCED MOTION ====== */
-
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-
-    .hover-lift:hover,
-    .hover-lift-subtle:hover {
-      transform: none;
-    }
-  }
-}

@@ -71,7 +71,7 @@ const columnClasses: Record<number, string> = {
       <div class={cn('grid gap-8', columnClasses[columns])}>
         {features.map(feature => (
           <div class="group flex flex-col items-center text-center p-6">
-            <div class="mb-4 rounded-xl bg-primary/10 p-4 transition-colors group-hover:bg-primary/20">
+            <div class="mb-4 rounded-xl bg-primary/10 p-4">
               <Icon name={feature.icon} size="xl" color="primary" />
             </div>
             <Heading level={3} size="lg" class="mb-2">

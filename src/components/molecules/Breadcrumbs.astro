@@ -30,24 +30,24 @@ const breadcrumbSchema = {
   <>
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <nav
-      class={`mb-8 ${className || ''}`}
+      class={`pt-12 pb-8 ${className || ''}`}
       aria-label="Breadcrumb"
     >
-      <ol class="flex flex-wrap items-center gap-2 text-sm">
+      <ol class="flex flex-wrap items-center gap-1 text-sm">
         {items.map((item, index) => (
-          <li class="flex items-center gap-2">
+          <li class="flex items-center">
             <a
               href={item.href}
-              class={`transition-colors ${
+              class={` ${
                 index === items.length - 1
                   ? 'text-foreground font-medium cursor-default pointer-events-none'
-                  : 'text-foreground-muted hover:text-foreground'
+                  : 'text-foreground-muted'
               }`}
             >
               {item.label}
             </a>
             {index < items.length - 1 && (
-              <span class="text-foreground-muted" aria-hidden="true">/</span>
+              <span class="text-foreground-muted mx-3" aria-hidden="true">/</span>
             )}
           </li>
         ))}

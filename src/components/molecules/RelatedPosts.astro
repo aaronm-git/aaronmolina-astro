@@ -72,13 +72,13 @@ if (relatedPosts.length === 0) {
     {relatedPosts.map(post => (
       <a
         href={`/blog/${post.data.slug}`}
-        class="group bg-surface border-border hover:border-primary/50 rounded-lg border p-4 transition-colors"
+        class="group bg-surface border-border rounded-lg border p-4"
       >
         <Text
           as="h3"
           size="base"
           weight="semibold"
-          class="mb-2 group-hover:text-primary transition-colors line-clamp-2"
+          class="mb-2 line-clamp-2"
         >
           {post.data.title}
         </Text>

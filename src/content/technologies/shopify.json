@@ -2,7 +2,11 @@
   "slug": "shopify",
   "category": "platform",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Shopify"
+  "name": "Shopify",
+  "level": 7,
+  "projects": [
+    "clippers-website"
+  ]
 }

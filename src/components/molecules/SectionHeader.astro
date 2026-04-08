@@ -62,7 +62,7 @@ const alignClasses: Record<HeaderAlign, string> = {
 };
 
 const containerClasses = cn(
-  'mb-8 flex items-start md:items-center gap-4',
+  'mb-6 flex items-start md:items-center gap-4 gsap-reveal',
   alignClasses[align],
   align === 'center' && 'flex-col',
   className,

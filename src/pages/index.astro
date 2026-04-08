@@ -3,18 +3,32 @@ import MainLayout from '@/layouts/main-layout.astro';
 import HeroSection from '@/components/organisms/sections/HeroSection.astro';
 import StatsSection from '@/components/organisms/sections/StatsSection.astro';
 import SkillsSection from '@/components/organisms/sections/SkillsSection.astro';
+import SkillsShowcase from '@/components/organisms/sections/SkillsShowcase';
 import ServicesSection from '@/components/organisms/sections/ServicesSection.astro';
 import FeaturesSection from '@/components/organisms/sections/FeaturesSection.astro';
 import ProjectsSection from '@/components/organisms/sections/ProjectsSection.astro';
 import ExperienceSection from '@/components/organisms/sections/ExperienceSection.astro';
 import BlogSection from '@/components/organisms/sections/BlogSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
 import Badge from '@/components/atoms/Badge.astro';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
+import { Image } from 'astro:assets';
 import ProfilePicture from '@/images/profile.jpg';
 import homepageContent from '@/content/site/homepage.json';
 import navigation from '@/content/site/navigation.json';
+import ClippersLogo from '@/assets/images/clippers-logo.svg';
+import MiamiHeatLogo from '@/assets/images/miami-heat-logo.svg';
+import AzamaraLogo from '@/assets/images/azamara-logo.svg';
+import CorsairLogo from '@/assets/images/corsair-logo.svg';
+
+const trustedByLogos: Record<string, ImageMetadata> = {
+  'LA Clippers': ClippersLogo,
+  'Miami Heat': MiamiHeatLogo,
+  'Azamara': AzamaraLogo,
+  'Corsair': CorsairLogo,
+};
 
 // Fetch collections
 const posts = await getCollection('blog');
@@ -74,6 +88,32 @@ const featuredProjects = projects
 const yearsOfExperience = new Date().getFullYear() - homepageContent.yearsOfExperienceStartYear;
 const heroDescription = homepageContent.hero.description.replaceAll('{yearsOfExperience}', String(yearsOfExperience));
 
+// Logo filename overrides (when slug doesn't match the svg filename)
+const logoOverrides: Record<string, string> = {
+  'claude-code': 'claude.svg',
+  'mcp-servers': 'model-context-protocol.svg',
+  'sass': 'sass.svg',
+};
+
+// Build project title lookup
+const projectTitleMap = new Map(projects.map(p => [p.data.slug, p.data.title]));
+projectTitleMap.set('aaronmolina-astro', 'This Website');
+
+// Build skills showcase data from featured technologies
+const showcaseSkills = technologies
+  .filter(t => t.data.featured && t.data.level)
+  .sort((a, b) => a.data.name.localeCompare(b.data.name))
+  .map(t => ({
+    slug: t.data.slug,
+    name: t.data.name,
+    level: t.data.level ?? 0,
+    projects: (t.data.projects ?? []).map((pSlug: string) => ({
+      slug: pSlug,
+      title: projectTitleMap.get(pSlug) ?? pSlug,
+    })),
+    logoPath: logoOverrides[t.data.slug] ?? `${t.data.slug}.svg`,
+  }));
+
 // Process stats with dynamic year
 const statsItems = homepageContent.stats.items.map(item => ({
   ...item,
@@ -83,7 +123,7 @@ const statsItems = homepageContent.stats.items.map(item => ({
 
 <MainLayout
   title={homepageContent.meta.title}
-  description={homepageContent.meta.description}
+  description={homepageContent.meta.description.replaceAll('{yearsOfExperience}', String(yearsOfExperience))}
 >
   <!-- Hero Section -->
   <HeroSection
@@ -116,79 +156,90 @@ const statsItems = homepageContent.stats.items.map(item => ({
   </HeroSection>
 
   <!-- Stats Section -->
-  <div class="md:min-h-screen md:flex md:items-center">
-    <StatsSection
-      stats={statsItems}
-      variant="cards"
-      columns={4}
-      highlight
-      class=" w-full"
-    />
-  </div>
+  <StatsSection
+    stats={statsItems}
+    variant="cards"
+    columns={4}
+    highlight
+  />
+
+  <!-- Trusted By Section -->
+  <section class="section-py">
+    <div class="container">
+      <SectionHeader
+        title={homepageContent.trustedBy.title}
+        subtitle={homepageContent.trustedBy.subtitle}
+        align="center"
+      />
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 items-center justify-items-center max-w-4xl mx-auto">
+        {homepageContent.trustedBy.companies.map((company) => (
+          <div class="group flex items-center justify-center rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-md w-full">
+            <Image
+              src={trustedByLogos[company.name]}
+              alt={company.alt}
+              width={200}
+              height={80}
+              class="max-h-12 w-auto object-contain opacity-70 transition-opacity group-hover:opacity-100 dark:invert"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- Services Section -->
-  <div class="md:min-h-screen md:flex md:items-center bg-muted/30">
-    <ServicesSection
-      title={homepageContent.services.title}
-      subtitle={homepageContent.services.subtitle}
-      services={homepageContent.services.items}
-      variant="grid"
-      columns={2}
-      class=" w-full"
-    />
-  </div>
+  <ServicesSection
+    title={homepageContent.services.title}
+    subtitle={homepageContent.services.subtitle}
+    services={homepageContent.services.items}
+    variant="grid"
+    columns={2}
+    class="bg-muted/30"
+  />
 
-  <!-- Tech Stack Section -->
-  <div class="md:min-h-screen md:flex md:items-center">
-    <SkillsSection
-      title={homepageContent.techStack.title}
-      subtitle={homepageContent.techStack.subtitle}
-      categories={homepageContent.techStack.categories}
-      techMap={techMap}
-      variant="grouped"
-      columns={2}
-      class=" w-full"
-    />
-  </div>
+  <!-- AI Showcase Section -->
+  <FeaturesSection
+    title={homepageContent.aiShowcase.title}
+    subtitle={homepageContent.aiShowcase.subtitle}
+    features={homepageContent.aiShowcase.items}
+    variant="cards"
+    columns={3}
+  />
+
+  <!-- Skills Showcase Section -->
+  <SkillsShowcase skills={showcaseSkills} client:visible />
 
   <!-- Featured Projects Section -->
-  <div class="md:min-h-screen md:flex md:items-center">
-    <ProjectsSection
-      title={homepageContent.featuredProjects.title}
-      projects={featuredProjects}
-      cta={{
-        label: homepageContent.featuredProjects.viewAllLabel,
-        href: homepageContent.featuredProjects.viewAllHref,
-      }}
-      class=" w-full"
-    />
-  </div>
+  <ProjectsSection
+    title={homepageContent.featuredProjects.title}
+    projects={featuredProjects}
+    cta={{
+      label: homepageContent.featuredProjects.viewAllLabel,
+      href: homepageContent.featuredProjects.viewAllHref,
+    }}
+  />
 
   <!-- Why Work With Me Section -->
-  <div class="md:min-h-screen md:flex md:items-center bg-muted/30">
-    <FeaturesSection
-      title={homepageContent.valueProps.title}
-      features={homepageContent.valueProps.items}
-      variant="cards"
-      columns={2}
-      class=" w-full"
-    />
-  </div>
+  <FeaturesSection
+    title={homepageContent.valueProps.title}
+    features={homepageContent.valueProps.items}
+    variant="cards"
+    columns={2}
+    class="bg-muted/30"
+  />
 
   <!-- Experience Section -->
-  <div class="md:min-h-screen md:flex md:items-center">
-    <ExperienceSection
-      title={homepageContent.experience.title}
-      roles={featuredRoles}
-      organizations={orgBySlug}
-      variant="cards"
-      cta={{
-        label: homepageContent.experience.viewAllLabel,
-        href: homepageContent.experience.viewAllHref,
-      }}
-      class=" w-full"
-    />
-  </div>
+  <ExperienceSection
+    title={homepageContent.experience.title}
+    roles={featuredRoles}
+    organizations={orgBySlug}
+    variant="cards"
+    cta={{
+      label: homepageContent.experience.viewAllLabel,
+      href: homepageContent.experience.viewAllHref,
+    }}
+  />
 
   <!-- Blog Section -->
   {recentPosts.length > 0 && (
@@ -201,18 +252,15 @@ const statsItems = homepageContent.stats.items.map(item => ({
         label: homepageContent.blog.viewAllLabel,
         href: homepageContent.blog.viewAllHref,
       }}
-      class=" mb-16"
+      class="bg-muted/30"
     />
   )}
 
   <!-- CTA Section -->
-  <div class="md:min-h-screen md:flex md:items-center">
-    <CTASection
-      title={homepageContent.cta.title}
-      description={homepageContent.cta.description}
-      buttonLabel={homepageContent.cta.primaryButton.label}
-      buttonHref={homepageContent.cta.primaryButton.href}
-      class="w-full"
-    />
-  </div>
+  <CTASection
+    title={homepageContent.cta.title}
+    description={homepageContent.cta.description}
+    buttonLabel={homepageContent.cta.primaryButton.label}
+    buttonHref={homepageContent.cta.primaryButton.href}
+  />
 </MainLayout>

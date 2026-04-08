@@ -57,8 +57,8 @@ const columnClasses: Record<number, string> = {
 };
 ---
 
-<section class={cn('py-16 md:py-24', className)}>
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class={cn('section-py', className)}>
+  <div class="container">
     <SectionHeader
       title={title}
       subtitle={subtitle || description}
@@ -70,7 +70,7 @@ const columnClasses: Record<number, string> = {
     {variant === 'grid' && (
       <div class={cn('grid gap-8', columnClasses[columns])}>
         {features.map(feature => (
-          <div class="group flex flex-col items-center text-center p-6">
+          <div class="group flex flex-col items-center text-center p-6 gsap-reveal">
             <div class="mb-4 rounded-xl bg-primary/10 p-4">
               <Icon name={feature.icon} size="xl" color="primary" />
             </div>
@@ -98,6 +98,7 @@ const columnClasses: Record<number, string> = {
             padding="lg"
             href={feature.href}
             interactive={!!feature.href}
+            class="gsap-reveal"
           >
             <div class="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
               <Icon name={feature.icon} size="lg" color="primary" />

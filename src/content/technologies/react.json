@@ -2,7 +2,13 @@
   "slug": "react",
   "category": "framework",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "React.js"
+  "name": "React.js",
+  "level": 9,
+  "projects": [
+    "pdf-generator-web-app",
+    "toodyloo-ai-todo-app",
+    "miami-heat-website"
+  ]
 }

@@ -3,6 +3,10 @@
   "slug": "astro",
   "category": "framework",
   "url": "https://astro.build",
-  "featured": false,
-  "sortOrder": 0
+  "featured": true,
+  "sortOrder": 0,
+  "level": 10,
+  "projects": [
+    "aaronmolina-astro"
+  ]
 }

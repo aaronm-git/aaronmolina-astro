@@ -1,16 +1,16 @@
 {
   "yearsOfExperienceStartYear": 2012,
   "meta": {
-    "title": "Aaron Molina | Jamstack Developer - Astro, Next.js, Sanity Expert",
-    "description": "Senior Jamstack developer with 12+ years experience. I build high-performance websites with Astro, Next.js, Sanity, and Tailwind CSS. Available for hire, remote US or Miami."
+    "title": "Aaron Molina | Full Stack Jamstack Developer & AI-Powered Web Consultant",
+    "description": "Full stack Jamstack developer and consultant with {yearsOfExperience}+ years experience. I build high-performance websites and AI-powered applications with Astro, Next.js, Sanity, and Claude Code. Available for hire, remote US or Miami."
   },
   "hero": {
     "name": "Aaron Molina",
-    "headline": "Jamstack Developer",
-    "subheadline": "Astro • Next.js • Sanity",
-    "description": "I build lightning-fast, scalable websites that marketing teams love and developers enjoy maintaining. {yearsOfExperience}+ years crafting headless CMS solutions, React apps, and high-performance web experiences.",
+    "headline": "Full Stack Jamstack Developer",
+    "subheadline": "Astro . Next.js . AI-Powered Development",
+    "description": "I build lightning-fast websites and full stack applications that teams love and developers enjoy maintaining. {yearsOfExperience}+ years shipping production code, from headless CMS platforms to AI-powered apps built with Claude Code and OpenAI. I combine deep web development expertise with modern AI tools to deliver results faster.",
     "location": "Remote US / Miami, FL",
-    "availability": "Available Now"
+    "availability": "Open to Work"
   },
   "stats": {
     "title": "By the Numbers",
@@ -24,26 +24,52 @@
       {
         "value": "50",
         "suffix": "+",
-        "label": "Projects Delivered",
+        "label": "Projects Shipped",
         "icon": "briefcase"
+      },
+      {
+        "value": "5",
+        "suffix": "+",
+        "label": "AI-Powered Apps",
+        "icon": "bolt"
       },
       {
         "value": "100",
         "suffix": "%",
         "label": "Remote Ready",
         "icon": "globe"
+      }
+    ]
+  },
+  "trustedBy": {
+    "title": "Trusted by Leading Brands",
+    "subtitle": "I have partnered with teams across sports, travel, and technology",
+    "companies": [
+      {
+        "name": "LA Clippers",
+        "logo": "https://placehold.co/200x80/1a1a1a/fafafa?text=LA+Clippers",
+        "alt": "LA Clippers logo"
       },
       {
-        "value": "24",
-        "suffix": "hr",
-        "label": "Response Time",
-        "icon": "clock"
+        "name": "Miami Heat",
+        "logo": "https://placehold.co/200x80/1a1a1a/fafafa?text=Miami+Heat",
+        "alt": "Miami Heat logo"
+      },
+      {
+        "name": "Azamara",
+        "logo": "https://placehold.co/200x80/1a1a1a/fafafa?text=Azamara",
+        "alt": "Azamara Cruises logo"
+      },
+      {
+        "name": "Corsair",
+        "logo": "https://placehold.co/200x80/1a1a1a/fafafa?text=Corsair",
+        "alt": "Corsair logo"
       }
     ]
   },
   "techStack": {
     "title": "Tech Stack",
-    "subtitle": "Modern tools for modern websites",
+    "subtitle": "Modern tools for modern applications",
     "categories": [
       {
         "name": "Frontend Frameworks",
@@ -53,43 +79,43 @@
       {
         "name": "Headless CMS",
         "icon": "globe",
-        "skills": ["sanity", "contentful", "strapi"]
+        "skills": ["sanity", "storyblok", "strapi"]
       },
       {
-        "name": "Styling & UI",
-        "icon": "lightbulb",
-        "skills": ["tailwindcss", "css", "framer-motion"]
-      },
-      {
-        "name": "Backend & Data",
+        "name": "AI & Automation",
         "icon": "bolt",
-        "skills": ["nodejs", "supabase", "mongodb", "postgresql"]
+        "skills": ["openai", "claude-code", "mcp-servers"]
+      },
+      {
+        "name": "Backend & DevOps",
+        "icon": "rocket",
+        "skills": ["nodejs", "postgresql", "docker", "github-actions"]
       }
     ]
   },
   "services": {
     "title": "How I Can Help",
-    "subtitle": "From concept to production, I deliver websites that perform",
+    "subtitle": "From concept to production, I deliver websites and applications that perform",
     "items": [
       {
         "icon": "rocket",
-        "title": "Jamstack Development",
-        "description": "High-performance static and hybrid sites built with Astro, Next.js, or your framework of choice. Fast load times, great SEO, and easy content updates."
+        "title": "Jamstack & Full Stack Development",
+        "description": "High-performance static, hybrid, and full stack applications built with Astro, Next.js, TanStack Start, or your framework of choice. Fast load times, strong SEO, and production-grade architecture."
       },
       {
         "icon": "globe",
         "title": "Headless CMS Integration",
-        "description": "Connect your marketing team to a modern content platform. I specialize in Sanity, Contentful, and custom CMS solutions that scale."
+        "description": "Connect your team to a modern content platform. I specialize in Sanity, Storyblok, Strapi, and custom CMS solutions that scale with your business and make content editing a breeze."
       },
       {
         "icon": "bolt",
-        "title": "Performance Optimization",
-        "description": "Improve Core Web Vitals and page speed scores. I audit, optimize, and rebuild sites to meet Google's performance standards."
+        "title": "AI-Powered Development",
+        "description": "I build applications with AI built in from the start. From OpenAI integrations to AI-augmented workflows with Claude Code and MCP servers, I ship smarter and faster than traditional development."
       },
       {
         "icon": "code",
         "title": "React & Frontend Architecture",
-        "description": "Component libraries, design systems, and frontend infrastructure. Clean, typed code that your team can maintain and extend."
+        "description": "Component libraries, design systems, and frontend infrastructure. Clean, typed code with CI/CD pipelines your team can maintain and extend for years to come."
       }
     ]
   },
@@ -98,23 +124,47 @@
     "items": [
       {
         "icon": "award",
-        "title": "Senior-Level Experience",
-        "description": "Over a decade of shipping production code for startups, agencies, and enterprise clients including Corsair, the LA Clippers, and Azamara Cruises."
+        "title": "Enterprise-Proven Experience",
+        "description": "Over a decade shipping production code for startups, agencies, and enterprise clients including the LA Clippers, Miami Heat, Azamara Cruises, and Corsair."
       },
       {
-        "icon": "users",
-        "title": "Team Player",
-        "description": "I integrate smoothly with existing teams. Clear communication, thorough documentation, and collaborative code reviews are my standard practice."
+        "icon": "bolt",
+        "title": "AI-Augmented Workflow",
+        "description": "I use AI tools like Claude Code, OpenAI, and MCP servers to build faster without cutting corners. I have shipped full stack apps built alongside AI agents from architecture to deployment."
       },
       {
         "icon": "shield",
-        "title": "Quality Focus",
-        "description": "TypeScript, testing, accessibility, and performance are not afterthoughts. I build with best practices from day one."
+        "title": "Quality and Reliability",
+        "description": "TypeScript, automated testing, CI/CD pipelines, and performance optimization are standard practice. I build with best practices from day one to reduce technical debt."
       },
       {
-        "icon": "clock",
-        "title": "Reliable Delivery",
-        "description": "Clear timelines, regular updates, and no surprises. I scope accurately and communicate proactively when things change."
+        "icon": "users",
+        "title": "Consultant and Team Player",
+        "description": "I integrate smoothly into existing teams or lead projects independently. Clear communication, thorough documentation, and collaborative code reviews are how I operate."
+      }
+    ]
+  },
+  "aiShowcase": {
+    "title": "Built with AI",
+    "subtitle": "Real applications I have shipped using AI-powered development workflows",
+    "items": [
+      {
+        "icon": "rocket",
+        "title": "ToodyLoo",
+        "description": "A full stack to-do app inspired by Wunderlist, built with TanStack Start, OpenAI, and Neon PostgreSQL. Features AI-powered task creation, optimistic UI, and production-grade architecture. Built alongside AI agents from planning to deployment.",
+        "href": "/projects/toodyloo-ai-todo-app"
+      },
+      {
+        "icon": "code",
+        "title": "This Website",
+        "description": "aaronmolina.me itself was built with AI assistance using Claude Code. Astro, Tailwind CSS v4, content collections, GSAP animations, and SEO-optimized architecture, all developed using an AI-augmented workflow.",
+        "href": "/projects"
+      },
+      {
+        "icon": "bolt",
+        "title": "MCP Server Integrations",
+        "description": "I build and configure Model Context Protocol servers that connect AI coding assistants to external tools. From database queries to API integrations, MCP servers supercharge development workflows.",
+        "href": "/hire"
       }
     ]
   },
@@ -130,13 +180,13 @@
   },
   "blog": {
     "title": "Latest Articles",
-    "subtitle": "Thoughts on web development, Jamstack, and frontend architecture",
+    "subtitle": "Thoughts on web development, AI-powered workflows, Jamstack, and frontend architecture",
     "viewAllLabel": "Read the blog",
     "viewAllHref": "/blog"
   },
   "cta": {
-    "title": "Ready to Build Something Great?",
-    "description": "Whether you need a new website, a headless CMS migration, or help scaling your frontend team, I am here to help.",
+    "title": "Looking for a Full Stack Developer?",
+    "description": "Whether you need a new website, a headless CMS migration, an AI-powered application, or help scaling your frontend team, I am ready to help. Let's talk about your project.",
     "primaryButton": {
       "label": "Get in Touch",
       "href": "/contact",

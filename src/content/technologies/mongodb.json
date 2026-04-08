@@ -2,7 +2,9 @@
   "slug": "mongodb",
   "category": "platform",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "MongoDB"
+  "name": "MongoDB",
+  "level": 8,
+  "projects": []
 }

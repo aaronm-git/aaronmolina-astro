@@ -79,9 +79,9 @@ const {
 
 // Height classes
 const heightClasses: Record<HeroHeight, string> = {
-  auto: 'py-16 md:py-24',
-  screen: 'min-h-screen py-16',
-  half: 'min-h-[50vh] py-16',
+  auto: 'section-py',
+  screen: 'min-h-[80vh] py-10 flex items-center',
+  half: 'min-h-[50vh] py-10',
 };
 
 // Alignment classes
@@ -101,7 +101,7 @@ const containerClasses = cn(
 
 <section class={containerClasses}>
 
-  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <div class="container relative z-10">
     {variant === 'centered' && (
       <div class={cn('flex flex-col', alignClasses[align], 'max-w-4xl mx-auto')}>
         {badges && badges.length > 0 && (
@@ -262,7 +262,7 @@ const containerClasses = cn(
           <slot />
         </div>
 
-        {image && (
+        {image ? (
           <div class="relative">
             <Image
               src={image}
@@ -272,6 +272,8 @@ const containerClasses = cn(
               height={600}
             />
           </div>
+        ) : (
+          <slot name="right" />
         )}
       </div>
     )}
@@ -361,7 +363,7 @@ const containerClasses = cn(
         height === 'screen' && 'min-h-[calc(100vh-8rem)] justify-center'
       )}>
         {avatar && (
-          <div class="mb-8 relative">
+          <div class="mb-8 relative" data-hero-animate data-hero-order="0">
             <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 rounded-2xl blur-2xl -z-10"></div>
             <Image
               src={avatar}
@@ -374,12 +376,12 @@ const containerClasses = cn(
           </div>
         )}
 
-        <Heading level={1} size="hero" class="mb-3 font-black tracking-tight md:mb-4">
+        <Heading level={1} size="hero" class="mb-3 font-black tracking-tight md:mb-4" data-hero-animate data-hero-order="1">
           {headline}
         </Heading>
 
         {subheadline && (
-          <div class="mb-4 inline-block">
+          <div class="mb-4 inline-block" data-hero-animate data-hero-order="2">
             <Text size="xl" color="primary" weight="bold" class="md:text-3xl uppercase tracking-wide">
               {subheadline}
             </Text>
@@ -388,33 +390,33 @@ const containerClasses = cn(
         )}
 
         {description && (
-          <Text size="base" color="muted" class="mx-auto max-w-3xl leading-relaxed md:text-lg mb-6" balance>
+          <Text size="lg" color="muted" class="mx-auto max-w-3xl leading-relaxed mb-6" balance data-hero-animate data-hero-order="3">
             {description}
           </Text>
         )}
 
         {(primaryCta || secondaryCta) && (
-          <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-3 md:flex-row">
-            {secondaryCta && (
-              <Button
-                href={secondaryCta.href}
-                variant="primary"
-                icon={secondaryCta.icon}
-                size="xl"
-                class="hero-cta font-bold uppercase tracking-wider"
-              >
-                {secondaryCta.label}
-              </Button>
-            )}
+          <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-3 md:flex-row" data-hero-animate data-hero-order="4">
             {primaryCta && (
               <Button
                 href={primaryCta.href}
-                variant="outline"
+                variant={primaryCta.variant || 'primary'}
                 icon={primaryCta.icon}
                 size="xl"
-                class="hero-cta font-bold uppercase tracking-wider"
+                class="font-bold uppercase tracking-wider"
               >
                 {primaryCta.label}
+              </Button>
+            )}
+            {secondaryCta && (
+              <Button
+                href={secondaryCta.href}
+                variant={secondaryCta.variant || 'outline'}
+                icon={secondaryCta.icon}
+                size="xl"
+                class="font-bold uppercase tracking-wider"
+              >
+                {secondaryCta.label}
               </Button>
             )}
           </div>
@@ -425,4 +427,11 @@ const containerClasses = cn(
     )}
   </div>
 </section>
+
+<script>
+  import { initHeroEntrance } from '@/lib/animations';
+  document.addEventListener('DOMContentLoaded', () => {
+    initHeroEntrance();
+  });
+</script>
 

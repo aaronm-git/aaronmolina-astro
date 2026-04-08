@@ -2,7 +2,16 @@
   "slug": "git",
   "category": "tool",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Git"
+  "name": "Git",
+  "level": 8,
+  "projects": [
+    "clippers-website",
+    "miami-heat-website",
+    "azamara-website",
+    "originpc-accessibility",
+    "pdf-generator-web-app",
+    "toodyloo-ai-todo-app"
+  ]
 }

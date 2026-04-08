@@ -25,7 +25,7 @@ const responseIconNames = ['clock', 'calendar', 'globe'];
   />
 
   <!-- Contact Form -->
-  <div class="mb-16 grid gap-12 lg:grid-cols-2">
+  <div class="container mb-16 grid gap-12 lg:grid-cols-2">
     <!-- Form -->
     <InfoBox title={pages.contact.formTitle} variant="surface">
       <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
@@ -162,7 +162,7 @@ const responseIconNames = ['clock', 'calendar', 'globe'];
   </div>
 
   <!-- Hire CTA Section -->
-  <section class="bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border-primary/20 mb-16 rounded-lg border p-8 text-center">
+  <section class="container bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border-primary/20 mb-16 rounded-lg border p-8 text-center">
     <h2 class="text-foreground mb-4 text-3xl font-bold">{pages.contact.hireCta.title}</h2>
     <p class="text-foreground-muted mx-auto mb-6 max-w-2xl">{pages.contact.hireCta.description}</p>
     <Button href={pages.contact.hireCta.buttonHref} variant="primary" size="lg" icon="briefcase">
@@ -171,7 +171,7 @@ const responseIconNames = ['clock', 'calendar', 'globe'];
   </section>
 
   <!-- Social Media Section -->
-  <section class="bg-muted border-border rounded-lg border p-8 text-center">
+  <section class="container bg-muted border-border rounded-lg border p-8 text-center mb-16">
     <h2 class="text-foreground mb-4 text-3xl font-bold">{pages.contact.socialSectionTitle}</h2>
     <p class="text-foreground-muted mx-auto mb-6 max-w-2xl">{pages.contact.socialSectionDescription}</p>
     {settings.author.socialLinks && (

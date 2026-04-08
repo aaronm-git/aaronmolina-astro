@@ -2,7 +2,9 @@
   "slug": "firebase",
   "category": "platform",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Firebase"
+  "name": "Firebase",
+  "level": 6,
+  "projects": []
 }

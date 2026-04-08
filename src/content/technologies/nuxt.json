@@ -2,7 +2,11 @@
   "slug": "nuxt",
   "category": "framework",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Nuxt.js"
+  "name": "Nuxt.js",
+  "level": 7,
+  "projects": [
+    "clippers-website"
+  ]
 }

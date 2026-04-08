@@ -2,7 +2,12 @@
   "slug": "seo",
   "category": "concept",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "SEO"
+  "name": "SEO",
+  "level": 8,
+  "projects": [
+    "clippers-website",
+    "miami-heat-website"
+  ]
 }

@@ -26,3 +26,5 @@ pnpm-debug.log*
 .cursor/
 # Local Netlify folder
 .netlify
+
+.claude/

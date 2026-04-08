@@ -2,7 +2,9 @@
   "slug": "python",
   "category": "language",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Python"
+  "name": "Python",
+  "level": 6,
+  "projects": []
 }

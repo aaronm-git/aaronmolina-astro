@@ -59,11 +59,11 @@ const valueSizeClasses: Record<StatSize, string> = {
 };
 
 // Icon size mapping
-const iconSizeMap: Record<StatSize, 'sm' | 'base' | 'lg' | 'xl'> = {
-  sm: 'sm',
-  base: 'base',
-  lg: 'lg',
-  xl: 'xl',
+const iconSizeMap: Record<StatSize, 'sm' | 'base' | 'lg' | 'xl' | '2xl'> = {
+  sm: 'base',
+  base: 'lg',
+  lg: 'xl',
+  xl: '2xl',
 };
 
 const combinedClasses = cn(
@@ -89,10 +89,10 @@ const valueClasses = cn(
       class="mb-2"
     />
   )}
-  <div class={valueClasses}>
-    {prefix && <span class="text-foreground-muted">{prefix}</span>}
+  <div class={cn(valueClasses, 'relative inline-block')}>
+    {prefix && <span class="absolute top-1/2 -translate-y-1/2 right-full mr-1 text-foreground-muted">{prefix}</span>}
     {value}
-    {suffix && <span class="text-foreground-muted text-[0.6em]">{suffix}</span>}
+    {suffix && <span class="absolute top-0 left-full ml-0.5 text-foreground-muted text-[0.6em]">{suffix}</span>}
   </div>
   <Text size={size === 'sm' ? 'sm' : 'base'} color="muted" class="mt-1">
     {label}

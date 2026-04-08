@@ -3,6 +3,7 @@ import Tag from '@/components/atoms/Tag.astro';
 import Heading from '@/components/atoms/Heading.astro';
 import Text from '@/components/atoms/Text.astro';
 import Icon from '@/components/atoms/Icon.astro';
+import Card from '@/components/molecules/Card.astro';
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
 import { cn } from '@/lib/cn';
 import type { TechMap } from '@/utils/tech-lookup';
@@ -56,8 +57,8 @@ const columnClasses: Record<number, string> = {
 const allSkills = skills.length > 0 ? skills : categories.flatMap(c => c.skills);
 ---
 
-<section class={cn('py-16 md:py-24', className)}>
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class={cn('section-py', className)}>
+  <div class="container">
     <SectionHeader
       title={title}
       subtitle={subtitle}
@@ -67,7 +68,7 @@ const allSkills = skills.length > 0 ? skills : categories.flatMap(c => c.skills)
     {variant === 'grouped' && categories.length > 0 && (
       <div class={cn('grid gap-8', columnClasses[columns])}>
         {categories.map(category => (
-          <div class="rounded-xl border border-border p-6">
+          <Card variant="tactile" padding="base" class="gsap-reveal">
             <div class="flex items-center gap-3 mb-4">
               {category.icon && (
                 <div class="rounded-lg bg-primary/10 p-2">
@@ -89,7 +90,7 @@ const allSkills = skills.length > 0 ? skills : categories.flatMap(c => c.skills)
                 />
               ))}
             </div>
-          </div>
+          </Card>
         ))}
       </div>
     )}

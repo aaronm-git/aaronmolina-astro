@@ -1,0 +1,13 @@
+{
+  "slug": "openai",
+  "category": "service",
+  "url": "https://openai.com",
+  "featured": true,
+  "sortOrder": 0,
+  "name": "OpenAI",
+  "level": 10,
+  "projects": [
+    "toodyloo-ai-todo-app",
+    "pdf-generator-web-app"
+  ]
+}

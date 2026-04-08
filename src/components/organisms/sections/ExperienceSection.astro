@@ -51,8 +51,8 @@ const {
 } = Astro.props;
 ---
 
-<section class={cn('py-16 md:py-24', className)}>
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class={cn('section-py', className)}>
+  <div class="container">
     <SectionHeader
       title={title}
       subtitle={subtitle}
@@ -91,11 +91,13 @@ const {
     {variant === 'cards' && (
       <div class="space-y-8">
         {roles.map(role => (
-          <RoleCard
-            role={role}
-            organization={organizations?.get(role.data.organization)}
-            showAllDetails={showAllDetails}
-          />
+          <div class="gsap-reveal">
+            <RoleCard
+              role={role}
+              organization={organizations?.get(role.data.organization)}
+              showAllDetails={showAllDetails}
+            />
+          </div>
         ))}
       </div>
     )}

@@ -1,8 +1,9 @@
 {
-  "siteTitle": "Aaron Molina | Jamstack Developer - Astro, Next.js, Sanity Expert",
-  "siteDescription": "Senior Jamstack developer with 12+ years experience. I build high-performance websites with Astro, Next.js, Sanity, and Tailwind CSS. Available for hire, remote US or Miami.",
+  "siteTitle": "Aaron Molina | Full Stack Jamstack Developer & AI-Powered Web Consultant",
+  "siteDescription": "Full stack Jamstack developer and consultant with 14+ years experience. I build high-performance websites and AI-powered applications with Astro, Next.js, Sanity, and Claude Code. Available for hire, remote US or Miami.",
   "siteUrl": "https://www.aaronmolina.me",
   "keywords": [
+    "Full Stack Developer",
     "Jamstack Developer",
     "Hire Jamstack Developer",
     "React Developer",
@@ -11,23 +12,28 @@
     "Hire Next.js Developer",
     "Headless CMS Developer",
     "Sanity Developer",
+    "Storyblok Developer",
     "Astro Developer",
     "Frontend Developer",
     "Senior Frontend Developer",
     "Remote Frontend Developer",
-    "Full Stack Developer",
+    "Full Stack Developer for Hire",
+    "AI-Powered Web Development",
+    "Claude Code Developer",
     "TypeScript Developer",
     "Tailwind CSS Developer",
     "Aaron Molina",
     "Miami Developer",
-    "Remote US Developer"
+    "Remote US Developer",
+    "MCP Server Developer",
+    "AI Web Consultant"
   ],
   "author": {
     "name": "Aaron Molina",
     "email": "aaron@aaronmolina.me",
     "url": "https://aaronmolina.me",
-    "bio": "Senior Jamstack developer specializing in Astro, Next.js, and Sanity. I build high-performance, content-driven websites that load fast and rank well.",
-    "jobTitle": "Senior Jamstack Developer",
+    "bio": "Full stack Jamstack developer and consultant specializing in Astro, Next.js, Sanity, and AI-powered development. I build high-performance, content-driven websites and full stack applications using modern AI tools like Claude Code, OpenAI, and MCP servers. Available for hire.",
+    "jobTitle": "Full Stack Jamstack Developer & AI Web Consultant",
     "location": "Miami, FL",
     "socialLinks": [
       {
@@ -47,6 +53,12 @@
         "label": "Instagram",
         "url": "https://www.instagram.com/chillsloth09",
         "ariaLabel": "Instagram @chillsloth09"
+      },
+      {
+        "platform": "facebook",
+        "label": "Facebook",
+        "url": "https://www.facebook.com/aaronm91",
+        "ariaLabel": "Facebook @aaronm91"
       }
     ]
   },
@@ -60,5 +72,3 @@
     "umamiWebsiteId": "065ec9e6-3b6b-4868-a29b-6d9538c525a6"
   }
 }
-
-

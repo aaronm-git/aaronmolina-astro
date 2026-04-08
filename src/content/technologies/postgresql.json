@@ -1,0 +1,13 @@
+{
+  "slug": "postgresql",
+  "category": "tool",
+  "url": "https://www.postgresql.org",
+  "featured": true,
+  "sortOrder": 0,
+  "name": "PostgreSQL",
+  "level": 9,
+  "projects": [
+    "pdf-generator-web-app",
+    "toodyloo-ai-todo-app"
+  ]
+}

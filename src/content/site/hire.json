@@ -15,10 +15,10 @@
         "icon": "briefcase"
       },
       {
-        "value": "100",
-        "suffix": "%",
-        "label": "Remote Ready",
-        "icon": "globe"
+        "value": "5",
+        "suffix": "+",
+        "label": "AI-Powered Apps",
+        "icon": "bolt"
       },
       {
         "value": "24",
@@ -29,22 +29,26 @@
     ],
     "cta": {
       "title": "Ready to Start Your Project?",
-      "description": "Whether you need a new website, a headless CMS migration, or help scaling your frontend team, I am here to help. Let's discuss your project.",
+      "description": "Whether you need a new website, a headless CMS migration, an AI-powered application, or help scaling your frontend team, I am here to help. Let's discuss your project.",
       "buttonLabel": "Get in Touch",
       "buttonHref": "/contact"
     },
     "faq": [
       {
         "question": "What is your availability?",
-        "answer": "I am available for full-time W2 positions and select contract projects. My schedule typically allows me to start new engagements within 2-4 weeks, depending on the scope."
+        "answer": "I am actively looking for work and available for full-time W2 positions, contract projects, and consulting engagements. I can typically start new projects within 1 to 2 weeks."
       },
       {
         "question": "Do you work remotely?",
-        "answer": "Yes, I work remotely and have done so for over 8 years. I am based in Miami, FL and available for US-based remote positions. I am comfortable with async communication and can overlap with most US time zones."
+        "answer": "Yes, I have worked remotely for over 8 years. I am based in Miami, FL and available for US-based remote positions. I am comfortable with async communication and can overlap with most US time zones."
       },
       {
         "question": "What is your hourly rate or salary expectations?",
         "answer": "Rates depend on the project scope, timeline, and engagement type. For contract work, I provide fixed-price quotes after understanding your requirements. For W2 positions, I am happy to discuss compensation that aligns with senior-level market rates."
+      },
+      {
+        "question": "How do you use AI in your development process?",
+        "answer": "I use AI tools like Claude Code and OpenAI as part of my daily workflow. This includes code generation, architecture planning, testing, and building AI features directly into applications. AI helps me ship faster while maintaining high code quality. I also build and configure MCP servers that connect AI assistants to external tools and data sources."
       },
       {
         "question": "Can you work with my existing team?",
@@ -58,14 +62,14 @@
   },
   "main": {
     "meta": {
-      "title": "Hire a Jamstack Developer | Aaron Molina - Astro, Next.js, Sanity",
-      "description": "Looking to hire a Jamstack developer? I'm a senior frontend developer with 12+ years experience building high-performance sites with Astro, Next.js, and Sanity. Available for W2 or contract. Remote US / Miami."
+      "title": "Hire a Full Stack Jamstack Developer | Aaron Molina - Astro, Next.js, Sanity, AI",
+      "description": "Looking to hire a Jamstack developer? I am a senior full stack developer and consultant with 14+ years experience building high-performance sites and AI-powered applications with Astro, Next.js, and Sanity. Available for W2 or contract. Remote US / Miami."
     },
     "hero": {
-      "headline": "Hire a Jamstack Developer",
-      "subheadline": "Astro, Next.js & Sanity Expert",
-      "description": "I build high-performance, content-driven websites that load fast, rank well, and make content teams happy. With {yearsOfExperience}+ years of experience shipping production code, I can help you build or scale your web presence.",
-      "badges": ["Remote US", "Miami, FL", "W2 or Contract"],
+      "headline": "Hire a Full Stack Jamstack Developer",
+      "subheadline": "Astro, Next.js, Sanity & AI Expert",
+      "description": "I build high-performance, content-driven websites and full stack applications that load fast, rank well, and make teams happy. With {yearsOfExperience}+ years of experience and an AI-augmented workflow, I can help you build or scale your web presence faster than ever.",
+      "badges": ["Remote US", "Miami, FL", "W2 or Contract", "Open to Work"],
       "primaryCta": {
         "label": "Get in Touch",
         "href": "/contact",
@@ -79,27 +83,27 @@
     },
     "services": {
       "title": "How I Can Help",
-      "subtitle": "From concept to production, I deliver websites that perform",
+      "subtitle": "From concept to production, I deliver websites and applications that perform",
       "items": [
         {
           "icon": "rocket",
-          "title": "Jamstack Development",
-          "description": "High-performance static and hybrid sites built with Astro, Next.js, or your framework of choice. Fast load times, great SEO, and easy content updates."
+          "title": "Jamstack & Full Stack Development",
+          "description": "High-performance static, hybrid, and full stack applications built with Astro, Next.js, TanStack Start, or your framework of choice. Fast load times, strong SEO, and production-ready architecture."
         },
         {
           "icon": "globe",
           "title": "Headless CMS Integration",
-          "description": "Connect your marketing team to a modern content platform. I specialize in Sanity, Contentful, and custom CMS solutions that scale with your business."
+          "description": "Connect your marketing team to a modern content platform. I specialize in Sanity, Storyblok, Strapi, and custom CMS solutions that scale with your business."
         },
         {
           "icon": "bolt",
-          "title": "Performance Optimization",
-          "description": "Improve Core Web Vitals and page speed scores. I audit, optimize, and rebuild sites to meet Google's performance standards and improve user experience."
+          "title": "AI-Powered Development",
+          "description": "I build applications with AI built in from the start. From OpenAI integrations to development workflows powered by Claude Code and MCP servers, I deliver smarter solutions faster."
         },
         {
           "icon": "code",
-          "title": "Frontend Architecture",
-          "description": "Component libraries, design systems, and frontend infrastructure. Clean, typed code that your team can maintain and extend for years to come."
+          "title": "Frontend Architecture & CI/CD",
+          "description": "Component libraries, design systems, CI/CD pipelines, and frontend infrastructure. Clean, typed code that your team can maintain and extend for years to come."
         }
       ]
     },
@@ -108,49 +112,49 @@
       "items": [
         {
           "icon": "award",
-          "title": "Senior-Level Experience",
-          "description": "Over a decade of shipping production code for startups, agencies, and enterprise clients including Corsair, the LA Clippers, and Azamara Cruises."
+          "title": "Enterprise-Proven Experience",
+          "description": "Over a decade of shipping production code for startups, agencies, and enterprise clients including the LA Clippers, Miami Heat, Azamara Cruises, and Corsair."
         },
         {
-          "icon": "users",
-          "title": "Team Player",
-          "description": "I integrate smoothly with existing teams. Clear communication, thorough documentation, and collaborative code reviews are my standard practice."
+          "icon": "bolt",
+          "title": "AI-Augmented Workflow",
+          "description": "I use Claude Code, OpenAI, and MCP servers to build and ship faster. I have built full stack applications alongside AI agents from architecture planning to production deployment."
         },
         {
           "icon": "shield",
-          "title": "Quality Focus",
-          "description": "TypeScript, testing, accessibility, and performance are not afterthoughts. I build with best practices from day one to reduce technical debt."
+          "title": "Quality and Reliability",
+          "description": "TypeScript, automated testing, CI/CD pipelines, accessibility, and performance optimization are standard practice. I build with best practices from day one."
         },
         {
-          "icon": "clock",
-          "title": "Reliable Delivery",
-          "description": "Clear timelines, regular updates, and no surprises. I scope accurately and communicate proactively when circumstances change."
+          "icon": "users",
+          "title": "Consultant and Team Player",
+          "description": "I integrate smoothly with existing teams or lead projects independently. Clear communication, thorough documentation, and collaborative code reviews are how I operate."
         }
       ]
     },
     "skills": {
       "title": "Tech Stack",
-      "subtitle": "Modern tools for modern websites",
+      "subtitle": "Modern tools for modern applications",
       "categories": [
         {
           "name": "Frontend Frameworks",
           "icon": "code",
-          "skills": ["react", "nextjs", "astro", "typescript"]
+          "skills": ["react", "nextjs", "astro", "typescript", "tailwindcss", "figma"]
         },
         {
           "name": "Headless CMS",
           "icon": "globe",
-          "skills": ["sanity", "contentful", "strapi"]
+          "skills": ["sanity", "storyblok", "strapi", "supabase", "shopify"]
         },
         {
-          "name": "Styling & UI",
-          "icon": "lightbulb",
-          "skills": ["tailwindcss", "css", "framer-motion"]
-        },
-        {
-          "name": "Backend & Data",
+          "name": "AI & Automation",
           "icon": "bolt",
-          "skills": ["nodejs", "supabase", "mongodb", "postgresql"]
+          "skills": ["openai", "claude-code", "cursor", "mcp-servers", "vercel"]
+        },
+        {
+          "name": "Backend & DevOps",
+          "icon": "rocket",
+          "skills": ["nodejs", "postgresql", "graphql", "neon", "docker", "github-actions", "aws"]
         }
       ]
     },
@@ -163,13 +167,13 @@
   "react": {
     "meta": {
       "title": "Hire a React Developer | Aaron Molina - Senior Frontend & Full Stack",
-      "description": "Hire an experienced React developer for your next project. 12+ years building production applications with React, Next.js, and TypeScript. Available remote US or Miami-based."
+      "description": "Hire an experienced React developer for your next project. 14+ years building production applications with React, Next.js, TypeScript, and AI-powered features. Available remote US or Miami-based."
     },
     "hero": {
       "headline": "Hire a React Developer",
       "subheadline": "Senior Frontend & Full Stack Expert",
-      "description": "Looking for a React developer who can build scalable, maintainable applications? I have {yearsOfExperience}+ years of experience building production React apps for startups and enterprise clients alike.",
-      "badges": ["React Expert", "TypeScript", "Remote US"],
+      "description": "Looking for a React developer who can build scalable, maintainable applications? I have {yearsOfExperience}+ years of experience building production React apps for startups and enterprise clients. I also integrate AI features with OpenAI and use Claude Code to ship faster.",
+      "badges": ["React Expert", "TypeScript", "AI-Powered", "Remote US"],
       "primaryCta": {
         "label": "Get in Touch",
         "href": "/contact",
@@ -183,27 +187,27 @@
     },
     "services": {
       "title": "React Development Services",
-      "subtitle": "From component libraries to full applications",
+      "subtitle": "From component libraries to full stack applications",
       "items": [
         {
           "icon": "code",
           "title": "React Application Development",
-          "description": "Custom React applications built with modern best practices. Server components, hooks, context, and state management patterns that scale."
+          "description": "Custom React applications built with modern best practices. Server components, hooks, context, state management patterns, and AI integrations that scale."
         },
         {
           "icon": "rocket",
-          "title": "Next.js Development",
-          "description": "Full-stack React with Next.js. Server-side rendering, static generation, API routes, and optimized performance out of the box."
+          "title": "Next.js & TanStack Start",
+          "description": "Full stack React with Next.js or TanStack Start. Server-side rendering, static generation, API routes, and optimized performance out of the box."
         },
         {
           "icon": "lightbulb",
-          "title": "Component Libraries",
-          "description": "Reusable, accessible component libraries with Storybook documentation. Design system implementation that keeps your UI consistent."
+          "title": "Component Libraries & Design Systems",
+          "description": "Reusable, accessible component libraries with documentation. Design system implementation that keeps your UI consistent across your application."
         },
         {
           "icon": "bolt",
-          "title": "Performance Optimization",
-          "description": "React performance audits and optimization. Bundle analysis, code splitting, lazy loading, and rendering optimization."
+          "title": "Performance & AI Integration",
+          "description": "React performance audits and optimization. Bundle analysis, code splitting, lazy loading, and OpenAI-powered features built directly into your app."
         }
       ]
     },
@@ -213,22 +217,22 @@
         {
           "icon": "award",
           "title": "Deep React Expertise",
-          "description": "Building with React since 2016. I understand the ecosystem deeply, from class components to hooks to server components."
+          "description": "Building with React since 2016. I understand the ecosystem deeply, from class components to hooks to server components and the latest patterns."
         },
         {
           "icon": "shield",
           "title": "TypeScript First",
-          "description": "All my React code is fully typed with TypeScript. Better developer experience, fewer bugs, and easier maintenance."
+          "description": "All my React code is fully typed with TypeScript. Better developer experience, fewer bugs, and easier maintenance for your team."
         },
         {
           "icon": "users",
           "title": "Accessible by Default",
-          "description": "I build with accessibility in mind from the start. WCAG compliance, keyboard navigation, and screen reader support."
+          "description": "I build with accessibility in mind from the start. WCAG compliance, keyboard navigation, and screen reader support are standard."
         },
         {
           "icon": "clock",
-          "title": "Production Ready",
-          "description": "Code that is tested, documented, and ready for production. No shortcuts that create technical debt."
+          "title": "AI-Augmented Speed",
+          "description": "I use Claude Code and AI agents to accelerate development without cutting corners. You get production-ready code shipped faster."
         }
       ]
     },
@@ -252,9 +256,9 @@
           "skills": ["tailwindcss", "css", "framer-motion"]
         },
         {
-          "name": "Testing",
+          "name": "Testing & AI",
           "icon": "shield",
-          "skills": ["vitest", "testing-library", "playwright"]
+          "skills": ["vitest", "testing-library", "openai"]
         }
       ]
     }
@@ -262,13 +266,13 @@
   "nextjs": {
     "meta": {
       "title": "Hire a Next.js Developer | Aaron Molina - React & Jamstack Expert",
-      "description": "Need to hire a Next.js developer? I specialize in building fast, SEO-friendly sites with Next.js, React, and headless CMS. W2 or freelance. Remote US / Miami."
+      "description": "Need to hire a Next.js developer? I specialize in building fast, SEO-friendly sites with Next.js, React, headless CMS, and AI integrations. W2 or freelance. Remote US / Miami."
     },
     "hero": {
       "headline": "Hire a Next.js Developer",
       "subheadline": "React & Jamstack Expert",
-      "description": "Need a Next.js developer who understands both the frontend and the full stack? I build fast, SEO-optimized Next.js applications with {yearsOfExperience}+ years of React experience.",
-      "badges": ["Next.js Expert", "App Router", "Remote US"],
+      "description": "Need a Next.js developer who understands both the frontend and the full stack? I build fast, SEO-optimized Next.js applications with {yearsOfExperience}+ years of React experience. I also integrate AI capabilities and ship with an AI-augmented workflow.",
+      "badges": ["Next.js Expert", "App Router", "AI-Powered", "Remote US"],
       "primaryCta": {
         "label": "Get in Touch",
         "href": "/contact",
@@ -282,7 +286,7 @@
     },
     "services": {
       "title": "Next.js Development Services",
-      "subtitle": "Full-stack React applications with Next.js",
+      "subtitle": "Full stack React applications with Next.js",
       "items": [
         {
           "icon": "rocket",
@@ -292,17 +296,17 @@
         {
           "icon": "globe",
           "title": "Headless CMS Integration",
-          "description": "Connect Next.js to Sanity, Contentful, or any headless CMS. Preview mode, incremental regeneration, and optimized data fetching."
+          "description": "Connect Next.js to Sanity, Storyblok, or any headless CMS. Preview mode, incremental regeneration, and optimized data fetching."
         },
         {
           "icon": "bolt",
-          "title": "E-commerce Solutions",
-          "description": "Next.js storefronts with Shopify, Stripe, or custom commerce backends. Fast checkout flows and optimized product pages."
+          "title": "AI Features & E-commerce",
+          "description": "Next.js storefronts with Shopify or Stripe, plus AI-powered features with OpenAI. Smart search, content generation, and intelligent UX."
         },
         {
           "icon": "code",
-          "title": "API Development",
-          "description": "Next.js API routes and server actions for full-stack functionality. Authentication, database integration, and third-party APIs."
+          "title": "API Development & CI/CD",
+          "description": "Next.js API routes and server actions for full stack functionality. Authentication, database integration, and automated deployment pipelines."
         }
       ]
     },
@@ -312,7 +316,7 @@
         {
           "icon": "award",
           "title": "Next.js Since v9",
-          "description": "Building with Next.js since 2019. I have shipped production apps with Pages Router and App Router, understanding the tradeoffs of each."
+          "description": "Building with Next.js since 2019. I have shipped production apps with Pages Router and App Router, understanding the tradeoffs of each approach."
         },
         {
           "icon": "rocket",
@@ -322,12 +326,12 @@
         {
           "icon": "globe",
           "title": "SEO Expert",
-          "description": "Next.js is great for SEO, but only if implemented correctly. I ensure proper metadata, structured data, and crawlability."
+          "description": "Next.js is great for SEO, but only if implemented correctly. I ensure proper metadata, structured data, and crawlability for every page."
         },
         {
           "icon": "shield",
-          "title": "Vercel & Self-Hosted",
-          "description": "Experience deploying to Vercel, Netlify, AWS, and self-hosted infrastructure. I help you choose the right deployment strategy."
+          "title": "Vercel, Netlify & Self-Hosted",
+          "description": "Experience deploying to Vercel, Netlify, AWS, and self-hosted infrastructure. I help you choose the right deployment strategy for your needs."
         }
       ]
     },
@@ -343,7 +347,7 @@
         {
           "name": "Data & CMS",
           "icon": "globe",
-          "skills": ["sanity", "contentful", "supabase"]
+          "skills": ["sanity", "storyblok", "supabase"]
         },
         {
           "name": "Deployment",
@@ -360,14 +364,14 @@
   },
   "headlessCms": {
     "meta": {
-      "title": "Headless CMS Developer | Aaron Molina - Sanity, Contentful & More",
-      "description": "Expert headless CMS developer specializing in Sanity, Contentful, and composable architecture. I build content-driven sites that marketing teams love. Remote US / Miami."
+      "title": "Headless CMS Developer | Aaron Molina - Sanity, Storyblok, Strapi & More",
+      "description": "Expert headless CMS developer specializing in Sanity, Storyblok, Strapi, and composable architecture. I build content-driven sites that marketing teams love. Remote US / Miami."
     },
     "hero": {
       "headline": "Headless CMS Developer",
-      "subheadline": "Sanity, Contentful & Composable Architecture",
-      "description": "Looking for a developer who understands both the technical and content sides of headless CMS? I build content platforms that marketing teams love and developers can maintain.",
-      "badges": ["Sanity Expert", "Contentful", "Remote US"],
+      "subheadline": "Sanity, Storyblok, Strapi & Composable Architecture",
+      "description": "Looking for a developer who understands both the technical and content sides of headless CMS? I build content platforms that marketing teams love and developers can maintain. With expertise in Sanity, Storyblok, and Strapi, I connect your content to any frontend.",
+      "badges": ["Sanity Expert", "Storyblok", "Strapi", "Remote US"],
       "primaryCta": {
         "label": "Get in Touch",
         "href": "/contact",
@@ -386,7 +390,7 @@
         {
           "icon": "globe",
           "title": "CMS Implementation",
-          "description": "Full headless CMS setup with Sanity, Contentful, Strapi, or your platform of choice. Schema design, content modeling, and editor experience optimization."
+          "description": "Full headless CMS setup with Sanity, Storyblok, Strapi, or your platform of choice. Schema design, content modeling, and editor experience optimization."
         },
         {
           "icon": "rocket",
@@ -395,12 +399,12 @@
         },
         {
           "icon": "code",
-          "title": "Custom Studio Development",
-          "description": "Custom Sanity Studio plugins, input components, and workflows. Tailored editing experiences that match your content team's needs."
+          "title": "Custom Studio & Plugin Development",
+          "description": "Custom Sanity Studio plugins, Storyblok field types, and workflows. Tailored editing experiences that match your content team's needs."
         },
         {
           "icon": "bolt",
-          "title": "Multi-Site Architecture",
+          "title": "Multi-Site & Omnichannel Architecture",
           "description": "Composable content architectures for multiple brands or regions. Shared content libraries, localization, and governance patterns."
         }
       ]
@@ -410,23 +414,23 @@
       "items": [
         {
           "icon": "award",
-          "title": "Sanity Certified",
-          "description": "Deep expertise in Sanity CMS including GROQ, custom schemas, plugins, and the Content Lake API. I can build complex content models that stay maintainable."
+          "title": "Deep CMS Expertise",
+          "description": "Hands-on experience with Sanity, Storyblok, and Strapi in production environments. I can build complex content models that stay maintainable as your site grows."
         },
         {
           "icon": "users",
           "title": "Content Team Focus",
-          "description": "I design CMS experiences with editors in mind. Intuitive interfaces, helpful validation, and workflows that reduce friction."
+          "description": "I design CMS experiences with editors in mind. Intuitive interfaces, helpful validation, and workflows that reduce friction and speed up publishing."
         },
         {
           "icon": "globe",
           "title": "Omnichannel Ready",
-          "description": "Structure content for web, mobile, and beyond. Portable text, image pipelines, and APIs that serve any frontend."
+          "description": "Structure content for web, mobile, and beyond. Portable text, image pipelines, and APIs that serve any frontend or channel."
         },
         {
           "icon": "shield",
           "title": "Future-Proof Architecture",
-          "description": "Build content systems that can evolve. I plan for schema migrations, content versioning, and platform independence."
+          "description": "Build content systems that can evolve. I plan for schema migrations, content versioning, and platform independence from day one."
         }
       ]
     },
@@ -437,7 +441,7 @@
         {
           "name": "CMS Platforms",
           "icon": "globe",
-          "skills": ["sanity", "contentful", "strapi"]
+          "skills": ["sanity", "storyblok", "strapi"]
         },
         {
           "name": "Frontend",
@@ -452,7 +456,7 @@
         {
           "name": "Deployment",
           "icon": "rocket",
-          "skills": ["vercel", "netlify", "cloudflare"]
+          "skills": ["vercel", "netlify", "docker"]
         }
       ]
     }

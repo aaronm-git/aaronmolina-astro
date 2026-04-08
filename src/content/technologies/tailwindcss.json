@@ -2,7 +2,13 @@
   "slug": "tailwindcss",
   "category": "library",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Tailwind CSS"
+  "name": "Tailwind CSS",
+  "level": 10,
+  "projects": [
+    "pdf-generator-web-app",
+    "toodyloo-ai-todo-app",
+    "aaronmolina-astro"
+  ]
 }

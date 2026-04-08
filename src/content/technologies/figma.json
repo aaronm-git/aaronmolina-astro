@@ -2,7 +2,16 @@
   "slug": "figma",
   "category": "tool",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Figma"
+  "name": "Figma",
+  "level": 7,
+  "projects": [
+    "clippers-website",
+    "miami-heat-website",
+    "azamara-website",
+    "originpc-accessibility",
+    "pdf-generator-web-app",
+    "toodyloo-ai-todo-app"
+  ]
 }

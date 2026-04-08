@@ -38,7 +38,7 @@ const variantClasses: Record<CardVariant, string> = {
   elevated: 'bg-surface border border-border shadow-lg',
   outlined: 'bg-transparent border border-border',
   glass: 'glass border border-white/10',
-  tactile: 'bg-surface border border-border shadow-lg card-tactile',
+  tactile: 'card-tactile',
 };
 
 // Padding classes
@@ -60,16 +60,18 @@ const roundedClasses: Record<CardRounded, string> = {
   '2xl': 'rounded-2xl',
 };
 
-// Interactive classes (animations removed)
-const interactiveClasses = interactive || href
+// Interactive classes - tactile hover/active handled by CSS via data-interactive attribute
+const isInteractive = interactive || !!href;
+const interactiveClasses = isInteractive
   ? 'cursor-pointer'
   : '';
 
 const combinedClasses = cn(
   variantClasses[variant],
   paddingClasses[padding],
-  roundedClasses[rounded],
+  variant !== 'tactile' && roundedClasses[rounded],
   interactiveClasses,
+  href && 'block',
   'overflow-hidden',
   className,
 );
@@ -82,7 +84,6 @@ const linkProps = href ? {
 } : {};
 ---
 
-<Tag class={combinedClasses} {...linkProps}>
+<Tag class={combinedClasses} {...linkProps} {...(isInteractive ? { 'data-interactive': '' } : {})}>
   <slot />
 </Tag>
-

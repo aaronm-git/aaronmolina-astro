@@ -2,7 +2,11 @@
   "slug": "express",
   "category": "library",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Express.js"
+  "name": "Express.js",
+  "level": 9,
+  "projects": [
+    "azamara-website"
+  ]
 }

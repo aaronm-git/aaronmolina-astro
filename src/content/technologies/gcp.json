@@ -2,7 +2,9 @@
   "slug": "gcp",
   "category": "platform",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Google Cloud Platform"
+  "name": "Google Cloud Platform",
+  "level": 6,
+  "projects": []
 }

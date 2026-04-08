@@ -42,11 +42,11 @@ const displayText = label || (slug && techMap ? getTechName(slug, techMap) : slu
 
 // Build variant classes
 const variantClasses: Record<TagVariant, string> = {
-  default: 'bg-muted text-foreground border-border border',
+  default: 'bg-muted text-foreground border-border border-2 shadow-tactile-sm',
   muted: 'bg-muted/50 text-foreground-muted border-border/50 border',
-  outline: 'bg-transparent text-foreground border-border border',
-  featured: 'bg-secondary text-on-secondary',
-  tactile: 'tag-tactile bg-primary/10 text-primary border-primary/20 border',
+  outline: 'bg-transparent text-foreground border-border border-2 shadow-tactile-sm',
+  featured: 'bg-secondary text-on-secondary border-2 border-secondary-hover',
+  tactile: 'tactile-tag bg-primary/10 text-primary',
   glass: 'tag-glass backdrop-blur-sm bg-white/10 text-foreground border-white/20 border',
 };
 
@@ -57,7 +57,7 @@ const sizeClasses: Record<TagSize, string> = {
   base: 'px-3 py-1.5 text-sm',
 };
 
-const baseClasses = 'inline-flex items-center rounded font-medium';
+const baseClasses = 'inline-flex items-center rounded-md font-medium';
 const combinedClasses = cn(
   baseClasses,
   variantClasses[variant],
@@ -104,10 +104,6 @@ const combinedClasses = cn(
 )}
 
 <style>
-  .tag-tactile {
-    box-shadow: 0 2px 0 color-mix(in srgb, var(--primary) 30%, transparent);
-  }
-
   .tag-glass {
     backdrop-filter: blur(8px);
   }

@@ -1,6 +1,6 @@
 {
   "brandText": "AaronMolina.me",
-  "brandAlt": "Aaron Molina - Jamstack Developer",
+  "brandAlt": "Aaron Molina - Full Stack Jamstack Developer",
   "navItems": [
     { "label": "Home", "href": "/", "icon": "home" },
     { "label": "Hire Me", "href": "/hire", "icon": "briefcase" },

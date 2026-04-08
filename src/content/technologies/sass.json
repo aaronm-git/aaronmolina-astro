@@ -2,7 +2,14 @@
   "slug": "sass",
   "category": "library",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "SASS/SCSS"
+  "name": "SASS/SCSS",
+  "level": 10,
+  "projects": [
+    "clippers-website",
+    "miami-heat-website",
+    "azamara-website",
+    "originpc-accessibility"
+  ]
 }

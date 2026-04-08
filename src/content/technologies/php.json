@@ -2,7 +2,9 @@
   "slug": "php",
   "category": "language",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "PHP"
+  "name": "PHP",
+  "level": 4,
+  "projects": []
 }

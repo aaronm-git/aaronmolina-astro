@@ -1,0 +1,12 @@
+{
+  "slug": "mcp-servers",
+  "category": "tool",
+  "url": "https://modelcontextprotocol.io",
+  "featured": true,
+  "sortOrder": 0,
+  "name": "MCP Servers",
+  "level": 8,
+  "projects": [
+    "aaronmolina-astro"
+  ]
+}

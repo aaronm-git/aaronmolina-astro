@@ -2,7 +2,12 @@
   "slug": "wordpress",
   "category": "cms",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "WordPress"
+  "name": "WordPress",
+  "level": 8,
+  "projects": [
+    "miami-heat-website",
+    "clippers-website"
+  ]
 }

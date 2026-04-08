@@ -1,0 +1,13 @@
+{
+  "slug": "vercel",
+  "category": "platform",
+  "url": "https://vercel.com",
+  "featured": true,
+  "sortOrder": 0,
+  "name": "Vercel",
+  "level": 7,
+  "projects": [
+    "pdf-generator-web-app",
+    "toodyloo-ai-todo-app"
+  ]
+}

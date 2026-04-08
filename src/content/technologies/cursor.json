@@ -1,0 +1,17 @@
+{
+  "slug": "cursor",
+  "category": "tool",
+  "url": "https://cursor.com",
+  "featured": true,
+  "sortOrder": 0,
+  "name": "Cursor IDE",
+  "level": 10,
+  "projects": [
+    "clippers-website",
+    "miami-heat-website",
+    "azamara-website",
+    "originpc-accessibility",
+    "pdf-generator-web-app",
+    "toodyloo-ai-todo-app"
+  ]
+}

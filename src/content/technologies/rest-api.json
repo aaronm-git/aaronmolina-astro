@@ -2,7 +2,12 @@
   "slug": "rest-api",
   "category": "tool",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "REST APIs"
+  "name": "REST APIs",
+  "level": 8,
+  "projects": [
+    "clippers-website",
+    "miami-heat-website"
+  ]
 }

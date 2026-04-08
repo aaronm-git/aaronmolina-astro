@@ -2,7 +2,9 @@
   "slug": "gatsby",
   "category": "framework",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Gatsby.js"
+  "name": "Gatsby.js",
+  "level": 10,
+  "projects": []
 }

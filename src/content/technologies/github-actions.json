@@ -1,0 +1,12 @@
+{
+  "slug": "github-actions",
+  "category": "service",
+  "url": "https://github.com/features/actions",
+  "featured": true,
+  "sortOrder": 0,
+  "name": "GitHub Actions",
+  "level": 7,
+  "projects": [
+    "originpc-accessibility"
+  ]
+}

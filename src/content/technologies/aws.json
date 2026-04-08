@@ -2,7 +2,12 @@
   "slug": "aws",
   "category": "platform",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "AWS"
+  "name": "AWS",
+  "level": 7,
+  "projects": [
+    "azamara-website",
+    "clippers-website"
+  ]
 }

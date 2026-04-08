@@ -3,6 +3,10 @@
   "slug": "vue",
   "category": "framework",
   "url": "",
-  "featured": false,
-  "sortOrder": 0
+  "featured": true,
+  "sortOrder": 0,
+  "level": 7,
+  "projects": [
+    "clippers-website"
+  ]
 }

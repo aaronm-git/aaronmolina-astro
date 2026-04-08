@@ -1,131 +1,127 @@
 ---
 import { getNavIcon, getSocialIcon, FaSun, FaMoon, FaDesktop, FaBars } from '@/lib/icons';
 import Avatar from '@/components/atoms/Avatar.astro';
+import Button from '@/components/atoms/Button.astro';
 import ProfilePicture from '@/images/profile.jpg';
 import navigation from '@/content/site/navigation.json';
 import settings from '@/content/site/settings.json';
 ---
 
 <header class="tactile-header fixed top-0 right-0 left-0 z-50">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <div class="container">
     <div class="flex items-center justify-between py-2">
       <!-- Logo/Brand -->
       <div class="flex-shrink-0">
-        <a href="/" class="text-foreground hover:text-primary flex items-center gap-3 text-xl font-bold ">
+        <a href="/" class="text-foreground hover:text-primary flex items-center gap-3 text-xl font-bold">
           <Avatar src={ProfilePicture} alt={navigation.brandAlt} size="sm" border borderColor="primary" />
           {navigation.brandText}
         </a>
       </div>
 
       <!-- Desktop Navigation & Actions -->
-      <div class="hidden lg:flex items-center gap-4">
+      <div class="hidden items-center gap-4 lg:flex">
         <!-- Navigation -->
         <nav class="flex gap-1">
-          {navigation.navItems.map((item) => {
-            const Icon = getNavIcon(item.icon || '');
-            return (
-              <a href={item.href} class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold uppercase tracking-wide ">
-                {Icon ? <Icon /> : null} {item.label}
-              </a>
-            );
-          })}
+          {
+            navigation.navItems.map(item => {
+              const Icon = getNavIcon(item.icon || '');
+              return (
+                <a
+                  href={item.href}
+                  class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold tracking-wide uppercase"
+                >
+                  {Icon ? <Icon /> : null} {item.label}
+                </a>
+              );
+            })
+          }
         </nav>
 
         <!-- Social Links & Actions -->
         <div class="flex items-center gap-2">
-          {settings.author.socialLinks?.map((link) => {
-            const Icon = getSocialIcon(link.platform);
-            if (!Icon) return null;
-            return (
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2 "
-                aria-label={link.ariaLabel || link.label}
-              >
-                <Icon />
-              </a>
-            );
-          })}
+          {
+            settings.author.socialLinks?.map(link => {
+              const Icon = getSocialIcon(link.platform);
+              if (!Icon) return null;
+              return (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2"
+                  aria-label={link.ariaLabel || link.label}
+                >
+                  <Icon />
+                </a>
+              );
+            })
+          }
 
           <!-- CTA Button -->
-          <a href="/contact" class="bg-primary hover:bg-primary-hover text-on-primary rounded-md px-4 py-2 text-sm font-medium ">
-            Get in Touch
-          </a>
+          <Button href="/contact" variant="primary" size="xs">Get in Touch</Button>
 
           <!-- Theme toggle -->
-          <button
-            data-theme-toggle
-            class="text-foreground-muted hover:text-foreground hover:bg-muted ml-1 rounded-md p-2 "
-            aria-label="Toggle theme (light/dark/system)"
-          >
-            <FaSun data-theme-icon="dark" className="sun-icon w-4 h-4 hidden" />
-            <FaMoon data-theme-icon="light" className="moon-icon w-4 h-4 hidden" />
-            <FaDesktop data-theme-icon="system" className="system-icon w-4 h-4" />
+          <button data-theme-toggle class="text-foreground-muted hover:text-foreground hover:bg-muted ml-1 rounded-md p-2" aria-label="Toggle theme (light/dark/system)">
+            <FaSun data-theme-icon="dark" className="sun-icon hidden h-4 w-4" />
+            <FaMoon data-theme-icon="light" className="moon-icon hidden h-4 w-4" />
+            <FaDesktop data-theme-icon="system" className="system-icon h-4 w-4" />
           </button>
         </div>
       </div>
 
       <!-- Mobile menu button -->
-      <button
-        type="button"
-        data-mobile-menu-toggle
-        class="lg:hidden text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2 "
-        aria-label="Toggle menu"
-      >
-        <FaBars className="w-5 h-5" />
+      <button type="button" data-mobile-menu-toggle class="text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2 lg:hidden" aria-label="Toggle menu">
+        <FaBars className="h-5 w-5" />
       </button>
     </div>
 
     <!-- Mobile menu -->
-    <nav id="mobile-menu" class="hidden lg:hidden border-t border-border">
+    <nav id="mobile-menu" class="border-border hidden border-t lg:hidden">
       <div class="space-y-1 px-2 pt-2 pb-3">
-        {navigation.navItems.map((item) => (
-          <a
-            href={item.href}
-            class="text-foreground-muted hover:text-foreground hover:bg-muted block rounded-md px-3 py-2 text-base font-medium "
-          >
-            {item.label}
-          </a>
-        ))}
+        {
+          navigation.navItems.map(item => (
+            <a href={item.href} class="text-foreground-muted hover:text-foreground hover:bg-muted block rounded-md px-3 py-2 text-base font-medium">
+              {item.label}
+            </a>
+          ))
+        }
 
         <!-- Social Links - Mobile -->
         <div class="flex gap-2 px-3 py-2">
-          {settings.author.socialLinks?.map((link) => {
-            const Icon = getSocialIcon(link.platform);
-            if (!Icon) return null;
-            return (
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2 "
-                aria-label={link.ariaLabel || link.label}
-              >
-                <Icon />
-              </a>
-            );
-          })}
+          {
+            settings.author.socialLinks?.map(link => {
+              const Icon = getSocialIcon(link.platform);
+              if (!Icon) return null;
+              return (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2"
+                  aria-label={link.ariaLabel || link.label}
+                >
+                  <Icon />
+                </a>
+              );
+            })
+          }
         </div>
 
         <!-- CTA Button - Mobile -->
         <div class="px-3 py-2">
-          <a href="/contact" class="bg-primary hover:bg-primary-hover text-on-primary block text-center rounded-md px-4 py-2 text-base font-medium ">
-            Get in Touch
-          </a>
+          <Button href="/contact" variant="primary" size="sm" fullWidth>Get in Touch</Button>
         </div>
 
         <!-- Theme toggle for mobile -->
-        <div class="border-t border-border pt-2">
+        <div class="border-border border-t pt-2">
           <button
             data-theme-toggle
-            class="text-foreground-muted hover:text-foreground hover:bg-muted flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium "
+            class="text-foreground-muted hover:text-foreground hover:bg-muted flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium"
             aria-label="Toggle theme"
           >
-            <FaSun data-theme-icon="dark" className="sun-icon w-4 h-4 hidden" />
-            <FaMoon data-theme-icon="light" className="moon-icon w-4 h-4 hidden" />
-            <FaDesktop data-theme-icon="system" className="system-icon w-4 h-4" />
+            <FaSun data-theme-icon="dark" className="sun-icon hidden h-4 w-4" />
+            <FaMoon data-theme-icon="light" className="moon-icon hidden h-4 w-4" />
+            <FaDesktop data-theme-icon="system" className="system-icon h-4 w-4" />
             <span>Toggle Theme</span>
           </button>
         </div>

@@ -2,7 +2,12 @@
   "slug": "typescript",
   "category": "language",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "TypeScript"
+  "name": "TypeScript",
+  "level": 7,
+  "projects": [
+    "pdf-generator-web-app",
+    "toodyloo-ai-todo-app"
+  ]
 }

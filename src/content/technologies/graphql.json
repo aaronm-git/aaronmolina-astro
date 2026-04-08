@@ -2,7 +2,11 @@
   "slug": "graphql",
   "category": "tool",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "GraphQL"
+  "name": "GraphQL",
+  "level": 7,
+  "projects": [
+    "azamara-website"
+  ]
 }

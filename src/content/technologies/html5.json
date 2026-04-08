@@ -2,7 +2,16 @@
   "slug": "html5",
   "category": "other",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "HTML5"
+  "name": "HTML5",
+  "level": 10,
+  "projects": [
+    "clippers-website",
+    "miami-heat-website",
+    "azamara-website",
+    "originpc-accessibility",
+    "pdf-generator-web-app",
+    "toodyloo-ai-todo-app"
+  ]
 }

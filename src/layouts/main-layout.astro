@@ -92,12 +92,21 @@ const breadcrumbs = generateBreadcrumbs(Astro.url.pathname);
     <title>{title}</title>
   </head>
   <!-- Body -->
-  <body class="bg-background text-foreground pt-13 antialiased">
+  <body class="bg-background text-foreground pt-(--header-height) antialiased">
     <Header />
-    <main class="mx-auto max-w-6xl px-4">
-      <Breadcrumbs items={breadcrumbs} />
+    <main>
+      <div class="container">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
       <slot />
     </main>
     <Footer />
+
+    <script>
+      import { initScrollReveal } from '@/lib/animations';
+      document.addEventListener('DOMContentLoaded', () => {
+        initScrollReveal();
+      });
+    </script>
   </body>
 </html>

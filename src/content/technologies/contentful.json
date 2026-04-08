@@ -2,7 +2,9 @@
   "slug": "contentful",
   "category": "cms",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Contentful"
+  "name": "Contentful",
+  "level": 6,
+  "projects": []
 }

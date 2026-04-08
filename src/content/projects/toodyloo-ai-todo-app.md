@@ -1,7 +1,7 @@
 ---
-title: Toodyloo - AI-Powered Smart To-Do App
+title: Toodyloo - AI-Powered To-Do App Built Because Wunderlist Is Gone
 slug: toodyloo-ai-todo-app
-summary: A modern, full-stack smart to-do app built with TanStack Start, featuring AI-powered task creation, optimistic UI updates, and production-grade architecture.
+summary: I built Toodyloo because I missed Wunderlist. It is a full-stack portfolio app with AI-powered task and list creation, optimistic UI, and a production-grade architecture built on TanStack Start, OpenAI, and Neon PostgreSQL.
 technologies:
   - react
   - typescript
@@ -28,152 +28,150 @@ featured: true
 sortOrder: -1
 ---
 
-Toodyloo is a production-quality smart to-do application that showcases modern full-stack development practices. Built with **TanStack Start**, it features AI-powered task creation, optimistic UI updates, comprehensive error handling, and a complete authentication system.
+Wunderlist was the best task app ever made. Microsoft acquired it, shut it down in 2020, and replaced it with Microsoft To Do. Nothing quite filled that gap.
+
+So I built Toodyloo. It is a full-stack portfolio project that combines the clean, focused task management I loved in Wunderlist with real AI features powered by OpenAI. You can describe a goal in plain English and the AI generates an entire list or a set of structured tasks for you. The whole app was built with AI assistance, from architecture planning to production deployment.
+
+- - -
+
+## Why I Built This
+
+I have been a Wunderlist fan since 2013. The app was fast, clear, and never got in the way. When it was shut down, I tried every replacement, and none of them felt right.
+
+Building my own was the obvious next step. It gave me the chance to use a stack I was genuinely excited about, ship a real product I would actually use, and demonstrate full-stack React skills across every layer of the application.
+
+Toodyloo is my portfolio project. It is not a toy. The code is production-grade, the app is deployed on Netlify with server-side rendering, and everything from the database to the UI is fully type-safe.
 
 - - -
 
 ## Overview
 
-This application demonstrates how to build a "real" production application with enterprise-level features including:
+Toodyloo shows how to build a modern full-stack application with real AI integration baked in from the start, not added as an afterthought.
 
-- **AI Integration**: Natural language task creation using OpenAI
-- **Optimistic UI**: Instant feedback with automatic rollback on errors
-- **Type Safety**: End-to-end TypeScript from database to UI
-- **Authentication**: Secure email/password auth with Better Auth
+- **AI-Powered List Creation**: Describe a project or goal and OpenAI generates a complete, structured list for you
+- **AI Task Generation**: Create individual tasks from a single plain-English prompt, with priorities and due dates filled in automatically
+- **Optimistic UI**: Every action updates the screen instantly before the server responds
+- **Type Safety**: Types flow from the Drizzle schema through server functions to React components without any gaps
+- **Authentication**: Secure email/password accounts with Better Auth
 - **Observability**: Sentry integration for error tracking and performance monitoring
-- **Modern Stack**: TanStack Start, React Query, Drizzle ORM, and more
+- **Anonymous Mode**: Try the app without signing up first
 
 - - -
 
-### 🛠️ Technical Breakdown
+### Technical Breakdown
 
-**Tech stack:**
-I built Toodyloo using **TanStack Start**, **React**, **TypeScript**, **PostgreSQL**, **Drizzle ORM**, **Better Auth**, **OpenAI**, **Sentry**, **Shadcn UI**, **Tailwind CSS**, **Zod**, **React Query**, **Netlify**, and **Git**.
+**Tech stack:** TanStack Start, React 19, TypeScript, PostgreSQL, Drizzle ORM, Better Auth, OpenAI, Sentry, shadcn/ui, Tailwind CSS v4, Zod, TanStack Query, Netlify.
 
-- Built the full-stack application with **TanStack Start** for server-side rendering and API routes
-- Used **TanStack Router** for type-safe routing with file-based routing
-- Integrated **PostgreSQL** database with **Drizzle ORM** for type-safe database queries
-- Implemented **Better Auth** for secure authentication with email/password
-- Added **OpenAI integration** for AI-powered natural language task creation
-- Used **Sentry** for error tracking and performance instrumentation
-- Built UI components with **Shadcn UI** and **Radix UI** for accessibility
-- Styled with **Tailwind CSS** for responsive, modern design
-- Implemented **Zod** validation for type-safe data validation
-- Used **React Query** for server state management and caching
-- Implemented **optimistic UI updates** with automatic error handling and rollback
-- Deployed on **Netlify** with serverless functions
-- Used **Git** for version control
+- Built the full-stack application with **TanStack Start** for server-side rendering and type-safe server functions
+- Used **TanStack Router** for file-based, fully type-safe routing
+- Connected to a **Neon PostgreSQL** database using **Drizzle ORM** for type-safe queries and migrations
+- Implemented **Better Auth** for email/password authentication with anonymous session support
+- Integrated **OpenAI** in the backend so users can generate lists and tasks from plain-English prompts
+- Instrumented server functions with **Sentry** spans for error tracking and performance monitoring
+- Built UI components with **shadcn/ui** and **Radix UI** for accessible, consistent design
+- Styled with **Tailwind CSS v4** for responsive, modern layouts
+- Used **Zod** for runtime validation that doubles as the source of truth for TypeScript types
+- Managed server state with **TanStack Query** including optimistic mutations and automatic cache invalidation
+- Deployed on **Netlify** with SSR and serverless functions via the official TanStack Start adapter
+
+- - -
 
 ## Key Features
 
-- **AI-Powered Task Creation**: Describe tasks in natural language and AI extracts details, priorities, and due dates
-- **Smart Task Management**: Organize tasks into lists/categories with subtasks
-- **Optimistic Updates**: Instant UI feedback with automatic error recovery
-- **Activity Log**: Track all operations with real-time progress indicators
+- **AI List Generation**: Tell the AI what you are working on and it builds a complete, organized list
+- **AI Task Creation**: Describe a task in plain English and the AI extracts the title, priority, and due date automatically
+- **AI Subtask Breakdown**: The AI reads a task and suggests logical subtasks, turning big goals into manageable steps
+- **Smart Task Management**: Organize tasks into lists with color-coded categories and subtask hierarchies
+- **Optimistic Updates**: Instant UI feedback with automatic rollback on errors
+- **Activity Log**: Real-time progress indicators and a full history of all operations
 - **Advanced Filtering**: Filter by status, priority, due date, and category
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Responsive Design**: Works on desktop and mobile
 - **Dark Mode**: System-aware theme switching
-- **Type Safety**: Full TypeScript coverage from database to UI
-- **Error Handling**: Comprehensive error tracking with Sentry
-- **Authentication**: Secure user accounts with password reset functionality
+- **Anonymous Mode**: Use the app locally without an account, then sign up to save your data
+
+- - -
 
 ## Technical Highlights
 
 ### Type-Safe Architecture
-- **Database to UI**: Types flow from Drizzle schema through server functions to React components
-- **Zod Validation**: All user inputs validated before database writes
-- **TypeScript First**: Zero `any` types, full type coverage
+
+Types start at the Drizzle schema, flow through Zod-validated server functions, and land in React components without a single `any`. A schema change produces TypeScript errors across the entire codebase instantly, which catches bugs at compile time instead of in production.
 
 ### Optimistic UI Pattern
-- **Instant Feedback**: UI updates immediately on user actions
-- **Automatic Rollback**: Failed operations automatically revert with error messages
-- **Activity Tracking**: Real-time progress bar and activity log for all operations
-- **Error Recovery**: User-friendly error messages with retry capabilities
 
-### AI Integration
-- **Natural Language Processing**: Convert plain English descriptions into structured tasks
-- **Smart Parsing**: Extracts priorities, due dates, and task details automatically
-- **Privacy-First**: Clear warnings about not sharing sensitive information
+Every mutation updates the UI before the server responds. If the request fails, the change rolls back automatically with a user-friendly error message. A global activity drawer shows a live log of all pending and completed operations. This pattern makes the app feel as fast as a native application.
 
-### Production Features
-- **Error Monitoring**: Sentry integration for automatic error tracking
-- **Performance Instrumentation**: Server function instrumentation for observability
-- **Database Migrations**: Drizzle migrations for schema management
-- **Environment Configuration**: Support for multiple deployment environments
+### AI Integration with OpenAI
 
-## Why I switched to TanStack Start (vs Next.js App Router)
+The AI features connect to OpenAI's API in a TanStack Start server function. The user's prompt is sent to `gpt-4o-mini`, the response is parsed and validated with Zod, and the results are saved directly to the user's account. Fast, structured, and type-safe from prompt to database.
 
-I’ve built a lot of production React, and I’m pretty opinionated about frameworks: I want **clarity**, **type-safety**, and **control**—not “magic” that’s impressive until it’s 2am and you’re debugging a cache/SSR/RSC edge case. Next.js App Router is powerful, but the modern model asks you to internalize a lot of implicit behavior (especially around caching and where code runs) and I got tired of fighting it. ([Next.js Caching](https://nextjs.org/docs/app/guides/caching))
+### Production Observability
 
-So for Toodyloo, I chose TanStack Start. These are *my* reasons:
+Every server function is wrapped in a `Sentry.startSpan()` call. This gives structured traces for every database query and AI call, which makes debugging and performance tuning straightforward.
 
-1. **I’m done with RSC mental gymnastics as the default**  
-   I don’t want to constantly think “server component or client component?”, “what invalidates what?”, and “why did this render on the server again?” TanStack Start’s model keeps boundaries more explicit and easier to reason about. ([TanStack Start Comparison](https://tanstack.com/start/latest/docs/framework/react/comparison))
+- - -
 
-2. **Server Functions feel like the pragmatic middle ground**  
-   I want backend logic colocated with my app, but I want it *explicit* and callable in a way that’s easy to test and instrument. TanStack Start’s Server Functions are a clear abstraction for full-stack work without turning every mutation into framework ceremony. ([TanStack Start Server Functions](https://tanstack.com/start/latest/docs/framework/react/guide/server-functions))
+## Why I Chose TanStack Start Over Next.js
 
-3. **Type-safe routing is non‑negotiable for serious apps**  
-   When routes are a stringly-typed minefield, refactors get scary. TanStack Router’s type-safety makes route params and navigation fail at compile time instead of in production. ([TanStack Start vs Next.js](https://tanstack.com/start/latest/docs/framework/react/start-vs-nextjs))
+I have built a lot of production React, and I have strong opinions about frameworks. I want clarity, type-safety, and control. Next.js App Router is powerful, but the modern model asks you to internalize a lot of implicit behavior around caching, where code runs, and how Server Components interact with Client Components. I got tired of fighting it.
 
-4. **The data layer is predictable (TanStack Query + explicit patterns)**  
-   I already trust TanStack Query’s primitives for caching, invalidation, optimistic updates, and retries. Start fits that mental model cleanly, which makes app behavior more consistent and debugging way less painful. ([TanStack Start Overview](https://tanstack.com/start/latest/docs))
+Here is why I chose TanStack Start for this project:
 
-5. **Portability matters (I don’t want my framework picking my platform)**  
-   I deploy where it makes sense. This app runs on Netlify with first‑class support (SSR + server functions) via an official framework guide. ([Netlify: TanStack Start setup guide](https://docs.netlify.com/build/frameworks/framework-setup-guides/tanstack-start/))
+**1. No RSC mental gymnastics as the default**
+I do not want to constantly ask "server component or client component?" TanStack Start keeps boundaries explicit and easy to reason about.
 
-Next.js still has a place—Route Handlers and Server Actions can be great— but the tradeoffs are real, and for this project I wanted a system that stays understandable as it grows. ([Next.js Route Handlers](https://nextjs.org/docs/app/getting-started/route-handlers))
+**2. Server Functions are the right abstraction**
+I want backend logic colocated with my app, but explicit and easy to test. TanStack Start's `createServerFn` is a clean abstraction for full-stack work without turning every mutation into framework ceremony.
+
+**3. Type-safe routing is not optional**
+TanStack Router makes route params and navigation fail at compile time instead of in production. Stringly-typed routes make refactoring scary.
+
+**4. The data layer is predictable**
+TanStack Query's primitives for caching, invalidation, optimistic updates, and retries fit TanStack Start's mental model cleanly. App behavior stays consistent and debugging is straightforward.
+
+**5. Platform portability**
+I deploy where it makes sense. This app runs on Netlify with SSR and server functions via the official framework adapter.
+
+Next.js still has its place. But for this project, I wanted a system that stays understandable as it grows.
+
+- - -
 
 ## Obstacles and Solutions
 
 ### Obstacle: Optimistic UI with Error Handling
 
-Building optimistic UI updates that gracefully handle errors and provide good user experience was challenging. Users expect instant feedback, but network requests can fail.
+Users expect instant feedback, but network requests can fail. Building optimistic updates that handle errors gracefully required a system that could track every pending operation and recover cleanly.
 
-### Solution:
+### Solution
 
-I implemented a comprehensive optimistic operations system that:
+I built a global optimistic operations provider that:
+
 - Tracks all pending operations with unique IDs
-- Shows real-time progress indicators
-- Automatically rolls back failed operations
-- Displays user-friendly error messages
-- Provides retry functionality
-- Logs all operations to an activity drawer
+- Shows real-time progress indicators in a drawer
+- Automatically rolls back failed operations with user-friendly error messages
+- Logs all operations to an activity history
 
-This system uses React Query mutations with optimistic updates, a global context for tracking operations, and Sentry for error reporting.
+TanStack Query mutations with `onMutate` callbacks handle the client-side state. Sentry captures any failures for later review.
 
 - - -
 
-### Obstacle: Type Safety Across the Stack
+### Obstacle: End-to-End Type Safety
 
-Maintaining type safety from the database layer through server functions to the UI was important but complex, especially with dynamic queries and mutations.
+Maintaining types from the database schema through server functions to the UI is important but requires discipline, especially when queries are dynamic.
 
-### Solution:
+### Solution
 
-I used a combination of:
-- **Drizzle ORM** for type-safe database queries with inferred types
-- **Zod schemas** for runtime validation that also provide TypeScript types
-- **TanStack Router** for type-safe routing and server functions
-- **Shared type definitions** that flow from database schema to UI components
-
-This ensures that a change in the database schema automatically propagates type errors throughout the codebase, catching bugs at compile time.
+The type flow works like this: Drizzle schema defines the tables, `createSelectSchema()` turns those into Zod schemas, `z.infer<>` produces the TypeScript types, and those types are used everywhere. A change in the database schema automatically produces type errors in server functions and UI components. Bugs surface at compile time.
 
 - - -
 
-### Obstacle: AI Integration with Privacy Concerns
+### Obstacle: AI Integration with Privacy in Mind
 
-Integrating AI features while maintaining user privacy and compliance with data protection regulations required careful consideration.
+Adding AI features while being clear about data handling required careful UX decisions and server-side guardrails.
 
-### Solution:
+### Solution
 
-I implemented:
-- Clear privacy notices in the AI dialog
-- Warnings about not sharing sensitive information
-- Links to Privacy Policy and Terms of Service
-- Proper data handling in server functions
-- User education about AI processing
-
-The AI features are clearly marked, and users are informed that their input may be processed by third-party services.
+I added clear privacy notices in the AI dialog explaining that prompts are sent to OpenAI. Users see links to the Privacy Policy and Terms of Service before using AI features. On the server side, prompts are never logged beyond what Sentry needs for error tracing, and AI calls run through validated server functions so no raw input reaches the database.
 
 - - -
 
@@ -194,7 +192,7 @@ Aaron Molina - Senior Frontend Developer
 - [Better Auth](https://www.better-auth.com/)
 - [OpenAI](https://openai.com/)
 - [Sentry](https://sentry.io/)
-- [Shadcn UI](https://ui.shadcn.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
 - [Radix UI](https://www.radix-ui.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Zod](https://zod.dev/)

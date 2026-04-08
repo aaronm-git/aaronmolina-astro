@@ -7,91 +7,82 @@ import MainLayout from '@/layouts/main-layout.astro';
 import HeroSection from '@/components/organisms/sections/HeroSection.astro';
 import ServicesSection from '@/components/organisms/sections/ServicesSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
+import TechShowcase from '@/components/organisms/TechShowcase.astro';
+import TechShowcaseMobile from '@/components/organisms/TechShowcaseMobile.astro';
+import hireData from '@/content/site/hire.json';
 
 const serviceOfferings = [
   {
     icon: 'code',
-    title: 'Jamstack Development',
-    description: 'High-performance static and hybrid sites with Astro, Next.js, and modern frameworks',
+    title: 'Jamstack & Full Stack Development',
+    description: 'High-performance static, hybrid, and full stack applications with Astro, Next.js, TanStack Start, and modern frameworks',
     href: '/hire/jamstack',
   },
   {
     icon: 'react',
     title: 'React Developer',
-    description: 'Expert React development with TypeScript, hooks, and modern patterns',
+    description: 'Expert React development with TypeScript, hooks, server components, and AI integrations',
     href: '/hire/react-developer',
   },
   {
     icon: 'nextjs',
     title: 'Next.js Developer',
-    description: 'Full-stack React with server components, API routes, and optimization',
+    description: 'Full stack React with server components, API routes, headless CMS, and optimization',
     href: '/hire/nextjs-developer',
   },
   {
     icon: 'globe',
     title: 'Headless CMS',
-    description: 'Sanity, Contentful, and custom CMS implementation and migration',
+    description: 'Sanity, Storyblok, Strapi, and custom CMS implementation and migration',
     href: '/hire/headless-cms',
+  },
+  {
+    icon: 'bolt',
+    title: 'AI-Powered Development',
+    description: 'Full stack applications with AI built in. OpenAI integrations, Claude Code workflows, and MCP server configuration',
+    href: '/contact',
   },
 ];
 
-const title = 'Hire a Developer | Services & Expertise | Aaron Molina';
-const description = 'Hire a senior developer for Jamstack, React, Next.js, and Headless CMS projects. 12+ years experience, remote US / Miami.';
+const techSlugs = Array.from(
+  new Set(hireData.main.skills.categories.flatMap((c: { skills: string[] }) => c.skills))
+);
+
+const title = 'Hire a Full Stack Developer | Services & Expertise | Aaron Molina';
+const description = 'Hire a senior full stack developer for Jamstack, React, Next.js, AI-powered applications, and Headless CMS projects. 14+ years experience, remote US / Miami.';
 ---
 
 <MainLayout title={title} description={description}>
   <HeroSection
     variant="split"
     headline="Let's Build Something Great"
-    subheadline="Choose Your Expertise"
-    description="I offer specialized services across multiple technologies. Select a service below to learn more about how I can help with your project."
+    subheadline="Full Stack, Jamstack & AI-Powered Development"
+    description="I offer specialized services across web development, headless CMS, and AI-powered applications. Select a service below to learn more about how I can help with your project."
     primaryCta={{
       label: 'Get in Touch',
       href: '/contact',
       icon: 'arrowRight',
     }}
     class="mb-16"
-  />
+  >
+    <div slot="right">
+      <TechShowcaseMobile techs={techSlugs} />
+      <TechShowcase techs={techSlugs} />
+    </div>
+  </HeroSection>
 
   <ServicesSection
     title="My Services"
-    subtitle="Pick the expertise that fits your needs"
+    subtitle="Pick the expertise that fits your project"
     services={serviceOfferings}
     variant="grid"
     columns={2}
     class="mb-16 bg-muted/30 rounded-2xl"
   />
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-    {serviceOfferings.map((service) => (
-      <a
-        href={service.href}
-        class="group relative p-6 rounded-xl border border-border bg-card"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0">
-            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10">
-              <span class="text-lg">→</span>
-            </div>
-          </div>
-          <div class="flex-1">
-            <h3 class="text-lg font-semibold text-foreground">
-              {service.title}
-            </h3>
-            <p class="mt-2 text-sm text-foreground-muted">{service.description}</p>
-            <div class="mt-4 flex items-center text-primary font-medium text-sm">
-              Learn more
-              <span class="ml-2">→</span>
-            </div>
-          </div>
-        </div>
-      </a>
-    ))}
-  </div>
-
   <CTASection
     title="Ready to Start Your Project?"
-    description="Whether you need a new website, optimization, or scaling your team, I'm here to help."
+    description="Whether you need a new website, an AI-powered application, or help scaling your team, I am here to help."
     buttonLabel="Get in Touch"
     buttonHref="/contact"
     class=""

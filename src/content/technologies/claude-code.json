@@ -1,0 +1,13 @@
+{
+  "slug": "claude-code",
+  "category": "tool",
+  "url": "https://docs.anthropic.com/en/docs/claude-code",
+  "featured": true,
+  "sortOrder": 0,
+  "name": "Claude Code",
+  "level": 10,
+  "projects": [
+    "aaronmolina-astro",
+    "pdf-generator-web-app"
+  ]
+}

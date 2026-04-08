@@ -2,7 +2,12 @@
   "slug": "bootstrap",
   "category": "library",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Bootstrap"
+  "name": "Bootstrap",
+  "level": 10,
+  "projects": [
+    "miami-heat-website",
+    "originpc-accessibility"
+  ]
 }

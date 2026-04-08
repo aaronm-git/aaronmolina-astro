@@ -2,7 +2,11 @@
   "slug": "accessibility",
   "category": "concept",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Accessibility"
+  "name": "Accessibility",
+  "level": 7,
+  "projects": [
+    "originpc-accessibility"
+  ]
 }

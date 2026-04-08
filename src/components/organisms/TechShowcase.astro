@@ -1,0 +1,189 @@
+---
+/**
+ * TechShowcase - Animated floating technology logo cloud
+ * Renders technology SVG icons in a scattered arrangement with GSAP animations.
+ * Used in the hire page hero to visually showcase the tech stack.
+ */
+import { getAllTechIcons } from '@/lib/tech-icons';
+import { cn } from '@/lib/cn';
+
+interface Props {
+  /** Array of technology slugs to display */
+  techs: string[];
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const { techs, class: className = '' } = Astro.props;
+
+const icons = getAllTechIcons(techs);
+
+/**
+ * Pre-computed scattered positions for up to 23 icons.
+ * Each position is tuned to avoid overlap and create visual balance.
+ * Larger scale = "hero" tech, smaller = depth/supporting tech.
+ */
+const positions = [
+  { x: 6, y: 4, scale: 0.84, rotate: -7, speed: 0.72 },
+  { x: 27, y: 2, scale: 0.84, rotate: 4, speed: 0.95 },
+  { x: 51, y: 5, scale: 0.84, rotate: -5, speed: 1.12 },
+  { x: 72, y: 6, scale: 0.84, rotate: 7, speed: 1.02 },
+  { x: 15, y: 23, scale: 0.84, rotate: -4, speed: 0.84 },
+  { x: 40, y: 22, scale: 0.84, rotate: 8, speed: 1.16 },
+  { x: 67, y: 24, scale: 0.84, rotate: -9, speed: 0.9 },
+  { x: 90, y: 35, scale: 0.84, rotate: 6, speed: 1.22 },
+  { x: 5, y: 46, scale: 0.84, rotate: 9, speed: 1.2 },
+  { x: 26, y: 46, scale: 0.84, rotate: -10, speed: 0.86 },
+  { x: 50, y: 47, scale: 0.84, rotate: 4, speed: 1.08 },
+  { x: 76, y: 49, scale: 0.84, rotate: -6, speed: 0.94 },
+  { x: 93, y: 61, scale: 0.84, rotate: 5, speed: 1.24 },
+  { x: 12, y: 69, scale: 0.84, rotate: -8, speed: 1.02 },
+  { x: 35, y: 70, scale: 0.84, rotate: 7, speed: 0.96 },
+  { x: 58, y: 71, scale: 0.84, rotate: -5, speed: 1.14 },
+  { x: 81, y: 74, scale: 0.84, rotate: 8, speed: 1.06 },
+  { x: 22, y: 84, scale: 0.84, rotate: -4, speed: 1.18 },
+  { x: 66, y: 84, scale: 0.84, rotate: 5, speed: 1.1 },
+  { x: 2, y: 82, scale: 0.84, rotate: 7, speed: 1.25 },
+  { x: 44, y: 86, scale: 0.84, rotate: -6, speed: 1.16 },
+  { x: 94, y: 84, scale: 0.84, rotate: -7, speed: 1.22 },
+  { x: 86, y: 16, scale: 0.84, rotate: 9, speed: 1.14 },
+];
+---
+
+<div
+  class={cn('hidden lg:block relative w-full min-h-[540px]', className)}
+  data-tech-showcase
+  aria-hidden="true"
+>
+  {icons.map((icon, i) => {
+    const pos = positions[i % positions.length];
+    const displayColor = icon.color;
+    return (
+      <div
+        class="tech-showcase__icon absolute will-change-transform"
+        data-tech-float
+        data-float-speed={String(pos.speed)}
+        style={`
+          left: ${pos.x}%;
+          top: ${pos.y}%;
+          --icon-color: ${displayColor};
+          --scale: ${pos.scale};
+          --rotate: ${pos.rotate}deg;
+        `}
+        title={icon.title}
+      >
+        <span class="tech-showcase__label" aria-hidden="true">{icon.title}</span>
+        <img
+          src={icon.src}
+          alt=""
+          aria-hidden="true"
+          class="h-8 w-8 select-none"
+          loading="lazy"
+          decoding="async"
+          draggable="false"
+        />
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  .tech-showcase__icon {
+    position: absolute;
+    transform: scale(var(--scale)) rotate(var(--rotate));
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    background: color-mix(in srgb, var(--icon-color) 12%, transparent);
+    border: 1.5px solid color-mix(in srgb, var(--icon-color) 25%, transparent);
+    border-radius: 0.875rem;
+    box-shadow:
+      0 4px 0 0 color-mix(in srgb, var(--icon-color) 15%, transparent),
+      0 0 20px 0 color-mix(in srgb, var(--icon-color) 8%, transparent);
+    opacity: 0;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .tech-showcase__icon:hover {
+    box-shadow:
+      0 4px 0 0 color-mix(in srgb, var(--icon-color) 25%, transparent),
+      0 0 30px 0 color-mix(in srgb, var(--icon-color) 20%, transparent);
+  }
+
+  .tech-showcase__label {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 0.95rem);
+    z-index: 2;
+    min-width: max-content;
+    max-width: 9rem;
+    pointer-events: none;
+    border: 2px solid #111111;
+    border-radius: 0.95rem;
+    background:
+      radial-gradient(circle at 20% 20%, rgb(255 255 255 / 0.95), rgb(255 247 232 / 0.98)),
+      repeating-linear-gradient(
+        -45deg,
+        rgb(17 17 17 / 0.03) 0,
+        rgb(17 17 17 / 0.03) 4px,
+        transparent 4px,
+        transparent 9px
+      );
+    padding: 0.42rem 0.75rem;
+    color: #111111;
+    font-size: 0.75rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow:
+      4px 4px 0 #111111,
+      0 0 0 1px rgb(255 255 255 / 0.65) inset;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(0.4rem) rotate(-2deg) scale(0.92);
+    transform-origin: bottom center;
+    transition:
+      opacity 0.16s ease,
+      transform 0.18s ease,
+      visibility 0.18s ease;
+  }
+
+  .tech-showcase__label::before,
+  .tech-showcase__label::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform: translateX(-50%);
+  }
+
+  .tech-showcase__label::before {
+    bottom: -0.9rem;
+    border-top: 0.95rem solid #111111;
+    border-right: 0.65rem solid transparent;
+    border-left: 0.3rem solid transparent;
+  }
+
+  .tech-showcase__label::after {
+    bottom: -0.65rem;
+    border-top: 0.75rem solid rgb(255 248 235);
+    border-right: 0.5rem solid transparent;
+    border-left: 0.2rem solid transparent;
+  }
+
+  .tech-showcase__icon:hover .tech-showcase__label {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) rotate(-2deg) scale(1);
+  }
+</style>
+
+<script>
+  import { initTechShowcase } from '@/lib/animations';
+  document.addEventListener('DOMContentLoaded', () => {
+    initTechShowcase();
+  });
+</script>

@@ -1,5 +1,58 @@
+import { fileURLToPath } from 'node:url';
+
+import fg from 'fast-glob';
+
 import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { glob, type Loader } from 'astro/loaders';
+
+type GlobOptions = Parameters<typeof glob>[0];
+
+/**
+ * Returns a glob loader that stays quiet when an optional collection directory is empty.
+ */
+function optionalGlob(globOptions: GlobOptions): Loader {
+  const baseLoader = glob(globOptions);
+
+  return {
+    ...baseLoader,
+    name: 'optional-glob-loader',
+    async load(context) {
+      const baseDir = globOptions.base ? new URL(globOptions.base, context.config.root) : context.config.root;
+      const basePath = fileURLToPath(baseDir);
+      const files = await fg(globOptions.pattern, {
+        cwd: basePath,
+        dot: false,
+        onlyFiles: true,
+      });
+
+      if (files.length > 0) {
+        await baseLoader.load(context);
+        return;
+      }
+
+      context.store.clear();
+
+      if (!context.watcher || context.meta.has('optional-glob-watcher')) {
+        return;
+      }
+
+      context.meta.set('optional-glob-watcher', 'true');
+      context.watcher.add(basePath);
+
+      const reload = async (changedPath: string) => {
+        if (!changedPath.startsWith(basePath)) {
+          return;
+        }
+
+        await baseLoader.load(context);
+      };
+
+      context.watcher.on('add', reload);
+      context.watcher.on('change', reload);
+      context.watcher.on('unlink', reload);
+    },
+  };
+}
 
 const blog = defineCollection({
   loader: glob({
@@ -28,8 +81,9 @@ const technologies = defineCollection({
     slug: z.string(),
     category: z.enum(['language', 'framework', 'library', 'tool', 'platform', 'service', 'cms', 'concept', 'other']).default('other'),
     url: z.string().optional(),
-    level: z.enum(['beginner', 'intermediate', 'advanced', 'expert']).optional(),
+    level: z.number().min(1).max(10).optional(),
     years: z.number().optional(),
+    projects: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     sortOrder: z.number().int().default(0),
   }),
@@ -146,7 +200,7 @@ const projects = defineCollection({
 });
 
 const education = defineCollection({
-  loader: glob({
+  loader: optionalGlob({
     pattern: '**/*.json',
     base: './src/content/education',
   }),
@@ -165,7 +219,7 @@ const education = defineCollection({
 });
 
 const certifications = defineCollection({
-  loader: glob({
+  loader: optionalGlob({
     pattern: '**/*.json',
     base: './src/content/certifications',
   }),
@@ -183,7 +237,7 @@ const certifications = defineCollection({
 });
 
 const awards = defineCollection({
-  loader: glob({
+  loader: optionalGlob({
     pattern: '**/*.json',
     base: './src/content/awards',
   }),
@@ -200,7 +254,7 @@ const awards = defineCollection({
 });
 
 const testimonials = defineCollection({
-  loader: glob({
+  loader: optionalGlob({
     pattern: '**/*.json',
     base: './src/content/testimonials',
   }),
@@ -218,7 +272,7 @@ const testimonials = defineCollection({
 });
 
 const services = defineCollection({
-  loader: glob({
+  loader: optionalGlob({
     pattern: '**/*.json',
     base: './src/content/services',
   }),

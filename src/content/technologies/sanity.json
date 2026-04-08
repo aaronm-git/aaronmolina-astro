@@ -2,7 +2,11 @@
   "slug": "sanity",
   "category": "cms",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Sanity.io"
+  "name": "Sanity.io",
+  "level": 10,
+  "projects": [
+    "aaronmolina-astro"
+  ]
 }

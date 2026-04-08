@@ -2,7 +2,12 @@
   "slug": "nodejs",
   "category": "platform",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "Node.js"
+  "name": "Node.js",
+  "level": 8,
+  "projects": [
+    "pdf-generator-web-app",
+    "toodyloo-ai-todo-app"
+  ]
 }

@@ -2,7 +2,9 @@
   "slug": "ga4",
   "category": "tool",
   "url": "",
-  "featured": false,
+  "featured": true,
   "sortOrder": 0,
-  "name": "GA4"
+  "name": "GA4",
+  "level": 5,
+  "projects": []
 }

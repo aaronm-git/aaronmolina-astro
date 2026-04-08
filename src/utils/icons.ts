@@ -7,6 +7,7 @@ import {
   FaGithub,
   FaLinkedin,
   FaInstagram,
+  FaFacebook,
   FaSun,
   FaMoon,
   FaDesktop,
@@ -39,7 +40,9 @@ import {
   FaTriangleExclamation,
   FaCircleCheck,
   FaCircleXmark,
+  FaReact,
 } from 'react-icons/fa6';
+import { SiNextdotjs } from 'react-icons/si';
 import type { IconType } from 'react-icons';
 
 // Navigation icon mapping
@@ -56,6 +59,7 @@ const socialIcons: Record<string, IconType> = {
   github: FaGithub,
   linkedin: FaLinkedin,
   instagram: FaInstagram,
+  facebook: FaFacebook,
 };
 
 // Category/feature icon mapping
@@ -68,6 +72,8 @@ const categoryIcons: Record<string, IconType> = {
   calendar: FaCalendar,
   globe: FaGlobe,
   code: FaCode,
+  react: FaReact,
+  nextjs: SiNextdotjs,
   star: FaStar,
   heart: FaHeart,
   rocket: FaRocket,

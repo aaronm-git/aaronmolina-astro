@@ -65,7 +65,8 @@ const competencyFeatures = pages.experience.coreCompetencies.map((item: { title:
   />
 
   <!-- Career Highlights -->
-  <section class="mb-16">
+  <section class="section-py">
+    <div class="container">
     <SectionHeader title={pages.experience.careerHighlightsTitle} icon="award" />
 
     <div class="grid gap-8 md:grid-cols-2">
@@ -97,7 +98,8 @@ const competencyFeatures = pages.experience.coreCompetencies.map((item: { title:
         </ul>
       </InfoBox>
     </div>
+    </div>
   </section>
 
-  <CTASection class="" />
+  <CTASection />
 </MainLayout>

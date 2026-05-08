@@ -6,7 +6,7 @@
   },
   "hero": {
     "name": "Aaron Molina",
-    "headline": "Full Stack Jamstack Developer",
+    "headline": "Agentic Software Engineer",
     "subheadline": "Astro . Next.js . AI-Powered Development",
     "description": "I build lightning-fast websites and full stack applications that teams love and developers enjoy maintaining. {yearsOfExperience}+ years shipping production code, from headless CMS platforms to AI-powered apps built with Claude Code and OpenAI. I combine deep web development expertise with modern AI tools to deliver results faster.",
     "location": "Remote US / Miami, FL",
@@ -150,9 +150,9 @@
     "items": [
       {
         "icon": "rocket",
-        "title": "ToodyLoo",
-        "description": "A full stack to-do app inspired by Wunderlist, built with TanStack Start, OpenAI, and Neon PostgreSQL. Features AI-powered task creation, optimistic UI, and production-grade architecture. Built alongside AI agents from planning to deployment.",
-        "href": "/projects/toodyloo-ai-todo-app"
+        "title": "Agentic Engineering",
+        "description": "I build production software alongside AI agents end to end, from architecture to deployment. I drive Claude Code, OpenAI Codex, and Cursor with custom MCP servers, skills, and review loops to ship full stack apps like TypeLyft, OneMusicCrate, and ToodyLoo at a pace solo engineers could not hit before. Agents do not replace engineering judgment, they multiply it.",
+        "href": "/projects"
       },
       {
         "icon": "code",

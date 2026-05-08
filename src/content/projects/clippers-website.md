@@ -15,7 +15,7 @@ featuredImage: ../../images/project-la-clippers.jpg
 liveUrl: https://www.nba.com/clippers
 completedOn: 2025-06-01T00:00:00.000Z
 isActive: true
-featured: true
+featured: false
 sortOrder: 0
 organization: la-clippers
 roles:

@@ -8,6 +8,8 @@
   "level": 10,
   "projects": [
     "aaronmolina-astro",
-    "pdf-generator-web-app"
+    "pdf-generator-web-app",
+    "typelyft",
+    "onemusiccrate-spotify-app"
   ]
 }

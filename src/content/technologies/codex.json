@@ -1,0 +1,14 @@
+{
+  "slug": "codex",
+  "category": "tool",
+  "url": "https://openai.com/codex",
+  "featured": true,
+  "sortOrder": 0,
+  "name": "OpenAI Codex",
+  "level": 10,
+  "projects": [
+    "aaronmolina-astro",
+    "onemusiccrate-spotify-app",
+    "typelyft"
+  ]
+}

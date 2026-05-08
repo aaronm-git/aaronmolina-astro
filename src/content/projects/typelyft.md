@@ -18,7 +18,7 @@ technologies:
   - zod
   - fullstack
 featuredImage: ../../images/project-typelyft.png
-liveUrl: https://typelyft.pagelyft.com/
+liveUrl: https://typelyft.pagelyft.studio/
 completedOn: 2026-05-08T00:00:00.000Z
 isActive: true
 featured: true

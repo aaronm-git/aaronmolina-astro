@@ -18,7 +18,7 @@ technologies:
   - zod
   - fullstack
 featuredImage: ../../images/project-onemusiccrate.png
-liveUrl: https://onemusiccrate.com
+liveUrl: https://onemusiccrate.aaronmolina.me/
 repoUrl: https://github.com/aaronm-git/spotify-app
 completedOn: 2026-05-01T00:00:00.000Z
 isActive: true

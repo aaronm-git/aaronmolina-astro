@@ -1,7 +1,7 @@
 ---
 title: TypeLyft - Responsive Type Scale and Typography Scale Builder
 slug: typelyft
-summary: A free open-source typography scale builder that helps designers and developers plan responsive type systems, preview real layouts, and export CSS, Tailwind 4, or SASS tokens.
+summary: A free open-source typography scale builder that helps designers and developers plan responsive type systems, preview real layouts, and export CSS, Tailwind 4, or SASS tokens without accounts or a database.
 technologies:
   - nextjs
   - react
@@ -17,7 +17,7 @@ featured: true
 sortOrder: -3
 ---
 
-TypeLyft is a free open-source responsive type scale builder I built under Pagelyft Studio. It helps designers, front-end developers, and teams plan a typography scale, test hierarchy in realistic layouts, and export implementation-ready CSS, Tailwind 4, or SASS tokens.
+TypeLyft is a free open-source responsive type scale builder I built under Pagelyft Studio. It helps designers, front-end developers, and teams plan a typography scale, test hierarchy in realistic layouts, and export implementation-ready CSS, Tailwind 4, or SASS tokens without signing in or creating a project record.
 
 - - -
 
@@ -25,7 +25,7 @@ TypeLyft is a free open-source responsive type scale builder I built under Pagel
 
 Typography work often starts with a spreadsheet, a ratio, and a few hand-built clamp values. That can work for one page, but it becomes hard to repeat across landing pages, blog templates, and product screens.
 
-TypeLyft turns that workflow into one focused tool. You choose a base size, ratio, and viewport range, then preview the scale in real page contexts before exporting code your team can paste into a project.
+TypeLyft turns that workflow into one focused browser-based tool. You choose a base size, ratio, and viewport range, then preview the scale in real page contexts before exporting code your team can paste into a project. There is no account system, paid tier, database, or project dashboard to maintain.
 
 - - -
 
@@ -38,7 +38,8 @@ TypeLyft focuses on one job: making responsive typography systems easier to defi
 - **Layout previews**: Check the type scale against landing page and blog layouts at mobile and desktop sizes
 - **Export options**: Copy or download CSS custom properties, Tailwind 4 theme tokens, or SASS variables
 - **Rhythm spacing**: Include spacing tokens that follow the scale
-- **No account required**: Open the builder, adjust a scale, and export without login friction
+- **No account required**: Open the builder, adjust a scale, and export without a login flow
+- **No database dependency**: Keep the workflow local to the builder instead of storing user projects on a server
 - **Free and open source**: Use the tool without a paid tier
 
 - - -
@@ -52,6 +53,7 @@ TypeLyft focuses on one job: making responsive typography systems easier to defi
 - Validated builder settings and export state with **Zod**
 - Designed realistic landing page and long-form previews so scale decisions can be checked in context
 - Created export formats for CSS custom properties, Tailwind 4 tokens, and SASS
+- Removed the earlier auth, billing, and database architecture so the app stays lightweight and open
 - Published the app at [https://type.pagelyft.studio/](https://type.pagelyft.studio/)
 
 - - -
@@ -64,6 +66,7 @@ TypeLyft focuses on one job: making responsive typography systems easier to defi
 - **Production-ready exports**: Copy CSS, Tailwind 4, or SASS output when the scale is ready
 - **Google Fonts workflow**: Pair fonts and include optional import output
 - **Handoff-friendly tokens**: Share named values developers can use without translating design notes
+- **Open-source access**: Use the builder freely without subscription gates
 
 - - -
 
@@ -80,6 +83,10 @@ Type scales are hard to judge in a list of numbers. TypeLyft renders the scale i
 ### Multi-Format Export
 
 The export panel packages the same scale into CSS custom properties, Tailwind 4 theme tokens, and SASS variables. This keeps the decision portable across static sites, marketing builds, and front-end systems.
+
+### Lightweight Open-Source Architecture
+
+TypeLyft started with more SaaS-style assumptions than it needed. I removed login, billing, Drizzle ORM, and database persistence so the tool could focus on the builder itself. That made the product easier to maintain and easier for users to trust because the core workflow does not depend on storing accounts or project data.
 
 - - -
 
@@ -102,6 +109,16 @@ Supporting CSS, Tailwind 4, and SASS creates room for small mismatches between f
 ### Solution
 
 I made the export formats derive from the same validated scale model. Each formatter receives the same normalized settings, which keeps the generated output aligned.
+
+- - -
+
+### Obstacle: Cutting SaaS Features That Did Not Serve the Tool
+
+The first version carried extra product surface: account logic, billing assumptions, and a database-backed project model. Those pieces made sense for a paid app, but they were too much for a free typography utility.
+
+### Solution
+
+I simplified the architecture around the builder. TypeLyft now works as a focused open-source tool with no login, no subscription gate, and no database requirement. The result is easier to use, easier to ship, and more aligned with the way people need quick typography decisions.
 
 - - -
 

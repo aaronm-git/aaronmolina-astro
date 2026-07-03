@@ -1,76 +1,38 @@
 ---
-/**
- * AuthorBio - Author information section for blog posts
- *
- * Displays author avatar, name, bio, and CTA link to hire page.
- * Pulls data from site settings by default.
- *
- * @example
- * <AuthorBio />
- * <AuthorBio variant="compact" />
- */
 import Avatar from '@/components/atoms/Avatar.astro';
 import Button from '@/components/atoms/Button.astro';
-import Text from '@/components/atoms/Text.astro';
 import settings from '@/content/site/settings.json';
 
 interface Props {
-  /** Display variant */
   variant?: 'default' | 'compact';
-  /** Custom class for the container */
   class?: string;
 }
 
 const { variant = 'default', class: className = '' } = Astro.props;
-
 const { author } = settings;
 const isCompact = variant === 'compact';
 ---
 
-<aside class:list={[
-  'bg-muted border-border rounded-lg border p-6',
-  isCompact ? 'flex items-center gap-4' : '',
-  className
-]}>
+<aside class={`rounded-md border-2 border-ink bg-paper p-6 ${isCompact ? 'flex items-center gap-4' : ''} ${className}`}>
   {isCompact ? (
     <>
-      <Avatar
-        name={author.name}
-        size="md"
-        class="flex-shrink-0"
-      />
-      <div class="flex-1 min-w-0">
-        <Text as="p" weight="semibold" class="truncate">{author.name}</Text>
-        <Text as="p" size="sm" color="muted">{author.jobTitle}</Text>
+      <Avatar name={author.name} size="sm" class="flex-shrink-0" />
+      <div class="min-w-0 flex-1">
+        <p class="truncate font-bold text-ink">{author.name}</p>
+        <p class="text-graphite text-sm">{author.jobTitle}</p>
       </div>
-      <Button href="/hire" variant="outline" size="sm">
-        Hire Me
-      </Button>
+      <Button href="/hire" variant="ghost-ink" size="sm">Hire Me</Button>
     </>
   ) : (
-    <div class="flex flex-col sm:flex-row gap-6">
-      <Avatar
-        name={author.name}
-        size="lg"
-        class="flex-shrink-0 mx-auto sm:mx-0"
-      />
+    <div class="flex flex-col gap-6 sm:flex-row">
+      <Avatar name={author.name} size="lg" class="mx-auto flex-shrink-0 sm:mx-0" />
       <div class="flex-1 text-center sm:text-left">
-        <Text as="p" size="lg" weight="semibold" class="mb-1">
-          {author.name}
-        </Text>
-        <Text as="p" size="sm" color="muted" class="mb-3">
-          {author.jobTitle} based in {author.location}
-        </Text>
-        <Text as="p" size="sm" color="muted" class="mb-4">
-          {author.bio}
-        </Text>
-        <div class="flex flex-wrap gap-3 justify-center sm:justify-start">
-          <Button href="/hire" variant="primary" size="sm" icon="briefcase">
-            Work With Me
-          </Button>
-          <Button href="/contact" variant="outline" size="sm" icon="mail">
-            Get in Touch
-          </Button>
+        <p class="text-lg font-bold text-ink">{author.name}</p>
+        <p class="text-graphite mb-3 text-sm">{author.jobTitle} based in {author.location}</p>
+        <p class="text-graphite mb-4 text-sm">{author.bio}</p>
+        <div class="flex flex-wrap justify-center gap-3 sm:justify-start">
+          <Button href="/hire" variant="primary" size="sm">Work With Me</Button>
+          <Button href="/contact" variant="ghost-ink" size="sm">Get in Touch</Button>
         </div>
       </div>
     </div>

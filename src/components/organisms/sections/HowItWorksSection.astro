@@ -2,15 +2,27 @@
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
 
 interface Step {
+  /** Large outlined step number (e.g. "01") */
   number: string;
+  /** Small badge-style tag shown in the corner of the step card */
   tag: string;
+  /** Step title */
   title: string;
+  /** Step description */
   description: string;
 }
 
+/**
+ * "How it works" process section - dark themed, listing ordered steps as a
+ * grid of cards with a large outlined number and a corner tag. Composes
+ * SectionHeader.
+ */
 interface Props {
+  /** Small label shown above the title */
   eyebrow?: string;
+  /** Section title */
   title: string;
+  /** Process steps rendered in order */
   steps: Step[];
   class?: string;
 }

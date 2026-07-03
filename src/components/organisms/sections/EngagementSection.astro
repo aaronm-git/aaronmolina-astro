@@ -4,19 +4,35 @@ import Button from '@/components/atoms/Button.astro';
 import ListItem from '@/components/molecules/ListItem.astro';
 
 interface Plan {
+  /** Small label shown above the plan name */
   eyebrow: string;
+  /** Plan name */
   name: string;
+  /** Short description of the plan */
   description: string;
+  /** Bullet list of included features */
   features: string[];
+  /** Whether to render this plan as the visually emphasized option */
   highlighted?: boolean;
 }
 
+/**
+ * Engagement models / pricing tiers section - a row of plan cards plus a
+ * dashed-border "custom" callout with a note and link. Composes
+ * SectionHeader, ListItem, and Button.
+ */
 interface Props {
+  /** Small label shown above the title */
   eyebrow?: string;
+  /** Section title */
   title: string;
+  /** Optional supporting copy below the title */
   description?: string;
+  /** Engagement plan cards to render */
   plans: Plan[];
+  /** Note text shown in the custom-engagement callout below the plans */
   customNote: string;
+  /** Link rendered in the custom-engagement callout */
   customCta: { label: string; href: string };
   class?: string;
 }

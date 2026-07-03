@@ -2,15 +2,27 @@
 import Badge from '@/components/atoms/Badge.astro';
 
 interface ManifestEntry {
+  /** Entry title (e.g. project or task name) */
   title: string;
+  /** Secondary meta line shown under the title (e.g. category or date) */
   meta: string;
+  /** Status used to pick the badge label/variant for this entry */
   stamp: 'done' | 'pending' | 'review';
 }
 
+/**
+ * Decorative "build manifest" card - a rotated, ticket-style panel listing
+ * selected work items with status badges and a striped progress bar.
+ * Typically slotted into a hero section (e.g. HeroSection's "right" slot).
+ */
 interface Props {
+  /** Manifest line items rendered in order, numbered from 01 */
   entries: ManifestEntry[];
+  /** Label shown above the progress bar (e.g. "Progress") */
   progressLabel: string;
+  /** Fraction text displayed next to the progress label (e.g. "3/5") */
   progressFraction: string;
+  /** Fill percentage (0-100) applied to the progress bar width */
   progressPercent: number;
   class?: string;
 }

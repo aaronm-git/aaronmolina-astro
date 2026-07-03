@@ -5,25 +5,44 @@ import Badge from '@/components/atoms/Badge.astro';
 import Heading from '@/components/atoms/Heading.astro';
 
 interface StatCell {
+  /** Stat value (number or preformatted string) */
   value: string | number;
+  /** Optional suffix appended to the value (e.g. "%", "+") */
   suffix?: string;
+  /** Stat label shown below the value */
   label: string;
 }
 
 interface BentoCard {
+  /** Short phase/category badge label shown at the top of the card */
   phase: string;
+  /** Card heading */
   title: string;
+  /** Optional supporting copy below the title */
   description?: string;
+  /** Whether to render this card with the dark (ink background) treatment */
   dark?: boolean;
+  /** Grid column span on large screens (bento layout); defaults to full width (12) */
   span?: 5 | 7 | 12;
+  /** Optional row of stats displayed at the bottom of the card */
   statBoard?: StatCell[];
+  /** Optional list of plain-text tags displayed at the bottom of the card */
   tags?: string[];
 }
 
+/**
+ * Features section laid out as a bento grid of variable-width cards, each
+ * optionally showing a stat board or a tag list. Composes SectionHeader,
+ * Badge, Heading, and StatItem.
+ */
 interface Props {
+  /** Small label shown above the title */
   eyebrow?: string;
+  /** Section title */
   title: string;
+  /** Optional supporting copy below the title */
   description?: string;
+  /** Bento cards to render */
   cards: BentoCard[];
   class?: string;
 }

@@ -7,9 +7,17 @@ import TagList from '@/components/molecules/TagList.astro';
 import Card from '@/components/molecules/Card.astro';
 import type { TechMap } from '@/utils/tech-lookup';
 
+/**
+ * Card rendering a single blog post preview - title, publish date,
+ * description, optional tag list, and a "Read More" link. Composes Card,
+ * Heading, Link, and TagList.
+ */
 interface Props {
+  /** Blog post entry to render */
   post: CollectionEntry<'blog'>;
+  /** Technology id-to-label lookup used to render the tag list */
   techMap?: TechMap;
+  /** Whether to show the tag list (requires techMap and post tags) */
   showTags?: boolean;
 }
 

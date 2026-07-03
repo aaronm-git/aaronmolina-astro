@@ -2,15 +2,24 @@
 import StatItem from '@/components/molecules/StatItem.astro';
 
 interface Stat {
+  /** Stat value (number or preformatted string) */
   value: string | number;
+  /** Optional suffix appended to the value (e.g. "%", "+") */
   suffix?: string;
+  /** Stat label shown below the value */
   label: string;
 }
 
 type Tone = 'light' | 'dark';
 
+/**
+ * Simple stat strip rendering a 2/4-column grid of StatItem values.
+ * Composes StatItem.
+ */
 interface Props {
+  /** Stats to render */
   stats: Stat[];
+  /** Background tone; defaults to 'light' */
   tone?: Tone;
   class?: string;
 }

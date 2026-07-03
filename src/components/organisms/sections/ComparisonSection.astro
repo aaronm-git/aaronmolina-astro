@@ -2,16 +2,29 @@
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
 
 interface Row {
+  /** Row label describing what is being compared (leftmost cell) */
   criterion: string;
+  /** One value per column, in the same order as Props.columns */
   values: string[];
+  /** Optional footnote for this row */
   note?: string;
 }
 
+/**
+ * "Why work with me" style comparison table - dark section comparing the
+ * author against alternatives (e.g. agency, freelancer) across a set of
+ * criteria. Composes SectionHeader.
+ */
 interface Props {
+  /** Small label shown above the title */
   eyebrow?: string;
+  /** Section title */
   title: string;
+  /** Optional supporting copy below the title */
   description?: string;
+  /** Column headers; the first column is treated as the highlighted option */
   columns: string[];
+  /** Table rows, one per comparison criterion */
   rows: Row[];
   class?: string;
 }

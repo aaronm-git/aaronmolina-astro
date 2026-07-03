@@ -5,16 +5,29 @@ import ProjectCard from '@/components/organisms/cards/ProjectCard.astro';
 import Button from '@/components/atoms/Button.astro';
 
 interface CTA {
+  /** Link text */
   label: string;
+  /** Link destination */
   href: string;
 }
 
+/**
+ * Portfolio/projects section rendering a responsive grid of project cards,
+ * with an optional section header and a trailing "view all" link. Composes
+ * SectionHeader, ProjectCard, and Button.
+ */
 interface Props {
+  /** Small label shown above the title */
   eyebrow?: string;
+  /** Section title; when omitted, the header block is not rendered */
   title?: string;
+  /** Project entries to render as cards */
   projects: CollectionEntry<'projects'>[];
+  /** Number of grid columns at desktop width; defaults to 3 */
   columns?: 2 | 3;
+  /** Whether to show each project's completion date */
   showCompletedDate?: boolean;
+  /** Optional link rendered below the grid (e.g. "View all projects") */
   cta?: CTA;
   class?: string;
 }

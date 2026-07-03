@@ -5,15 +5,27 @@ import type { TechMap } from '@/utils/tech-lookup';
 import { getTechName } from '@/utils/tech-lookup';
 
 interface Category {
+  /** Category heading (e.g. "Frontend", "Backend") */
   name: string;
+  /** Technology ids belonging to this category, resolved via techMap */
   skills: string[];
 }
 
+/**
+ * Skills section rendering skill categories as a two-column grid of cards,
+ * each showing its category name and a row of technology badges. Composes
+ * SectionHeader and Badge.
+ */
 interface Props {
+  /** Small label shown above the title */
   eyebrow?: string;
+  /** Section title */
   title: string;
+  /** Optional supporting copy below the title */
   description?: string;
+  /** Skill categories to render */
   categories: Category[];
+  /** Technology id-to-label lookup used to render human-readable skill badges */
   techMap: TechMap;
   class?: string;
 }

@@ -2,13 +2,22 @@
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
 
 interface FAQItem {
+  /** Question text shown in the collapsed summary */
   question: string;
+  /** Answer text revealed when the item is expanded */
   answer: string;
 }
 
+/**
+ * FAQ accordion section built from native `<details>`/`<summary>` elements,
+ * numbered from 01. Composes SectionHeader.
+ */
 interface Props {
+  /** Small label shown above the title */
   eyebrow?: string;
+  /** Section title */
   title: string;
+  /** Question/answer pairs rendered as accordion items */
   faqs: FAQItem[];
   class?: string;
 }

@@ -4,14 +4,24 @@ import { Image } from 'astro:assets';
 import Badge from '@/components/atoms/Badge.astro';
 
 interface Company {
+  /** Company name */
   name: string;
+  /** Alt text for the company's logo image */
   alt: string;
+  /** Logo image asset */
   logo: ImageMetadata;
 }
 
+/**
+ * Trust strip banner shown near the top of a page - a guarantee statement
+ * with badges, followed by a grid of client/company logos.
+ */
 interface Props {
+  /** Guarantee statement shown next to the checkmark icon */
   guaranteeText: string;
+  /** Small badge labels rendered next to the guarantee text */
   badges: string[];
+  /** Company logos to render in the grid below */
   companies: Company[];
   class?: string;
 }

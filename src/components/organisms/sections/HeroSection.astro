@@ -8,18 +8,36 @@ import StencilGrid from '@/components/organisms/decorative/StencilGrid.astro';
 type Variant = 'split' | 'minimal';
 
 interface CTA {
+  /** Button label */
   label: string;
+  /** Button destination */
   href: string;
 }
 
+/**
+ * Page hero section with two layout modes: `split` is a dark, two-column
+ * hero (GSAP-animated entrance via data-hero-animate attributes, StencilGrid
+ * background, optional "right" slot for supporting content like
+ * BuildManifestCard) used on the homepage; `minimal` is a simpler light
+ * hero for interior pages. Composes Heading, Text, Button, Badge, and
+ * StencilGrid.
+ */
 interface Props {
+  /** Layout mode; defaults to 'minimal' */
   variant?: Variant;
+  /** Small label shown above the headline */
   eyebrow?: string;
+  /** Main headline text */
   headline: string;
+  /** Short supporting line shown under the headline (split variant only) */
   subheadline?: string;
+  /** Longer supporting copy below the headline/subheadline */
   description?: string;
+  /** Trust badges rendered along the bottom (split variant only) */
   badges?: string[];
+  /** Primary call-to-action button (split variant only) */
   primaryCta?: CTA;
+  /** Secondary call-to-action button (split variant only) */
   secondaryCta?: CTA;
   class?: string;
 }

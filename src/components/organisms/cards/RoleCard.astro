@@ -11,9 +11,19 @@ import Badge from '@/components/atoms/Badge.astro';
 import Link from '@/components/atoms/Link.astro';
 import { FaBriefcase } from '@/lib/icons';
 
+/**
+ * Card rendering a single work experience role - organization logo, title,
+ * org name/site link, location, date range and duration, optional summary,
+ * a highlights list (capped unless expanded), a technology tag list, and
+ * optional achievements. Composes Heading, Badge, Link, TagList, and
+ * ListItem.
+ */
 interface Props {
+  /** Role entry to render */
   role: CollectionEntry<'roles'>;
+  /** Resolved organization entry, used for the logo, name, and website link */
   organization?: CollectionEntry<'organizations'> | undefined;
+  /** Whether to show the full summary/highlights/achievements, or a condensed teaser */
   showAllDetails?: boolean;
 }
 

@@ -5,16 +5,29 @@ import RoleCard from '@/components/organisms/cards/RoleCard.astro';
 import Button from '@/components/atoms/Button.astro';
 
 interface CTA {
+  /** Link text */
   label: string;
+  /** Link destination */
   href: string;
 }
 
+/**
+ * Work experience section rendering a stacked list of role cards, with an
+ * optional section header and a trailing link. Composes SectionHeader and
+ * RoleCard.
+ */
 interface Props {
+  /** Small label shown above the title */
   eyebrow?: string;
+  /** Section title */
   title: string;
+  /** Role entries to render, one card per role */
   roles: CollectionEntry<'roles'>[];
+  /** Organization entries keyed by slug, used to resolve each role's org logo/name */
   organizations: Map<string, CollectionEntry<'organizations'>>;
+  /** Whether each RoleCard shows its full summary/highlights or a condensed teaser */
   showAllDetails?: boolean;
+  /** Optional link rendered below the list (e.g. "View full experience") */
   cta?: CTA;
   class?: string;
 }

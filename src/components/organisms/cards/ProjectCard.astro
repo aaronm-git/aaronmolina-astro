@@ -10,8 +10,16 @@ import Link from '@/components/atoms/Link.astro';
 import Card from '@/components/molecules/Card.astro';
 import { FaImage } from '@/lib/icons';
 
+/**
+ * Card rendering a single project preview - featured image (or a
+ * placeholder icon), a "Featured" badge, title, optional completion date,
+ * summary, technology tag list, and links to the project detail page and
+ * live URL. Composes Card, Badge, Heading, Link, and TagList.
+ */
 interface Props {
+  /** Project entry to render */
   project: CollectionEntry<'projects'>;
+  /** Whether to show the project's completion date */
   showCompletedDate?: boolean;
 }
 

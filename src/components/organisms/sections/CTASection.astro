@@ -3,13 +3,25 @@ import Heading from '@/components/atoms/Heading.astro';
 import Button from '@/components/atoms/Button.astro';
 import StencilGrid from '@/components/organisms/decorative/StencilGrid.astro';
 
+/**
+ * Final CTA section shown at the bottom of most pages - dark background
+ * with a stencil-grid overlay, a centered heading, one or two buttons, and
+ * an optional micro line beneath. Composes Heading, Button, and StencilGrid.
+ */
 interface Props {
+  /** Main heading text */
   title: string;
+  /** Optional supporting copy below the title */
   description?: string;
+  /** Primary button label */
   buttonLabel: string;
+  /** Primary button destination */
   buttonHref: string;
+  /** Optional secondary button label */
   secondaryLabel?: string;
+  /** Optional secondary button destination */
   secondaryHref?: string;
+  /** Optional small uppercase note shown below the buttons */
   micro?: string;
   class?: string;
 }

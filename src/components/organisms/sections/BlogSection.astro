@@ -6,16 +6,29 @@ import Button from '@/components/atoms/Button.astro';
 import type { TechMap } from '@/utils/tech-lookup';
 
 interface CTA {
+  /** Link text */
   label: string;
+  /** Link destination */
   href: string;
 }
 
+/**
+ * Homepage/blog index section rendering a responsive grid of blog post
+ * previews, with an optional section header and a trailing "view all" link.
+ * Composes SectionHeader, BlogPostCard, and Button.
+ */
 interface Props {
+  /** Small label shown above the title */
   eyebrow?: string;
+  /** Section title; when omitted, the header block is not rendered */
   title?: string;
+  /** Blog post entries to render as cards */
   posts: CollectionEntry<'blog'>[];
+  /** Technology id-to-label lookup passed through to each card's tag list */
   techMap?: TechMap;
+  /** Whether to show the tag list on each card */
   showTags?: boolean;
+  /** Optional link rendered below the grid (e.g. "View all posts") */
   cta?: CTA;
   class?: string;
 }

@@ -20,7 +20,7 @@ const {
   class: className = '',
 } = Astro.props as Props;
 
-const sizeClasses: Record<string, string> = {
+const sizeClasses: Record<'xs' | 'sm' | 'base' | 'lg' | 'xl', string> = {
   xs: 'text-xs',
   sm: 'text-sm',
   base: 'text-base',
@@ -28,7 +28,7 @@ const sizeClasses: Record<string, string> = {
   xl: 'text-xl',
 };
 
-const weightClasses: Record<string, string> = {
+const weightClasses: Record<'normal' | 'medium' | 'semibold' | 'bold', string> = {
   normal: 'font-normal',
   medium: 'font-medium',
   semibold: 'font-semibold',

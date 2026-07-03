@@ -13,7 +13,7 @@ interface Props {
 
 const { icon: IconComponent, size = 'base', color = 'ink', class: className = '' } = Astro.props;
 
-const sizeClasses: Record<string, string> = {
+const sizeClasses: Record<'xs' | 'sm' | 'base' | 'lg' | 'xl', string> = {
   xs: 'w-3 h-3',
   sm: 'w-4 h-4',
   base: 'w-5 h-5',
@@ -21,7 +21,7 @@ const sizeClasses: Record<string, string> = {
   xl: 'w-12 h-12',
 };
 
-const colorClasses: Record<string, string> = {
+const colorClasses: Record<'ink' | 'graphite' | 'steel' | 'signal' | 'signal-deep', string> = {
   ink: 'text-ink',
   graphite: 'text-graphite',
   steel: 'text-steel',

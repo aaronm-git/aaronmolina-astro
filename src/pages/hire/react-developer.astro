@@ -55,6 +55,7 @@ const stats = hireContent.shared.stats.map(stat => ({
     subtitle: hireContent.react.services.subtitle,
     items: hireContent.react.services.items,
   }}
+  servicePhaseTags={['Build', 'Extend', 'Architect', 'Optimize']}
   features={{
     title: hireContent.react.features.title,
     items: hireContent.react.features.items,
@@ -66,14 +67,13 @@ const stats = hireContent.shared.stats.map(stat => ({
     techMap: techMap,
   }}
   projects={{
-    title: "React Projects",
+    title: 'React Projects',
     items: reactProjects,
-    viewAllHref: "/projects",
-    viewAllLabel: "View all projects",
+    viewAllHref: '/projects',
+    viewAllLabel: 'View all projects',
   }}
   faq={{
-    title: "Frequently Asked Questions",
-    subtitle: "Common questions about React development",
+    title: 'Frequently Asked Questions',
     items: hireContent.shared.faq,
   }}
   cta={hireContent.shared.cta}

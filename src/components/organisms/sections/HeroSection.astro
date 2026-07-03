@@ -1,440 +1,110 @@
 ---
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 import Heading from '@/components/atoms/Heading.astro';
 import Text from '@/components/atoms/Text.astro';
 import Button from '@/components/atoms/Button.astro';
 import Badge from '@/components/atoms/Badge.astro';
-import Avatar from '@/components/atoms/Avatar.astro';
-import { cn } from '@/lib/cn';
+import StencilGrid from '@/components/organisms/decorative/StencilGrid.astro';
 
-type HeroVariant = 'centered' | 'split' | 'minimal' | 'fullscreen' | 'profile';
-type HeroHeight = 'auto' | 'screen' | 'half';
+type Variant = 'split' | 'minimal';
 
 interface CTA {
   label: string;
   href: string;
-  icon?: string;
-  variant?: 'primary' | 'secondary' | 'outline';
-}
-
-interface SocialProof {
-  avatars?: (ImageMetadata | string)[];
-  text: string;
 }
 
 interface Props {
-  /** Main headline */
+  variant?: Variant;
+  eyebrow?: string;
   headline: string;
-  /** Subheadline/tagline */
   subheadline?: string;
-  /** Description text */
   description?: string;
-  /** Primary CTA button */
-  primaryCta?: CTA;
-  /** Secondary CTA button */
-  secondaryCta?: CTA;
-  /** Hero image */
-  image?: ImageMetadata;
-  /** Image alt text */
-  imageAlt?: string;
-  /** Profile/avatar image (for profile variant) */
-  avatar?: ImageMetadata;
-  /** Avatar alt text */
-  avatarAlt?: string;
-  /** Badge labels */
   badges?: string[];
-  /** Social proof section */
-  socialProof?: SocialProof;
-  /** Layout variant */
-  variant?: HeroVariant;
-  /** Content alignment */
-  align?: 'left' | 'center' | 'right';
-  /** Section height */
-  height?: HeroHeight;
-  /** Show gradient background */
-  showGradient?: boolean;
-  /** Additional CSS classes */
+  primaryCta?: CTA;
+  secondaryCta?: CTA;
   class?: string;
 }
 
 const {
+  variant = 'minimal',
+  eyebrow,
   headline,
   subheadline,
   description,
+  badges,
   primaryCta,
   secondaryCta,
-  image,
-  imageAlt = '',
-  avatar,
-  avatarAlt = '',
-  badges,
-  socialProof,
-  variant = 'centered',
-  align = (variant === 'centered' || variant === 'profile') ? 'center' : 'left',
-  height = 'auto',
-  showGradient = false,
   class: className = '',
 } = Astro.props;
 
-// Height classes
-const heightClasses: Record<HeroHeight, string> = {
-  auto: 'section-py',
-  screen: 'min-h-[80vh] py-10 flex items-center',
-  half: 'min-h-[50vh] py-10',
-};
-
-// Alignment classes
-const alignClasses: Record<string, string> = {
-  left: 'text-left items-start',
-  center: 'text-center items-center',
-  right: 'text-right items-end',
-};
-
-const containerClasses = cn(
-  'relative',
-  heightClasses[height],
-  showGradient && 'bg-gradient-to-b from-primary/5 to-transparent',
-  className,
-);
+const hasRightSlot = Astro.slots.has('right');
 ---
 
-<section class={containerClasses}>
-
-  <div class="container relative z-10">
-    {variant === 'centered' && (
-      <div class={cn('flex flex-col', alignClasses[align], 'max-w-4xl mx-auto')}>
-        {badges && badges.length > 0 && (
-          <div class="mb-6 flex flex-wrap justify-center gap-2">
-            {badges.map(badge => (
-              <Badge label={badge} variant="primary" size="sm" />
-            ))}
-          </div>
+{variant === 'split' && (
+  <section class={`relative overflow-hidden bg-ink py-18 text-concrete ${className}`}>
+    <StencilGrid />
+    <div class={`container relative z-10 grid items-center gap-12 ${hasRightSlot ? 'lg:grid-cols-[7fr_5fr]' : ''}`}>
+      <div class={hasRightSlot ? '' : 'max-w-3xl'}>
+        {eyebrow && (
+          <span data-hero-animate data-hero-order="0" class="mb-6 inline-block rounded-xs border border-seam bg-asphalt px-3 py-1 font-mono text-xs font-bold tracking-[0.18em] text-signal uppercase">
+            {eyebrow}
+          </span>
         )}
 
-        <Heading level={1} size="hero" gradient class="mb-4 md:mb-6">
-          {headline}
-        </Heading>
+        <Heading level={1} size="hero" class="text-concrete" data-hero-animate data-hero-order="1">{headline}</Heading>
 
         {subheadline && (
-          <Text size="xl" color="secondary" weight="medium" class="mb-4">
+          <p data-hero-animate data-hero-order="2" class="mt-4 font-mono text-sm font-bold tracking-[0.1em] text-signal uppercase md:text-base">
             {subheadline}
-          </Text>
+          </p>
         )}
 
         {description && (
-          <Text size="lg" color="muted" class="mb-8 max-w-2xl" balance>
+          <Text size="lg" color="steel" class="mt-5 max-w-[54ch]" balance data-hero-animate data-hero-order="3">
             {description}
           </Text>
         )}
 
         {(primaryCta || secondaryCta) && (
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            {primaryCta && (
-              <Button
-                href={primaryCta.href}
-                variant={primaryCta.variant || 'primary'}
-                icon={primaryCta.icon}
-                size="lg"
-              >
-                {primaryCta.label}
-              </Button>
-            )}
-            {secondaryCta && (
-              <Button
-                href={secondaryCta.href}
-                variant={secondaryCta.variant || 'outline'}
-                icon={secondaryCta.icon}
-                size="lg"
-              >
-                {secondaryCta.label}
-              </Button>
-            )}
+          <div data-hero-animate data-hero-order="4" class="mt-8 flex flex-wrap gap-4">
+            {primaryCta && <Button href={primaryCta.href} variant="primary" size="lg">{primaryCta.label}</Button>}
+            {secondaryCta && <Button href={secondaryCta.href} variant="secondary" size="lg">{secondaryCta.label}</Button>}
           </div>
         )}
 
-        {image && (
-          <div class="mt-12 w-full">
-            <Image
-              src={image}
-              alt={imageAlt}
-              class="rounded-2xl shadow-2xl mx-auto"
-              width={1200}
-              height={675}
-            />
-          </div>
-        )}
-
-        {socialProof && (
-          <div class="mt-8 flex flex-col items-center gap-3">
-            {socialProof.avatars && socialProof.avatars.length > 0 && (
-              <div class="flex -space-x-2">
-                {socialProof.avatars.slice(0, 5).map((avatar, i) => (
-                  <Avatar
-                    src={avatar}
-                    alt={`User ${i + 1}`}
-                    size="sm"
-                    border
-                    borderColor="white"
-                  />
-                ))}
-              </div>
-            )}
-            <Text size="sm" color="muted">{socialProof.text}</Text>
+        {badges && badges.length > 0 && (
+          <div class="mt-8 flex flex-wrap gap-2 border-t border-seam pt-4">
+            {badges.map(badge => <Badge label={badge} variant="outline" size="sm" class="border-seam text-concrete" />)}
           </div>
         )}
 
         <slot />
       </div>
-    )}
 
-    {variant === 'split' && (
-      <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-        <div class={cn('flex flex-col', alignClasses[align])}>
-          {badges && badges.length > 0 && (
-            <div class="mb-6 flex flex-wrap gap-2">
-              {badges.map(badge => (
-                <Badge label={badge} variant="primary" size="sm" />
-              ))}
-            </div>
-          )}
-
-          <Heading level={1} size="hero" class="mb-4 md:mb-6">
-            {headline}
-          </Heading>
-
-          {subheadline && (
-            <Text size="xl" color="secondary" weight="medium" class="mb-4">
-              {subheadline}
-            </Text>
-          )}
-
-          {description && (
-            <Text size="lg" color="muted" class="mb-8" balance>
-              {description}
-            </Text>
-          )}
-
-          {(primaryCta || secondaryCta) && (
-            <div class="flex flex-col sm:flex-row gap-4">
-              {primaryCta && (
-                <Button
-                  href={primaryCta.href}
-                  variant={primaryCta.variant || 'primary'}
-                  icon={primaryCta.icon}
-                  size="lg"
-                >
-                  {primaryCta.label}
-                </Button>
-              )}
-              {secondaryCta && (
-                <Button
-                  href={secondaryCta.href}
-                  variant={secondaryCta.variant || 'outline'}
-                  icon={secondaryCta.icon}
-                  size="lg"
-                >
-                  {secondaryCta.label}
-                </Button>
-              )}
-            </div>
-          )}
-
-          {socialProof && (
-            <div class="mt-8 flex items-center gap-3">
-              {socialProof.avatars && socialProof.avatars.length > 0 && (
-                <div class="flex -space-x-2">
-                  {socialProof.avatars.slice(0, 5).map((avatar, i) => (
-                    <Avatar
-                      src={avatar}
-                      alt={`User ${i + 1}`}
-                      size="sm"
-                      border
-                      borderColor="white"
-                    />
-                  ))}
-                </div>
-              )}
-              <Text size="sm" color="muted">{socialProof.text}</Text>
-            </div>
-          )}
-
-          <slot />
-        </div>
-
-        {image ? (
-          <div class="relative">
-            <Image
-              src={image}
-              alt={imageAlt}
-              class="rounded-2xl shadow-2xl"
-              width={600}
-              height={600}
-            />
-          </div>
-        ) : (
+      {hasRightSlot && (
+        <div class="justify-self-center lg:justify-self-end" data-hero-animate data-hero-order="5">
           <slot name="right" />
-        )}
-      </div>
-    )}
+        </div>
+      )}
+    </div>
+  </section>
+)}
 
-    {variant === 'minimal' && (
-      <div class={cn('flex flex-col', alignClasses[align], 'max-w-3xl', align === 'center' && 'mx-auto')}>
-        {badges && badges.length > 0 && (
-          <div class={cn('mb-4 flex flex-wrap gap-2', align === 'center' && 'justify-center')}>
-            {badges.map(badge => (
-              <Badge label={badge} variant="outline" size="sm" />
-            ))}
-          </div>
-        )}
-
-        <Heading level={1} size="2xl" class="mb-4">
-          {headline}
-        </Heading>
-
-        {description && (
-          <Text size="lg" color="muted" balance>
-            {description}
-          </Text>
-        )}
-
-        <slot />
-      </div>
-    )}
-
-    {variant === 'fullscreen' && (
-      <div class="flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center text-center">
-        {badges && badges.length > 0 && (
-          <div class="mb-6 flex flex-wrap justify-center gap-2">
-            {badges.map(badge => (
-              <Badge label={badge} variant="primary" size="sm" />
-            ))}
-          </div>
-        )}
-
-        <Heading level={1} size="hero" gradient class="mb-6">
-          {headline}
-        </Heading>
-
-        {subheadline && (
-          <Text size="2xl" color="secondary" weight="medium" class="mb-4">
-            {subheadline}
-          </Text>
-        )}
-
-        {description && (
-          <Text size="xl" color="muted" class="mb-10 max-w-3xl" balance>
-            {description}
-          </Text>
-        )}
-
-        {(primaryCta || secondaryCta) && (
-          <div class="flex flex-col sm:flex-row gap-4">
-            {primaryCta && (
-              <Button
-                href={primaryCta.href}
-                variant={primaryCta.variant || 'primary'}
-                icon={primaryCta.icon}
-                size="xl"
-              >
-                {primaryCta.label}
-              </Button>
-            )}
-            {secondaryCta && (
-              <Button
-                href={secondaryCta.href}
-                variant={secondaryCta.variant || 'outline'}
-                icon={secondaryCta.icon}
-                size="xl"
-              >
-                {secondaryCta.label}
-              </Button>
-            )}
-          </div>
-        )}
-
-        <slot />
-      </div>
-    )}
-
-    {variant === 'profile' && (
-      <div class={cn(
-        'flex flex-col items-center text-center max-w-4xl mx-auto',
-        height === 'screen' && 'min-h-[calc(100vh-8rem)] justify-center'
-      )}>
-        {avatar && (
-          <div class="mb-8 relative" data-hero-animate data-hero-order="0">
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 rounded-2xl blur-2xl -z-10"></div>
-            <Image
-              src={avatar}
-              alt={avatarAlt}
-              class="tactile-profile-img h-32 w-32 rounded-2xl object-cover object-[20%_40%] md:h-48 md:w-48"
-              loading="eager"
-              width={192}
-              height={192}
-            />
-          </div>
-        )}
-
-        <Heading level={1} size="hero" class="mb-3 font-black tracking-tight md:mb-4 flex items-center justify-center gap-3 md:gap-4" data-hero-animate data-hero-order="1">
-          <img
-            src="/images/tech-logos/claude.svg"
-            alt="Claude"
-            class="inline-block h-[0.85em] w-auto shrink-0"
-            width="48"
-            height="48"
-            loading="eager"
-          />
-          <span>{headline}</span>
-        </Heading>
-
-        {subheadline && (
-          <div class="mb-4 inline-block" data-hero-animate data-hero-order="2">
-            <Text size="xl" color="primary" weight="bold" class="md:text-3xl uppercase tracking-wide">
-              {subheadline}
-            </Text>
-            <div class="h-1 bg-gradient-to-r from-primary via-secondary to-accent rounded-full mt-2"></div>
-          </div>
-        )}
-
-        {description && (
-          <Text size="lg" color="muted" class="mx-auto max-w-3xl leading-relaxed mb-6" balance data-hero-animate data-hero-order="3">
-            {description}
-          </Text>
-        )}
-
-        {(primaryCta || secondaryCta) && (
-          <div class="mt-8 flex flex-col items-center justify-center gap-4 max-md:gap-3 md:flex-row" data-hero-animate data-hero-order="4">
-            {primaryCta && (
-              <Button
-                href={primaryCta.href}
-                variant={primaryCta.variant || 'primary'}
-                icon={primaryCta.icon}
-                size="xl"
-                class="font-bold uppercase tracking-wider"
-              >
-                {primaryCta.label}
-              </Button>
-            )}
-            {secondaryCta && (
-              <Button
-                href={secondaryCta.href}
-                variant={secondaryCta.variant || 'outline'}
-                icon={secondaryCta.icon}
-                size="xl"
-                class="font-bold uppercase tracking-wider"
-              >
-                {secondaryCta.label}
-              </Button>
-            )}
-          </div>
-        )}
-
-        <slot />
-      </div>
-    )}
-  </div>
-</section>
+{variant === 'minimal' && (
+  <section class={`section-py ${className}`}>
+    <div class="container max-w-3xl">
+      {eyebrow && (
+        <span class="mb-3 block font-mono text-xs font-bold tracking-[0.18em] text-signal-deep uppercase">
+          {eyebrow}
+        </span>
+      )}
+      <Heading level={1} size="xl">{headline}</Heading>
+      {description && (
+        <Text size="lg" class="mt-4" balance>{description}</Text>
+      )}
+      <slot />
+    </div>
+  </section>
+)}
 
 <script>
   import { initHeroEntrance } from '@/lib/animations';
@@ -442,4 +112,3 @@ const containerClasses = cn(
     initHeroEntrance();
   });
 </script>
-

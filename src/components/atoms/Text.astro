@@ -18,7 +18,7 @@ const {
   color = 'graphite',
   balance = false,
   class: className = '',
-} = Astro.props;
+} = Astro.props as Props;
 
 const sizeClasses: Record<string, string> = {
   xs: 'text-xs',

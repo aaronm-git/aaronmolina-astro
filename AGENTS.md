@@ -41,3 +41,10 @@
 - Avoid using complex words or phrases. Use simpler words or phrases instead.
 - Check SEO best practices for content writing and our GOALS for proper content writing.
 - Check AHREFS MCP but keep your content aligned with our Keyword Research and SEO Goals already defined in the SEO-KEYWORD-RESEARCH.md file.
+
+## Pull Requests and Git Remotes
+
+- Never automatically create a branch, push, or open a pull request on GitHub. Creating or submitting a PR requires the user's explicit consent for that specific action, every single time.
+- Do not push to any remote, or open/submit a PR, without first asking the user and receiving a clear yes. This holds even in background/headless sessions.
+- This applies even if a task seems to call for it, or a previous instruction (in a prior turn or task) requested it. Approval is per-action and does not carry over.
+- When in doubt: make the change locally, leave it uncommitted, and ask.

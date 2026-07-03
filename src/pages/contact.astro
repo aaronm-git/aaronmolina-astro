@@ -3,157 +3,88 @@ import MainLayout from '@/layouts/main-layout.astro';
 import HeroSection from '@/components/organisms/sections/HeroSection.astro';
 import InfoBox from '@/components/molecules/InfoBox.astro';
 import ListItem from '@/components/molecules/ListItem.astro';
+import FormField from '@/components/molecules/FormField.astro';
 import Button from '@/components/atoms/Button.astro';
 import SocialLinks from '@/components/molecules/SocialLinks.astro';
-import { getCategoryIcon } from '@/lib/icons';
 import pages from '@/content/site/pages.json';
 import settings from '@/content/site/settings.json';
 
-// Netlify Turnstile site key - configure this in your Netlify dashboard
 const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || 'YOUR_TURNSTILE_SITE_KEY';
 
-const whyIconNames = ['briefcase', 'bolt', 'users', 'shield'];
-const responseIconNames = ['clock', 'calendar', 'globe'];
+const projectTypeOptions = [
+  { value: 'frontend', label: 'Frontend Development' },
+  { value: 'fullstack', label: 'Full-Stack Application' },
+  { value: 'website', label: 'Website Development' },
+  { value: 'consultation', label: 'Technical Consultation' },
+  { value: 'optimization', label: 'Performance Optimization' },
+  { value: 'other', label: 'Other' },
+];
+
+const budgetOptions = [
+  { value: 'under-5k', label: 'Under $5,000' },
+  { value: '5k-15k', label: '$5,000 - $15,000' },
+  { value: '15k-30k', label: '$15,000 - $30,000' },
+  { value: '30k-plus', label: '$30,000+' },
+  { value: 'discuss', label: "Let's discuss" },
+];
 ---
 
 <MainLayout title={pages.contact.metaTitle} description={pages.contact.metaDescription}>
-  <HeroSection
-    variant="minimal"
-    headline={pages.contact.heading}
-    description={pages.contact.intro}
-    class="py-8 mb-4"
-  />
+  <HeroSection variant="minimal" headline={pages.contact.heading} description={pages.contact.intro} />
 
-  <!-- Contact Form -->
   <div class="container mb-16 grid gap-12 lg:grid-cols-2">
-    <!-- Form -->
-    <InfoBox title={pages.contact.formTitle} variant="surface">
+    <InfoBox title={pages.contact.formTitle}>
       <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
         <div class="grid gap-6 md:grid-cols-2">
-          <div>
-            <label for="name" class="text-foreground mb-2 block text-sm font-medium">Full Name</label>
-            <input
-              type="text"
-              name="name"
-              required
-              class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
-              placeholder="Your name"
-            />
-          </div>
-
-          <div>
-            <label for="email" class="text-foreground mb-2 block text-sm font-medium">Email Address</label>
-            <input
-              type="email"
-              name="email"
-              required
-              class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
-              placeholder="your@email.com"
-            />
-          </div>
+          <FormField label="Full Name" name="name" required placeholder="Your name" />
+          <FormField label="Email Address" name="email" type="email" required placeholder="your@email.com" />
         </div>
+        <FormField label="Company (Optional)" name="company" placeholder="Your company" />
+        <FormField label="Project Type" name="project-type" type="select" options={projectTypeOptions} />
+        <FormField label="Budget Range (Optional)" name="budget" type="select" options={budgetOptions} />
+        <FormField label="Project Details" name="message" type="textarea" required placeholder="Tell me about your project, timeline, and any specific requirements..." />
 
-        <div>
-          <label for="company" class="text-foreground mb-2 block text-sm font-medium">Company (Optional)</label>
-          <input
-            type="text"
-            name="company"
-            class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
-            placeholder="Your company"
-          />
-        </div>
-
-        <div>
-          <label for="project-type" class="text-foreground mb-2 block text-sm font-medium">Project Type</label>
-          <select
-            name="project-type"
-            class="border-border bg-surface text-foreground focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
-          >
-            <option value="">Select a project type</option>
-            <option value="frontend">Frontend Development</option>
-            <option value="fullstack">Full-Stack Application</option>
-            <option value="website">Website Development</option>
-            <option value="consultation">Technical Consultation</option>
-            <option value="optimization">Performance Optimization</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="budget" class="text-foreground mb-2 block text-sm font-medium">Budget Range (Optional)</label>
-          <select
-            name="budget"
-            class="border-border bg-surface text-foreground focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
-          >
-            <option value="">Select budget range</option>
-            <option value="under-5k">Under $5,000</option>
-            <option value="5k-15k">$5,000 - $15,000</option>
-            <option value="15k-30k">$15,000 - $30,000</option>
-            <option value="30k-plus">$30,000+</option>
-            <option value="discuss">Let's discuss</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="message" class="text-foreground mb-2 block text-sm font-medium">Project Details</label>
-          <textarea
-            name="message"
-            rows="6"
-            required
-            class="border-border bg-surface text-foreground placeholder:text-foreground-muted focus:border-ring focus:ring-ring focus:ring-offset-background w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none"
-            placeholder="Tell me about your project, timeline, and any specific requirements..."></textarea>
-        </div>
-
-        <!-- Hidden fields for Netlify -->
         <input type="hidden" name="form-name" value="contact" />
-        <!-- Honeypot field for spam protection -->
         <input type="hidden" name="bot-field" />
-
-        <!-- Netlify Turnstile Captcha -->
         <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
 
-        <Button type="submit" variant="secondary" fullWidth size="lg">
-          Send Message
-        </Button>
+        <Button type="submit" variant="primary" fullWidth>Send Message</Button>
       </form>
     </InfoBox>
 
-    <!-- Contact Info -->
-    <div class="space-y-8">
-      <InfoBox title={pages.contact.whyWorkWithMeTitle} variant="surface">
+    <div class="space-y-6">
+      <InfoBox title={pages.contact.whyWorkWithMeTitle}>
         <div class="space-y-4">
-          {pages.contact.whyWorkWithMeItems.map((item, idx) => {
-            const Icon = getCategoryIcon(whyIconNames[idx] || 'briefcase');
-            return (
-              <div class="flex items-start gap-3">
-                {Icon && <Icon className="text-secondary icon-base mt-1 flex-shrink-0" />}
-                <div>
-                  <h4 class="text-foreground font-medium">{item.title}</h4>
-                  <p class="text-foreground-muted text-sm">{item.description}</p>
-                </div>
+          {
+            pages.contact.whyWorkWithMeItems.map(item => (
+              <div>
+                <h4 class="text-ink font-bold">{item.title}</h4>
+                <p class="text-graphite text-sm">{item.description}</p>
               </div>
-            );
-          })}
+            ))
+          }
         </div>
       </InfoBox>
 
-      <InfoBox title={pages.contact.responseTimeTitle} variant="surface">
+      <InfoBox title={pages.contact.responseTimeTitle}>
         <ul class="space-y-3">
-          {pages.contact.responseTimeItems.map((text, idx) => (
-            <ListItem icon={responseIconNames[idx] || 'clock'} iconColor="secondary" size="sm">
-              {text}
-            </ListItem>
-          ))}
+          {
+            pages.contact.responseTimeItems.map(text => (
+              <ListItem icon="clock" size="sm">
+                {text}
+              </ListItem>
+            ))
+          }
         </ul>
       </InfoBox>
 
       <InfoBox title={pages.contact.readyToStartTitle} variant="muted">
-        <p class="text-foreground-muted mb-4 text-sm">{pages.contact.readyToStartDescription}</p>
-        <div class="flex gap-3">
-          <Button href="/projects" variant="outline" icon="briefcase" size="sm">
+        <p class="text-graphite mb-4 text-sm">{pages.contact.readyToStartDescription}</p>
+        <div class="flex flex-wrap gap-3">
+          <Button href="/projects" variant="ghost-ink" size="sm">
             {pages.contact.readyLinks.viewProjectsLabel}
           </Button>
-          <Button href="/experience" variant="outline" icon="user" size="sm">
+          <Button href="/experience" variant="ghost-ink" size="sm">
             {pages.contact.readyLinks.viewExperienceLabel}
           </Button>
         </div>
@@ -161,39 +92,25 @@ const responseIconNames = ['clock', 'calendar', 'globe'];
     </div>
   </div>
 
-  <!-- Hire CTA Section -->
-  <section class="container bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border-primary/20 mb-16 rounded-lg border p-8 text-center">
-    <h2 class="text-foreground mb-4 text-3xl font-bold">{pages.contact.hireCta.title}</h2>
-    <p class="text-foreground-muted mx-auto mb-6 max-w-2xl">{pages.contact.hireCta.description}</p>
-    <Button href={pages.contact.hireCta.buttonHref} variant="primary" size="lg" icon="briefcase">
+  <section class="border-ink bg-ink text-concrete container mb-16 rounded-md border-2 p-8 text-center">
+    <h2 class="font-display mb-4 text-2xl font-black uppercase">{pages.contact.hireCta.title}</h2>
+    <p class="text-steel mx-auto mb-6 max-w-2xl">{pages.contact.hireCta.description}</p>
+    <Button href={pages.contact.hireCta.buttonHref} variant="primary" size="lg">
       {pages.contact.hireCta.buttonLabel}
     </Button>
   </section>
 
-  <!-- Social Media Section -->
-  <section class="container bg-muted border-border rounded-lg border p-8 text-center mb-16">
-    <h2 class="text-foreground mb-4 text-3xl font-bold">{pages.contact.socialSectionTitle}</h2>
-    <p class="text-foreground-muted mx-auto mb-6 max-w-2xl">{pages.contact.socialSectionDescription}</p>
-    {settings.author.socialLinks && (
-      <div class="flex justify-center">
-        <SocialLinks links={settings.author.socialLinks} variant="button" size="base" />
-      </div>
-    )}
+  <section class="border-ink bg-concrete-2 container mb-16 rounded-md border-2 p-8 text-center">
+    <h2 class="font-display text-ink mb-4 text-2xl font-black uppercase">{pages.contact.socialSectionTitle}</h2>
+    <p class="text-graphite mx-auto mb-6 max-w-2xl">{pages.contact.socialSectionDescription}</p>
+    {
+      settings.author.socialLinks && (
+        <div class="flex justify-center">
+          <SocialLinks links={settings.author.socialLinks} tone="light" />
+        </div>
+      )
+    }
   </section>
 
-  <!-- Netlify Turnstile Script -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
-  <!-- Form submission handling -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const form = document.getElementById('contact-form');
-      if (form) {
-        form.addEventListener('submit', e => {
-          // Netlify will handle the form submission automatically
-          // This is just for any additional client-side handling if needed
-        });
-      }
-    });
-  </script>
 </MainLayout>

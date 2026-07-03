@@ -28,3 +28,6 @@ pnpm-debug.log*
 .netlify
 
 .claude/
+
+# Subagent-driven-development scratch state (progress ledger, briefs, reports)
+.superpowers/

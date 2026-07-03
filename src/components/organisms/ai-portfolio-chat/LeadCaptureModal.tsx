@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { LeadFlag } from './types';
 
 interface Props {
+  /** Whether the modal is currently visible. Combined with `flag`, opening (`open` becoming `true` while `flag` is set) re-syncs the form to that flag's suggested content. */
   open: boolean;
+  /**
+   * The lead flag whose suggested subject/body should populate the form.
+   * The parent (`PortfolioChat`) keeps this in state and only replaces it
+   * when the visitor clicks a new "Email Aaron about this" button, so a
+   * change in reference here always represents a genuinely new lead to
+   * capture, not just an unrelated re-render.
+   */
   flag: LeadFlag | null;
   conversationId: string;
   onClose: () => void;
@@ -12,6 +20,13 @@ interface Props {
 /**
  * Modal that pre-fills subject and body from the flag_lead tool call,
  * collects the visitor's email, and posts to /api/lead.
+ *
+ * Because this component is rendered persistently by its parent and never
+ * unmounts between different `flag` events, the `subject`/`body`/`status`/
+ * `errorMessage` state is re-synced via a `useEffect` keyed on `[open, flag]`
+ * rather than `useState` initializers (which only run on first mount). This
+ * ensures each time the modal is opened for a new flag, the form reflects
+ * that flag's suggested content instead of stale data from a previous open.
  */
 export default function LeadCaptureModal({ open, flag, conversationId, onClose, onSubmitted }: Props) {
   const [visitorEmail, setVisitorEmail] = useState('');
@@ -21,6 +36,15 @@ export default function LeadCaptureModal({ open, flag, conversationId, onClose, 
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (open && flag) {
+      setSubject(flag.suggested_email_subject ?? '');
+      setBody(flag.suggested_email_body ?? '');
+      setStatus('idle');
+      setErrorMessage('');
+    }
+  }, [open, flag]);
 
   if (!open || !flag) return null;
 

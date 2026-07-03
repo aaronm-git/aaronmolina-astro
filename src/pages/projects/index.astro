@@ -5,10 +5,10 @@ import ProjectsSection from '@/components/organisms/sections/ProjectsSection.ast
 import CTASection from '@/components/organisms/sections/CTASection.astro';
 import { getCollection } from 'astro:content';
 import pages from '@/content/site/pages.json';
+import cta from '@/content/site/cta.json';
 
 const projects = await getCollection('projects');
 
-// Sort projects by featured/sortOrder, then completion date (newest first)
 const sortedProjects = projects
   .filter(project => project.data.isActive)
   .sort((a, b) => {
@@ -22,28 +22,17 @@ const sortedProjects = projects
 ---
 
 <MainLayout title={pages.projectsIndex.metaTitle} description={pages.projectsIndex.metaDescription}>
-  <HeroSection
-    variant="minimal"
-    headline={pages.projectsIndex.heading}
-    description={pages.projectsIndex.intro}
-    class="py-8"
-  />
+  <HeroSection variant="minimal" headline={pages.projectsIndex.heading} description={pages.projectsIndex.intro} />
 
-  {sortedProjects.length > 0 ? (
-    <ProjectsSection
-      title=""
-      projects={sortedProjects}
-      variant="grid"
-      columns={3}
-      showCompletedDate
-      showViewProjectLink
-      class="py-0"
-    />
-  ) : (
-    <div class="py-12 text-center">
-      <p class="text-foreground-muted">{pages.projectsIndex.emptyState}</p>
-    </div>
-  )}
+  {
+    sortedProjects.length > 0 ? (
+      <ProjectsSection projects={sortedProjects} columns={3} showCompletedDate class="pt-0" />
+    ) : (
+      <div class="container py-12 text-center">
+        <p class="text-graphite">{pages.projectsIndex.emptyState}</p>
+      </div>
+    )
+  }
 
-  <CTASection class="mt-12" />
+  <CTASection title={cta.title} description={cta.description} buttonLabel={cta.buttonLabel} buttonHref={cta.buttonHref} />
 </MainLayout>

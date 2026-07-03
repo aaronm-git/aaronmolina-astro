@@ -1,26 +1,9 @@
 ---
-/**
- * BlogPostTemplate - Template for individual blog posts
- *
- * Provides consistent blog post structure with:
- * - Back to blog navigation
- * - Title and description hero
- * - Publish/update dates
- * - Content area with typography styles
- * - Tags section
- * - CTA for engagement
- *
- * @example
- * <BlogPostTemplate post={post} techMap={techMap}>
- *   <Content />
- * </BlogPostTemplate>
- */
 import type { CollectionEntry } from 'astro:content';
 import MainLayout from '@/layouts/main-layout.astro';
 import HeroSection from '@/components/organisms/sections/HeroSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
 import Button from '@/components/atoms/Button.astro';
-import Text from '@/components/atoms/Text.astro';
 import TagList from '@/components/molecules/TagList.astro';
 import AuthorBio from '@/components/molecules/AuthorBio.astro';
 import RelatedPosts from '@/components/molecules/RelatedPosts.astro';
@@ -28,15 +11,10 @@ import { formatDate, toISODateString } from '@/utils/date-format';
 import type { TechMap } from '@/utils/tech-lookup';
 
 interface Props {
-  /** Blog post entry from collection */
   post: CollectionEntry<'blog'>;
-  /** All blog posts for related posts feature */
   allPosts?: CollectionEntry<'blog'>[];
-  /** Technology map for resolving tag names */
   techMap?: TechMap;
-  /** CTA title override */
   ctaTitle?: string;
-  /** CTA description override */
   ctaDescription?: string;
 }
 
@@ -50,7 +28,6 @@ const {
 
 const { title, description, publishDate, updatedDate, tags } = post.data;
 
-// Format dates
 const publishDateFormatted = publishDate ? formatDate(publishDate, 'long') : '';
 const publishDateISO = publishDate ? toISODateString(publishDate) : '';
 const updatedDateFormatted = updatedDate ? formatDate(updatedDate, 'long') : '';
@@ -59,69 +36,39 @@ const showUpdated = updatedDate && publishDate && updatedDate.getTime() !== publ
 
 <MainLayout title={title} description={description}>
   <article class="mx-auto max-w-screen-md">
-    {/* Back Navigation */}
-    <nav class="mb-4 px-4">
-      <Button href="/blog" variant="outline" icon="arrowLeft" size="sm">
-        Back to Blog
-      </Button>
+    <nav class="mb-4 px-6">
+      <Button href="/blog" variant="ghost-ink" size="sm">Back to Blog</Button>
     </nav>
 
-    {/* Post Header */}
-    <HeroSection
-      variant="minimal"
-      headline={title}
-      description={description}
-      class="py-4"
-    >
-      {/* Date metadata */}
-      <div class="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm text-foreground-muted">
-        {publishDate && (
-          <time datetime={publishDateISO}>{publishDateFormatted}</time>
-        )}
+    <HeroSection variant="minimal" headline={title} description={description} class="py-4">
+      <div class="text-graphite mt-4 flex flex-wrap items-center gap-3 font-mono text-xs uppercase">
+        {publishDate && <time datetime={publishDateISO}>{publishDateFormatted}</time>}
         {showUpdated && (
           <>
-            <span>•</span>
+            <span>&middot;</span>
             <span>Updated {updatedDateFormatted}</span>
           </>
         )}
       </div>
     </HeroSection>
 
-    {/* Post Content */}
-    <div class="typography px-4 py-8">
+    <div class="typography px-6 py-8">
       <slot />
     </div>
 
-    {/* Tags Section */}
     {tags && tags.length > 0 && techMap && (
-      <section class="border-border border-t px-4 py-8">
-        <Text as="p" size="sm" color="muted" weight="semibold" class="mb-4 uppercase tracking-wide">
-          Topics
-        </Text>
+      <section class="border-t-2 border-seam px-6 py-8">
+        <p class="mb-4 font-mono text-xs font-bold tracking-[0.1em] text-graphite uppercase">Topics</p>
         <TagList tags={tags} techMap={techMap} linkToTagPage />
       </section>
     )}
 
-    {/* Author Bio */}
-    <AuthorBio class="mx-4 my-8" />
+    <AuthorBio class="mx-6 my-8" />
 
-    {/* Related Posts */}
     {allPosts.length > 0 && tags && tags.length > 0 && (
-      <RelatedPosts
-        currentSlug={post.data.slug}
-        currentTags={tags}
-        posts={allPosts}
-        class="mx-4 my-8"
-      />
+      <RelatedPosts currentSlug={post.data.slug} currentTags={tags} posts={allPosts} class="mx-6 my-8" />
     )}
 
-    {/* CTA Section */}
-    <CTASection
-      title={ctaTitle}
-      description={ctaDescription}
-      buttonLabel="Get in Touch"
-      buttonHref="/contact"
-      class="mt-8"
-    />
+    <CTASection title={ctaTitle} description={ctaDescription} buttonLabel="Get in Touch" buttonHref="/contact" class="mt-8" />
   </article>
 </MainLayout>

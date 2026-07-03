@@ -72,27 +72,11 @@ const breadcrumbs = generateBreadcrumbs(Astro.url.pathname);
       })}
     />
 
-    <!-- Theme -->
-    <script is:inline>
-      (function () {
-        const savedTheme = localStorage.getItem('theme') || 'system';
-        let themeToApply;
-
-        if (savedTheme === 'system') {
-          themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        } else {
-          themeToApply = savedTheme;
-        }
-
-        document.documentElement.setAttribute('data-theme', themeToApply);
-      })();
-    </script>
-
     <!-- Title -->
     <title>{title}</title>
   </head>
   <!-- Body -->
-  <body class="bg-background text-foreground pt-(--header-height) antialiased">
+  <body class="bg-concrete text-ink antialiased">
     <Header />
     <main>
       <div class="container">

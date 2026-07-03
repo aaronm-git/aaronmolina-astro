@@ -10,7 +10,7 @@ interface Props {
 
 const { label, variant = 'default', size = 'base', class: className = '' } = Astro.props;
 
-const sizeClasses: Record<string, string> = {
+const sizeClasses: Record<'sm' | 'base', string> = {
   sm: 'px-2 py-0.5 text-[10px]',
   base: 'px-2.5 py-1 text-xs',
 };

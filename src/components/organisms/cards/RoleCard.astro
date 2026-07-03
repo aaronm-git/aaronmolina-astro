@@ -23,7 +23,7 @@ interface Props {
   role: CollectionEntry<'roles'>;
   /** Resolved organization entry, used for the logo, name, and website link */
   organization?: CollectionEntry<'organizations'> | undefined;
-  /** Whether to show the full summary/highlights/achievements, or a condensed teaser */
+  /** Whether to show the full summary and highlights list (and all tech tags), or a condensed teaser. Achievements, when present, always render regardless of this flag. */
   showAllDetails?: boolean;
 }
 

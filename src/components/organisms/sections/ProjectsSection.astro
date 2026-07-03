@@ -21,7 +21,7 @@ interface Props {
 
 const { eyebrow, title, projects, columns = 3, showCompletedDate = false, cta, class: className = '' } = Astro.props;
 
-const colClasses: Record<number, string> = {
+const colClasses: Record<2 | 3, string> = {
   2: 'md:grid-cols-2',
   3: 'md:grid-cols-2 lg:grid-cols-3',
 };

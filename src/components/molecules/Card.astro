@@ -1,89 +1,38 @@
 ---
-import { cn } from '@/lib/cn';
-
-type CardVariant = 'default' | 'elevated' | 'outlined' | 'glass' | 'tactile';
-type CardPadding = 'none' | 'sm' | 'base' | 'lg' | 'xl';
-type CardRounded = 'none' | 'sm' | 'base' | 'lg' | 'xl' | '2xl';
+type CardVariant = 'light' | 'dark';
+type CardPadding = 'none' | 'sm' | 'base' | 'lg';
 
 interface Props {
-  /** Visual variant */
   variant?: CardVariant;
-  /** Padding size */
   padding?: CardPadding;
-  /** Border radius */
-  rounded?: CardRounded;
-  /** Make card interactive (hover effects) */
-  interactive?: boolean;
-  /** Link href (makes entire card clickable) */
   href?: string;
-  /** Open link in new tab */
-  external?: boolean;
-  /** Additional CSS classes */
+  hoverable?: boolean;
   class?: string;
 }
 
-const {
-  variant = 'default',
-  padding = 'base',
-  rounded = 'lg',
-  interactive = false,
-  href,
-  external = false,
-  class: className = '',
-} = Astro.props;
+const { variant = 'light', padding = 'base', href, hoverable = true, class: className = '' } = Astro.props as Props;
 
-// Variant classes
-const variantClasses: Record<CardVariant, string> = {
-  default: 'bg-surface border border-border',
-  elevated: 'bg-surface border border-border shadow-lg',
-  outlined: 'bg-transparent border border-border',
-  glass: 'glass border border-white/10',
-  tactile: 'card-tactile',
-};
-
-// Padding classes
 const paddingClasses: Record<CardPadding, string> = {
   none: 'p-0',
-  sm: 'p-3',
-  base: 'p-4 md:p-6',
-  lg: 'p-6 md:p-8',
-  xl: 'p-8 md:p-10',
+  sm: 'p-4',
+  base: 'p-6',
+  lg: 'p-8',
 };
 
-// Rounded classes
-const roundedClasses: Record<CardRounded, string> = {
-  none: 'rounded-none',
-  sm: 'rounded',
-  base: 'rounded-md',
-  lg: 'rounded-lg',
-  xl: 'rounded-xl',
-  '2xl': 'rounded-2xl',
+const variantClasses: Record<CardVariant, string> = {
+  light: 'bg-paper border-ink text-ink',
+  dark: 'bg-ink border-ink text-concrete',
 };
 
-// Interactive classes - tactile hover/active handled by CSS via data-interactive attribute
-const isInteractive = interactive || !!href;
-const interactiveClasses = isInteractive
-  ? 'cursor-pointer'
+const hoverClasses = hoverable
+  ? 'transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--color-ink)]'
   : '';
 
-const combinedClasses = cn(
-  variantClasses[variant],
-  paddingClasses[padding],
-  variant !== 'tactile' && roundedClasses[rounded],
-  interactiveClasses,
-  href && 'block',
-  'overflow-hidden',
-  className,
-);
+const classes = `flex flex-col gap-3 rounded-md border-2 shadow-hard ${paddingClasses[padding]} ${variantClasses[variant]} ${hoverClasses} ${className}`;
 
 const Tag = href ? 'a' : 'div';
-const linkProps = href ? {
-  href,
-  target: external ? '_blank' : undefined,
-  rel: external ? 'noopener noreferrer' : undefined,
-} : {};
 ---
 
-<Tag class={combinedClasses} {...linkProps} {...(isInteractive ? { 'data-interactive': '' } : {})}>
+<Tag class={classes} {...(href ? { href } : {})}>
   <slot />
 </Tag>

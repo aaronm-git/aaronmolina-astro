@@ -1,9 +1,4 @@
 ---
-/**
- * Breadcrumbs - Navigation trail showing current page location
- * Displays breadcrumb items with Home always as the first item
- * Includes BreadcrumbList schema markup for SEO
- */
 import type { BreadcrumbItem } from '@/utils/breadcrumbs';
 
 interface Props {
@@ -11,9 +6,8 @@ interface Props {
   class?: string;
 }
 
-const { items, class: className } = Astro.props;
+const { items, class: className = '' } = Astro.props;
 
-// Generate schema.org BreadcrumbList
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -29,26 +23,17 @@ const breadcrumbSchema = {
 {items.length > 0 && (
   <>
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <nav
-      class={`pt-12 pb-8 ${className || ''}`}
-      aria-label="Breadcrumb"
-    >
-      <ol class="flex flex-wrap items-center gap-1 text-sm">
+    <nav class={`pt-6 pb-2 ${className}`} aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2 font-mono text-xs tracking-[0.1em] uppercase">
         {items.map((item, index) => (
-          <li class="flex items-center">
+          <li class="flex items-center gap-2">
             <a
               href={item.href}
-              class={` ${
-                index === items.length - 1
-                  ? 'text-foreground font-medium cursor-default pointer-events-none'
-                  : 'text-foreground-muted'
-              }`}
+              class={index === items.length - 1 ? 'pointer-events-none font-bold text-ink' : 'text-graphite hover:text-signal-deep'}
             >
               {item.label}
             </a>
-            {index < items.length - 1 && (
-              <span class="text-foreground-muted mx-3" aria-hidden="true">/</span>
-            )}
+            {index < items.length - 1 && <span class="text-graphite" aria-hidden="true">/</span>}
           </li>
         ))}
       </ol>

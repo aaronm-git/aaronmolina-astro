@@ -1,102 +1,60 @@
 ---
-import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
-import { FaImage } from '@/lib/icons';
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
-import Card from '@/components/molecules/Card.astro';
+import Badge from '@/components/atoms/Badge.astro';
 import TagList from '@/components/molecules/TagList.astro';
 import Heading from '@/components/atoms/Heading.astro';
-import Text from '@/components/atoms/Text.astro';
 import Link from '@/components/atoms/Link.astro';
-import Icon from '@/components/atoms/Icon.astro';
+import Card from '@/components/molecules/Card.astro';
+import { FaImage } from '@/lib/icons';
 
 interface Props {
-  project: {
-    data: {
-      title: string;
-      slug?: string;
-      summary?: string;
-      technologies: string[];
-      featuredImage?: ImageMetadata;
-      liveUrl?: string;
-      completedOn?: Date;
-      featured?: boolean;
-      sortOrder?: number;
-    };
-  };
+  project: CollectionEntry<'projects'>;
   showCompletedDate?: boolean;
-  showViewProjectLink?: boolean;
 }
 
-const { project, showCompletedDate = false, showViewProjectLink = true } = Astro.props;
+const { project, showCompletedDate = false } = Astro.props;
 
 const technologies = await getCollection('technologies');
 const techMap = createTechMap(technologies);
+
+const completionDate = project.data.completedOn?.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+});
 ---
 
-<Card variant="tactile" padding="none" class="flex flex-col overflow-hidden h-full">
-  <div class="bg-muted relative aspect-video overflow-hidden">
+<Card variant="light" padding="none" class="flex h-full flex-col overflow-hidden">
+  <div class="relative aspect-video overflow-hidden border-b-2 border-ink bg-concrete-2">
     {project.data.featuredImage ? (
-      <Image
-        src={project.data.featuredImage}
-        alt={project.data.title}
-        class="h-full w-full object-cover"
-        loading="eager"
-        width={600}
-        height={400}
-      />
+      <Image src={project.data.featuredImage} alt={project.data.title} class="h-full w-full object-cover" width={600} height={340} loading="lazy" />
     ) : (
-      <div class="bg-muted flex h-full w-full items-center justify-center">
-        <span class="text-foreground-muted flex items-center gap-2">
-          No Image
-          <Icon icon={FaImage} size="base" color="muted" />
-        </span>
+      <div class="flex h-full w-full items-center justify-center text-graphite">
+        <FaImage className="h-8 w-8" />
       </div>
     )}
-    {project.data.featured && (
-      <div class="absolute right-0 bottom-0 z-10 flex w-full">
-        <span class="bg-secondary text-on-secondary w-full px-2 py-1 text-center text-xs font-semibold">
-          Featured
-        </span>
-      </div>
-    )}
+    {project.data.featured && <Badge label="Featured" variant="phase" size="sm" class="absolute top-3 right-3" />}
   </div>
 
-  <div class="flex flex-1 flex-col p-6">
-    <Heading level={3} size="lg" class="mb-3">
-      <a href={`/projects/${project.data.slug}`}>
-        {project.data.title}
-      </a>
+  <div class="flex flex-1 flex-col gap-3 p-6">
+    <Heading level={3} size="sm">
+      <a href={`/projects/${project.data.slug}`}>{project.data.title}</a>
     </Heading>
 
-    {showCompletedDate && project.data.completedOn && (
-      <Text size="sm" color="muted" class="mb-3">
-        Completed: {project.data.completedOn.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-        })}
-      </Text>
+    {showCompletedDate && completionDate && (
+      <p class="font-mono text-xs text-graphite uppercase">{completionDate}</p>
     )}
 
-    {project.data.summary && (
-      <Text size="sm" color="muted" class="mb-4 leading-relaxed">
-        {project.data.summary}
-      </Text>
-    )}
+    {project.data.summary && <p class="text-graphite text-sm">{project.data.summary}</p>}
 
-    <div class="mb-4">
-      <TagList tags={project.data.technologies} techMap={techMap} limit={3} />
-    </div>
+    <TagList tags={project.data.technologies} techMap={techMap} limit={3} size="sm" />
 
-    <div class="border-border mt-auto flex items-center justify-between border-t pt-4">
-      <Link href={`/projects/${project.data.slug}`} variant="primary" showArrow>
-        Learn more
-      </Link>
-      {showViewProjectLink && project.data.liveUrl && (
-        <Link href={project.data.liveUrl} variant="muted" external showArrow>
-          View project
-        </Link>
+    <div class="mt-auto flex items-center justify-between border-t-2 border-concrete-2 pt-4">
+      <Link href={`/projects/${project.data.slug}`} variant="signal" size="sm" showArrow>Learn more</Link>
+      {project.data.liveUrl && (
+        <Link href={project.data.liveUrl} variant="muted" size="sm" external showArrow>View project</Link>
       )}
     </div>
   </div>

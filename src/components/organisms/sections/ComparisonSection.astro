@@ -1,0 +1,53 @@
+---
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+
+interface Row {
+  criterion: string;
+  values: string[];
+  note?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  columns: string[];
+  rows: Row[];
+  class?: string;
+}
+
+const { eyebrow, title, description, columns, rows, class: className = '' } = Astro.props;
+---
+
+<section class={`section-py bg-ink text-concrete ${className}`}>
+  <div class="container">
+    <SectionHeader eyebrow={eyebrow} title={title} description={description} tone="dark" class="mb-10" />
+
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[640px] border-collapse border-2 border-seam bg-asphalt">
+        <thead>
+          <tr>
+            <th class="border border-seam p-4 text-left font-mono text-xs tracking-[0.14em] text-steel uppercase">What to compare</th>
+            {columns.map((col, i) => (
+              <th class={`border border-seam p-4 text-left font-mono text-xs tracking-[0.14em] uppercase ${i === 0 ? 'bg-signal text-ink' : 'text-steel'}`}>
+                {col}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(row => (
+            <tr>
+              <td class="border border-seam p-4 text-sm font-bold">{row.criterion}</td>
+              {row.values.map((value, i) => (
+                <td class={`border border-seam p-4 font-mono text-xs tracking-[0.08em] uppercase ${i === 0 ? 'font-bold text-signal' : 'text-steel'}`}>
+                  {value}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

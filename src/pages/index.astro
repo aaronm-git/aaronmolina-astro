@@ -25,12 +25,12 @@ import MiamiHeatLogo from '@/assets/images/miami-heat-logo.svg';
 import AzamaraLogo from '@/assets/images/azamara-logo.svg';
 import CorsairLogo from '@/assets/images/corsair-logo.svg';
 
-const trustedByLogos: Record<string, ImageMetadata> = {
-  'LA Clippers': ClippersLogo,
-  'Miami Heat': MiamiHeatLogo,
-  Azamara: AzamaraLogo,
-  Corsair: CorsairLogo,
-};
+const trustedByLogos = new Map<string, ImageMetadata>([
+  ['LA Clippers', ClippersLogo],
+  ['Miami Heat', MiamiHeatLogo],
+  ['Azamara', AzamaraLogo],
+  ['Corsair', CorsairLogo],
+]);
 
 const posts = await getCollection('blog');
 const technologies = await getCollection('technologies');
@@ -87,11 +87,11 @@ const statsItems = homepageContent.stats.items.map(item => ({
   value: String(item.value).replaceAll('{yearsOfExperience}', String(yearsOfExperience)),
 }));
 
-const logoOverrides: Record<string, string> = {
-  'claude-code': 'claude.svg',
-  'mcp-servers': 'model-context-protocol.svg',
-  sass: 'sass.svg',
-};
+const logoOverrides = new Map<string, string>([
+  ['claude-code', 'claude.svg'],
+  ['mcp-servers', 'model-context-protocol.svg'],
+  ['sass', 'sass.svg'],
+]);
 
 const showcaseSkills = technologies
   .filter(t => t.data.featured && t.data.level)
@@ -104,7 +104,7 @@ const showcaseSkills = technologies
       slug: pSlug,
       title: projects.find(p => p.data.slug === pSlug)?.data.title ?? pSlug,
     })),
-    logoPath: logoOverrides[t.data.slug] ?? `${t.data.slug}.svg`,
+    logoPath: logoOverrides.get(t.data.slug) ?? `${t.data.slug}.svg`,
   }));
 
 // Build Manifest widget: four real shipped flagship projects
@@ -219,7 +219,7 @@ const comparisonRows = [
     companies={homepageContent.trustedBy.companies.map(company => ({
       name: company.name,
       alt: company.alt,
-      logo: trustedByLogos[company.name],
+      logo: trustedByLogos.get(company.name),
     }))}
   />
 

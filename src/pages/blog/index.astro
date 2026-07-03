@@ -6,6 +6,7 @@ import CTASection from '@/components/organisms/sections/CTASection.astro';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
 import pages from '@/content/site/pages.json';
+import cta from '@/content/site/cta.json';
 
 const posts = await getCollection('blog');
 const technologies = await getCollection('technologies');
@@ -19,27 +20,17 @@ const postsToShow = posts
 ---
 
 <MainLayout title={pages.blogIndex.metaTitle} description={pages.blogIndex.metaDescription}>
-  <HeroSection
-    variant="minimal"
-    headline={pages.blogIndex.heading}
-    description={pages.blogIndex.intro}
-    class="py-8"
-  />
+  <HeroSection variant="minimal" headline={pages.blogIndex.heading} description={pages.blogIndex.intro} />
 
-  {postsToShow.length > 0 ? (
-    <BlogSection
-      title=""
-      posts={postsToShow}
-      techMap={techMap}
-      variant="list"
-      showTags
-      class="py-0 max-w-4xl mx-auto"
-    />
-  ) : (
-    <div class="py-12 text-center">
-      <p class="text-foreground-muted">{pages.blogIndex.emptyState}</p>
-    </div>
-  )}
+  {
+    postsToShow.length > 0 ? (
+      <BlogSection posts={postsToShow} techMap={techMap} showTags class="pt-0" />
+    ) : (
+      <div class="container py-12 text-center">
+        <p class="text-graphite">{pages.blogIndex.emptyState}</p>
+      </div>
+    )
+  }
 
-  <CTASection class="mt-12" />
+  <CTASection title={cta.title} description={cta.description} buttonLabel={cta.buttonLabel} buttonHref={cta.buttonHref} />
 </MainLayout>

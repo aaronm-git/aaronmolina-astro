@@ -1,0 +1,28 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<section class={`section-py ${className}`}>
+  <div class="container">
+    <figure class="relative mx-auto max-w-[900px] rounded-md border-2 border-ink bg-paper p-8 shadow-[8px_8px_0_var(--color-signal)] sm:p-10">
+      <span class="font-display absolute -top-4 left-6 rounded-xs border-2 border-ink bg-signal px-2 pt-1 text-2xl font-black shadow-hard-sm">
+        &ldquo;
+      </span>
+      <blockquote>
+        <p class="font-display text-[clamp(19px,2.4vw,27px)] leading-snug font-black text-ink">
+          I stopped writing every line by hand. I pair with Claude Code and
+          <span class="bg-signal px-1">Fable 5</span> on real production work end to end, and I still make every
+          architecture call before a single file changes.
+        </p>
+      </blockquote>
+      <figcaption class="mt-4 flex flex-wrap justify-between gap-3 border-t border-concrete-2 pt-3">
+        <span class="text-sm font-bold text-ink">Aaron Molina</span>
+        <span class="font-mono text-xs tracking-[0.12em] text-graphite uppercase">Full stack Jamstack developer</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>

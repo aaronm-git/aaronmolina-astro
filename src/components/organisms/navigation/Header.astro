@@ -1,218 +1,75 @@
 ---
-import { getNavIcon, getSocialIcon, FaSun, FaMoon, FaDesktop, FaBars } from '@/lib/icons';
-import Avatar from '@/components/atoms/Avatar.astro';
+import { getNavIcon } from '@/lib/icons';
 import Button from '@/components/atoms/Button.astro';
-import ProfilePicture from '@/images/profile.jpg';
 import navigation from '@/content/site/navigation.json';
-import settings from '@/content/site/settings.json';
+
+const { brandText, navItems } = navigation;
 ---
 
-<header class="tactile-header fixed top-0 right-0 left-0 z-50">
-  <div class="container">
-    <div class="flex items-center justify-between py-2">
-      <!-- Logo/Brand -->
-      <div class="flex-shrink-0">
-        <a href="/" class="text-foreground hover:text-primary flex items-center gap-3 text-xl font-bold">
-          <Avatar src={ProfilePicture} alt={navigation.brandAlt} size="sm" border borderColor="primary" />
-          {navigation.brandText}
-        </a>
-      </div>
+<header class="sticky top-0 z-50 border-b-2 border-signal bg-ink">
+  <div class="container flex items-center justify-between gap-4 py-3">
+    <a href="/" class="font-display flex items-center gap-2 text-lg font-black tracking-tight text-concrete uppercase">
+      <span class="flex h-7 w-7 items-center justify-center rounded-xs bg-signal font-mono text-xs font-bold text-ink">AM</span>
+      {brandText}
+    </a>
 
-      <!-- Desktop Navigation & Actions -->
-      <div class="hidden items-center gap-4 lg:flex">
-        <!-- Navigation -->
-        <nav class="flex gap-1">
-          {
-            navigation.navItems.map(item => {
-              const Icon = getNavIcon(item.icon || '');
-              return (
-                <a
-                  href={item.href}
-                  class="text-foreground-muted hover:text-foreground hover:bg-muted flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold tracking-wide uppercase"
-                >
-                  {Icon ? <Icon /> : null} {item.label}
-                </a>
-              );
-            })
-          }
-        </nav>
+    <nav class="hidden items-center gap-5 lg:flex" aria-label="Main">
+      {navItems.map(item => {
+        const Icon = getNavIcon(item.icon || '');
+        return (
+          <a
+            href={item.href}
+            class="flex items-center gap-2 border-b-2 border-transparent py-1 font-mono text-xs font-bold tracking-[0.14em] text-concrete uppercase hover:border-signal hover:text-signal"
+          >
+            {Icon ? <Icon className="h-3.5 w-3.5" /> : null} {item.label}
+          </a>
+        );
+      })}
+    </nav>
 
-        <!-- Social Links & Actions -->
-        <div class="flex items-center gap-2">
-          {
-            settings.author.socialLinks?.map(link => {
-              const Icon = getSocialIcon(link.platform);
-              if (!Icon) return null;
-              return (
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2"
-                  aria-label={link.ariaLabel || link.label}
-                >
-                  <Icon />
-                </a>
-              );
-            })
-          }
-
-          <!-- CTA Button -->
-          <Button href="/contact" variant="primary" size="xs">Get in Touch</Button>
-
-          <!-- Theme toggle -->
-          <button data-theme-toggle class="text-foreground-muted hover:text-foreground hover:bg-muted ml-1 rounded-md p-2" aria-label="Toggle theme (light/dark/system)">
-            <FaSun data-theme-icon="dark" className="sun-icon hidden h-4 w-4" />
-            <FaMoon data-theme-icon="light" className="moon-icon hidden h-4 w-4" />
-            <FaDesktop data-theme-icon="system" className="system-icon h-4 w-4" />
-          </button>
-        </div>
-      </div>
-
-      <!-- Mobile menu button -->
-      <button type="button" data-mobile-menu-toggle class="text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2 lg:hidden" aria-label="Toggle menu">
-        <FaBars className="h-5 w-5" />
-      </button>
+    <div class="hidden items-center gap-3 lg:flex">
+      <Button href="/projects" variant="secondary" size="sm">Projects</Button>
+      <Button href="/contact" variant="primary" size="sm">Get in Touch</Button>
     </div>
 
-    <!-- Mobile menu -->
-    <nav id="mobile-menu" class="border-border hidden border-t lg:hidden">
-      <div class="space-y-1 px-2 pt-2 pb-3">
-        {
-          navigation.navItems.map(item => (
-            <a href={item.href} class="text-foreground-muted hover:text-foreground hover:bg-muted block rounded-md px-3 py-2 text-base font-medium">
-              {item.label}
-            </a>
-          ))
-        }
-
-        <!-- Social Links - Mobile -->
-        <div class="flex gap-2 px-3 py-2">
-          {
-            settings.author.socialLinks?.map(link => {
-              const Icon = getSocialIcon(link.platform);
-              if (!Icon) return null;
-              return (
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-foreground-muted hover:text-foreground hover:bg-muted rounded-md p-2"
-                  aria-label={link.ariaLabel || link.label}
-                >
-                  <Icon />
-                </a>
-              );
-            })
-          }
-        </div>
-
-        <!-- CTA Button - Mobile -->
-        <div class="px-3 py-2">
-          <Button href="/contact" variant="primary" size="sm" fullWidth>Get in Touch</Button>
-        </div>
-
-        <!-- Theme toggle for mobile -->
-        <div class="border-border border-t pt-2">
-          <button
-            data-theme-toggle
-            class="text-foreground-muted hover:text-foreground hover:bg-muted flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium"
-            aria-label="Toggle theme"
-          >
-            <FaSun data-theme-icon="dark" className="sun-icon hidden h-4 w-4" />
-            <FaMoon data-theme-icon="light" className="moon-icon hidden h-4 w-4" />
-            <FaDesktop data-theme-icon="system" className="system-icon h-4 w-4" />
-            <span>Toggle Theme</span>
-          </button>
-        </div>
-      </div>
-    </nav>
+    <button
+      type="button"
+      data-mobile-menu-toggle
+      class="rounded-xs p-2 text-concrete hover:bg-asphalt lg:hidden"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="block h-0.5 w-5 bg-concrete"></span>
+      <span class="mt-1 block h-0.5 w-5 bg-concrete"></span>
+      <span class="mt-1 block h-0.5 w-5 bg-concrete"></span>
+    </button>
   </div>
+
+  <nav id="mobile-menu" class="hidden border-t-2 border-seam lg:hidden" aria-label="Mobile">
+    <div class="space-y-1 px-4 py-3">
+      {navItems.map(item => (
+        <a href={item.href} class="block rounded-xs px-3 py-2 font-mono text-sm font-bold tracking-wide text-concrete uppercase hover:bg-asphalt hover:text-signal">
+          {item.label}
+        </a>
+      ))}
+      <div class="pt-2">
+        <Button href="/contact" variant="primary" size="sm" fullWidth>Get in Touch</Button>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <script>
-  const themeToggleBtns = document.querySelectorAll('[data-theme-toggle]');
-  const themeBtnIcons = document.querySelectorAll('[data-theme-icon]');
-  const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const toggle = document.querySelector('[data-mobile-menu-toggle]');
+  const menu = document.getElementById('mobile-menu');
 
-  // Initialize theme on page load
-  const savedTheme = localStorage.getItem('theme') || 'system';
-  applyTheme(savedTheme);
-  updateThemeIcons(savedTheme);
-
-  // Theme toggle functionality
-  themeToggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      themeToggle();
-    });
+  toggle?.addEventListener('click', () => {
+    const isHidden = menu?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(!isHidden));
   });
 
-  // Mobile menu toggle functionality
-  mobileMenuToggle?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
+  menu?.querySelectorAll('a[href]').forEach(link => {
+    link.addEventListener('click', () => menu.classList.add('hidden'));
   });
-
-  // Close mobile menu when clicking on a link
-  const mobileMenuLinks = mobileMenu?.querySelectorAll('a[href^="/"]');
-  mobileMenuLinks?.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
-    });
-  });
-
-  // Listen for system theme changes
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'system') {
-      applyTheme('system');
-    }
-  });
-
-  function themeToggle() {
-    const savedTheme = localStorage.getItem('theme') || 'system';
-    let newTheme;
-
-    switch (savedTheme) {
-      case 'dark':
-        newTheme = 'light';
-        break;
-      case 'light':
-        newTheme = 'system';
-        break;
-      case 'system':
-        newTheme = 'dark';
-        break;
-      default:
-        newTheme = 'dark';
-    }
-
-    updateTheme(newTheme);
-  }
-
-  function updateTheme(theme: string) {
-    applyTheme(theme);
-    updateThemeIcons(theme);
-    localStorage.setItem('theme', theme);
-  }
-
-  function applyTheme(theme: string) {
-    if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', systemTheme);
-    } else {
-      document.documentElement.setAttribute('data-theme', theme);
-    }
-  }
-
-  function updateThemeIcons(theme: string) {
-    themeBtnIcons.forEach(icon => {
-      const iconTheme = icon.getAttribute('data-theme-icon');
-      if (iconTheme === theme) {
-        icon.classList.remove('hidden');
-      } else {
-        icon.classList.add('hidden');
-      }
-    });
-  }
 </script>

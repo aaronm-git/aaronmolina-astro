@@ -28,7 +28,7 @@
 
 - If it can be done with Astro, do it with Astro but if React is easier and reduces complexity, use React for such components. For the most part, Astro is the better choice.
 - Use GSAP for animations. If any other animation library is present, please refactor it to use GSAP and remove the other libraries.
-- Our frontend Design trend is Tactile Maximalism. Please follow the design trend when creating new components or refactoring existing components.
+- Our frontend design trend is Industrial Grotesk: hard-edged neo-brutalist system with an OKLCH ink/concrete/signal-green palette, Archivo Black + IBM Plex Mono type pairing, 2px ink borders, hard offset shadows (no blur), and a fixed alternating dark/light section rhythm (no theme toggle). Please follow the design trend when creating new components or refactoring existing components.
 
 ## Package Manager Rules
 

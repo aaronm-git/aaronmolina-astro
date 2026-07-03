@@ -23,21 +23,18 @@ const { eyebrow, title, steps, class: className = '' } = Astro.props;
     <SectionHeader eyebrow={eyebrow} title={title} tone="dark" class="mb-10" />
 
     <ol class="grid grid-cols-1 gap-4 md:grid-cols-3">
-      {steps.map(step => (
-        <li class="relative rounded-md border-2 border-seam bg-asphalt p-6">
-          <span
-            class="font-display text-5xl leading-none font-black text-transparent"
-            style="-webkit-text-stroke: 2px var(--color-signal);"
-          >
-            {step.number}
-          </span>
-          <span class="absolute top-6 right-6 rounded-xs border border-seam px-2 py-0.5 font-mono text-[10px] tracking-[0.14em] text-steel uppercase">
-            {step.tag}
-          </span>
-          <h3 class="font-display mt-4 text-xl font-black uppercase">{step.title}</h3>
-          <p class="mt-2 text-sm text-steel">{step.description}</p>
-        </li>
-      ))}
+      {
+        steps.map(step => (
+          <li class="border-seam bg-asphalt relative rounded-md border-2 p-6">
+            <span class="font-display text-5xl leading-none font-black text-transparent" style="-webkit-text-stroke: 2px var(--color-signal);">
+              {step.number}
+            </span>
+            <span class="border-seam text-steel absolute top-6 right-6 rounded-xs border px-2 py-0.5 font-mono text-[10px] tracking-[0.14em] uppercase">{step.tag}</span>
+            <h3 class="font-display mt-4 text-xl font-black uppercase">{step.title}</h3>
+            <p class="text-steel mt-2 text-sm">{step.description}</p>
+          </li>
+        ))
+      }
     </ol>
   </div>
 </section>

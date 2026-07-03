@@ -6,25 +6,27 @@ import navigation from '@/content/site/navigation.json';
 const { brandText, navItems } = navigation;
 ---
 
-<header class="sticky top-0 z-50 border-b-2 border-signal bg-ink">
+<header class="border-signal bg-ink sticky top-0 z-50 border-b-2">
   <div class="container flex items-center justify-between gap-4 py-3">
-    <a href="/" class="font-display flex items-center gap-2 text-lg font-black tracking-tight text-concrete uppercase">
-      <span class="flex h-7 w-7 items-center justify-center rounded-xs bg-signal font-mono text-xs font-bold text-ink">AM</span>
+    <a href="/" class="font-display text-concrete flex items-center gap-2 text-lg font-black tracking-tight uppercase">
+      <span class="bg-signal text-ink flex h-7 w-7 items-center justify-center rounded-xs font-mono text-xs font-bold">AM</span>
       {brandText}
     </a>
 
     <nav class="hidden items-center gap-5 lg:flex" aria-label="Main">
-      {navItems.map(item => {
-        const Icon = getNavIcon(item.icon || '');
-        return (
-          <a
-            href={item.href}
-            class="flex items-center gap-2 border-b-2 border-transparent py-1 font-mono text-xs font-bold tracking-[0.14em] text-concrete uppercase hover:border-signal hover:text-signal"
-          >
-            {Icon ? <Icon className="h-3.5 w-3.5" /> : null} {item.label}
-          </a>
-        );
-      })}
+      {
+        navItems.map(item => {
+          const Icon = getNavIcon(item.icon || '');
+          return (
+            <a
+              href={item.href}
+              class="text-concrete hover:border-signal hover:text-signal flex items-center gap-2 border-b-2 border-transparent py-1 font-mono text-xs font-bold tracking-[0.14em] uppercase"
+            >
+              {Icon ? <Icon className="h-3.5 w-3.5" /> : null} {item.label}
+            </a>
+          );
+        })
+      }
     </nav>
 
     <div class="hidden items-center gap-3 lg:flex">
@@ -35,24 +37,26 @@ const { brandText, navItems } = navigation;
     <button
       type="button"
       data-mobile-menu-toggle
-      class="rounded-xs p-2 text-concrete hover:bg-asphalt lg:hidden"
+      class="text-concrete hover:bg-asphalt rounded-xs p-2 lg:hidden"
       aria-label="Toggle menu"
       aria-expanded="false"
       aria-controls="mobile-menu"
     >
-      <span class="block h-0.5 w-5 bg-concrete"></span>
-      <span class="mt-1 block h-0.5 w-5 bg-concrete"></span>
-      <span class="mt-1 block h-0.5 w-5 bg-concrete"></span>
+      <span class="bg-concrete block h-0.5 w-5"></span>
+      <span class="bg-concrete mt-1 block h-0.5 w-5"></span>
+      <span class="bg-concrete mt-1 block h-0.5 w-5"></span>
     </button>
   </div>
 
-  <nav id="mobile-menu" class="hidden border-t-2 border-seam lg:hidden" aria-label="Mobile">
+  <nav id="mobile-menu" class="border-seam hidden border-t-2 lg:hidden" aria-label="Mobile">
     <div class="space-y-1 px-4 py-3">
-      {navItems.map(item => (
-        <a href={item.href} class="block rounded-xs px-3 py-2 font-mono text-sm font-bold tracking-wide text-concrete uppercase hover:bg-asphalt hover:text-signal">
-          {item.label}
-        </a>
-      ))}
+      {
+        navItems.map(item => (
+          <a href={item.href} class="text-concrete hover:bg-asphalt hover:text-signal block rounded-xs px-3 py-2 font-mono text-sm font-bold tracking-wide uppercase">
+            {item.label}
+          </a>
+        ))
+      }
       <div class="pt-2">
         <Button href="/contact" variant="primary" size="sm" fullWidth>Get in Touch</Button>
       </div>

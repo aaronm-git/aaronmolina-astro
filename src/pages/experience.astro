@@ -43,14 +43,19 @@ const experienceSubheading = pages.experience.subheadingTemplate.replaceAll('{ye
 
   <section class="section-py">
     <div class="container">
-      <h2 class="font-display mb-8 text-2xl font-black tracking-tight text-ink uppercase md:text-3xl">
+      <h2 class="font-display text-ink mb-8 text-2xl font-black tracking-tight uppercase md:text-3xl">
         {pages.experience.careerHighlightsTitle}
       </h2>
 
       <div class="grid gap-6 md:grid-cols-2">
         <InfoBox title={pages.experience.keyAchievementsTitle}>
           <ul class="space-y-3">
-            {roles.flatMap(r => r.data.achievements).slice(0, 6).map(achievement => <ListItem icon="check">{achievement}</ListItem>)}
+            {
+              roles
+                .flatMap(r => r.data.achievements)
+                .slice(0, 6)
+                .map(achievement => <ListItem icon="check">{achievement}</ListItem>)
+            }
           </ul>
         </InfoBox>
 

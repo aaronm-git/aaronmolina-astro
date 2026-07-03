@@ -27,14 +27,18 @@ const initials = name
   .toUpperCase();
 ---
 
-<div class={`shadow-hard-sm inline-flex items-center justify-center overflow-hidden rounded-sm border-2 border-ink bg-signal font-display font-black text-ink ${sizeClasses[size]} ${className}`}>
-  {src ? (
-    typeof src === 'string' ? (
-      <img src={src} alt={alt} class="h-full w-full object-cover" loading="lazy" />
+<div
+  class={`shadow-hard-sm inline-flex items-center justify-center overflow-hidden rounded-sm border-2 border-ink bg-signal font-display font-black text-ink ${sizeClasses[size]} ${className}`}
+>
+  {
+    src ? (
+      typeof src === 'string' ? (
+        <img src={src} alt={alt} class="h-full w-full object-cover" loading="lazy" />
+      ) : (
+        <Image src={src} alt={alt} class="h-full w-full object-cover" loading="lazy" width={256} height={256} />
+      )
     ) : (
-      <Image src={src} alt={alt} class="h-full w-full object-cover" loading="lazy" width={256} height={256} />
+      <span>{initials}</span>
     )
-  ) : (
-    <span>{initials}</span>
-  )}
+  }
 </div>

@@ -20,7 +20,5 @@ const { links, tone = 'dark', class: className = '' } = Astro.props;
 ---
 
 <div class={`flex items-center gap-1 ${className}`}>
-  {links.map(link => (
-    <SocialLink platform={link.platform} url={link.url} label={link.label} ariaLabel={link.ariaLabel} tone={tone} />
-  ))}
+  {links.map(link => <SocialLink platform={link.platform} url={link.url} label={link.label} ariaLabel={link.ariaLabel} tone={tone} />)}
 </div>

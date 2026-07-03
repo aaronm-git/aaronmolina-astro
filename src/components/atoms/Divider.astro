@@ -9,12 +9,14 @@ interface Props {
 const { variant = 'line', class: className = '' } = Astro.props;
 ---
 
-{variant === 'line' && <hr class={`border-t-2 border-seam ${className}`} />}
+{variant === 'line' && <hr class={`border-seam border-t-2 ${className}`} />}
 
-{variant === 'tape' && (
-  <div
-    role="presentation"
-    class={`h-3.5 border-y-2 border-ink ${className}`}
-    style="background: repeating-linear-gradient(-45deg, var(--color-signal) 0 14px, var(--color-ink) 14px 28px);"
-  />
-)}
+{
+  variant === 'tape' && (
+    <div
+      role="presentation"
+      class={`border-ink h-3.5 border-y-2 ${className}`}
+      style="background: repeating-linear-gradient(-45deg, var(--color-signal) 0 14px, var(--color-ink) 14px 28px);"
+    />
+  )
+}

@@ -19,17 +19,9 @@ const alignClasses = align === 'center' ? 'text-center mx-auto' : 'text-left';
 ---
 
 <div class={`max-w-2xl ${alignClasses} ${className}`}>
-  {eyebrow && (
-    <span class={`mb-3 block font-mono text-xs font-bold tracking-[0.18em] uppercase ${eyebrowColor}`}>
-      {eyebrow}
-    </span>
-  )}
+  {eyebrow && <span class={`mb-3 block font-mono text-xs font-bold tracking-[0.18em] uppercase ${eyebrowColor}`}>{eyebrow}</span>}
   <h2 class={`font-display text-[clamp(28px,3.8vw,46px)] leading-[1.02] font-black tracking-tight uppercase ${titleColor}`}>
     {title}
   </h2>
-  {description && (
-    <p class={`mt-4 text-base leading-relaxed md:text-lg ${descColor}`}>
-      {description}
-    </p>
-  )}
+  {description && <p class={`mt-4 text-base leading-relaxed md:text-lg ${descColor}`}>{description}</p>}
 </div>

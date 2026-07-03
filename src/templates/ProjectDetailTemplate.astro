@@ -42,72 +42,92 @@ const completionDate = completedOn?.toLocaleDateString('en-US', { year: 'numeric
         {completionDate && <Badge label={completionDate} variant="outline" size="sm" />}
       </div>
 
-      {technologies && technologies.length > 0 && techMap && (
-        <TagList tags={technologies.slice(0, 8)} techMap={techMap} class="mt-6" />
-      )}
+      {technologies && technologies.length > 0 && techMap && <TagList tags={technologies.slice(0, 8)} techMap={techMap} class="mt-6" />}
 
       <div class="mt-8 flex flex-wrap items-center gap-3">
-        {liveUrl && <Button href={liveUrl} variant="primary" external>Visit Live Project</Button>}
-        {repoUrl && (
-          <Button href={repoUrl} variant="ghost-ink" external>
-            <FaGithub className="h-4 w-4" /> View Source
-          </Button>
-        )}
+        {
+          liveUrl && (
+            <Button href={liveUrl} variant="primary" external>
+              Visit Live Project
+            </Button>
+          )
+        }
+        {
+          repoUrl && (
+            <Button href={repoUrl} variant="ghost-ink" external>
+              <FaGithub className="h-4 w-4" /> View Source
+            </Button>
+          )
+        }
       </div>
     </HeroSection>
 
-    {featuredImage && (
-      <div class="mx-6 mt-8 overflow-hidden rounded-md border-2 border-ink shadow-hard">
-        <Image src={featuredImage} alt={title} class="h-full w-full object-cover" loading="eager" width={1200} height={630} />
-      </div>
-    )}
+    {
+      featuredImage && (
+        <div class="border-ink shadow-hard mx-6 mt-8 overflow-hidden rounded-md border-2">
+          <Image src={featuredImage} alt={title} class="h-full w-full object-cover" loading="eager" width={1200} height={630} />
+        </div>
+      )
+    }
 
-    {project.body && (
-      <div class="typography mx-auto max-w-screen-md px-6 py-12">
-        <slot />
-      </div>
-    )}
+    {
+      project.body && (
+        <div class="typography mx-auto max-w-screen-md px-6 py-12">
+          <slot />
+        </div>
+      )
+    }
 
     <section class="px-6 py-8">
       <InfoBox variant="muted">
         <div class="mb-4 flex items-end justify-between gap-4">
-          <h2 class="font-display text-lg font-black text-ink uppercase">Project Details</h2>
+          <h2 class="font-display text-ink text-lg font-black uppercase">Project Details</h2>
           <span class="text-graphite text-sm">Quick facts</span>
         </div>
 
         <dl class="grid gap-4 md:grid-cols-2">
-          {completionDate && (
-            <div class="rounded-sm border-2 border-ink bg-paper p-4">
-              <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">Completion Date</dt>
-              <dd class="text-base font-medium text-ink">{completionDate}</dd>
-            </div>
-          )}
-          {liveUrl && (
-            <div class="rounded-sm border-2 border-ink bg-paper p-4">
-              <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">Project URL</dt>
-              <dd class="text-base">
-                <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="text-signal-deep font-medium break-all underline underline-offset-2">
-                  {liveUrl}
-                </a>
-              </dd>
-            </div>
-          )}
-          {repoUrl && (
-            <div class="rounded-sm border-2 border-ink bg-paper p-4 md:col-span-2">
-              <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">Repository</dt>
-              <dd class="text-base">
-                <a href={repoUrl} target="_blank" rel="noopener noreferrer" class="text-signal-deep font-medium break-all underline underline-offset-2">
-                  {repoUrl}
-                </a>
-              </dd>
-            </div>
-          )}
-          {technologies && technologies.length > 0 && techMap && (
-            <div class="rounded-sm border-2 border-ink bg-paper p-4 md:col-span-2">
-              <dt class="text-graphite mb-3 text-xs font-semibold tracking-wide uppercase">Technologies</dt>
-              <dd><TagList tags={technologies} techMap={techMap} /></dd>
-            </div>
-          )}
+          {
+            completionDate && (
+              <div class="border-ink bg-paper rounded-sm border-2 p-4">
+                <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">Completion Date</dt>
+                <dd class="text-ink text-base font-medium">{completionDate}</dd>
+              </div>
+            )
+          }
+          {
+            liveUrl && (
+              <div class="border-ink bg-paper rounded-sm border-2 p-4">
+                <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">Project URL</dt>
+                <dd class="text-base">
+                  <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="text-signal-deep font-medium break-all underline underline-offset-2">
+                    {liveUrl}
+                  </a>
+                </dd>
+              </div>
+            )
+          }
+          {
+            repoUrl && (
+              <div class="border-ink bg-paper rounded-sm border-2 p-4 md:col-span-2">
+                <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">Repository</dt>
+                <dd class="text-base">
+                  <a href={repoUrl} target="_blank" rel="noopener noreferrer" class="text-signal-deep font-medium break-all underline underline-offset-2">
+                    {repoUrl}
+                  </a>
+                </dd>
+              </div>
+            )
+          }
+          {
+            technologies && technologies.length > 0 && techMap && (
+              <div class="border-ink bg-paper rounded-sm border-2 p-4 md:col-span-2">
+                <dt class="text-graphite mb-3 text-xs font-semibold tracking-wide uppercase">Technologies</dt>
+                <dd>
+                  <TagList tags={technologies} techMap={techMap} />
+                </dd>
+              </div>
+            )
+          }
         </dl>
       </InfoBox>
     </section>

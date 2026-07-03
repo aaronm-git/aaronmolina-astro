@@ -31,10 +31,14 @@ const { eyebrow, title, posts, techMap, showTags = false, cta, class: className 
       {posts.map(post => <BlogPostCard post={post} techMap={techMap} showTags={showTags} />)}
     </div>
 
-    {cta && (
-      <div class="mt-8 text-center">
-        <Button href={cta.href} variant="ghost-ink" size="sm">{cta.label}</Button>
-      </div>
-    )}
+    {
+      cta && (
+        <div class="mt-8 text-center">
+          <Button href={cta.href} variant="ghost-ink" size="sm">
+            {cta.label}
+          </Button>
+        </div>
+      )
+    }
   </div>
 </section>

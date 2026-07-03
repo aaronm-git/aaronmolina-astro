@@ -35,10 +35,14 @@ const colClasses: Record<2 | 3, string> = {
       {projects.map(project => <ProjectCard project={project} showCompletedDate={showCompletedDate} />)}
     </div>
 
-    {cta && (
-      <div class="mt-8 text-center">
-        <Button href={cta.href} variant="ghost-ink" size="sm">{cta.label}</Button>
-      </div>
-    )}
+    {
+      cta && (
+        <div class="mt-8 text-center">
+          <Button href={cta.href} variant="ghost-ink" size="sm">
+            {cta.label}
+          </Button>
+        </div>
+      )
+    }
   </div>
 </section>

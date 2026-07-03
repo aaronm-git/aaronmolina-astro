@@ -38,7 +38,8 @@ const sizeClasses: Record<ButtonSize, string> = {
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'bg-signal text-ink border-2 border-signal shadow-hard-sm hover:shadow-[7px_7px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-0.5 active:translate-y-0.5',
+  primary:
+    'bg-signal text-ink border-2 border-signal shadow-hard-sm hover:shadow-[7px_7px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-0.5 active:translate-y-0.5',
   secondary: 'bg-transparent text-signal border-2 border-signal hover:bg-asphalt',
   ink: 'bg-ink text-signal border-2 border-ink shadow-hard-sm hover:shadow-[5px_5px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-0.5 active:translate-y-0.5',
   'ghost-ink': 'bg-transparent text-ink border-2 border-ink hover:bg-concrete-2',
@@ -47,9 +48,7 @@ const variantClasses: Record<ButtonVariant, string> = {
 const classes = `inline-flex items-center justify-center gap-2 font-mono font-bold uppercase tracking-wider rounded-sm transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 ${sizeClasses[size]} ${variantClasses[variant]} ${fullWidth ? 'w-full' : ''} ${className}`;
 
 const Tag = href ? 'a' : 'button';
-const linkProps = href
-  ? { href, ...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {}) }
-  : { type, disabled };
+const linkProps = href ? { href, ...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {}) } : { type, disabled };
 ---
 
 <Tag class={classes} {...linkProps}>
@@ -57,4 +56,3 @@ const linkProps = href
   <slot />
   {IconComponent && iconPosition === 'right' && <IconComponent className="h-4 w-4" />}
 </Tag>
-

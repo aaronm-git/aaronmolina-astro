@@ -27,14 +27,16 @@ const completionDate = project.data.completedOn?.toLocaleDateString('en-US', {
 ---
 
 <Card variant="light" padding="none" class="flex h-full flex-col overflow-hidden">
-  <div class="relative aspect-video overflow-hidden border-b-2 border-ink bg-concrete-2">
-    {project.data.featuredImage ? (
-      <Image src={project.data.featuredImage} alt={project.data.title} class="h-full w-full object-cover" width={600} height={340} loading="lazy" />
-    ) : (
-      <div class="flex h-full w-full items-center justify-center text-graphite">
-        <FaImage className="h-8 w-8" />
-      </div>
-    )}
+  <div class="border-ink bg-concrete-2 relative aspect-video overflow-hidden border-b-2">
+    {
+      project.data.featuredImage ? (
+        <Image src={project.data.featuredImage} alt={project.data.title} class="h-full w-full object-cover" width={600} height={340} loading="lazy" />
+      ) : (
+        <div class="text-graphite flex h-full w-full items-center justify-center">
+          <FaImage className="h-8 w-8" />
+        </div>
+      )
+    }
     {project.data.featured && <Badge label="Featured" variant="phase" size="sm" class="absolute top-3 right-3" />}
   </div>
 
@@ -43,19 +45,21 @@ const completionDate = project.data.completedOn?.toLocaleDateString('en-US', {
       <a href={`/projects/${project.data.slug}`}>{project.data.title}</a>
     </Heading>
 
-    {showCompletedDate && completionDate && (
-      <p class="font-mono text-xs text-graphite uppercase">{completionDate}</p>
-    )}
+    {showCompletedDate && completionDate && <p class="text-graphite font-mono text-xs uppercase">{completionDate}</p>}
 
     {project.data.summary && <p class="text-graphite text-sm">{project.data.summary}</p>}
 
     <TagList tags={project.data.technologies} techMap={techMap} limit={3} size="sm" />
 
-    <div class="mt-auto flex items-center justify-between border-t-2 border-concrete-2 pt-4">
+    <div class="border-concrete-2 mt-auto flex items-center justify-between border-t-2 pt-4">
       <Link href={`/projects/${project.data.slug}`} variant="signal" size="sm" showArrow>Learn more</Link>
-      {project.data.liveUrl && (
-        <Link href={project.data.liveUrl} variant="muted" size="sm" external showArrow>View project</Link>
-      )}
+      {
+        project.data.liveUrl && (
+          <Link href={project.data.liveUrl} variant="muted" size="sm" external showArrow>
+            View project
+          </Link>
+        )
+      }
     </div>
   </div>
 </Card>

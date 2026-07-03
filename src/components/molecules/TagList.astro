@@ -19,14 +19,16 @@ const remaining = limit && tags.length > limit ? tags.length - limit : 0;
 ---
 
 <div class={`flex flex-wrap gap-2 ${className}`}>
-  {visibleTags.map(tag =>
-    linkToTagPage ? (
-      <a href={`/blog/tag/${tag}`}>
+  {
+    visibleTags.map(tag =>
+      linkToTagPage ? (
+        <a href={`/blog/tag/${tag}`}>
+          <Badge label={getTechName(tag, techMap)} variant="outline" size={size} />
+        </a>
+      ) : (
         <Badge label={getTechName(tag, techMap)} variant="outline" size={size} />
-      </a>
-    ) : (
-      <Badge label={getTechName(tag, techMap)} variant="outline" size={size} />
-    ),
-  )}
+      ),
+    )
+  }
   {remaining > 0 && <Badge label={`+${remaining}`} variant="outline" size={size} />}
 </div>

@@ -1,7 +1,7 @@
 ---
-import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
 import { formatDateRange, calculateDuration } from '@/utils/date-format';
 import TagList from '@/components/molecules/TagList.astro';
@@ -12,29 +12,8 @@ import Link from '@/components/atoms/Link.astro';
 import { FaBriefcase } from '@/lib/icons';
 
 interface Props {
-  role: {
-    data: {
-      title: string;
-      slug: string;
-      organization: string;
-      location?: string;
-      startDate: Date;
-      endDate?: Date;
-      current?: boolean;
-      summary?: string;
-      highlights: string[];
-      achievements: string[];
-      technologies: string[];
-    };
-  };
-  organization?: {
-    data: {
-      name: string;
-      slug: string;
-      logo?: ImageMetadata;
-      website?: string;
-    };
-  };
+  role: CollectionEntry<'roles'>;
+  organization?: CollectionEntry<'organizations'> | undefined;
   showAllDetails?: boolean;
 }
 
@@ -48,67 +27,83 @@ const dateRange = formatDateRange(role.data.startDate, role.data.endDate, role.d
 const orgName = organization?.data.name || role.data.organization;
 ---
 
-<div id={role.data.slug} class="rounded-md border-2 border-ink bg-paper p-6 shadow-hard">
+<div id={role.data.slug} class="border-ink bg-paper shadow-hard rounded-md border-2 p-6">
   <div class="mb-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
     <div class="flex flex-col items-start gap-4 md:flex-row">
-      <div class="flex aspect-square w-16 flex-none items-center justify-center overflow-hidden rounded-xs border-2 border-ink bg-concrete-2">
-        {organization?.data.logo ? (
-          <Image src={organization.data.logo} alt={`${orgName} logo`} width={80} height={80} loading="lazy" />
-        ) : (
-          <FaBriefcase className="text-graphite h-6 w-6" />
-        )}
+      <div class="border-ink bg-concrete-2 flex aspect-square w-16 flex-none items-center justify-center overflow-hidden rounded-xs border-2">
+        {
+          organization?.data.logo ? (
+            <Image src={organization.data.logo} alt={`${orgName} logo`} width={80} height={80} loading="lazy" />
+          ) : (
+            <FaBriefcase className="text-graphite h-6 w-6" />
+          )
+        }
       </div>
       <div>
         <Heading level={3} size="sm">{role.data.title}</Heading>
         <p class="text-signal-deep font-bold">
           {orgName}
-          {organization?.data.website && (
-            <a href={organization.data.website} target="_blank" rel="noopener noreferrer" class="ml-1">
-              <span class="sr-only">Visit site</span>
-            </a>
-          )}
+          {
+            organization?.data.website && (
+              <a href={organization.data.website} target="_blank" rel="noopener noreferrer" class="ml-1">
+                <span class="sr-only">Visit site</span>
+              </a>
+            )
+          }
         </p>
         {role.data.location && <p class="text-graphite text-sm">{role.data.location}</p>}
       </div>
     </div>
     <div class="md:text-right">
-      <p class="font-mono text-sm font-bold text-ink">{dateRange}</p>
+      <p class="text-ink font-mono text-sm font-bold">{dateRange}</p>
       <p class="text-graphite mt-1 font-mono text-xs">{duration}</p>
       {role.data.current && <Badge label="Current" variant="phase" size="sm" class="mt-1" />}
     </div>
   </div>
 
-  {showAllDetails && role.data.summary && (
-    <div class="mb-6 max-w-2xl rounded-sm border-2 border-concrete-2 p-4">
-      <p class="text-graphite text-sm">{role.data.summary}</p>
-    </div>
-  )}
+  {
+    showAllDetails && role.data.summary && (
+      <div class="border-concrete-2 mb-6 max-w-2xl rounded-sm border-2 p-4">
+        <p class="text-graphite text-sm">{role.data.summary}</p>
+      </div>
+    )
+  }
 
   <div class="grid gap-6 md:grid-cols-2">
     <div>
-      <h4 class="mb-3 font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase">Highlights</h4>
+      <h4 class="text-ink mb-3 font-mono text-xs font-bold tracking-[0.1em] uppercase">Highlights</h4>
       <ul class="space-y-2">
         {role.data.highlights.slice(0, showAllDetails ? undefined : 3).map(highlight => <ListItem icon="check">{highlight}</ListItem>)}
       </ul>
-      {!showAllDetails && (
-        <div class="mt-4">
-          <Link href={`/experience#${role.data.slug}`} variant="signal" size="sm" showArrow>See more details</Link>
-        </div>
-      )}
+      {
+        !showAllDetails && (
+          <div class="mt-4">
+            <Link href={`/experience#${role.data.slug}`} variant="signal" size="sm" showArrow>
+              See more details
+            </Link>
+          </div>
+        )
+      }
     </div>
 
     <div>
-      <h4 class="mb-3 font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase">Technologies</h4>
+      <h4 class="text-ink mb-3 font-mono text-xs font-bold tracking-[0.1em] uppercase">Technologies</h4>
       <TagList tags={role.data.technologies} techMap={techMap} limit={showAllDetails ? undefined : 10} size="sm" />
 
-      {role.data.achievements.length > 0 && (
-        <div class="mt-4">
-          <h4 class="mb-2 font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase">Key Achievements</h4>
-          <ul class="space-y-1">
-            {role.data.achievements.map(achievement => <ListItem icon="award" size="sm">{achievement}</ListItem>)}
-          </ul>
-        </div>
-      )}
+      {
+        role.data.achievements.length > 0 && (
+          <div class="mt-4">
+            <h4 class="text-ink mb-2 font-mono text-xs font-bold tracking-[0.1em] uppercase">Key Achievements</h4>
+            <ul class="space-y-1">
+              {role.data.achievements.map(achievement => (
+                <ListItem icon="award" size="sm">
+                  {achievement}
+                </ListItem>
+              ))}
+            </ul>
+          </div>
+        )
+      }
     </div>
   </div>
 </div>

@@ -20,17 +20,19 @@ const { currentPath, class: className = '' } = Astro.props;
 ---
 
 <div class={`mb-12 flex flex-wrap justify-center gap-2 ${className}`}>
-  {tabs.map(tab => {
-    const isActive = currentPath === tab.href;
-    return (
-      <a
-        href={tab.href}
-        class={`rounded-sm border-2 border-ink px-4 py-2 font-mono text-xs font-bold tracking-wide uppercase ${
-          isActive ? 'bg-signal text-ink shadow-hard-sm' : 'bg-paper text-ink hover:bg-concrete-2'
-        }`}
-      >
-        {tab.label}
-      </a>
-    );
-  })}
+  {
+    tabs.map(tab => {
+      const isActive = currentPath === tab.href;
+      return (
+        <a
+          href={tab.href}
+          class={`border-ink rounded-sm border-2 px-4 py-2 font-mono text-xs font-bold tracking-wide uppercase ${
+            isActive ? 'bg-signal text-ink shadow-hard-sm' : 'bg-paper text-ink hover:bg-concrete-2'
+          }`}
+        >
+          {tab.label}
+        </a>
+      );
+    })
+  }
 </div>

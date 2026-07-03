@@ -27,15 +27,17 @@ const { eyebrow, title, roles, organizations, showAllDetails = false, cta, class
     <SectionHeader eyebrow={eyebrow} title={title} class="mb-10" />
 
     <div class="grid grid-cols-1 gap-6">
-      {roles.map(role => (
-        <RoleCard role={role} organization={organizations.get(role.data.organization)} showAllDetails={showAllDetails} />
-      ))}
+      {roles.map(role => <RoleCard role={role} organization={organizations.get(role.data.organization)} showAllDetails={showAllDetails} />)}
     </div>
 
-    {cta && (
-      <div class="mt-8 text-center">
-        <Button href={cta.href} variant="ghost-ink" size="sm">{cta.label}</Button>
-      </div>
-    )}
+    {
+      cta && (
+        <div class="mt-8 text-center">
+          <Button href={cta.href} variant="ghost-ink" size="sm">
+            {cta.label}
+          </Button>
+        </div>
+      )
+    }
   </div>
 </section>

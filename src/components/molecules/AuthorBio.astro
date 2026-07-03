@@ -14,27 +14,37 @@ const isCompact = variant === 'compact';
 ---
 
 <aside class={`rounded-md border-2 border-ink bg-paper p-6 ${isCompact ? 'flex items-center gap-4' : ''} ${className}`}>
-  {isCompact ? (
-    <>
-      <Avatar name={author.name} size="sm" class="flex-shrink-0" />
-      <div class="min-w-0 flex-1">
-        <p class="truncate font-bold text-ink">{author.name}</p>
-        <p class="text-graphite text-sm">{author.jobTitle}</p>
-      </div>
-      <Button href="/hire" variant="ghost-ink" size="sm">Hire Me</Button>
-    </>
-  ) : (
-    <div class="flex flex-col gap-6 sm:flex-row">
-      <Avatar name={author.name} size="lg" class="mx-auto flex-shrink-0 sm:mx-0" />
-      <div class="flex-1 text-center sm:text-left">
-        <p class="text-lg font-bold text-ink">{author.name}</p>
-        <p class="text-graphite mb-3 text-sm">{author.jobTitle} based in {author.location}</p>
-        <p class="text-graphite mb-4 text-sm">{author.bio}</p>
-        <div class="flex flex-wrap justify-center gap-3 sm:justify-start">
-          <Button href="/hire" variant="primary" size="sm">Work With Me</Button>
-          <Button href="/contact" variant="ghost-ink" size="sm">Get in Touch</Button>
+  {
+    isCompact ? (
+      <>
+        <Avatar name={author.name} size="sm" class="flex-shrink-0" />
+        <div class="min-w-0 flex-1">
+          <p class="text-ink truncate font-bold">{author.name}</p>
+          <p class="text-graphite text-sm">{author.jobTitle}</p>
+        </div>
+        <Button href="/hire" variant="ghost-ink" size="sm">
+          Hire Me
+        </Button>
+      </>
+    ) : (
+      <div class="flex flex-col gap-6 sm:flex-row">
+        <Avatar name={author.name} size="lg" class="mx-auto flex-shrink-0 sm:mx-0" />
+        <div class="flex-1 text-center sm:text-left">
+          <p class="text-ink text-lg font-bold">{author.name}</p>
+          <p class="text-graphite mb-3 text-sm">
+            {author.jobTitle} based in {author.location}
+          </p>
+          <p class="text-graphite mb-4 text-sm">{author.bio}</p>
+          <div class="flex flex-wrap justify-center gap-3 sm:justify-start">
+            <Button href="/hire" variant="primary" size="sm">
+              Work With Me
+            </Button>
+            <Button href="/contact" variant="ghost-ink" size="sm">
+              Get in Touch
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
-  )}
+    )
+  }
 </aside>

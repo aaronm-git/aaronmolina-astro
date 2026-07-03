@@ -43,12 +43,14 @@ const showUpdated = updatedDate && publishDate && updatedDate.getTime() !== publ
     <HeroSection variant="minimal" headline={title} description={description} class="py-4">
       <div class="text-graphite mt-4 flex flex-wrap items-center gap-3 font-mono text-xs uppercase">
         {publishDate && <time datetime={publishDateISO}>{publishDateFormatted}</time>}
-        {showUpdated && (
-          <>
-            <span>&middot;</span>
-            <span>Updated {updatedDateFormatted}</span>
-          </>
-        )}
+        {
+          showUpdated && (
+            <>
+              <span>&middot;</span>
+              <span>Updated {updatedDateFormatted}</span>
+            </>
+          )
+        }
       </div>
     </HeroSection>
 
@@ -56,18 +58,18 @@ const showUpdated = updatedDate && publishDate && updatedDate.getTime() !== publ
       <slot />
     </div>
 
-    {tags && tags.length > 0 && techMap && (
-      <section class="border-t-2 border-seam px-6 py-8">
-        <p class="mb-4 font-mono text-xs font-bold tracking-[0.1em] text-graphite uppercase">Topics</p>
-        <TagList tags={tags} techMap={techMap} linkToTagPage />
-      </section>
-    )}
+    {
+      tags && tags.length > 0 && techMap && (
+        <section class="border-seam border-t-2 px-6 py-8">
+          <p class="text-graphite mb-4 font-mono text-xs font-bold tracking-[0.1em] uppercase">Topics</p>
+          <TagList tags={tags} techMap={techMap} linkToTagPage />
+        </section>
+      )
+    }
 
     <AuthorBio class="mx-6 my-8" />
 
-    {allPosts.length > 0 && tags && tags.length > 0 && (
-      <RelatedPosts currentSlug={post.data.slug} currentTags={tags} posts={allPosts} class="mx-6 my-8" />
-    )}
+    {allPosts.length > 0 && tags && tags.length > 0 && <RelatedPosts currentSlug={post.data.slug} currentTags={tags} posts={allPosts} class="mx-6 my-8" />}
 
     <CTASection title={ctaTitle} description={ctaDescription} buttonLabel="Get in Touch" buttonHref="/contact" class="mt-8" />
   </article>

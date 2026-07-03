@@ -11,14 +11,7 @@ interface Props {
   class?: string;
 }
 
-const {
-  as: Tag = 'p',
-  size = 'base',
-  weight = 'normal',
-  color = 'graphite',
-  balance = false,
-  class: className = '',
-} = Astro.props as Props;
+const { as: Tag = 'p', size = 'base', weight = 'normal', color = 'graphite', balance = false, class: className = '' } = Astro.props as Props;
 
 const sizeClasses: Record<'xs' | 'sm' | 'base' | 'lg' | 'xl', string> = {
   xs: 'text-xs',

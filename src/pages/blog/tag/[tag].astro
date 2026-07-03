@@ -10,19 +10,17 @@ import cta from '@/content/site/cta.json';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  const technologies = await getCollection('technologies');
-  const techMap = createTechMap(technologies);
 
   const allTags = new Set<string>();
   posts.forEach(post => post.data.tags?.forEach(tag => allTags.add(tag)));
 
   return Array.from(allTags).map(tag => ({
     params: { tag },
-    props: { tag, techMapObj: Object.fromEntries(techMap) },
+    props: { tag },
   }));
 }
 
-const { tag, techMapObj } = Astro.props;
+const { tag } = Astro.props;
 
 const posts = await getCollection('blog');
 const technologies = await getCollection('technologies');

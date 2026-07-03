@@ -16,10 +16,6 @@ const variantClasses: Record<Variant, string> = {
 ---
 
 <div class={`rounded-md border-2 p-6 ${variantClasses[variant]} ${className}`}>
-  {title && (
-    <h3 class="font-display mb-4 text-lg font-black tracking-tight text-ink uppercase">
-      {title}
-    </h3>
-  )}
+  {title && <h3 class="font-display text-ink mb-4 text-lg font-black tracking-tight uppercase">{title}</h3>}
   <slot />
 </div>

@@ -16,7 +16,7 @@ const labelColor = tone === 'dark' ? 'text-steel' : 'text-graphite';
 const cellBg = tone === 'dark' ? 'bg-asphalt border-seam' : 'bg-paper border-ink';
 ---
 
-<div class={`rounded-xs border px-3 py-2 ${cellBg} ${className}`}>
+<div class={`rounded-xs border-2 px-3 py-2 ${cellBg} ${className}`}>
   <div class={`font-display text-2xl leading-none font-black tabular-nums ${valueColor}`}>
     {value}{suffix}
   </div>

@@ -24,28 +24,28 @@ const { eyebrow, title, description, columns, rows, class: className = '' } = As
     <SectionHeader eyebrow={eyebrow} title={title} description={description} tone="dark" class="mb-10" />
 
     <div class="overflow-x-auto">
-      <table class="w-full min-w-[640px] border-collapse border-2 border-seam bg-asphalt">
+      <table class="border-seam bg-asphalt w-full min-w-[640px] border-collapse border-2">
         <thead>
           <tr>
-            <th class="border border-seam p-4 text-left font-mono text-xs tracking-[0.14em] text-steel uppercase">What to compare</th>
-            {columns.map((col, i) => (
-              <th class={`border border-seam p-4 text-left font-mono text-xs tracking-[0.14em] uppercase ${i === 0 ? 'bg-signal text-ink' : 'text-steel'}`}>
-                {col}
-              </th>
-            ))}
+            <th class="border-seam text-steel border p-4 text-left font-mono text-xs tracking-[0.14em] uppercase">What to compare</th>
+            {
+              columns.map((col, i) => (
+                <th class={`border-seam border p-4 text-left font-mono text-xs tracking-[0.14em] uppercase ${i === 0 ? 'bg-signal text-ink' : 'text-steel'}`}>{col}</th>
+              ))
+            }
           </tr>
         </thead>
         <tbody>
-          {rows.map(row => (
-            <tr>
-              <td class="border border-seam p-4 text-sm font-bold">{row.criterion}</td>
-              {row.values.map((value, i) => (
-                <td class={`border border-seam p-4 font-mono text-xs tracking-[0.08em] uppercase ${i === 0 ? 'font-bold text-signal' : 'text-steel'}`}>
-                  {value}
-                </td>
-              ))}
-            </tr>
-          ))}
+          {
+            rows.map(row => (
+              <tr>
+                <td class="border-seam border p-4 text-sm font-bold">{row.criterion}</td>
+                {row.values.map((value, i) => (
+                  <td class={`border-seam border p-4 font-mono text-xs tracking-[0.08em] uppercase ${i === 0 ? 'text-signal font-bold' : 'text-steel'}`}>{value}</td>
+                ))}
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>

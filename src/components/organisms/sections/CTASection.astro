@@ -14,27 +14,24 @@ interface Props {
   class?: string;
 }
 
-const {
-  title,
-  description,
-  buttonLabel,
-  buttonHref,
-  secondaryLabel,
-  secondaryHref,
-  micro,
-  class: className = '',
-} = Astro.props;
+const { title, description, buttonLabel, buttonHref, secondaryLabel, secondaryHref, micro, class: className = '' } = Astro.props;
 ---
 
 <section class={`section-py relative overflow-hidden bg-ink text-center text-concrete ${className}`}>
   <StencilGrid />
-  <div class="container relative z-10">
-    <Heading level={2} size="2xl" class="mx-auto max-w-[20ch] text-concrete">{title}</Heading>
-    {description && <p class="mx-auto mt-4 max-w-[52ch] text-steel">{description}</p>}
+  <div class="relative z-10 container">
+    <Heading level={2} size="2xl" class="text-concrete mx-auto max-w-[20ch]">{title}</Heading>
+    {description && <p class="text-steel mx-auto mt-4 max-w-[52ch]">{description}</p>}
     <div class="mt-8 flex flex-wrap justify-center gap-4">
       <Button href={buttonHref} variant="primary" size="lg">{buttonLabel}</Button>
-      {secondaryLabel && secondaryHref && <Button href={secondaryHref} variant="secondary" size="lg">{secondaryLabel}</Button>}
+      {
+        secondaryLabel && secondaryHref && (
+          <Button href={secondaryHref} variant="secondary" size="lg">
+            {secondaryLabel}
+          </Button>
+        )
+      }
     </div>
-    {micro && <p class="mt-4 font-mono text-xs font-bold tracking-[0.12em] text-steel uppercase">{micro}</p>}
+    {micro && <p class="text-steel mt-4 font-mono text-xs font-bold tracking-[0.12em] uppercase">{micro}</p>}
   </div>
 </section>

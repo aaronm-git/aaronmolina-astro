@@ -29,35 +29,33 @@ const { eyebrow, title, description, plans, customNote, customCta, class: classN
     <SectionHeader eyebrow={eyebrow} title={title} description={description} class="mb-10" />
 
     <div class="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3">
-      {plans.map(plan => (
-        <article
-          class={`flex flex-col overflow-hidden rounded-md border-2 border-ink ${
-            plan.highlighted ? 'shadow-[8px_8px_0_var(--color-signal-deep)]' : 'shadow-hard'
-          }`}
-        >
-          <div class={`border-b-2 border-ink p-6 ${plan.highlighted ? 'bg-ink text-concrete' : 'bg-concrete-2 text-ink'}`}>
-            <span class={`mb-2 block font-mono text-xs font-bold tracking-[0.16em] uppercase ${plan.highlighted ? 'text-signal' : 'text-graphite'}`}>
-              {plan.eyebrow}
-            </span>
-            <h3 class="font-display text-2xl font-black uppercase">{plan.name}</h3>
-          </div>
-          <div class="flex flex-1 flex-col gap-4 bg-paper p-6">
-            <p class="text-graphite text-sm">{plan.description}</p>
-            <ul class="space-y-2">
-              {plan.features.map(feature => <ListItem icon="check">{feature}</ListItem>)}
-            </ul>
-            <div class="mt-auto pt-2 text-center">
-              <Button href="/contact" variant={plan.highlighted ? 'primary' : 'ghost-ink'} size="sm" fullWidth>
-                Discuss {plan.name}
-              </Button>
+      {
+        plans.map(plan => (
+          <article class={`border-ink flex flex-col overflow-hidden rounded-md border-2 ${plan.highlighted ? 'shadow-[8px_8px_0_var(--color-signal-deep)]' : 'shadow-hard'}`}>
+            <div class={`border-ink border-b-2 p-6 ${plan.highlighted ? 'bg-ink text-concrete' : 'bg-concrete-2 text-ink'}`}>
+              <span class={`mb-2 block font-mono text-xs font-bold tracking-[0.16em] uppercase ${plan.highlighted ? 'text-signal' : 'text-graphite'}`}>{plan.eyebrow}</span>
+              <h3 class="font-display text-2xl font-black uppercase">{plan.name}</h3>
             </div>
-          </div>
-        </article>
-      ))}
+            <div class="bg-paper flex flex-1 flex-col gap-4 p-6">
+              <p class="text-graphite text-sm">{plan.description}</p>
+              <ul class="space-y-2">
+                {plan.features.map(feature => (
+                  <ListItem icon="check">{feature}</ListItem>
+                ))}
+              </ul>
+              <div class="mt-auto pt-2 text-center">
+                <Button href="/contact" variant={plan.highlighted ? 'primary' : 'ghost-ink'} size="sm" fullWidth>
+                  Discuss {plan.name}
+                </Button>
+              </div>
+            </div>
+          </article>
+        ))
+      }
     </div>
 
-    <div class="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-md border-2 border-dashed border-ink bg-concrete-2 p-6">
-      <p class="max-w-[60ch] text-sm font-bold text-ink">{customNote}</p>
+    <div class="border-ink bg-concrete-2 mt-6 flex flex-wrap items-center justify-between gap-4 rounded-md border-2 border-dashed p-6">
+      <p class="text-ink max-w-[60ch] text-sm font-bold">{customNote}</p>
       <Button href={customCta.href} variant="ghost-ink" size="sm">{customCta.label}</Button>
     </div>
   </div>

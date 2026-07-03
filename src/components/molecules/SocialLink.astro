@@ -18,14 +18,16 @@ const IconComponent = getSocialIcon(platform);
 const colorClasses = tone === 'dark' ? 'text-steel hover:text-signal' : 'text-graphite hover:text-ink';
 ---
 
-{IconComponent && (
-  <a
-    href={url}
-    target="_blank"
-    rel="noopener noreferrer"
-    class={`inline-flex items-center justify-center rounded-xs p-2 transition-colors ${colorClasses} ${className}`}
-    aria-label={ariaLabel || label || platform}
-  >
-    <IconComponent className="h-5 w-5" />
-  </a>
-)}
+{
+  IconComponent && (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class={`inline-flex items-center justify-center rounded-xs p-2 transition-colors ${colorClasses} ${className}`}
+      aria-label={ariaLabel || label || platform}
+    >
+      <IconComponent className="h-5 w-5" />
+    </a>
+  )
+}

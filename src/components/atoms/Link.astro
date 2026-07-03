@@ -12,14 +12,7 @@ interface Props {
   class?: string;
 }
 
-const {
-  href,
-  variant = 'signal',
-  size = 'base',
-  showArrow = false,
-  external = false,
-  class: className = '',
-} = Astro.props as Props;
+const { href, variant = 'signal', size = 'base', showArrow = false, external = false, class: className = '' } = Astro.props as Props;
 
 const variantClasses: Record<LinkVariant, string> = {
   signal: 'text-signal-deep hover:text-ink',

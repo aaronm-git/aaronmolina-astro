@@ -21,10 +21,8 @@ const { guaranteeText, badges, companies, class: className = '' } = Astro.props;
 
 <section class={`border-b-2 border-ink bg-concrete-2 py-6 ${className}`}>
   <div class="container flex flex-wrap items-center justify-between gap-4">
-    <p class="flex max-w-[46ch] items-center gap-3 text-sm font-bold text-ink">
-      <span class="flex h-10 w-10 flex-none items-center justify-center rounded-full border-2 border-ink bg-signal font-mono text-sm font-bold shadow-hard-sm">
-        &check;
-      </span>
+    <p class="text-ink flex max-w-[46ch] items-center gap-3 text-sm font-bold">
+      <span class="border-ink bg-signal shadow-hard-sm flex h-10 w-10 flex-none items-center justify-center rounded-full border-2 font-mono text-sm font-bold"> &check; </span>
       <span>{guaranteeText}</span>
     </p>
     <div class="flex flex-wrap gap-2">
@@ -33,10 +31,12 @@ const { guaranteeText, badges, companies, class: className = '' } = Astro.props;
   </div>
 
   <div class="container mt-6 grid grid-cols-2 items-center gap-4 md:grid-cols-4">
-    {companies.map(company => (
-      <div class="flex items-center justify-center rounded-sm border-2 border-ink bg-paper p-4">
-        <Image src={company.logo} alt={company.alt} width={160} height={64} class="max-h-8 w-auto object-contain" loading="lazy" />
-      </div>
-    ))}
+    {
+      companies.map(company => (
+        <div class="border-ink bg-paper flex items-center justify-center rounded-sm border-2 p-4">
+          <Image src={company.logo} alt={company.alt} width={160} height={64} class="max-h-8 w-auto object-contain" loading="lazy" />
+        </div>
+      ))
+    }
   </div>
 </section>

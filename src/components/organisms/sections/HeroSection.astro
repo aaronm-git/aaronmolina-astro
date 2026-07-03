@@ -24,87 +24,97 @@ interface Props {
   class?: string;
 }
 
-const {
-  variant = 'minimal',
-  eyebrow,
-  headline,
-  subheadline,
-  description,
-  badges,
-  primaryCta,
-  secondaryCta,
-  class: className = '',
-} = Astro.props;
+const { variant = 'minimal', eyebrow, headline, subheadline, description, badges, primaryCta, secondaryCta, class: className = '' } = Astro.props;
 
 const hasRightSlot = Astro.slots.has('right');
 ---
 
-{variant === 'split' && (
-  <section class={`relative overflow-hidden bg-ink py-18 text-concrete ${className}`}>
-    <StencilGrid />
-    <div class={`container relative z-10 grid items-center gap-12 ${hasRightSlot ? 'lg:grid-cols-[7fr_5fr]' : ''}`}>
-      <div class={hasRightSlot ? '' : 'max-w-3xl'}>
-        {eyebrow && (
-          <span data-hero-animate data-hero-order="0" class="mb-6 inline-block rounded-xs border border-seam bg-asphalt px-3 py-1 font-mono text-xs font-bold tracking-[0.18em] text-signal uppercase">
-            {eyebrow}
-          </span>
+{
+  variant === 'split' && (
+    <section class={`bg-ink text-concrete relative overflow-hidden py-18 ${className}`}>
+      <StencilGrid />
+      <div class={`relative z-10 container grid items-center gap-12 ${hasRightSlot ? 'lg:grid-cols-[7fr_5fr]' : ''}`}>
+        <div class={hasRightSlot ? '' : 'max-w-3xl'}>
+          {eyebrow && (
+            <span
+              data-hero-animate
+              data-hero-order="0"
+              class="border-seam bg-asphalt text-signal mb-6 inline-block rounded-xs border px-3 py-1 font-mono text-xs font-bold tracking-[0.18em] uppercase"
+            >
+              {eyebrow}
+            </span>
+          )}
+
+          <Heading level={1} size="hero" class="text-concrete" data-hero-animate data-hero-order="1">
+            {headline}
+          </Heading>
+
+          {subheadline && (
+            <p data-hero-animate data-hero-order="2" class="text-signal mt-4 font-mono text-sm font-bold tracking-[0.1em] uppercase md:text-base">
+              {subheadline}
+            </p>
+          )}
+
+          {description && (
+            <Text size="lg" color="steel" class="mt-5 max-w-[54ch]" balance data-hero-animate data-hero-order="3">
+              {description}
+            </Text>
+          )}
+
+          {(primaryCta || secondaryCta) && (
+            <div data-hero-animate data-hero-order="4" class="mt-8 flex flex-wrap gap-4">
+              {primaryCta && (
+                <Button href={primaryCta.href} variant="primary" size="lg">
+                  {primaryCta.label}
+                </Button>
+              )}
+              {secondaryCta && (
+                <Button href={secondaryCta.href} variant="secondary" size="lg">
+                  {secondaryCta.label}
+                </Button>
+              )}
+            </div>
+          )}
+
+          {badges && badges.length > 0 && (
+            <div class="border-seam mt-8 flex flex-wrap gap-2 border-t pt-4">
+              {badges.map(badge => (
+                <Badge label={badge} variant="outline" size="sm" class="border-seam text-concrete" />
+              ))}
+            </div>
+          )}
+
+          <slot />
+        </div>
+
+        {hasRightSlot && (
+          <div class="justify-self-center lg:justify-self-end" data-hero-animate data-hero-order="5">
+            <slot name="right" />
+          </div>
         )}
+      </div>
+    </section>
+  )
+}
 
-        <Heading level={1} size="hero" class="text-concrete" data-hero-animate data-hero-order="1">{headline}</Heading>
-
-        {subheadline && (
-          <p data-hero-animate data-hero-order="2" class="mt-4 font-mono text-sm font-bold tracking-[0.1em] text-signal uppercase md:text-base">
-            {subheadline}
-          </p>
-        )}
-
+{
+  variant === 'minimal' && (
+    <section class={`section-py ${className}`}>
+      <div class="container max-w-3xl">
+        {eyebrow && <span class="text-signal-deep mb-3 block font-mono text-xs font-bold tracking-[0.18em] uppercase">{eyebrow}</span>}
+        <Heading level={1} size="xl">
+          {headline}
+        </Heading>
         {description && (
-          <Text size="lg" color="steel" class="mt-5 max-w-[54ch]" balance data-hero-animate data-hero-order="3">
+          <Text size="lg" class="mt-4" balance>
             {description}
           </Text>
         )}
-
-        {(primaryCta || secondaryCta) && (
-          <div data-hero-animate data-hero-order="4" class="mt-8 flex flex-wrap gap-4">
-            {primaryCta && <Button href={primaryCta.href} variant="primary" size="lg">{primaryCta.label}</Button>}
-            {secondaryCta && <Button href={secondaryCta.href} variant="secondary" size="lg">{secondaryCta.label}</Button>}
-          </div>
-        )}
-
-        {badges && badges.length > 0 && (
-          <div class="mt-8 flex flex-wrap gap-2 border-t border-seam pt-4">
-            {badges.map(badge => <Badge label={badge} variant="outline" size="sm" class="border-seam text-concrete" />)}
-          </div>
-        )}
-
         <slot />
       </div>
-
-      {hasRightSlot && (
-        <div class="justify-self-center lg:justify-self-end" data-hero-animate data-hero-order="5">
-          <slot name="right" />
-        </div>
-      )}
-    </div>
-  </section>
-)}
-
-{variant === 'minimal' && (
-  <section class={`section-py ${className}`}>
-    <div class="container max-w-3xl">
-      {eyebrow && (
-        <span class="mb-3 block font-mono text-xs font-bold tracking-[0.18em] text-signal-deep uppercase">
-          {eyebrow}
-        </span>
-      )}
-      <Heading level={1} size="xl">{headline}</Heading>
-      {description && (
-        <Text size="lg" class="mt-4" balance>{description}</Text>
-      )}
-      <slot />
-    </div>
-  </section>
-)}
+    </section>
+  )
+}
 
 <script>
   import { initHeroEntrance } from '@/lib/animations';

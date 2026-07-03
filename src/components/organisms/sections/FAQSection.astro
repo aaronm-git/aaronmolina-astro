@@ -20,15 +20,17 @@ const { eyebrow, title, faqs, class: className = '' } = Astro.props;
   <div class="container mx-auto max-w-[900px]">
     <SectionHeader eyebrow={eyebrow} title={title} class="mb-8" />
 
-    {faqs.map((faq, index) => (
-      <details class="group mb-3 rounded-sm border-2 border-ink bg-paper open:shadow-hard-sm">
-        <summary class="flex cursor-pointer list-none items-baseline gap-3 p-4 font-bold text-ink marker:content-none">
-          <span class="flex-none font-mono text-xs font-bold text-signal-deep">{String(index + 1).padStart(2, '0')}</span>
-          <span class="flex-1">{faq.question}</span>
-          <span class="flex-none font-mono text-lg transition-transform group-open:rotate-45">+</span>
-        </summary>
-        <p class="text-graphite max-w-[68ch] px-4 pb-4 pl-11 text-sm">{faq.answer}</p>
-      </details>
-    ))}
+    {
+      faqs.map((faq, index) => (
+        <details class="group border-ink bg-paper open:shadow-hard-sm mb-3 rounded-sm border-2">
+          <summary class="text-ink flex cursor-pointer list-none items-baseline gap-3 p-4 font-bold marker:content-none">
+            <span class="text-signal-deep flex-none font-mono text-xs font-bold">{String(index + 1).padStart(2, '0')}</span>
+            <span class="flex-1">{faq.question}</span>
+            <span class="flex-none font-mono text-lg transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <p class="text-graphite max-w-[68ch] px-4 pb-4 pl-11 text-sm">{faq.answer}</p>
+        </details>
+      ))
+    }
   </div>
 </section>

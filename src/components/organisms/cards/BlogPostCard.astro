@@ -22,17 +22,17 @@ const { post, techMap, showTags = false } = Astro.props;
       <a href={`/blog/${post.data.slug}`}>{post.data.title}</a>
     </Heading>
 
-    {post.data.publishDate && (
-      <time datetime={toISODateString(post.data.publishDate)} class="mb-3 block font-mono text-xs text-graphite uppercase">
-        {formatDate(post.data.publishDate, 'long')}
-      </time>
-    )}
+    {
+      post.data.publishDate && (
+        <time datetime={toISODateString(post.data.publishDate)} class="text-graphite mb-3 block font-mono text-xs uppercase">
+          {formatDate(post.data.publishDate, 'long')}
+        </time>
+      )
+    }
 
     {post.data.description && <p class="text-graphite mb-4 text-sm">{post.data.description}</p>}
 
-    {showTags && post.data.tags && post.data.tags.length > 0 && techMap && (
-      <TagList tags={post.data.tags} techMap={techMap} limit={3} size="sm" class="mb-4" />
-    )}
+    {showTags && post.data.tags && post.data.tags.length > 0 && techMap && <TagList tags={post.data.tags} techMap={techMap} limit={3} size="sm" class="mb-4" />}
   </div>
 
   <Link href={`/blog/${post.data.slug}`} variant="signal" size="sm" showArrow>Read More</Link>

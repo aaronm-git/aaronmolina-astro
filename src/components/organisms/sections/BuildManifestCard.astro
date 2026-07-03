@@ -31,34 +31,37 @@ const stampLabel: Record<ManifestEntry['stamp'], string> = {
 ---
 
 <div class={`w-full max-w-[460px] -rotate-[0.6deg] overflow-hidden rounded-md border-2 border-ink bg-paper shadow-[8px_8px_0_var(--color-signal)] ${className}`}>
-  <div class="flex items-baseline justify-between gap-3 bg-ink px-4 py-3">
-    <span class="font-mono text-xs font-bold tracking-[0.16em] text-signal uppercase">Build Manifest</span>
-    <span class="font-mono text-xs text-steel">Selected work</span>
+  <div class="bg-ink flex items-baseline justify-between gap-3 px-4 py-3">
+    <span class="text-signal font-mono text-xs font-bold tracking-[0.16em] uppercase">Build Manifest</span>
+    <span class="text-steel font-mono text-xs">Selected work</span>
   </div>
 
   <div>
-    {entries.map((entry, index) => (
-      <div class="grid grid-cols-[34px_1fr_auto] items-center gap-3 border-b border-concrete-2 px-4 py-3 last:border-b-2 last:border-ink">
-        <span class="font-mono text-xs font-bold text-graphite">{String(index + 1).padStart(2, '0')}</span>
-        <div>
-          <p class="text-sm font-bold text-ink">{entry.title}</p>
-          <p class="mt-0.5 font-mono text-[10.5px] tracking-[0.06em] text-graphite uppercase">{entry.meta}</p>
+    {
+      entries.map((entry, index) => (
+        <div class="border-concrete-2 last:border-ink grid grid-cols-[34px_1fr_auto] items-center gap-3 border-b px-4 py-3 last:border-b-2">
+          <span class="text-graphite font-mono text-xs font-bold">{String(index + 1).padStart(2, '0')}</span>
+          <div>
+            <p class="text-ink text-sm font-bold">{entry.title}</p>
+            <p class="text-graphite mt-0.5 font-mono text-[10.5px] tracking-[0.06em] uppercase">{entry.meta}</p>
+          </div>
+          <Badge label={stampLabel[entry.stamp]} variant={stampVariant[entry.stamp]} size="sm" />
         </div>
-        <Badge label={stampLabel[entry.stamp]} variant={stampVariant[entry.stamp]} size="sm" />
-      </div>
-    ))}
+      ))
+    }
   </div>
 
   <div class="bg-paper px-4 py-4">
     <div class="mb-2 flex items-baseline justify-between">
-      <span class="font-mono text-xs font-bold tracking-[0.14em] text-ink uppercase">{progressLabel}</span>
-      <span class="font-display text-xl font-black tabular-nums text-ink">{progressFraction}</span>
+      <span class="text-ink font-mono text-xs font-bold tracking-[0.14em] uppercase">{progressLabel}</span>
+      <span class="font-display text-ink text-xl font-black tabular-nums">{progressFraction}</span>
     </div>
-    <div class="h-4 overflow-hidden rounded-xs border-2 border-ink bg-concrete">
+    <div class="border-ink bg-concrete h-4 overflow-hidden rounded-xs border-2">
       <div
-        class="h-full border-r-2 border-ink"
+        class="border-ink h-full border-r-2"
         style={`width: ${progressPercent}%; background: repeating-linear-gradient(-45deg, var(--color-signal) 0 10px, oklch(78% 0.21 137) 10px 20px);`}
-      />
+      >
+      </div>
     </div>
   </div>
 </div>

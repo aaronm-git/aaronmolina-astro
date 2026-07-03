@@ -42,31 +42,41 @@ const spanClasses: Record<5 | 7 | 12, string> = {
     <SectionHeader eyebrow={eyebrow} title={title} description={description} class="mb-10" />
 
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-12">
-      {cards.map(card => (
-        <article
-          class={`col-span-1 flex flex-col gap-3 rounded-md border-2 p-6 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 ${spanClasses[card.span ?? 12]} ${
-            card.dark ? 'border-ink bg-ink text-concrete shadow-hard hover:shadow-[7px_7px_0_var(--color-signal)]' : 'border-ink bg-paper text-ink shadow-hard hover:shadow-[7px_7px_0_var(--color-ink)]'
-          }`}
-        >
-          <Badge label={card.phase} variant="phase" size="sm" class="self-start" />
-          <Heading level={3} size="base" class={card.dark ? 'text-concrete' : 'text-ink'}>{card.title}</Heading>
-          {card.description && (
-            <p class={`max-w-[46ch] text-sm ${card.dark ? 'text-steel' : 'text-graphite'}`}>{card.description}</p>
-          )}
+      {
+        cards.map(card => (
+          <article
+            class={`col-span-1 flex flex-col gap-3 rounded-md border-2 p-6 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 ${spanClasses[card.span ?? 12]} ${
+              card.dark
+                ? 'border-ink bg-ink text-concrete shadow-hard hover:shadow-[7px_7px_0_var(--color-signal)]'
+                : 'border-ink bg-paper text-ink shadow-hard hover:shadow-[7px_7px_0_var(--color-ink)]'
+            }`}
+          >
+            <Badge label={card.phase} variant="phase" size="sm" class="self-start" />
+            <Heading level={3} size="base" class={card.dark ? 'text-concrete' : 'text-ink'}>
+              {card.title}
+            </Heading>
+            {card.description && <p class={`max-w-[46ch] text-sm ${card.dark ? 'text-steel' : 'text-graphite'}`}>{card.description}</p>}
 
-          {card.statBoard && (
-            <div class="mt-auto grid grid-cols-3 gap-2 border-t border-seam pt-4">
-              {card.statBoard.map(stat => <StatItem value={stat.value} suffix={stat.suffix} label={stat.label} tone="dark" />)}
-            </div>
-          )}
+            {card.statBoard && (
+              <div class="border-seam mt-auto grid grid-cols-3 gap-2 border-t pt-4">
+                {card.statBoard.map(stat => (
+                  <StatItem value={stat.value} suffix={stat.suffix} label={stat.label} tone="dark" />
+                ))}
+              </div>
+            )}
 
-          {card.tags && (
-            <div class={`mt-auto flex flex-wrap gap-x-4 gap-y-2 border-t pt-3 font-mono text-xs font-bold tracking-[0.1em] uppercase ${card.dark ? 'border-seam text-steel' : 'border-concrete-2 text-graphite'}`}>
-              {card.tags.map(tag => <span>{tag}</span>)}
-            </div>
-          )}
-        </article>
-      ))}
+            {card.tags && (
+              <div
+                class={`mt-auto flex flex-wrap gap-x-4 gap-y-2 border-t pt-3 font-mono text-xs font-bold tracking-[0.1em] uppercase ${card.dark ? 'border-seam text-steel' : 'border-concrete-2 text-graphite'}`}
+              >
+                {card.tags.map(tag => (
+                  <span>{tag}</span>
+                ))}
+              </div>
+            )}
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>

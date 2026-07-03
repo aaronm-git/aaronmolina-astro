@@ -24,15 +24,13 @@ const variantClasses: Record<CardVariant, string> = {
   dark: 'bg-ink border-ink text-concrete',
 };
 
-const hoverClasses = hoverable
-  ? 'transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--color-ink)]'
-  : '';
+const hoverClasses = hoverable ? 'transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--color-ink)]' : '';
 
 const classes = `flex flex-col gap-3 rounded-md border-2 shadow-hard ${paddingClasses[padding]} ${variantClasses[variant]} ${hoverClasses} ${className}`;
 
 const Tag = href ? 'a' : 'div';
 ---
 
-<Tag class={classes} {...(href ? { href } : {})}>
+<Tag class={classes} {...href ? { href } : {}}>
   <slot />
 </Tag>

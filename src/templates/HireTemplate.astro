@@ -68,20 +68,7 @@ interface Props {
   cta: CTAProps;
 }
 
-const {
-  title,
-  description,
-  currentPath,
-  hero,
-  stats,
-  services,
-  servicePhaseTags,
-  features,
-  skills,
-  projects,
-  faq,
-  cta,
-} = Astro.props as Props;
+const { title, description, currentPath, hero, stats, services, servicePhaseTags, features, skills, projects, faq, cta } = Astro.props as Props;
 
 const bentoCards = services.items.map((item, i) => ({
   phase: servicePhaseTags[i] ?? 'Build',
@@ -110,27 +97,23 @@ const bentoCards = services.items.map((item, i) => ({
 
   <section class="section-py">
     <div class="container">
-      <h2 class="font-display mb-8 text-2xl font-black tracking-tight text-ink uppercase md:text-3xl">{features.title}</h2>
+      <h2 class="font-display text-ink mb-8 text-2xl font-black tracking-tight uppercase md:text-3xl">{features.title}</h2>
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {features.items.map(item => (
-          <div class="rounded-md border-2 border-ink bg-paper p-6 shadow-hard-sm">
-            <h3 class="mb-2 font-bold text-ink">{item.title}</h3>
-            <p class="text-graphite text-sm">{item.description}</p>
-          </div>
-        ))}
+        {
+          features.items.map(item => (
+            <div class="border-ink bg-paper shadow-hard-sm rounded-md border-2 p-6">
+              <h3 class="text-ink mb-2 font-bold">{item.title}</h3>
+              <p class="text-graphite text-sm">{item.description}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <SkillsSection eyebrow="Tools" title={skills.title} description={skills.subtitle} categories={skills.categories} techMap={skills.techMap} />
 
-  {projects.items.length > 0 && (
-    <ProjectsSection
-      title={projects.title}
-      projects={projects.items}
-      cta={{ label: projects.viewAllLabel, href: projects.viewAllHref }}
-    />
-  )}
+  {projects.items.length > 0 && <ProjectsSection title={projects.title} projects={projects.items} cta={{ label: projects.viewAllLabel, href: projects.viewAllHref }} />}
 
   <FAQSection eyebrow="Before you reach out" title={faq.title} faqs={faq.items} />
 

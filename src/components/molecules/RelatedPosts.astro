@@ -33,17 +33,19 @@ if (relatedPosts.length === 0) {
 ---
 
 <aside class={`border-t-2 border-seam pt-8 ${className}`}>
-  <h2 class="font-display mb-6 text-xl font-black tracking-tight text-ink uppercase">Related Articles</h2>
+  <h2 class="font-display text-ink mb-6 text-xl font-black tracking-tight uppercase">Related Articles</h2>
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {relatedPosts.map(post => (
-      <a
-        href={`/blog/${post.data.slug}`}
-        class="group rounded-sm border-2 border-ink bg-paper p-4 shadow-hard-sm transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_var(--color-ink)]"
-      >
-        <h3 class="mb-2 line-clamp-2 font-bold text-ink">{post.data.title}</h3>
-        {post.data.description && <p class="text-graphite mb-3 line-clamp-2 text-sm">{post.data.description}</p>}
-        <time class="text-graphite font-mono text-xs uppercase">{formatDate(post.data.publishDate!, 'short')}</time>
-      </a>
-    ))}
+    {
+      relatedPosts.map(post => (
+        <a
+          href={`/blog/${post.data.slug}`}
+          class="group border-ink bg-paper shadow-hard-sm rounded-sm border-2 p-4 transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_var(--color-ink)]"
+        >
+          <h3 class="text-ink mb-2 line-clamp-2 font-bold">{post.data.title}</h3>
+          {post.data.description && <p class="text-graphite mb-3 line-clamp-2 text-sm">{post.data.description}</p>}
+          <time class="text-graphite font-mono text-xs uppercase">{formatDate(post.data.publishDate!, 'short')}</time>
+        </a>
+      ))
+    }
   </div>
 </aside>

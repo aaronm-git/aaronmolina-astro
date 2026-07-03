@@ -53,6 +53,7 @@ const stats = hireContent.shared.stats.map(stat => ({
     subtitle: hireContent.headlessCms.services.subtitle,
     items: hireContent.headlessCms.services.items,
   }}
+  servicePhaseTags={['Build', 'Migrate', 'Extend', 'Scale']}
   features={{
     title: hireContent.headlessCms.features.title,
     items: hireContent.headlessCms.features.items,
@@ -64,14 +65,13 @@ const stats = hireContent.shared.stats.map(stat => ({
     techMap: techMap,
   }}
   projects={{
-    title: "Headless CMS Projects",
+    title: 'Headless CMS Projects',
     items: cmsProjects,
-    viewAllHref: "/projects",
-    viewAllLabel: "View all projects",
+    viewAllHref: '/projects',
+    viewAllLabel: 'View all projects',
   }}
   faq={{
-    title: "Frequently Asked Questions",
-    subtitle: "Common questions about headless CMS development",
+    title: 'Frequently Asked Questions',
     items: hireContent.shared.faq,
   }}
   cta={hireContent.shared.cta}

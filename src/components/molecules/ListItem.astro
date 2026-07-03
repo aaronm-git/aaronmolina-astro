@@ -11,7 +11,7 @@ interface Props {
   class?: string;
 }
 
-const { icon = 'check', size = 'base', tone = 'light', class: className = '' } = Astro.props;
+const { icon = 'check', size = 'base', tone = 'light', class: className = '' } = Astro.props as Props;
 
 const IconComponent = getCategoryIcon(icon);
 const textColor = tone === 'dark' ? 'text-steel' : 'text-graphite';

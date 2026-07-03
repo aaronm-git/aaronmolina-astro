@@ -1,100 +1,26 @@
 ---
-import Text from '@/components/atoms/Text.astro';
-import Icon from '@/components/atoms/Icon.astro';
-import { cn } from '@/lib/cn';
-import type { IconType } from 'react-icons';
-
-type StatAlign = 'left' | 'center' | 'right';
-type StatSize = 'sm' | 'base' | 'lg' | 'xl';
+type Tone = 'light' | 'dark';
 
 interface Props {
-  /** Stat value (number or string) */
   value: string | number;
-  /** Stat label */
-  label: string;
-  /** Optional prefix (e.g., "$", "+") */
-  prefix?: string;
-  /** Optional suffix (e.g., "%", "K") */
   suffix?: string;
-  /** Icon name */
-  icon?: string;
-  /** Direct icon component */
-  iconComponent?: IconType;
-  /** Alignment */
-  align?: StatAlign;
-  /** Size */
-  size?: StatSize;
-  /** Highlight value with primary color */
-  highlight?: boolean;
-  /** Additional CSS classes */
+  label: string;
+  tone?: Tone;
   class?: string;
 }
 
-const {
-  value,
-  label,
-  prefix,
-  suffix,
-  icon,
-  iconComponent,
-  align = 'left',
-  size = 'base',
-  highlight = false,
-  class: className = '',
-} = Astro.props;
+const { value, suffix = '', label, tone = 'dark', class: className = '' } = Astro.props;
 
-// Alignment classes
-const alignClasses: Record<StatAlign, string> = {
-  left: 'text-left items-start',
-  center: 'text-center items-center',
-  right: 'text-right items-end',
-};
-
-// Size mapping for value
-const valueSizeClasses: Record<StatSize, string> = {
-  sm: 'text-2xl',
-  base: 'text-3xl md:text-4xl',
-  lg: 'text-4xl md:text-5xl',
-  xl: 'text-5xl md:text-6xl',
-};
-
-// Icon size mapping
-const iconSizeMap: Record<StatSize, 'sm' | 'base' | 'lg' | 'xl' | '2xl'> = {
-  sm: 'base',
-  base: 'lg',
-  lg: 'xl',
-  xl: '2xl',
-};
-
-const combinedClasses = cn(
-  'flex flex-col',
-  alignClasses[align],
-  className,
-);
-
-const valueClasses = cn(
-  'font-bold tabular-nums',
-  valueSizeClasses[size],
-  highlight ? 'text-primary' : 'text-foreground',
-);
+const valueColor = tone === 'dark' ? 'text-signal' : 'text-signal-deep';
+const labelColor = tone === 'dark' ? 'text-steel' : 'text-graphite';
+const cellBg = tone === 'dark' ? 'bg-asphalt border-seam' : 'bg-paper border-ink';
 ---
 
-<div class={combinedClasses}>
-  {(icon || iconComponent) && (
-    <Icon
-      name={icon}
-      icon={iconComponent}
-      size={iconSizeMap[size]}
-      color={highlight ? 'primary' : 'secondary'}
-      class="mb-2"
-    />
-  )}
-  <div class={cn(valueClasses, 'relative inline-block')}>
-    {prefix && <span class="absolute top-1/2 -translate-y-1/2 right-full mr-1 text-foreground-muted">{prefix}</span>}
-    {value}
-    {suffix && <span class="absolute top-0 left-full ml-0.5 text-foreground-muted text-[0.6em]">{suffix}</span>}
+<div class={`rounded-xs border px-3 py-2 ${cellBg} ${className}`}>
+  <div class={`font-display text-2xl leading-none font-black tabular-nums ${valueColor}`}>
+    {value}{suffix}
   </div>
-  <Text size={size === 'sm' ? 'sm' : 'base'} color="muted" class="mt-1">
+  <div class={`mt-1 font-mono text-[10px] tracking-[0.12em] uppercase ${labelColor}`}>
     {label}
-  </Text>
+  </div>
 </div>

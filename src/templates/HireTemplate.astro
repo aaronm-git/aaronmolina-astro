@@ -11,6 +11,7 @@ import CTASection from '@/components/organisms/sections/CTASection.astro';
 import HireNavigationTabs from '@/components/molecules/HireNavigationTabs.astro';
 import type { TechMap } from '@/utils/tech-lookup';
 
+/** Content for the split-variant hero at the top of a hire page */
 interface HeroProps {
   headline: string;
   subheadline?: string;
@@ -20,32 +21,38 @@ interface HeroProps {
   secondaryCta?: { label: string; href: string };
 }
 
+/** A single figure shown in the stats strip (e.g. "10+ Years") */
 interface StatItem {
   value: string;
   suffix?: string;
   label: string;
 }
 
+/** A service offering rendered as one bento card in the "How I can help" grid */
 interface ServiceItem {
   title: string;
   description: string;
 }
 
+/** A single feature/benefit card in the two-column features grid */
 interface FeatureItem {
   title: string;
   description: string;
 }
 
+/** A named group of skills rendered in the skills section */
 interface SkillCategory {
   name: string;
   skills: string[];
 }
 
+/** A single question/answer pair in the FAQ accordion */
 interface FAQItem {
   question: string;
   answer: string;
 }
 
+/** Content for the closing call-to-action section */
 interface CTAProps {
   title: string;
   description?: string;
@@ -53,18 +60,36 @@ interface CTAProps {
   buttonHref: string;
 }
 
+/**
+ * Shared template for all `/hire/*` landing pages — composes the hire-page
+ * navigation tabs, hero, stats strip, services bento grid, a two-column
+ * features grid, skills section, optional featured-projects section, FAQ
+ * accordion, and closing CTA section.
+ */
 interface Props {
+  /** Page `<title>` */
   title: string;
+  /** Meta description */
   description?: string;
+  /** Current route, used to highlight the active tab in `HireNavigationTabs` */
   currentPath: string;
+  /** Hero section content */
   hero: HeroProps;
+  /** Figures shown in the stats strip */
   stats: StatItem[];
+  /** Services section heading, subheading, and bento card items */
   services: { title: string; subtitle?: string; items: ServiceItem[] };
+  /** Phase label applied to each service bento card, matched by index */
   servicePhaseTags: string[];
+  /** Features section heading and card items */
   features: { title: string; items: FeatureItem[] };
+  /** Skills section heading, subheading, categories, and tag lookup */
   skills: { title: string; subtitle?: string; categories: SkillCategory[]; techMap: TechMap };
+  /** Featured projects section heading, items, and "view all" link */
   projects: { title: string; items: CollectionEntry<'projects'>[]; viewAllHref: string; viewAllLabel: string };
+  /** FAQ section heading and items */
   faq: { title: string; items: FAQItem[] };
+  /** Closing CTA section content */
   cta: CTAProps;
 }
 

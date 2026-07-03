@@ -10,11 +10,22 @@ import RelatedPosts from '@/components/molecules/RelatedPosts.astro';
 import { formatDate, toISODateString } from '@/utils/date-format';
 import type { TechMap } from '@/utils/tech-lookup';
 
+/**
+ * Shared template for individual blog post pages — renders the post hero
+ * (title, description, publish/updated dates), the Markdown/MDX body via
+ * `<slot />`, a topics tag list, the author bio, a related-posts list
+ * (matched by shared tags), and a closing CTA section.
+ */
 interface Props {
+  /** The blog post content collection entry to render */
   post: CollectionEntry<'blog'>;
+  /** Full list of blog posts, used to find related posts by shared tags */
   allPosts?: CollectionEntry<'blog'>[];
+  /** Tag slug-to-label/icon lookup used by `TagList` */
   techMap?: TechMap;
+  /** Heading for the closing CTA section */
   ctaTitle?: string;
+  /** Supporting copy for the closing CTA section */
   ctaDescription?: string;
 }
 

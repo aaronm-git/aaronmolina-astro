@@ -1,4 +1,5 @@
 interface Props {
+  /** Called with the chip's prompt text when it is clicked */
   onPick: (prompt: string) => void;
 }
 

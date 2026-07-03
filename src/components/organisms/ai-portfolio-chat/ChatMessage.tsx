@@ -1,7 +1,9 @@
 import type { ChatMessage as ChatMessageType, LeadFlag } from './types';
 
 interface Props {
+  /** The message to render, including its role, content, and optional lead flag */
   message: ChatMessageType;
+  /** Called with the message's lead flag when "Email Aaron about this" is clicked */
   onForward?: (flag: LeadFlag) => void;
 }
 
@@ -13,8 +15,10 @@ const REASON_LABEL: Record<LeadFlag['reason'], string> = {
 };
 
 /**
- * Single chat bubble. Streams text incrementally and renders
- * an inline "Email Aaron about this" button when a lead flag is attached.
+ * Renders a single chat message bubble, styled differently for user vs.
+ * assistant. Shows a pulsing placeholder while an empty assistant message
+ * is still streaming in from the parent, and an inline "Email Aaron about
+ * this" callout with a forward button when a lead flag is attached.
  */
 export default function ChatMessage({ message, onForward }: Props) {
   const isUser = message.role === 'user';

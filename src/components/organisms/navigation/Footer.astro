@@ -6,6 +6,13 @@ import settings from '@/content/site/settings.json';
 import profile from '@/content/profile/profile.json';
 import homepageContent from '@/content/site/homepage.json';
 
+/**
+ * Site-wide footer — renders the brand mark and summary, a sitemap column,
+ * a "Hire Me" shortcuts column, and a bottom bar with the copyright line
+ * and social links. All content is sourced from the site JSON collections
+ * (navigation, footer, settings, profile, homepage), so this component
+ * takes no props.
+ */
 const hireLinks = [
   { label: 'Overview', href: '/hire' },
   { label: 'React Developer', href: '/hire/react-developer' },

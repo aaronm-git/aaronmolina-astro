@@ -11,10 +11,21 @@ import { Image } from 'astro:assets';
 import { FaGithub } from '@/lib/icons';
 import type { TechMap } from '@/utils/tech-lookup';
 
+/**
+ * Shared template for individual project detail pages — renders the project
+ * hero (title, summary, featured/completion badges, tech tags, live/repo
+ * links), an optional featured image, the Markdown/MDX body via `<slot />`,
+ * a "Project Details" fact box (completion date, URL, repo, technologies),
+ * and a closing CTA section.
+ */
 interface Props {
+  /** The project content collection entry to render */
   project: CollectionEntry<'projects'>;
+  /** Tag slug-to-label/icon lookup used by `TagList` */
   techMap?: TechMap;
+  /** Heading for the closing CTA section */
   ctaTitle?: string;
+  /** Supporting copy for the closing CTA section */
   ctaDescription?: string;
 }
 

@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 
 interface Props {
+  /** Whether the modal is visible */
   open: boolean;
+  /** Called when the modal should close (backdrop click or close button) */
   onClose: () => void;
 }
 
+/** Shape of the JSON fetched from `/api/system-prompt-preview.json` */
 type PreviewData = {
   systemPrompt: string;
   tools: unknown[];

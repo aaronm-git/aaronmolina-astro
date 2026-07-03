@@ -16,9 +16,11 @@ function makeId(): string {
 }
 
 /**
- * Root chat island. Owns conversation state, streams responses from
- * `/api/chat`, parses SSE events, and renders messages, suggested prompts,
- * and the lead-capture flow.
+ * Root chat island — owns all conversation state, POSTs to `/api/chat` and
+ * streams the SSE response (text deltas and lead flags) into the message
+ * list, enforces a per-conversation turn limit, and renders the message
+ * list, suggested prompts, the lead-capture modal, and the system-prompt
+ * transparency modal.
  */
 export default function PortfolioChat() {
   const [messages, setMessages] = useState<ChatMessageType[]>([]);

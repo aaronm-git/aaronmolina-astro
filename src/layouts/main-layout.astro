@@ -8,8 +8,17 @@ import settings from '@/content/site/settings.json';
 
 import favicon from '@/favicon_io/android-chrome-512x512.png';
 
+/**
+ * Base HTML layout used by every page — sets up `<head>` meta tags (Open
+ * Graph, Twitter Card, JSON-LD Person schema, Umami analytics), and renders
+ * the Header, path-based breadcrumbs, the page content via `<slot />`, and
+ * the Footer. Also wires up the GSAP scroll-reveal animations once the DOM
+ * is ready.
+ */
 export interface Props {
+  /** Page `<title>`, and OG/Twitter title; falls back to the site title */
   title?: string;
+  /** Meta description, and OG/Twitter description; falls back to the site description */
   description?: string;
 }
 

@@ -32,6 +32,17 @@ const trustedByLogos = new Map<string, ImageMetadata>([
   ['Corsair', CorsairLogo],
 ]);
 
+// Only render companies that actually have a logo asset registered above.
+// A future content edit could add a company name that isn't in the map yet,
+// so we filter defensively rather than asserting non-null.
+const trustedByCompanies = homepageContent.trustedBy.companies
+  .map(company => ({
+    name: company.name,
+    alt: company.alt,
+    logo: trustedByLogos.get(company.name),
+  }))
+  .filter((company): company is { name: string; alt: string; logo: ImageMetadata } => company.logo !== undefined);
+
 const posts = await getCollection('blog');
 const technologies = await getCollection('technologies');
 const techMap = createTechMap(technologies);
@@ -146,7 +157,12 @@ const bentoCards = [
 
 const howItWorksSteps = [
   { number: '01', tag: 'Discovery', title: 'Discover & propose', description: 'A discovery call to understand your goals, followed by a proposal with timeline and deliverables.' },
-  { number: '02', tag: 'Build', title: 'Build & communicate', description: 'Regular communication through your preferred channels, with demos at key milestones as the build progresses.' },
+  {
+    number: '02',
+    tag: 'Build',
+    title: 'Build & communicate',
+    description: 'Regular communication through your preferred channels, with demos at key milestones as the build progresses.',
+  },
   { number: '03', tag: 'Launch', title: 'Ship & support', description: 'Production deployment, then ongoing support so the handoff never feels like the end of the conversation.' },
 ];
 
@@ -216,19 +232,10 @@ const comparisonRows = [
   <TrustStripSection
     guaranteeText="Free discovery call on every project. No obligation, no sales pitch."
     badges={['TypeScript everywhere', 'AI-augmented workflow', '24hr Response Time', 'Remote US / Miami']}
-    companies={homepageContent.trustedBy.companies.map(company => ({
-      name: company.name,
-      alt: company.alt,
-      logo: trustedByLogos.get(company.name),
-    }))}
+    companies={trustedByCompanies}
   />
 
-  <FeaturesSection
-    eyebrow="Core capabilities"
-    title="Built around how production web work actually happens."
-    description={homepageContent.services.subtitle}
-    cards={bentoCards}
-  />
+  <FeaturesSection eyebrow="Core capabilities" title="Built around how production web work actually happens." description={homepageContent.services.subtitle} cards={bentoCards} />
 
   <HowItWorksSection eyebrow="The project, in order" title="One workflow from discovery call to shipped code." steps={howItWorksSteps} />
 
@@ -267,15 +274,17 @@ const comparisonRows = [
 
   <QuoteSection />
 
-  {recentPosts.length > 0 && (
-    <BlogSection
-      eyebrow="From the blog"
-      title={homepageContent.blog.title}
-      posts={recentPosts}
-      techMap={techMap}
-      cta={{ label: homepageContent.blog.viewAllLabel, href: homepageContent.blog.viewAllHref }}
-    />
-  )}
+  {
+    recentPosts.length > 0 && (
+      <BlogSection
+        eyebrow="From the blog"
+        title={homepageContent.blog.title}
+        posts={recentPosts}
+        techMap={techMap}
+        cta={{ label: homepageContent.blog.viewAllLabel, href: homepageContent.blog.viewAllHref }}
+      />
+    )
+  }
 
   <FAQSection eyebrow="Before you reach out" title="Common questions" faqs={hireContent.shared.faq} />
 

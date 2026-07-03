@@ -81,7 +81,7 @@ export default function LeadCaptureModal({ open, flag, conversationId, onClose, 
                 type="text"
                 value={visitorName}
                 onChange={e => setVisitorName(e.target.value)}
-                className="border-ink bg-concrete text-ink w-full rounded-sm border-2 px-3 py-2 text-sm focus:outline-none"
+                className="border-ink bg-concrete text-ink focus-visible:outline-signal w-full rounded-sm border-2 px-3 py-2 text-sm focus-visible:outline-3 focus-visible:outline-offset-2"
                 maxLength={120}
               />
             </div>
@@ -92,7 +92,7 @@ export default function LeadCaptureModal({ open, flag, conversationId, onClose, 
                 required
                 value={visitorEmail}
                 onChange={e => setVisitorEmail(e.target.value)}
-                className="border-ink bg-concrete text-ink w-full rounded-sm border-2 px-3 py-2 text-sm focus:outline-none"
+                className="border-ink bg-concrete text-ink focus-visible:outline-signal w-full rounded-sm border-2 px-3 py-2 text-sm focus-visible:outline-3 focus-visible:outline-offset-2"
                 maxLength={254}
               />
             </div>
@@ -103,7 +103,7 @@ export default function LeadCaptureModal({ open, flag, conversationId, onClose, 
                 required
                 value={subject}
                 onChange={e => setSubject(e.target.value)}
-                className="border-ink bg-concrete text-ink w-full rounded-sm border-2 px-3 py-2 text-sm focus:outline-none"
+                className="border-ink bg-concrete text-ink focus-visible:outline-signal w-full rounded-sm border-2 px-3 py-2 text-sm focus-visible:outline-3 focus-visible:outline-offset-2"
                 maxLength={200}
               />
             </div>
@@ -114,7 +114,7 @@ export default function LeadCaptureModal({ open, flag, conversationId, onClose, 
                 value={body}
                 onChange={e => setBody(e.target.value)}
                 rows={6}
-                className="border-ink bg-concrete text-ink w-full rounded-sm border-2 px-3 py-2 text-sm focus:outline-none"
+                className="border-ink bg-concrete text-ink focus-visible:outline-signal w-full rounded-sm border-2 px-3 py-2 text-sm focus-visible:outline-3 focus-visible:outline-offset-2"
                 maxLength={4000}
               />
             </div>

@@ -72,7 +72,7 @@
     @apply text-ink;
 
     h1 {
-      @apply font-display mt-8 mb-6 border-b-2 border-ink pb-2 text-3xl uppercase md:text-4xl;
+      @apply font-display border-ink mt-8 mb-6 border-b-2 pb-2 text-3xl uppercase md:text-4xl;
     }
     h2 {
       @apply font-display mt-8 mb-4 text-2xl uppercase md:text-3xl;
@@ -102,23 +102,23 @@
       @apply bg-concrete-2 border-signal-deep text-graphite my-6 rounded-sm border-l-4 p-4 italic;
     }
     table {
-      @apply my-6 w-full border-2 border-ink;
+      @apply border-ink my-6 block w-full overflow-x-auto border-2;
     }
     th {
-      @apply bg-concrete-2 border-2 border-ink p-3 text-left text-sm font-bold uppercase;
+      @apply bg-concrete-2 border-ink border-2 p-3 text-left text-sm font-bold uppercase;
     }
     td {
-      @apply text-graphite border-2 border-ink p-3;
+      @apply text-graphite border-ink border-2 p-3;
     }
     hr {
       @apply my-8 h-3 border-0;
       background: repeating-linear-gradient(-45deg, var(--color-signal) 0 10px, var(--color-ink) 10px 20px);
     }
     code {
-      @apply bg-concrete-2 border-ink font-mono rounded-xs border-2 px-2 py-0.5 text-sm;
+      @apply bg-concrete-2 border-ink rounded-xs border-2 px-2 py-0.5 font-mono text-sm;
     }
     pre {
-      @apply bg-ink border-ink text-concrete font-mono shadow-hard my-6 overflow-x-auto rounded-sm border-2 p-4 text-sm;
+      @apply bg-ink border-ink text-concrete shadow-hard my-6 overflow-x-auto rounded-sm border-2 p-4 font-mono text-sm;
 
       code {
         @apply border-0 bg-transparent p-0;

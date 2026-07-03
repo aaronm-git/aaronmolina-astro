@@ -178,7 +178,7 @@ export default function PortfolioChat() {
             placeholder={limitReached ? 'Conversation limit reached. Email aaron@pagelyft.studio.' : 'Type your question...'}
             disabled={streaming || limitReached}
             maxLength={MAX_INPUT_LENGTH}
-            className="border-ink bg-paper text-ink placeholder:text-graphite flex-1 rounded-sm border-2 px-4 py-2 text-sm focus:outline-none disabled:opacity-50"
+            className="border-ink bg-paper text-ink placeholder:text-graphite focus-visible:outline-signal flex-1 rounded-sm border-2 px-4 py-2 text-sm focus-visible:outline-3 focus-visible:outline-offset-2 disabled:opacity-50"
           />
           <button
             type="submit"

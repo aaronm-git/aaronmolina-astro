@@ -19,7 +19,8 @@ interface Props {
 
 const { label, name, type = 'text', required = false, placeholder, rows = 5, options = [], class: className = '' } = Astro.props;
 
-const fieldClasses = 'w-full rounded-sm border-2 border-ink bg-paper px-3 py-2.5 text-sm text-ink placeholder:text-graphite focus:outline-none';
+const fieldClasses =
+  'w-full rounded-sm border-2 border-ink bg-paper px-3 py-2.5 text-sm text-ink placeholder:text-graphite focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-signal';
 ---
 
 <div class={className}>

@@ -4,6 +4,7 @@ import HeroSection from '@/components/organisms/sections/HeroSection.astro';
 import StatsSection from '@/components/organisms/sections/StatsSection.astro';
 import SkillsSection from '@/components/organisms/sections/SkillsSection.astro';
 import SkillsShowcase from '@/components/organisms/sections/SkillsShowcase';
+import { PortfolioChat } from '@/components/organisms/ai-portfolio-chat';
 import ServicesSection from '@/components/organisms/sections/ServicesSection.astro';
 import FeaturesSection from '@/components/organisms/sections/FeaturesSection.astro';
 import ProjectsSection from '@/components/organisms/sections/ProjectsSection.astro';
@@ -154,6 +155,18 @@ const statsItems = homepageContent.stats.items.map(item => ({
       <Badge label={homepageContent.hero.availability} variant="secondary" size="base" class="tactile-tag-featured font-extrabold" />
     </div>
   </HeroSection>
+
+  <!-- AI Portfolio Chat Section -->
+  <section class="section-py">
+    <div class="container">
+      <SectionHeader
+        title="Ask my portfolio anything"
+        subtitle="A working AI demo. The bot itself is the proof of work, grounded in this site's content."
+        align="center"
+      />
+      <PortfolioChat client:idle />
+    </div>
+  </section>
 
   <!-- Stats Section -->
   <StatsSection

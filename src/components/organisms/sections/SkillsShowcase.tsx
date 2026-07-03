@@ -389,7 +389,7 @@ export default function SkillsShowcase({ skills }: Props) {
               <button
                 key={skill.slug}
                 onClick={() => setActiveSkill(skill)}
-                className="skill-icon group border-ink bg-paper relative flex h-16 w-16 items-center justify-center rounded-md border-2 transition-transform duration-200 hover:scale-110 focus:outline-none active:scale-95 md:h-20 md:w-20"
+                className="skill-icon group border-ink bg-paper focus-visible:outline-signal relative flex h-16 w-16 items-center justify-center rounded-md border-2 transition-transform duration-200 hover:scale-110 focus-visible:outline-3 focus-visible:outline-offset-2 active:scale-95 md:h-20 md:w-20"
                 style={{
                   boxShadow: isExpert ? undefined : '0 4px 0 0 var(--color-ink)',
                   cursor: 'pointer',

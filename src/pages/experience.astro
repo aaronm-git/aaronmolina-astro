@@ -2,26 +2,24 @@
 import MainLayout from '@/layouts/main-layout.astro';
 import HeroSection from '@/components/organisms/sections/HeroSection.astro';
 import ExperienceSection from '@/components/organisms/sections/ExperienceSection.astro';
-import FeaturesSection from '@/components/organisms/sections/FeaturesSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
-import SectionHeader from '@/components/molecules/SectionHeader.astro';
 import InfoBox from '@/components/molecules/InfoBox.astro';
 import ListItem from '@/components/molecules/ListItem.astro';
 import { getCollection } from 'astro:content';
 import homepageContent from '@/content/site/homepage.json';
 import pages from '@/content/site/pages.json';
+import cta from '@/content/site/cta.json';
 
 const roles = await getCollection('roles');
 const organizations = await getCollection('organizations');
-const orgBySlug = new Map(organizations.map((o) => [o.data.slug, o]));
+const orgBySlug = new Map(organizations.map(o => [o.data.slug, o]));
 const now = Date.now();
 
 const sortedRoles = roles
-  .filter((r) => r.data.isActive !== false)
+  .filter(r => r.data.isActive !== false)
   .sort((a, b) => {
     const aCurrent = Boolean(a.data.current);
     const bCurrent = Boolean(b.data.current);
-
     if (aCurrent && bCurrent) {
       const aDuration = (a.data.endDate?.getTime() ?? now) - a.data.startDate.getTime();
       const bDuration = (b.data.endDate?.getTime() ?? now) - b.data.startDate.getTime();
@@ -30,76 +28,40 @@ const sortedRoles = roles
       if (aCurrent && !bCurrent) return -1;
       if (!aCurrent && bCurrent) return 1;
     }
-
     if ((a.data.sortOrder ?? 0) !== (b.data.sortOrder ?? 0)) return (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0);
     return b.data.startDate.getTime() - a.data.startDate.getTime();
   });
 
 const yearsOfExperience = new Date().getFullYear() - homepageContent.yearsOfExperienceStartYear;
 const experienceSubheading = pages.experience.subheadingTemplate.replaceAll('{yearsOfExperience}', String(yearsOfExperience));
-
-// Build features from core competencies for FeaturesSection
-const competencyFeatures = pages.experience.coreCompetencies.map((item: { title: string; description?: string }, idx: number) => ({
-  icon: ['code', 'rocket', 'bolt', 'users', 'lightbulb', 'globe'][idx] || 'code',
-  title: item.title,
-  description: item.description || '',
-}));
 ---
 
 <MainLayout title={pages.experience.metaTitle} description={pages.experience.metaDescription}>
-  <HeroSection
-    variant="minimal"
-    headline={pages.experience.heading}
-    subheadline={experienceSubheading}
-    description={pages.experience.intro}
-    class="py-8 text-center"
-  />
+  <HeroSection variant="minimal" eyebrow={experienceSubheading} headline={pages.experience.heading} description={pages.experience.intro} />
 
-  <ExperienceSection
-    title={pages.experience.workExperienceTitle}
-    roles={sortedRoles}
-    organizations={orgBySlug}
-    variant="cards"
-    showAllDetails
-    class="mb-8"
-  />
+  <ExperienceSection title={pages.experience.workExperienceTitle} roles={sortedRoles} organizations={orgBySlug} showAllDetails />
 
-  <!-- Career Highlights -->
   <section class="section-py">
     <div class="container">
-    <SectionHeader title={pages.experience.careerHighlightsTitle} icon="award" />
+      <h2 class="font-display mb-8 text-2xl font-black tracking-tight text-ink uppercase md:text-3xl">
+        {pages.experience.careerHighlightsTitle}
+      </h2>
 
-    <div class="grid gap-8 md:grid-cols-2">
-      <InfoBox title={pages.experience.keyAchievementsTitle} icon="star" variant="surface">
-        <ul class="space-y-3">
-          {
-            roles
-              .flatMap(r => r.data.achievements)
-              .slice(0, 6)
-              .map(achievement => (
-                <ListItem icon="check" iconColor="secondary">
-                  {achievement}
-                </ListItem>
-              ))
-          }
-        </ul>
-      </InfoBox>
+      <div class="grid gap-6 md:grid-cols-2">
+        <InfoBox title={pages.experience.keyAchievementsTitle}>
+          <ul class="space-y-3">
+            {roles.flatMap(r => r.data.achievements).slice(0, 6).map(achievement => <ListItem icon="check">{achievement}</ListItem>)}
+          </ul>
+        </InfoBox>
 
-      <InfoBox title={pages.experience.coreCompetenciesTitle} icon="lightbulb" variant="surface">
-        <ul class="space-y-3">
-          {pages.experience.coreCompetencies.map((item: { title: string }, idx: number) => {
-            const iconName = ['code', 'rocket', 'bolt', 'users', 'lightbulb', 'globe'][idx] || 'code';
-            return (
-              <ListItem icon={iconName} iconColor="secondary">
-                {item.title}
-              </ListItem>
-            );
-          })}
-        </ul>
-      </InfoBox>
-    </div>
+        <InfoBox title={pages.experience.coreCompetenciesTitle}>
+          <ul class="space-y-3">
+            {pages.experience.coreCompetencies.map(item => <ListItem icon="check">{item.title}</ListItem>)}
+          </ul>
+        </InfoBox>
+      </div>
     </div>
   </section>
 
-  <CTASection />
+  <CTASection title={cta.title} description={cta.description} buttonLabel={cta.buttonLabel} buttonHref={cta.buttonHref} />
 </MainLayout>

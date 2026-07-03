@@ -87,9 +87,10 @@ const breadcrumbs = generateBreadcrumbs(Astro.url.pathname);
     <Footer />
 
     <script>
-      import { initScrollReveal } from '@/lib/animations';
+      import { initScrollReveal, initSectionReveal } from '@/lib/animations';
       document.addEventListener('DOMContentLoaded', () => {
         initScrollReveal();
+        initSectionReveal();
       });
     </script>
   </body>

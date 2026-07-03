@@ -1,5 +1,5 @@
 /**
- * GSAP Animation Utilities for Tactile Maximalism
+ * GSAP Animation Utilities for the Industrial Grotesk design system
  * Scroll-triggered reveals and entrance animations
  */
 
@@ -17,7 +17,7 @@ export function initScrollReveal(): void {
 
   if (revealElements.length === 0) return;
 
-  revealElements.forEach((el) => {
+  revealElements.forEach(el => {
     gsap.fromTo(
       el,
       { opacity: 0, y: 30 },
@@ -31,74 +31,38 @@ export function initScrollReveal(): void {
           start: 'top 85%',
           toggleActions: 'play none none none',
         },
-      }
+      },
     );
   });
 }
 
 /**
- * Initialize floating tech showcase animation
- * Staggered entrance followed by continuous organic floating motion
+ * Initialize scroll-triggered reveal for every top-level `<section>` on the
+ * page. Sections that already run their own entrance timeline (currently
+ * only the split-variant `HeroSection`, marked via `[data-hero-animate]`
+ * children) are skipped so the two animations don't stack.
  */
-export function initTechShowcase(): void {
-  const container = document.querySelector('[data-tech-showcase]');
-  if (!container) return;
+export function initSectionReveal(): void {
+  const sections = document.querySelectorAll('main > section:not(:has([data-hero-animate]))');
 
-  const icons = container.querySelectorAll('[data-tech-float]');
-  if (icons.length === 0) return;
+  if (sections.length === 0) return;
 
-  // Entrance: staggered scale-up and fade-in from random order
-  gsap.fromTo(
-    Array.from(icons),
-    { opacity: 0, scale: 0.3, y: 30 },
-    {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      duration: 0.5,
-      ease: 'back.out(1.4)',
-      stagger: {
-        amount: 0.8,
-        from: 'random',
+  sections.forEach(el => {
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
       },
-    }
-  );
-
-  // Continuous floating: independent tweens per icon for organic motion
-  icons.forEach((icon) => {
-    const speed = parseFloat(
-      (icon as HTMLElement).dataset.floatSpeed ?? '1'
     );
-    const baseDuration = 3 + Math.random() * 2;
-
-    // Vertical float
-    gsap.to(icon, {
-      y: `+=${8 + Math.random() * 12}`,
-      duration: baseDuration * speed,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-    });
-
-    // Horizontal drift
-    gsap.to(icon, {
-      x: `+=${4 + Math.random() * 8}`,
-      duration: (baseDuration + 1) * speed,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-      delay: Math.random() * 2,
-    });
-
-    // Subtle rotation oscillation
-    gsap.to(icon, {
-      rotation: `+=${2 + Math.random() * 4}`,
-      duration: (baseDuration + 2) * speed,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-      delay: Math.random(),
-    });
   });
 }
 

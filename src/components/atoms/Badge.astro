@@ -1,10 +1,18 @@
 ---
 type BadgeVariant = 'default' | 'phase' | 'outline' | 'stamp-done' | 'stamp-pending' | 'stamp-review';
 
+/**
+ * Small pill-shaped label atom for status, category, and phase tags across the site.
+ * Renders as a `<span>` — not interactive.
+ */
 interface Props {
+  /** Text displayed inside the badge */
   label: string;
+  /** Visual style variant */
   variant?: BadgeVariant;
+  /** Size in the type scale */
   size?: 'sm' | 'base';
+  /** Additional CSS classes */
   class?: string;
 }
 

@@ -1,9 +1,16 @@
 ---
 type Variant = 'paper' | 'muted';
 
+/**
+ * Molecule for a bordered callout box with an optional heading, used to
+ * group related info or checklist content within a section.
+ */
 interface Props {
+  /** Optional heading rendered above the slotted content */
   title?: string;
+  /** Visual style variant */
   variant?: Variant;
+  /** Additional CSS classes */
   class?: string;
 }
 

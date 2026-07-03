@@ -1,9 +1,17 @@
 ---
 type HeadingSize = 'sm' | 'base' | 'lg' | 'xl' | '2xl' | 'hero';
 
+/**
+ * Display heading atom in the Archivo Black type scale.
+ * `level` controls the semantic HTML tag rendered (`h1`-`h6`), while `size`
+ * controls the visual size independently, so heading level and appearance can differ.
+ */
 interface Props {
+  /** Semantic heading level; determines which `h1`-`h6` tag is rendered */
   level: 1 | 2 | 3 | 4 | 5 | 6;
+  /** Visual size in the type scale, independent of semantic `level` */
   size?: HeadingSize;
+  /** Additional CSS classes */
   class?: string;
 }
 

@@ -2,11 +2,20 @@
 type CardVariant = 'light' | 'dark';
 type CardPadding = 'none' | 'sm' | 'base' | 'lg';
 
+/**
+ * Generic content-container molecule with the hard-shadow neo-brutalist
+ * card styling. Renders as an `<a>` when `href` is passed, otherwise a `<div>`.
+ */
 interface Props {
+  /** Visual style variant */
   variant?: CardVariant;
+  /** Inner padding size */
   padding?: CardPadding;
+  /** Destination URL; when set, the component renders as an `<a>` instead of a `<div>` */
   href?: string;
+  /** Applies the hover lift/shadow transition */
   hoverable?: boolean;
+  /** Additional CSS classes */
   class?: string;
 }
 

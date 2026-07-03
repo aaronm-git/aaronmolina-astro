@@ -1,12 +1,22 @@
 ---
 type Tone = 'light' | 'dark';
 
+/**
+ * Molecule for a page-section intro: optional eyebrow label, heading, and
+ * description, styled for the alternating dark/light section rhythm.
+ */
 interface Props {
+  /** Small label rendered above the title */
   eyebrow?: string;
+  /** Section heading */
   title: string;
+  /** Supporting copy rendered below the title */
   description?: string;
+  /** Text alignment of the header block */
   align?: 'left' | 'center';
+  /** Tone of the section this header sits in, controls text color */
   tone?: Tone;
+  /** Additional CSS classes */
   class?: string;
 }
 

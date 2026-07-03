@@ -1,8 +1,14 @@
 ---
 import type { BreadcrumbItem } from '@/utils/breadcrumbs';
 
+/**
+ * Molecule rendering a breadcrumb trail plus a matching `BreadcrumbList`
+ * JSON-LD schema for SEO. Renders nothing if `items` is empty.
+ */
 interface Props {
+  /** Breadcrumb trail items, in display order from root to current page */
   items: BreadcrumbItem[];
+  /** Additional CSS classes */
   class?: string;
 }
 

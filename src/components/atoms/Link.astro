@@ -3,12 +3,22 @@ import { FaArrowRight } from '@/lib/icons';
 
 type LinkVariant = 'signal' | 'muted' | 'ink';
 
+/**
+ * Inline text link atom, styled as an underlined uppercase mono link.
+ * Renders as an `<a>` with an optional trailing arrow icon.
+ */
 interface Props {
+  /** Destination URL */
   href: string;
+  /** Visual style variant */
   variant?: LinkVariant;
+  /** Size in the type scale */
   size?: 'sm' | 'base';
+  /** Renders a trailing arrow icon after the slotted label */
   showArrow?: boolean;
+  /** Opens the link in a new tab with `rel="noopener noreferrer"` */
   external?: boolean;
+  /** Additional CSS classes */
   class?: string;
 }
 

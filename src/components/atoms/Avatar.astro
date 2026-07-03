@@ -2,11 +2,21 @@
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 
+/**
+ * Circular/square avatar atom for a person's photo, with an initials fallback.
+ * Renders an Astro-optimized `<Image>` for local assets, a plain `<img>` for
+ * string URLs, or a signal-colored initials badge when no `src` is given.
+ */
 interface Props {
+  /** Image source: an Astro `ImageMetadata` for optimized local assets, or a plain URL string */
   src?: ImageMetadata | string;
+  /** Alt text for the rendered image */
   alt?: string;
+  /** Full name used to derive the initials shown when no `src` is provided */
   name?: string;
+  /** Size in the type scale */
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** Additional CSS classes */
   class?: string;
 }
 

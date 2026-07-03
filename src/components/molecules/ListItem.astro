@@ -4,10 +4,18 @@ import { getCategoryIcon } from '@/lib/icons';
 
 type Tone = 'light' | 'dark';
 
+/**
+ * Molecule rendering a checklist-style `<li>` with a leading category icon
+ * and slotted text. Meant to be used inside a `<ul>`/`<ol>`.
+ */
 interface Props {
+  /** Category key resolved to an icon via `getCategoryIcon`; no icon renders if it can't be resolved */
   icon?: string;
+  /** Size in the type scale */
   size?: 'sm' | 'base';
+  /** Tone of the surface this item sits on, controls text color */
   tone?: Tone;
+  /** Additional CSS classes */
   class?: string;
 }
 

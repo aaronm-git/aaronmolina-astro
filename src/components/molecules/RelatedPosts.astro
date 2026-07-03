@@ -2,11 +2,21 @@
 import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '@/utils/date-format';
 
+/**
+ * Molecule that surfaces related blog posts based on shared tags, ranked by
+ * tag overlap then recency. Renders nothing if no related posts are found
+ * or if publishDate is missing/in the future.
+ */
 interface Props {
+  /** Slug of the post being viewed; excluded from the related list */
   currentSlug: string;
+  /** Tags of the post being viewed, used to score candidate posts by overlap */
   currentTags: string[];
+  /** Full pool of blog posts to consider as related-post candidates */
   posts: CollectionEntry<'blog'>[];
+  /** Maximum number of related posts to render */
   maxPosts?: number;
+  /** Additional CSS classes */
   class?: string;
 }
 

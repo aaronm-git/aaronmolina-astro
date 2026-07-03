@@ -1,19 +1,34 @@
 ---
 type FieldType = 'text' | 'email' | 'textarea' | 'select';
 
+/** A single selectable choice rendered as an `<option>` when `type` is `'select'` */
 interface Option {
+  /** Value submitted for this option */
   value: string;
+  /** Text displayed for this option */
   label: string;
 }
 
+/**
+ * Molecule pairing a `<label>` with a form control, rendered as an input,
+ * textarea, or select depending on `type`. Used to build the Contact form.
+ */
 interface Props {
+  /** Text displayed in the `<label>` */
   label: string;
+  /** Form control `name`/`id` attribute */
   name: string;
+  /** Which form control to render */
   type?: FieldType;
+  /** Marks the field as required for form submission */
   required?: boolean;
+  /** Placeholder text for text/email/textarea; used as the blank default option's label when `type` is `'select'` */
   placeholder?: string;
+  /** Number of visible rows; only applies when `type` is `'textarea'` */
   rows?: number;
+  /** Choices to render; only applies when `type` is `'select'` */
   options?: Option[];
+  /** Additional CSS classes */
   class?: string;
 }
 

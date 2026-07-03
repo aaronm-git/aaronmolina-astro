@@ -2,12 +2,22 @@
 type TextTag = 'p' | 'span' | 'div' | 'label' | 'time';
 type TextColor = 'ink' | 'graphite' | 'steel' | 'signal' | 'signal-deep';
 
+/**
+ * General-purpose body text atom for the IBM Plex Mono/body type scale.
+ * Polymorphic: renders whichever HTML tag `as` specifies.
+ */
 interface Props {
+  /** HTML tag rendered for the text */
   as?: TextTag;
+  /** Size in the type scale */
   size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl';
+  /** Font weight */
   weight?: 'normal' | 'medium' | 'semibold' | 'bold';
+  /** Token color to apply */
   color?: TextColor;
+  /** Applies `text-balance` for more even line wrapping */
   balance?: boolean;
+  /** Additional CSS classes */
   class?: string;
 }
 

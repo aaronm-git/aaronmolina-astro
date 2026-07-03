@@ -3,8 +3,16 @@ import Avatar from '@/components/atoms/Avatar.astro';
 import Button from '@/components/atoms/Button.astro';
 import settings from '@/content/site/settings.json';
 
+/**
+ * Molecule that composes the Avatar and Button atoms into the site author's
+ * bio card, sourcing copy from `content/site/settings.json`.
+ * `default` shows the full bio with two CTAs; `compact` is a condensed
+ * inline row (avatar, name/title, single CTA) for tighter layouts.
+ */
 interface Props {
+  /** Layout variant: full bio card or condensed inline row */
   variant?: 'default' | 'compact';
+  /** Additional CSS classes */
   class?: string;
 }
 

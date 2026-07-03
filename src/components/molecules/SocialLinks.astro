@@ -3,6 +3,7 @@ import SocialLink from './SocialLink.astro';
 
 type Tone = 'light' | 'dark';
 
+/** Data for a single social link rendered by the `SocialLink` atom */
 interface SocialLinkData {
   platform: string;
   url: string;
@@ -10,9 +11,15 @@ interface SocialLinkData {
   ariaLabel?: string;
 }
 
+/**
+ * Molecule rendering a row of `SocialLink` icons from a list of platform/url data.
+ */
 interface Props {
+  /** Social links to render, in order */
   links: SocialLinkData[];
+  /** Tone of the surface this row sits on, passed through to each icon */
   tone?: Tone;
+  /** Additional CSS classes */
   class?: string;
 }
 

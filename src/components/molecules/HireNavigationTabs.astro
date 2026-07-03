@@ -1,11 +1,19 @@
 ---
+/** A single navigation tab: its label and destination */
 interface Tab {
   label: string;
   href: string;
 }
 
+/**
+ * Molecule rendering the pill-style navigation tabs across the Hire
+ * sub-pages (Overview, React, Next.js, Headless CMS), highlighting whichever
+ * tab matches the current page.
+ */
 interface Props {
+  /** Current page pathname, used to determine which tab is marked active */
   currentPath: string;
+  /** Additional CSS classes */
   class?: string;
 }
 

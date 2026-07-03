@@ -4,16 +4,30 @@ import type { IconType } from '@/lib/icons';
 type ButtonVariant = 'primary' | 'secondary' | 'ink' | 'ghost-ink';
 type ButtonSize = 'sm' | 'base' | 'lg' | 'xl';
 
+/**
+ * Primary call-to-action atom with the hard-offset-shadow press interaction.
+ * Renders as an `<a>` when `href` is passed, otherwise a `<button>`.
+ */
 interface Props {
+  /** Destination URL; when set, the component renders as an `<a>` instead of a `<button>` */
   href?: string;
+  /** Native button `type` attribute, used only when rendering as a `<button>` */
   type?: 'button' | 'submit' | 'reset';
+  /** Visual style variant */
   variant?: ButtonVariant;
+  /** Size in the type scale */
   size?: ButtonSize;
+  /** Icon component rendered alongside the slotted label */
   icon?: IconType;
+  /** Side of the label the icon renders on */
   iconPosition?: 'left' | 'right';
+  /** Opens the link in a new tab with `rel="noopener noreferrer"`; only applies when `href` is set */
   external?: boolean;
+  /** Stretches the button to fill its container's width */
   fullWidth?: boolean;
+  /** Disables the button; only applies when rendering as a `<button>` */
   disabled?: boolean;
+  /** Additional CSS classes */
   class?: string;
 }
 

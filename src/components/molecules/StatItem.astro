@@ -1,11 +1,20 @@
 ---
 type Tone = 'light' | 'dark';
 
+/**
+ * Molecule for a single stat/metric tile (big value + small label), used
+ * in stat rows and grids.
+ */
 interface Props {
+  /** Stat value displayed prominently */
   value: string | number;
+  /** Unit or symbol appended directly after the value (e.g. `'+'`, `'%'`) */
   suffix?: string;
+  /** Label describing the stat, rendered below the value */
   label: string;
+  /** Tone of the surface this tile sits on, controls color scheme */
   tone?: Tone;
+  /** Additional CSS classes */
   class?: string;
 }
 

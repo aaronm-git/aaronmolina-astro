@@ -1,7 +1,14 @@
 ---
+/**
+ * Loading placeholder atom: a pulsing bordered block that stands in for
+ * content while it loads. Purely decorative (`aria-hidden`).
+ */
 interface Props {
+  /** CSS width value (e.g. `'100%'`, `'4rem'`) */
   width?: string;
+  /** CSS height value (e.g. `'1rem'`) */
   height?: string;
+  /** Additional CSS classes */
   class?: string;
 }
 

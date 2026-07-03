@@ -3,12 +3,22 @@ import { getSocialIcon } from '@/lib/icons';
 
 type Tone = 'light' | 'dark';
 
+/**
+ * Molecule for a single social-platform icon link.
+ * Renders nothing if `platform` can't be resolved to a known icon via `getSocialIcon`.
+ */
 interface Props {
+  /** Platform key resolved to an icon via `getSocialIcon` (e.g. `'github'`, `'linkedin'`) */
   platform: string;
+  /** Destination URL, opened in a new tab */
   url: string;
+  /** Accessible label for the link; falls back to `label`, then `platform`, if omitted */
   ariaLabel?: string;
+  /** Display label used as an `aria-label` fallback when `ariaLabel` isn't provided */
   label?: string;
+  /** Tone of the surface this link sits on, controls icon color */
   tone?: Tone;
+  /** Additional CSS classes */
   class?: string;
 }
 

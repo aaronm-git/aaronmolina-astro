@@ -3,12 +3,23 @@ import Badge from '@/components/atoms/Badge.astro';
 import type { TechMap } from '@/utils/tech-lookup';
 import { getTechName } from '@/utils/tech-lookup';
 
+/**
+ * Molecule rendering a row of tag `Badge`s, resolving each tag slug to a
+ * display name via `techMap`. Optionally caps the list with a `+N` overflow
+ * badge and optionally wraps each tag in a link to its tag archive page.
+ */
 interface Props {
+  /** Tag slugs to display */
   tags: string[];
+  /** Lookup map used to resolve each tag slug to a display name */
   techMap: TechMap;
+  /** Maximum number of tags to render before collapsing the rest into a `+N` badge */
   limit?: number;
+  /** Size in the type scale, passed through to each Badge */
   size?: 'sm' | 'base';
+  /** Wraps each tag badge in a link to `/blog/tag/[tag]` */
   linkToTagPage?: boolean;
+  /** Additional CSS classes */
   class?: string;
 }
 

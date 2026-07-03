@@ -1,8 +1,15 @@
 ---
 type DividerVariant = 'line' | 'tape';
 
+/**
+ * Horizontal rule atom for separating content sections.
+ * `line` renders a plain `<hr>`; `tape` renders a decorative diagonal
+ * hazard-stripe bar (`role="presentation"`, not a semantic separator).
+ */
 interface Props {
+  /** Visual style variant */
   variant?: DividerVariant;
+  /** Additional CSS classes */
   class?: string;
 }
 

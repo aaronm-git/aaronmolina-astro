@@ -1,9 +1,4 @@
 ---
-/**
- * HireNavigationTabs - Navigation tabs for hire specialization pages
- * Allows users to switch between different hire service offerings
- */
-
 interface Tab {
   label: string;
   href: string;
@@ -15,25 +10,23 @@ interface Props {
 }
 
 const tabs: Tab[] = [
-  { label: 'Jamstack', href: '/hire/jamstack' },
+  { label: 'Overview', href: '/hire' },
   { label: 'React', href: '/hire/react-developer' },
   { label: 'Next.js', href: '/hire/nextjs-developer' },
   { label: 'Headless CMS', href: '/hire/headless-cms' },
 ];
 
-const { currentPath, class: className } = Astro.props;
+const { currentPath, class: className = '' } = Astro.props;
 ---
 
-<div class={`flex flex-wrap gap-2 justify-center mb-12 ${className || ''}`}>
-  {tabs.map((tab) => {
+<div class={`mb-12 flex flex-wrap justify-center gap-2 ${className}`}>
+  {tabs.map(tab => {
     const isActive = currentPath === tab.href;
     return (
       <a
         href={tab.href}
-        class={`px-4 py-2 rounded-lg font-medium ${
-          isActive
-            ? 'bg-primary text-white shadow-lg'
-            : 'bg-muted text-foreground'
+        class={`rounded-sm border-2 border-ink px-4 py-2 font-mono text-xs font-bold tracking-wide uppercase ${
+          isActive ? 'bg-signal text-ink shadow-hard-sm' : 'bg-paper text-ink hover:bg-concrete-2'
         }`}
       >
         {tab.label}

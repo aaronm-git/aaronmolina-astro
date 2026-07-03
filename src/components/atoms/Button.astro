@@ -1,180 +1,60 @@
 ---
-import type { IconType } from 'react-icons';
-import { getIcon } from '@/lib/icons';
-import { cn } from '@/lib/cn';
+import type { IconType } from '@/lib/icons';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
-type ButtonSize = 'xs' | 'sm' | 'lg' | 'xl';
+type ButtonVariant = 'primary' | 'secondary' | 'ink' | 'ghost-ink';
+type ButtonSize = 'sm' | 'base' | 'lg' | 'xl';
 
-/** Shared props for both button and link variants */
-interface BaseProps {
-  /** Visual variant */
-  variant?: ButtonVariant;
-  /** Button/link size */
-  size?: ButtonSize;
-  /** Icon name (uses getIcon to resolve) */
-  icon?: string;
-  /** Direct icon component */
-  iconComponent?: IconType;
-  /** Icon position */
-  iconPosition?: 'left' | 'right' | 'only';
-  /** Full width */
-  fullWidth?: boolean;
-  /** Loading state */
-  loading?: boolean;
-  /** Additional CSS classes */
-  class?: string;
-  /** Aria label */
-  ariaLabel?: string;
-}
-
-/** Props when rendering as a button element */
-interface ButtonProps extends BaseProps {
-  /** Button type (for form buttons) */
+interface Props {
+  href?: string;
   type?: 'button' | 'submit' | 'reset';
-  /** Disabled state */
-  disabled?: boolean;
-  /** No href - this is a button */
-  href?: never;
-  external?: never;
-}
-
-/** Props when rendering as a link element */
-interface LinkProps extends BaseProps {
-  /** URL for link (renders as <a>) */
-  href: string;
-  /** Open link in new tab */
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  icon?: IconType;
+  iconPosition?: 'left' | 'right';
   external?: boolean;
-  /** Button-only props not allowed with href */
-  type?: never;
-  disabled?: never;
+  fullWidth?: boolean;
+  disabled?: boolean;
+  class?: string;
 }
-
-type Props = ButtonProps | LinkProps;
 
 const {
   href,
+  type = 'button',
   variant = 'primary',
-  size = 'sm',
-  icon,
-  iconComponent,
+  size = 'base',
+  icon: IconComponent,
   iconPosition = 'left',
   external = false,
   fullWidth = false,
   disabled = false,
-  loading = false,
-  type = 'button',
   class: className = '',
-  ariaLabel,
 } = Astro.props;
 
-// Resolve icon
-const IconComponent = iconComponent || (icon ? getIcon(icon) : null);
-const showIcon = IconComponent && !loading;
-const iconOnly = iconPosition === 'only';
-
-// Base classes
-const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background';
-
-// Variant classes with tactile hover/active states
-const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'tactile-btn tactile-btn-primary bg-primary text-on-primary hover:bg-primary-hover focus:ring-primary',
-  secondary: 'tactile-btn tactile-btn-secondary bg-secondary text-on-secondary hover:bg-secondary-hover focus:ring-secondary',
-  outline: 'tactile-btn tactile-btn-outline bg-transparent text-foreground hover:bg-muted focus:ring-border',
-  ghost: 'bg-transparent text-foreground hover:bg-muted focus:ring-muted',
-};
-
-// Size classes
 const sizeClasses: Record<ButtonSize, string> = {
-  xs: 'h-7 px-2 text-xs gap-1',
-  sm: 'h-10 px-4 text-sm gap-2',
-  lg: 'h-12 px-6 text-base gap-2.5',
-  xl: 'h-14 px-8 text-lg gap-3',
+  sm: 'px-3 py-1.5 text-xs',
+  base: 'px-6 py-3 text-sm',
+  lg: 'px-8 py-3.5 text-base',
+  xl: 'px-10 py-4 text-base',
 };
 
-// Icon-only size classes
-const iconOnlySizeClasses: Record<ButtonSize, string> = {
-  xs: 'h-7 w-7',
-  sm: 'h-10 w-10',
-  lg: 'h-12 w-12',
-  xl: 'h-14 w-14',
+const variantClasses: Record<ButtonVariant, string> = {
+  primary: 'bg-signal text-ink border-2 border-signal shadow-hard-sm hover:shadow-[7px_7px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-0.5 active:translate-y-0.5',
+  secondary: 'bg-transparent text-signal border-2 border-signal hover:bg-asphalt',
+  ink: 'bg-ink text-signal border-2 border-ink shadow-hard-sm hover:shadow-[5px_5px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-0.5 active:translate-y-0.5',
+  'ghost-ink': 'bg-transparent text-ink border-2 border-ink hover:bg-concrete-2',
 };
 
-// Icon size based on button size
-const iconSizeClasses: Record<ButtonSize, string> = {
-  xs: 'w-3 h-3',
-  sm: 'w-4 h-4',
-  lg: 'w-5 h-5',
-  xl: 'w-6 h-6',
-};
+const classes = `inline-flex items-center justify-center gap-2 font-mono font-bold uppercase tracking-wider rounded-sm transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 ${sizeClasses[size]} ${variantClasses[variant]} ${fullWidth ? 'w-full' : ''} ${className}`;
 
-// Build combined classes
-const combinedClasses = cn(
-  baseClasses,
-  variantClasses[variant],
-  iconOnly ? iconOnlySizeClasses[size] : sizeClasses[size],
-  'rounded-lg',
-  disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
-  fullWidth && 'w-full',
-  className,
-);
-
-const iconClass = iconSizeClasses[size];
-const isLink = !!href;
-
-// Link-specific props
-const linkProps = isLink ? {
-  href,
-  target: external ? '_blank' : undefined,
-  rel: external ? 'noopener noreferrer' : undefined,
-} : {};
-
-// Button-specific props
-const buttonProps = !isLink ? {
-  type,
-  disabled: disabled || loading,
-} : {};
+const Tag = href ? 'a' : 'button';
+const linkProps = href
+  ? { href, ...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {}) }
+  : { type, disabled };
 ---
 
-{isLink ? (
-  <a
-    {...linkProps}
-    class={combinedClasses}
-    aria-label={ariaLabel}
-  >
-    {loading && (
-      <svg class={cn(iconClass, '')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
-    )}
-    {iconPosition === 'left' && showIcon && (
-      <IconComponent className={iconClass} />
-    )}
-    {!iconOnly && <slot />}
-    {(iconPosition === 'right' || iconOnly) && showIcon && (
-      <IconComponent className={iconClass} />
-    )}
-  </a>
-) : (
-  <button
-    {...buttonProps}
-    class={combinedClasses}
-    aria-label={ariaLabel}
-  >
-    {loading && (
-      <svg class={cn(iconClass, '')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
-    )}
-    {iconPosition === 'left' && showIcon && (
-      <IconComponent className={iconClass} />
-    )}
-    {!iconOnly && <slot />}
-    {(iconPosition === 'right' || iconOnly) && showIcon && (
-      <IconComponent className={iconClass} />
-    )}
-  </button>
-)}
+<Tag class={classes} {...linkProps}>
+  {IconComponent && iconPosition === 'left' && <IconComponent className="h-4 w-4" />}
+  <slot />
+  {IconComponent && iconPosition === 'right' && <IconComponent className="h-4 w-4" />}
+</Tag>
 

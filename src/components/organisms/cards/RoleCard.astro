@@ -1,18 +1,15 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
-import { FaBriefcase, FaArrowRight } from '@/lib/icons';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
 import { formatDateRange, calculateDuration } from '@/utils/date-format';
-import Card from '@/components/molecules/Card.astro';
 import TagList from '@/components/molecules/TagList.astro';
 import ListItem from '@/components/molecules/ListItem.astro';
 import Heading from '@/components/atoms/Heading.astro';
-import Text from '@/components/atoms/Text.astro';
-import Link from '@/components/atoms/Link.astro';
 import Badge from '@/components/atoms/Badge.astro';
-import Icon from '@/components/atoms/Icon.astro';
+import Link from '@/components/atoms/Link.astro';
+import { FaBriefcase } from '@/lib/icons';
 
 interface Props {
   role: {
@@ -28,7 +25,6 @@ interface Props {
       highlights: string[];
       achievements: string[];
       technologies: string[];
-      isActive?: boolean;
     };
   };
   organization?: {
@@ -37,7 +33,6 @@ interface Props {
       slug: string;
       logo?: ImageMetadata;
       website?: string;
-      location?: string;
     };
   };
   showAllDetails?: boolean;
@@ -51,108 +46,69 @@ const techMap = createTechMap(technologies);
 const duration = calculateDuration(role.data.startDate, role.data.endDate);
 const dateRange = formatDateRange(role.data.startDate, role.data.endDate, role.data.current);
 const orgName = organization?.data.name || role.data.organization;
-const logoAlt = `${orgName.trim()} logo`;
 ---
 
-<div id={role.data.slug}>
-<Card variant="tactile" padding="base">
-  <div class="mb-4 flex flex-col md:flex-row md:items-start md:justify-between">
+<div id={role.data.slug} class="rounded-md border-2 border-ink bg-paper p-6 shadow-hard">
+  <div class="mb-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
     <div class="flex flex-col items-start gap-4 md:flex-row">
-      <div class="bg-muted border-border flex aspect-square w-20 items-center justify-center overflow-hidden rounded border">
+      <div class="flex aspect-square w-16 flex-none items-center justify-center overflow-hidden rounded-xs border-2 border-ink bg-concrete-2">
         {organization?.data.logo ? (
-          <Image
-            src={organization.data.logo}
-            alt={logoAlt}
-            loading="lazy"
-            width={100}
-            height={100}
-          />
+          <Image src={organization.data.logo} alt={`${orgName} logo`} width={80} height={80} loading="lazy" />
         ) : (
-          <Icon icon={FaBriefcase} size="lg" color="muted" />
+          <FaBriefcase className="text-graphite h-6 w-6" />
         )}
       </div>
-      <div class="space-y-1">
-        <Heading level={3} size="lg">{role.data.title}</Heading>
-        <Heading level={4} size="base" class="text-secondary font-medium">
+      <div>
+        <Heading level={3} size="sm">{role.data.title}</Heading>
+        <p class="text-signal-deep font-bold">
           {orgName}
           {organization?.data.website && (
-            <a
-              href={organization.data.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-secondary ml-1"
-            >
-              <FaArrowRight className="inline w-3 h-3" />
-              <span class="sr-only">Visit Site</span>
+            <a href={organization.data.website} target="_blank" rel="noopener noreferrer" class="ml-1">
+              <span class="sr-only">Visit site</span>
             </a>
           )}
-        </Heading>
-        {role.data.location && (
-          <Text size="sm" color="muted">{role.data.location}</Text>
-        )}
+        </p>
+        {role.data.location && <p class="text-graphite text-sm">{role.data.location}</p>}
       </div>
     </div>
-    <div class="md:text-right mt-4 md:mt-0">
-      <Text weight="medium" color="muted">{dateRange}</Text>
-      <Text size="sm" color="muted" class="mt-1">{duration}</Text>
-      {role.data.current && (
-        <Badge label="Current" variant="secondary" size="sm" class="mt-1" />
-      )}
+    <div class="md:text-right">
+      <p class="font-mono text-sm font-bold text-ink">{dateRange}</p>
+      <p class="text-graphite mt-1 font-mono text-xs">{duration}</p>
+      {role.data.current && <Badge label="Current" variant="phase" size="sm" class="mt-1" />}
     </div>
   </div>
 
   {showAllDetails && role.data.summary && (
-    <div class="border-border mb-8 max-w-2xl rounded-md border p-4">
-      <Text size="sm" color="muted">{role.data.summary}</Text>
+    <div class="mb-6 max-w-2xl rounded-sm border-2 border-concrete-2 p-4">
+      <p class="text-graphite text-sm">{role.data.summary}</p>
     </div>
   )}
 
   <div class="grid gap-6 md:grid-cols-2">
     <div>
-      <Heading level={5} size="base" class="mb-3">Highlights</Heading>
+      <h4 class="mb-3 font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase">Highlights</h4>
       <ul class="space-y-2">
-        {role.data.highlights.slice(0, showAllDetails ? undefined : 3).map((highlight) => (
-          <ListItem icon="check" iconColor="secondary">
-            {highlight}
-          </ListItem>
-        ))}
+        {role.data.highlights.slice(0, showAllDetails ? undefined : 3).map(highlight => <ListItem icon="check">{highlight}</ListItem>)}
       </ul>
-
       {!showAllDetails && (
         <div class="mt-4">
-          <Link
-            href={`/experience#${role.data.slug}`}
-            variant="primary"
-            size="sm"
-            showArrow
-          >
-            See more details
-          </Link>
+          <Link href={`/experience#${role.data.slug}`} variant="signal" size="sm" showArrow>See more details</Link>
         </div>
       )}
     </div>
 
     <div>
-      <Heading level={5} size="base" class="mb-3">Technologies</Heading>
-      <TagList
-        tags={role.data.technologies}
-        techMap={techMap}
-        limit={showAllDetails ? undefined : 10}
-      />
+      <h4 class="mb-3 font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase">Technologies</h4>
+      <TagList tags={role.data.technologies} techMap={techMap} limit={showAllDetails ? undefined : 10} size="sm" />
 
       {role.data.achievements.length > 0 && (
         <div class="mt-4">
-          <Heading level={5} size="base" class="mb-2">Key Achievements</Heading>
+          <h4 class="mb-2 font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase">Key Achievements</h4>
           <ul class="space-y-1">
-            {role.data.achievements.map((achievement) => (
-              <ListItem icon="award" iconColor="secondary" size="sm">
-                {achievement}
-              </ListItem>
-            ))}
+            {role.data.achievements.map(achievement => <ListItem icon="award" size="sm">{achievement}</ListItem>)}
           </ul>
         </div>
       )}
     </div>
   </div>
-</Card>
 </div>

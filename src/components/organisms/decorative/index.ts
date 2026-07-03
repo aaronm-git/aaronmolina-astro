@@ -1,2 +1,2 @@
 // Decorative Organisms
-export { default as AeroBubbles } from './AeroBubbles.astro';
+export { default as StencilGrid } from './StencilGrid.astro';

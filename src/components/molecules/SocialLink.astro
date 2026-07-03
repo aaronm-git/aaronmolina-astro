@@ -1,75 +1,21 @@
 ---
-import { cn } from '@/lib/cn';
 import { getSocialIcon } from '@/lib/icons';
 
-type SocialLinkVariant = 'icon-only' | 'with-label' | 'button';
-type SocialLinkSize = 'sm' | 'base' | 'lg';
+type Tone = 'light' | 'dark';
 
 interface Props {
-  /** Social platform (github, twitter, linkedin, etc.) */
   platform: string;
-  /** Link URL */
   url: string;
-  /** Optional label text */
-  label?: string;
-  /** Aria label for accessibility */
   ariaLabel?: string;
-  /** Visual variant */
-  variant?: SocialLinkVariant;
-  /** Size */
-  size?: SocialLinkSize;
-  /** Additional CSS classes */
+  label?: string;
+  tone?: Tone;
   class?: string;
 }
 
-const {
-  platform,
-  url,
-  label,
-  ariaLabel,
-  variant = 'icon-only',
-  size = 'base',
-  class: className = '',
-} = Astro.props;
+const { platform, url, ariaLabel, label, tone = 'dark', class: className = '' } = Astro.props;
 
-// Get the icon for this platform
 const IconComponent = getSocialIcon(platform);
-
-// Icon size mapping
-const iconSizeClasses: Record<SocialLinkSize, string> = {
-  sm: 'w-4 h-4',
-  base: 'w-5 h-5',
-  lg: 'w-6 h-6',
-};
-
-// Variant-specific classes
-const variantClasses: Record<SocialLinkVariant, Record<SocialLinkSize, string>> = {
-  'icon-only': {
-    sm: 'p-1.5',
-    base: 'p-2',
-    lg: 'p-3',
-  },
-  'with-label': {
-    sm: 'gap-1.5 text-sm',
-    base: 'gap-2 text-base',
-    lg: 'gap-2.5 text-lg',
-  },
-  'button': {
-    sm: 'px-4 py-2 gap-2 text-sm',
-    base: 'px-6 py-3 gap-2 text-base',
-    lg: 'px-8 py-4 gap-3 text-lg',
-  },
-};
-
-// Build link classes (transitions removed)
-const linkClasses = cn(
-  'inline-flex items-center',
-  variant === 'icon-only' && 'text-foreground-muted rounded-md',
-  variant === 'with-label' && 'text-foreground-muted',
-  variant === 'button' && 'bg-primary text-on-primary rounded-lg font-medium',
-  variantClasses[variant][size],
-  className,
-);
+const colorClasses = tone === 'dark' ? 'text-steel hover:text-signal' : 'text-graphite hover:text-ink';
 ---
 
 {IconComponent && (
@@ -77,12 +23,9 @@ const linkClasses = cn(
     href={url}
     target="_blank"
     rel="noopener noreferrer"
-    class={linkClasses}
+    class={`inline-flex items-center justify-center rounded-xs p-2 transition-colors ${colorClasses} ${className}`}
     aria-label={ariaLabel || label || platform}
   >
-    <IconComponent className={iconSizeClasses[size]} />
-    {(variant === 'with-label' || variant === 'button') && label && (
-      <span>{label}</span>
-    )}
+    <IconComponent className="h-5 w-5" />
   </a>
 )}

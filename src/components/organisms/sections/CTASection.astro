@@ -1,43 +1,40 @@
 ---
-import Button from '@/components/atoms/Button.astro';
 import Heading from '@/components/atoms/Heading.astro';
-import Text from '@/components/atoms/Text.astro';
-import { cn } from '@/lib/cn';
-import ctaContent from '@/content/site/cta.json';
+import Button from '@/components/atoms/Button.astro';
+import StencilGrid from '@/components/organisms/decorative/StencilGrid.astro';
 
 interface Props {
-  title?: string;
+  title: string;
   description?: string;
-  buttonLabel?: string;
-  buttonHref?: string;
-  /** Use tactile maximalism style */
-  tactile?: boolean;
-  /** Additional CSS classes */
+  buttonLabel: string;
+  buttonHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  micro?: string;
   class?: string;
 }
 
 const {
-  title = ctaContent.title,
-  description = ctaContent.description,
-  buttonLabel = ctaContent.buttonLabel,
-  buttonHref = ctaContent.buttonHref,
-  tactile = true,
+  title,
+  description,
+  buttonLabel,
+  buttonHref,
+  secondaryLabel,
+  secondaryHref,
+  micro,
   class: className = '',
 } = Astro.props;
 ---
 
-<section class={cn('container mb-10', className)}>
-  <div class={cn(tactile ? 'tactile-cta p-8 md:p-12 lg:p-16 text-center gsap-reveal' : 'bg-primary rounded-2xl p-8 md:p-12 text-center gsap-reveal')}>
-    <Heading level={2} size="2xl" class="text-on-primary mb-4">
-      {title}
-    </Heading>
-    <Text size="lg" class="text-on-primary mx-auto mb-6 max-w-2xl opacity-90">
-      {description}
-    </Text>
-    <div class="flex justify-center">
-      <Button href={buttonHref} variant="secondary" icon="contact" size="xl">
-        {buttonLabel}
-      </Button>
+<section class={`section-py relative overflow-hidden bg-ink text-center text-concrete ${className}`}>
+  <StencilGrid />
+  <div class="container relative z-10">
+    <Heading level={2} size="2xl" class="mx-auto max-w-[20ch] text-concrete">{title}</Heading>
+    {description && <p class="mx-auto mt-4 max-w-[52ch] text-steel">{description}</p>}
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <Button href={buttonHref} variant="primary" size="lg">{buttonLabel}</Button>
+      {secondaryLabel && secondaryHref && <Button href={secondaryHref} variant="secondary" size="lg">{secondaryLabel}</Button>}
     </div>
+    {micro && <p class="mt-4 font-mono text-xs font-bold tracking-[0.12em] text-steel uppercase">{micro}</p>}
   </div>
 </section>

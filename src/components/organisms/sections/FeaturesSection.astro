@@ -30,7 +30,7 @@ interface Props {
 
 const { eyebrow, title, description, cards, class: className = '' } = Astro.props;
 
-const spanClasses: Record<number, string> = {
+const spanClasses: Record<5 | 7 | 12, string> = {
   5: 'lg:col-span-5',
   7: 'lg:col-span-7',
   12: 'lg:col-span-12',

@@ -17,32 +17,27 @@ interface Props {
   class?: string;
 }
 
-const {
-  label,
-  name,
-  type = 'text',
-  required = false,
-  placeholder,
-  rows = 5,
-  options = [],
-  class: className = '',
-} = Astro.props;
+const { label, name, type = 'text', required = false, placeholder, rows = 5, options = [], class: className = '' } = Astro.props;
 
-const fieldClasses =
-  'w-full rounded-sm border-2 border-ink bg-paper px-3 py-2.5 text-sm text-ink placeholder:text-graphite focus:outline-none';
+const fieldClasses = 'w-full rounded-sm border-2 border-ink bg-paper px-3 py-2.5 text-sm text-ink placeholder:text-graphite focus:outline-none';
 ---
 
 <div class={className}>
-  <label for={name} class="mb-2 block font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase">
+  <label for={name} class="text-ink mb-2 block font-mono text-xs font-bold tracking-[0.1em] uppercase">
     {label}
   </label>
-  {type === 'textarea' ? (
-    <textarea id={name} name={name} required={required} placeholder={placeholder} rows={rows} class={fieldClasses} />
-  ) : type === 'select' ? (
-    <select id={name} name={name} required={required} class={fieldClasses}>
-      {options.map(opt => <option value={opt.value}>{opt.label}</option>)}
-    </select>
-  ) : (
-    <input id={name} name={name} type={type} required={required} placeholder={placeholder} class={fieldClasses} />
-  )}
+  {
+    type === 'textarea' ? (
+      <textarea id={name} name={name} required={required} placeholder={placeholder} rows={rows} class={fieldClasses} />
+    ) : type === 'select' ? (
+      <select id={name} name={name} required={required} class={fieldClasses}>
+        {placeholder && <option value="">{placeholder}</option>}
+        {options.map(opt => (
+          <option value={opt.value}>{opt.label}</option>
+        ))}
+      </select>
+    ) : (
+      <input id={name} name={name} type={type} required={required} placeholder={placeholder} class={fieldClasses} />
+    )
+  }
 </div>

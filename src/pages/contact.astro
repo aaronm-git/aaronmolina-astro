@@ -40,8 +40,8 @@ const budgetOptions = [
           <FormField label="Email Address" name="email" type="email" required placeholder="your@email.com" />
         </div>
         <FormField label="Company (Optional)" name="company" placeholder="Your company" />
-        <FormField label="Project Type" name="project-type" type="select" options={projectTypeOptions} />
-        <FormField label="Budget Range (Optional)" name="budget" type="select" options={budgetOptions} />
+        <FormField label="Project Type" name="project-type" type="select" options={projectTypeOptions} placeholder="Select a project type" />
+        <FormField label="Budget Range (Optional)" name="budget" type="select" options={budgetOptions} placeholder="Select budget range" />
         <FormField label="Project Details" name="message" type="textarea" required placeholder="Tell me about your project, timeline, and any specific requirements..." />
 
         <input type="hidden" name="form-name" value="contact" />

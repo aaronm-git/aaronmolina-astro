@@ -1,5 +1,5 @@
 ---
-type BadgeVariant = 'default' | 'phase' | 'outline' | 'stamp-done' | 'stamp-pending' | 'stamp-review';
+type BadgeVariant = 'default' | 'phase' | 'outline' | 'outline-inverse' | 'stamp-done' | 'stamp-pending' | 'stamp-review';
 
 /**
  * Small pill-shaped label atom for status, category, and phase tags across the site.
@@ -8,7 +8,7 @@ type BadgeVariant = 'default' | 'phase' | 'outline' | 'stamp-done' | 'stamp-pend
 interface Props {
   /** Text displayed inside the badge */
   label: string;
-  /** Visual style variant */
+  /** Visual style variant. Use `outline-inverse` instead of `outline` on dark (bg-ink) backgrounds. */
   variant?: BadgeVariant;
   /** Size in the type scale */
   size?: 'sm' | 'base';
@@ -27,6 +27,7 @@ const variantClasses: Record<BadgeVariant, string> = {
   default: 'bg-paper text-ink border-2 border-ink',
   phase: 'bg-signal text-ink border-2 border-ink',
   outline: 'bg-transparent text-ink border-2 border-ink',
+  'outline-inverse': 'bg-transparent text-concrete border-2 border-seam',
   'stamp-done': 'bg-signal text-ink border-2 border-ink',
   'stamp-pending': 'bg-paper text-ink border-2 border-dashed border-ink',
   'stamp-review': 'bg-amber text-ink border-2 border-ink',

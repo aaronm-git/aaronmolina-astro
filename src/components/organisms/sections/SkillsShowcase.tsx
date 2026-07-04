@@ -394,6 +394,7 @@ export default function SkillsShowcase({ skills }: Props) {
      */
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
+        e.preventDefault();
         closePopup();
         return;
       }
@@ -405,7 +406,7 @@ export default function SkillsShowcase({ skills }: Props) {
 
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      const current = document.activeElement as HTMLElement | null;
+      const current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       const atBoundary = !current || current === popupRef.current || !popupRef.current.contains(current);
 
       if (e.shiftKey) {

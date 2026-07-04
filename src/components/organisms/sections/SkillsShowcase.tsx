@@ -233,6 +233,8 @@ export default function SkillsShowcase({ skills }: Props) {
   const glowRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const starsContainerRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const iconsRevealedRef = useRef(false);
+  /** The skill-icon button that opened the dialog, so focus can return to it on close. */
+  const lastFocusedElementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!containerRef.current || iconsRevealedRef.current) return;
@@ -346,6 +348,13 @@ export default function SkillsShowcase({ skills }: Props) {
 
       spawnFloatingStars(popup);
     }
+
+    // Move focus into the dialog on open. The popup is a static info panel
+    // (name, health bar, project tags) with no default action beyond
+    // dismissal, so focus lands on the panel itself rather than jumping
+    // straight to the Close button — a screen reader user starting point
+    // that reads the content first, same as a sighted user would.
+    popupRef.current.focus();
   }, [activeSkill]);
 
   const closePopup = useCallback(() => {
@@ -366,9 +375,53 @@ export default function SkillsShowcase({ skills }: Props) {
       onComplete: () => {
         setActiveSkill(null);
         setIsClosing(false);
+
+        // Restore focus to the skill-icon button that opened the dialog.
+        if (lastFocusedElementRef.current?.isConnected) {
+          lastFocusedElementRef.current.focus();
+        }
+        lastFocusedElementRef.current = null;
       },
     });
   }, [isClosing]);
+
+  useEffect(() => {
+    if (!activeSkill) return;
+
+    /**
+     * Escape closes the dialog; Tab/Shift+Tab is trapped within the dialog's
+     * own focusable elements so keyboard focus can't leak to the page behind it.
+     */
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closePopup();
+        return;
+      }
+
+      if (e.key !== 'Tab' || !popupRef.current) return;
+
+      const focusable = popupRef.current.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const current = document.activeElement as HTMLElement | null;
+      const atBoundary = !current || current === popupRef.current || !popupRef.current.contains(current);
+
+      if (e.shiftKey) {
+        if (current === first || atBoundary) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (current === last || atBoundary) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [activeSkill, closePopup]);
 
   return (
     <section className="section-py" id="skills">
@@ -388,7 +441,11 @@ export default function SkillsShowcase({ skills }: Props) {
             return (
               <button
                 key={skill.slug}
-                onClick={() => setActiveSkill(skill)}
+                onClick={e => {
+                  // Remember the trigger so focus can return here when the dialog closes.
+                  lastFocusedElementRef.current = e.currentTarget;
+                  setActiveSkill(skill);
+                }}
                 className="skill-icon group border-ink bg-paper focus-visible:outline-signal relative flex h-16 w-16 items-center justify-center rounded-md border-2 transition-transform duration-200 hover:scale-110 focus-visible:outline-3 focus-visible:outline-offset-2 active:scale-95 md:h-20 md:w-20"
                 style={{
                   boxShadow: isExpert ? undefined : '0 4px 0 0 var(--color-ink)',
@@ -454,7 +511,8 @@ export default function SkillsShowcase({ skills }: Props) {
         >
           <div
             ref={popupRef}
-            className="border-ink bg-paper relative w-full max-w-md overflow-visible rounded-md border-2 p-6 md:p-8"
+            tabIndex={-1}
+            className="border-ink bg-paper relative w-full max-w-md overflow-visible rounded-md border-2 p-6 focus:outline-none md:p-8"
             style={{ boxShadow: '0 8px 0 0 var(--color-ink)' }}
           >
             {activeSkill.level === 10 && (

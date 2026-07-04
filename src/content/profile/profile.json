@@ -8,5 +8,12 @@
   "phone": "(305) 414-9289",
   "avatar": "",
   "availability": "open_to_work",
-  "primaryRoles": []
+  "primaryRoles": [],
+  "specialties": [
+    "Jamstack & Full Stack Development",
+    "Headless CMS Integration",
+    "AI-Powered Development",
+    "React & Frontend Architecture"
+  ],
+  "chatbotSummary": "Aaron Molina is a senior full stack and Jamstack developer based in Miami, FL with over {yearsOfExperience} years of experience. He builds high-performance, content-driven websites and full stack applications with Astro, Next.js, TypeScript, and headless CMS platforms, and ships production software alongside AI agents like Claude Code. He is open to remote work across the US."
 }

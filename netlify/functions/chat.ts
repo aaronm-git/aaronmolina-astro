@@ -15,7 +15,9 @@ async function loadKnowledge(req: Request): Promise<string> {
   if (cachedKnowledge) return cachedKnowledge;
   const url = new URL(req.url);
   const base = process.env.URL || `${url.protocol}//${url.host}`;
-  const res = await fetch(`${base.replace(/\/$/, '')}/llms.txt`);
+  // Grounding context is generated at build time from the content collections
+  // (see src/lib/chatbot-context.ts) so the chat answers only from real site data.
+  const res = await fetch(`${base.replace(/\/$/, '')}/chat-context.txt`);
   if (!res.ok) throw new Error(`Failed to load knowledge: ${res.status}`);
   cachedKnowledge = await res.text();
   return cachedKnowledge;

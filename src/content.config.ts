@@ -7,6 +7,12 @@ import { glob, type Loader } from 'astro/loaders';
 
 type GlobOptions = Parameters<typeof glob>[0];
 
+/** Shared, optional SEO metadata block reusable across collections. */
+const seoSchema = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+});
+
 /**
  * Returns a glob loader that stays quiet when an optional collection directory is empty.
  */
@@ -86,6 +92,8 @@ const technologies = defineCollection({
     projects: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     sortOrder: z.number().int().default(0),
+    /** When false, this skill is excluded from the AI chatbot knowledge base. */
+    includeInChatbot: z.boolean().default(true),
   }),
 });
 
@@ -140,6 +148,10 @@ const roles = defineCollection({
     featured: z.boolean().default(false),
     sortOrder: z.number().int().default(0),
     isActive: z.boolean().default(true),
+    /** Optional condensed, chatbot-facing summary of this role. Falls back to `summary`. */
+    chatbotSummary: z.string().optional(),
+    /** When false, this role is excluded from the AI chatbot knowledge base. */
+    includeInChatbot: z.boolean().default(true),
   }),
 });
 
@@ -160,6 +172,10 @@ const profile = defineCollection({
       avatar: image().optional(),
       availability: z.enum(['open_to_work', 'available_for_contract', 'not_available']).optional(),
       primaryRoles: z.array(z.string()).default([]),
+      /** High-level specialties/services used to ground the AI chatbot. */
+      specialties: z.array(z.string()).default([]),
+      /** Optional condensed, chatbot-facing bio. Falls back to `summary`. */
+      chatbotSummary: z.string().optional(),
     }),
 });
 
@@ -196,6 +212,12 @@ const projects = defineCollection({
           return val;
         }),
       isActive: z.boolean().default(true),
+      /** Optional condensed, chatbot-facing summary. Falls back to `summary`. */
+      chatbotSummary: z.string().optional(),
+      /** When false, this project is excluded from the AI chatbot knowledge base. */
+      includeInChatbot: z.boolean().default(true),
+      /** Optional per-page SEO overrides. */
+      seo: seoSchema.optional(),
     }),
 });
 
@@ -268,23 +290,41 @@ const testimonials = defineCollection({
     featured: z.boolean().default(false),
     sortOrder: z.number().int().default(0),
     isActive: z.boolean().default(true),
+    /** When false, this testimonial is excluded from the AI chatbot knowledge base. */
+    includeInChatbot: z.boolean().default(true),
   }),
 });
 
 const services = defineCollection({
   loader: optionalGlob({
-    pattern: '**/*.json',
+    pattern: '**/*.{md,mdx}',
     base: './src/content/services',
   }),
   schema: z.object({
+    /** Service name shown as the card/section title. */
     title: z.string(),
     slug: z.string(),
+    /** One-line summary used for meta descriptions and compact listings. */
     summary: z.string(),
+    /** Longer marketing description rendered on the site cards. */
+    description: z.string(),
+    /** Icon key resolved by the shared icon system (e.g. "rocket", "globe"). */
+    icon: z.string().default('rocket'),
+    /** Phase label rendered on the bento cards (e.g. "Build", "Integrate"). */
+    phaseTag: z.string().optional(),
+    /** Concrete deliverables a client receives for this service. */
     deliverables: z.array(z.string()).default([]),
+    /** Technology slugs associated with this service. */
     technologies: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     sortOrder: z.number().int().default(0),
     isActive: z.boolean().default(true),
+    /** Optional condensed, chatbot-facing summary. Falls back to `summary`. */
+    chatbotSummary: z.string().optional(),
+    /** When false, this service is excluded from the AI chatbot knowledge base. */
+    includeInChatbot: z.boolean().default(true),
+    /** Optional per-page SEO overrides. */
+    seo: seoSchema.optional(),
   }),
 });
 

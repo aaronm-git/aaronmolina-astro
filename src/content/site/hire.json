@@ -83,29 +83,7 @@
     },
     "services": {
       "title": "How I Can Help",
-      "subtitle": "From concept to production, I deliver websites and applications that perform",
-      "items": [
-        {
-          "icon": "rocket",
-          "title": "Jamstack & Full Stack Development",
-          "description": "High-performance static, hybrid, and full stack applications built with Astro, Next.js, TanStack Start, or your framework of choice. Fast load times, strong SEO, and production-ready architecture."
-        },
-        {
-          "icon": "globe",
-          "title": "Headless CMS Integration",
-          "description": "Connect your marketing team to a modern content platform. I specialize in Sanity, Storyblok, Strapi, and custom CMS solutions that scale with your business."
-        },
-        {
-          "icon": "bolt",
-          "title": "AI-Powered Development",
-          "description": "I build applications with AI built in from the start. From OpenAI integrations to development workflows powered by Claude Code and MCP servers, I deliver smarter solutions faster."
-        },
-        {
-          "icon": "code",
-          "title": "Frontend Architecture & CI/CD",
-          "description": "Component libraries, design systems, CI/CD pipelines, and frontend infrastructure. Clean, typed code that your team can maintain and extend for years to come."
-        }
-      ]
+      "subtitle": "From concept to production, I deliver websites and applications that perform"
     },
     "features": {
       "title": "Why Work With Me",

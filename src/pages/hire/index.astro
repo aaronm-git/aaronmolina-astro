@@ -8,6 +8,14 @@ const technologies = await getCollection('technologies');
 const techMap = createTechMap(technologies);
 const projects = await getCollection('projects');
 
+// Core service offerings from the services content collection (single source of
+// truth shared with the homepage and the AI chatbot).
+const services = (await getCollection('services'))
+  .filter(s => s.data.isActive !== false)
+  .sort((a, b) => (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0) || a.data.title.localeCompare(b.data.title));
+const serviceItems = services.map(s => ({ title: s.data.title, description: s.data.description }));
+const servicePhaseTags = services.map(s => s.data.phaseTag ?? 'Build');
+
 const featuredProjects = projects
   .filter(p => p.data.isActive !== false)
   .sort((a, b) => {
@@ -42,9 +50,9 @@ const stats = hireContent.shared.stats.map(stat => ({
   services={{
     title: hireContent.main.services.title,
     subtitle: hireContent.main.services.subtitle,
-    items: hireContent.main.services.items,
+    items: serviceItems,
   }}
-  servicePhaseTags={['Build', 'Integrate', 'Assist', 'Architect']}
+  servicePhaseTags={servicePhaseTags}
   features={{ title: hireContent.main.features.title, items: hireContent.main.features.items }}
   skills={{
     title: hireContent.main.skills.title,

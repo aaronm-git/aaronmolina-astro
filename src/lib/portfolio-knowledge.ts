@@ -1,6 +1,7 @@
 import { getCollection } from 'astro:content';
 import homepageContent from '@/content/site/homepage.json';
 import siteSettings from '@/content/site/settings.json';
+import { getChatbotServices, renderServicesSection } from '@/lib/chatbot-context';
 
 const SITE = siteSettings.siteUrl.replace(/\/$/, '');
 
@@ -46,6 +47,9 @@ export async function buildPortfolioKnowledge(): Promise<string> {
 
   const organizations = await getCollection('organizations');
   const orgBySlug = new Map(organizations.map(o => [o.data.slug, o.data]));
+
+  const services = await getChatbotServices();
+  const serviceLines = renderServicesSection(services);
 
   const tagSet = new Set<string>();
   blog.forEach(p => p.data.tags.forEach(t => tagSet.add(t)));
@@ -111,12 +115,7 @@ Important notes:
 - [Contact](${SITE}/contact): Contact form and social links.
 
 ## Services and specialties
-- Agentic engineering: shipping production software end-to-end alongside AI agents (Claude Code, OpenAI Codex, Cursor) with custom MCP servers and skills
-- Full-stack web delivery: Next.js App Router, Server Actions, TypeScript, PostgreSQL, Drizzle, better-auth
-- Jamstack and headless CMS: Astro, Sanity, Contentful, Storyblok, Decap, content modeling and migrations
-- Frontend engineering: React, Vue, modern UI architecture, design systems
-- Performance optimization: Core Web Vitals, Lighthouse-driven improvements
-- Accessibility: WCAG 2.1 audits and remediation
+${serviceLines}
 
 ## Projects
 ${projectLines}

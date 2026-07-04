@@ -1,9 +1,9 @@
 import type { APIRoute } from 'astro';
-import { buildPortfolioKnowledge } from '@/lib/portfolio-knowledge';
+import { buildChatbotContext } from '@/lib/chatbot-context';
 import { buildSystemPrompt, FLAG_LEAD_TOOL } from '@/lib/chat/system-prompt';
 
 export const GET: APIRoute = async () => {
-  const knowledge = await buildPortfolioKnowledge();
+  const knowledge = await buildChatbotContext();
   const systemPrompt = buildSystemPrompt(knowledge);
 
   return new Response(

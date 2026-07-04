@@ -50,6 +50,12 @@ const roles = await getCollection('roles');
 const organizations = await getCollection('organizations');
 const projects = await getCollection('projects');
 
+// Service offerings come from the services content collection (single source of
+// truth shared with the hire pages and the AI chatbot).
+const services = (await getCollection('services'))
+  .filter(s => s.data.isActive !== false)
+  .sort((a, b) => (a.data.sortOrder ?? 0) - (b.data.sortOrder ?? 0) || a.data.title.localeCompare(b.data.title));
+
 const currentDate = new Date();
 const recentPosts = posts
   .filter(post => post.data.publishDate !== null)
@@ -133,10 +139,16 @@ const manifestEntries = manifestSlugs
     };
   });
 
-// Bento phase cards: services + AI showcase + a mini stat board
+// Bento phase cards: services (from the services collection) + AI showcase + a mini stat board.
+// Services are indexed by sortOrder: 0 Jamstack, 1 Headless CMS, 2 AI-Powered, 3 Frontend Architecture.
+const serviceCard = (index: number, phase: string) => {
+  const service = services[index];
+  return { phase, title: service?.data.title ?? '', description: service?.data.description ?? '' };
+};
+
 const bentoCards = [
-  { phase: 'Build', title: homepageContent.services.items[0].title, description: homepageContent.services.items[0].description, span: 5 as const },
-  { phase: 'Integrate', title: homepageContent.services.items[1].title, description: homepageContent.services.items[1].description, span: 7 as const },
+  { ...serviceCard(0, 'Build'), span: 5 as const },
+  { ...serviceCard(1, 'Integrate'), span: 7 as const },
   {
     phase: 'Ship',
     title: 'By the numbers',
@@ -144,14 +156,8 @@ const bentoCards = [
     span: 7 as const,
     statBoard: statsItems.slice(0, 3).map(s => ({ value: s.value, suffix: s.suffix, label: s.label })),
   },
-  {
-    phase: 'Architect',
-    title: homepageContent.services.items[3].title,
-    description: homepageContent.services.items[3].description,
-    span: 5 as const,
-    tags: ['TypeScript', 'CI/CD', 'Testing', 'A11y'],
-  },
-  { phase: 'Assist', title: homepageContent.services.items[2].title, description: homepageContent.services.items[2].description, span: 5 as const },
+  { ...serviceCard(3, 'Architect'), span: 5 as const, tags: ['TypeScript', 'CI/CD', 'Testing', 'A11y'] },
+  { ...serviceCard(2, 'Assist'), span: 5 as const },
   { phase: 'Extend', title: homepageContent.aiShowcase.items[2].title, description: homepageContent.aiShowcase.items[2].description, span: 7 as const },
 ];
 

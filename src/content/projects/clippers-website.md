@@ -64,7 +64,7 @@ Emergency donation site launched during the devastating 2025 LA wildfires.
 * Designed and developed a responsive, accessible donation portal in under 72 hours
 * Integrated Stripe and third-party fundraising tools
 * Implemented performance tuning to scale during peak traffic
-* Helped raise **millions of dollars** for fire victims and community restoration efforts
+* Contributed to a donation portal that supported the [FireAid](https://www.fireaidla.org/press-releases/fireaid-announces-first-grants-for-wildfire-relief-to-los-angeles-communities) effort, which raised an estimated **$100 million** for wildfire relief and recovery
 
 > 🏆 This site became a critical part of the Clippers' public service outreach and was covered in multiple local press articles for its immediate impact.
 

@@ -9,6 +9,14 @@ const formatDate = (d?: Date | null): string => {
   return d.toISOString().slice(0, 10);
 };
 
+/** Keeps authored Markdown details while removing image-only lines from the chat context. */
+const getMarkdownDetails = (body?: string): string =>
+  body
+    ?.split('\n')
+    .filter(line => !line.trim().startsWith('!['))
+    .join('\n')
+    .trim() ?? '';
+
 /**
  * Aggregates every portfolio content collection into a single markdown document.
  * Used by both `/llms.txt` and the chat function as a cached system-prompt knowledge base.
@@ -52,12 +60,14 @@ export async function buildPortfolioKnowledge(): Promise<string> {
   projects.forEach(p => p.data.technologies.forEach(t => tagSet.add(t)));
   const topics = [...tagSet].sort();
 
-  const projectLines = projects
+  const projectSections = projects
     .map(p => {
       const summary = p.data.summary ? `: ${p.data.summary}` : '';
       const completed = p.data.completedOn ? ` (completed ${formatDate(p.data.completedOn)})` : '';
-      const live = p.data.liveUrl ? ` Live: ${p.data.liveUrl}` : '';
-      return `- [${p.data.title}](${SITE}/projects/${p.data.slug})${summary}${completed}.${live}`;
+      const live = p.data.liveUrl ? `\nLive site: ${p.data.liveUrl}` : '';
+      const details = getMarkdownDetails(p.body);
+      const body = details ? `\n\n${details}` : '';
+      return `### [${p.data.title}](${SITE}/projects/${p.data.slug})${completed}\n${summary.replace(/^: /, '')}${live}${body}`;
     })
     .join('\n');
 
@@ -70,7 +80,7 @@ export async function buildPortfolioKnowledge(): Promise<string> {
     })
     .join('\n');
 
-  const roleLines = roles
+  const roleSections = roles
     .map(r => {
       const org = orgBySlug.get(r.data.organization);
       const orgName = org?.name ?? r.data.organization;
@@ -78,7 +88,10 @@ export async function buildPortfolioKnowledge(): Promise<string> {
       const start = formatDate(r.data.startDate);
       const end = r.data.current ? 'present' : formatDate(r.data.endDate);
       const techs = r.data.technologies.length > 0 ? `; skills: ${r.data.technologies.join(', ')}` : '';
-      return `- ${orgName} - ${r.data.title}${location} - ${start} to ${end}${techs}`;
+      const summary = r.data.summary ? `\n${r.data.summary}` : '';
+      const highlights = r.data.highlights.length > 0 ? `\nHighlights:\n${r.data.highlights.map(item => `- ${item}`).join('\n')}` : '';
+      const achievements = r.data.achievements.length > 0 ? `\nAchievements:\n${r.data.achievements.map(item => `- ${item}`).join('\n')}` : '';
+      return `### ${orgName} - ${r.data.title}${location}\n${start} to ${end}${techs}${summary}${highlights}${achievements}`;
     })
     .join('\n');
 
@@ -119,13 +132,13 @@ Important notes:
 - Accessibility: WCAG 2.1 audits and remediation
 
 ## Projects
-${projectLines}
+${projectSections}
 
 ## Blog posts
 ${blogLines}
 
 ## Experience
-${roleLines}
+${roleSections}
 
 ## Skills (Expert and near-Expert level)
 ${skillLines}

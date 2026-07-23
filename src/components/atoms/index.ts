@@ -7,4 +7,5 @@ export { default as Badge } from './Badge.astro';
 export { default as Avatar } from './Avatar.astro';
 export { default as Divider } from './Divider.astro';
 export { default as Link } from './Link.astro';
+export { default as MarkdownText } from './MarkdownText';
 export { default as Skeleton } from './Skeleton.astro';

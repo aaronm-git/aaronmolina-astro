@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { ChatErrorResponseSchema, ChatStreamEventSchema } from '@/lib/chat/schemas';
 import ChatMessage from './ChatMessage';
 import SuggestedPrompts from './SuggestedPrompts';
-import LeadCaptureModal from './LeadCaptureModal';
-import SystemPromptModal from './SystemPromptModal';
-import type { ChatMessage as ChatMessageType, LeadFlag, StreamEvent } from './types';
+import type { ChatMessage as ChatMessageType } from './types';
 
-const MAX_USER_TURNS = 10;
-const MAX_INPUT_LENGTH = 1000;
+const MAX_USER_TURNS = 6;
+const MAX_INPUT_LENGTH = 600;
 
 function makeId(): string {
   if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
@@ -16,20 +15,14 @@ function makeId(): string {
 }
 
 /**
- * Root chat island — owns all conversation state, POSTs to `/api/chat` and
- * streams the SSE response (text deltas and lead flags) into the message
- * list, enforces a per-conversation turn limit, and renders the message
- * list, suggested prompts, the lead-capture modal, and the system-prompt
- * transparency modal.
+ * Root chat island that owns local conversation state, sends chat requests,
+ * renders streamed responses, and caps a browser conversation at six turns.
  */
 export default function PortfolioChat() {
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [input, setInput] = useState('');
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [leadOpen, setLeadOpen] = useState(false);
-  const [activeLead, setActiveLead] = useState<LeadFlag | null>(null);
-  const [promptOpen, setPromptOpen] = useState(false);
 
   const conversationIdRef = useRef<string>(makeId());
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -81,8 +74,9 @@ export default function PortfolioChat() {
         });
 
         if (!res.ok) {
-          const data = await res.json().catch(() => ({}));
-          setError(data?.error || 'Chat is unavailable. Please try again later.');
+          const responseBody: unknown = await res.json().catch(() => null);
+          const parsedError = ChatErrorResponseSchema.safeParse(responseBody);
+          setError(parsedError.success ? parsedError.data.error : 'Chat is unavailable. Please try again later.');
           setMessages(prev => prev.filter(m => m.id !== assistantId));
           return;
         }
@@ -108,17 +102,18 @@ export default function PortfolioChat() {
             if (!line.startsWith('data:')) continue;
             const payload = line.slice(5).trim();
             if (!payload) continue;
-            let event: StreamEvent;
+            let eventPayload: unknown;
             try {
-              event = JSON.parse(payload) as StreamEvent;
+              eventPayload = JSON.parse(payload);
             } catch {
               continue;
             }
+            const parsedEvent = ChatStreamEventSchema.safeParse(eventPayload);
+            if (!parsedEvent.success) continue;
+            const event = parsedEvent.data;
 
             if (event.type === 'text_delta') {
               setMessages(prev => prev.map(m => (m.id === assistantId ? { ...m, content: m.content + event.text } : m)));
-            } else if (event.type === 'lead_flag') {
-              setMessages(prev => prev.map(m => (m.id === assistantId ? { ...m, leadFlag: event.data } : m)));
             } else if (event.type === 'error') {
               setError(event.message);
             }
@@ -134,9 +129,12 @@ export default function PortfolioChat() {
     [messages, streaming, limitReached],
   );
 
-  function handleForward(flag: LeadFlag) {
-    setActiveLead(flag);
-    setLeadOpen(true);
+  function startNewChat() {
+    if (streaming) return;
+    conversationIdRef.current = makeId();
+    setMessages([]);
+    setInput('');
+    setError(null);
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -153,9 +151,14 @@ export default function PortfolioChat() {
             <p className="text-ink font-mono text-xs font-bold tracking-wide uppercase">Ask my portfolio anything</p>
           </div>
           <div className="text-graphite flex items-center gap-3 text-xs">
-            <span>Powered by Claude</span>
-            <button type="button" onClick={() => setPromptOpen(true)} className="text-signal-deep font-semibold underline-offset-2 hover:underline">
-              See system prompt
+            <span>Powered by OpenAI</span>
+            <button
+              type="button"
+              onClick={startNewChat}
+              disabled={streaming || messages.length === 0}
+              className="text-signal-deep font-semibold underline-offset-2 hover:underline disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              New chat
             </button>
           </div>
         </div>
@@ -167,7 +170,7 @@ export default function PortfolioChat() {
               <SuggestedPrompts onPick={prompt => sendMessage(prompt)} />
             </div>
           ) : (
-            messages.map(m => <ChatMessage key={m.id} message={m} onForward={handleForward} />)
+            messages.map(m => <ChatMessage key={m.id} message={m} />)
           )}
           {error && <p className="border-amber bg-amber/10 text-ink rounded-sm border-2 p-3 text-sm">{error}</p>}
         </div>
@@ -177,7 +180,7 @@ export default function PortfolioChat() {
             type="text"
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder={limitReached ? 'Conversation limit reached. Email aaron@pagelyft.studio.' : 'Type your question...'}
+            placeholder={limitReached ? 'Conversation limit reached. Start a new chat to continue.' : 'Type your question...'}
             disabled={streaming || limitReached}
             maxLength={MAX_INPUT_LENGTH}
             className="border-ink bg-paper text-ink placeholder:text-graphite focus-visible:outline-signal flex-1 rounded-sm border-2 px-4 py-2 text-sm focus-visible:outline-3 focus-visible:outline-offset-2 disabled:opacity-50"
@@ -191,18 +194,6 @@ export default function PortfolioChat() {
           </button>
         </form>
       </div>
-
-      <LeadCaptureModal
-        open={leadOpen}
-        flag={activeLead}
-        conversationId={conversationIdRef.current}
-        onClose={() => setLeadOpen(false)}
-        onSubmitted={() => {
-          setActiveLead(null);
-        }}
-      />
-
-      <SystemPromptModal open={promptOpen} onClose={() => setPromptOpen(false)} />
     </div>
   );
 }

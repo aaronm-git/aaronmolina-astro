@@ -11,13 +11,15 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:@anthropic-ai/sdk@~0.95.1",
         "npm:@astrojs/check@~0.9.6",
         "npm:@astrojs/mdx@^4.3.13",
         "npm:@astrojs/react@^4.4.0",
+        "npm:@fontsource/archivo-black@^5.2.8",
+        "npm:@fontsource/ibm-plex-mono@^5.2.7",
         "npm:@netlify/blobs@^10.7.4",
         "npm:@netlify/functions@^5.2.0",
         "npm:@tailwindcss/vite@^4.1.11",
+        "npm:@types/node@^26.1.1",
         "npm:@types/react-dom@^19.2.1",
         "npm:@types/react@^19.2.2",
         "npm:astro@^5.11.0",

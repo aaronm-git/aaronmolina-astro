@@ -41,7 +41,7 @@ export type ChatAuditEvent = z.infer<typeof ChatAuditEventSchema>;
  * affect the visitor's chat response.
  */
 export async function writeChatAudit(event: ChatAuditEvent): Promise<void> {
-  const connectionString = process.env.NEON_DATABASE_URL;
+  const connectionString = Netlify.env.get('NEON_DATABASE_URL') || process.env.NEON_DATABASE_URL;
   if (!connectionString) {
     console.warn('[chat] NEON_DATABASE_URL is not configured; chat audit was skipped');
     return;

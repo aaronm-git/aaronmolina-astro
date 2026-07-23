@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import MainLayout from '@/layouts/main-layout.astro';
+
+export async function getStaticPaths() {
+  const legalPages = await getCollection('legal');
+
+  return legalPages.map(legalPage => ({
+    params: { legal: legalPage.id },
+    props: { legalPage },
+  }));
+}
+
+interface Props {
+  legalPage: CollectionEntry<'legal'>;
+}
+
+const { legalPage } = Astro.props;
+const { Content } = await render(legalPage);
+const lastUpdated = legalPage.data.lastUpdated.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<MainLayout title={`${legalPage.data.title} | Aaron Molina`} description={legalPage.data.description}>
+  <article class="section-py container max-w-3xl">
+    <header class="border-ink mb-10 border-b-2 pb-6">
+      <p class="text-signal-deep mb-3 font-mono text-xs font-bold tracking-[0.18em] uppercase">Legal</p>
+      <h1 class="font-display text-ink text-3xl font-black tracking-tight uppercase md:text-4xl">{legalPage.data.title}</h1>
+      <p class="text-graphite mt-4 text-sm">Last updated: {lastUpdated}</p>
+    </header>
+
+    <div class="typography max-w-none">
+      <Content />
+    </div>
+  </article>
+</MainLayout>

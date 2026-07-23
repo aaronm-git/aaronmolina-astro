@@ -17,11 +17,8 @@ const getMarkdownDetails = (body?: string): string =>
     .join('\n')
     .trim() ?? '';
 
-/**
- * Aggregates every portfolio content collection into a single markdown document.
- * Used by both `/llms.txt` and the chat function as a cached system-prompt knowledge base.
- */
-export async function buildPortfolioKnowledge(): Promise<string> {
+/** Loads the content shared by the public index and the private chat artifact. */
+async function loadPortfolioContent() {
   const now = new Date();
   const years = now.getFullYear() - homepageContent.yearsOfExperienceStartYear;
 
@@ -60,6 +57,78 @@ export async function buildPortfolioKnowledge(): Promise<string> {
   projects.forEach(p => p.data.technologies.forEach(t => tagSet.add(t)));
   const topics = [...tagSet].sort();
 
+  const skillLines = skills.map(t => `- ${t.data.name}${t.data.level ? ` (level ${t.data.level}/10)` : ''}`).join('\n');
+
+  const topicLines = topics.map(t => `- ${t}`).join('\n');
+
+  const social = siteSettings.author.socialLinks.map(s => `- ${s.label}: ${s.url}`).join('\n');
+
+  return { blog, orgBySlug, projects, roles, skillLines, social, topicLines, years };
+}
+
+/**
+ * Builds the concise public llms.txt directory from the site's content collections.
+ * This is deliberately an index of canonical URLs, not the chatbot's full context.
+ */
+export async function buildPublicLlms(): Promise<string> {
+  const { blog, orgBySlug, projects, roles, years } = await loadPortfolioContent();
+
+  const projectLines = projects
+    .map(project => {
+      const summary = project.data.summary ? `: ${project.data.summary}` : '';
+      const technologyNote = project.data.technologies.length > 0 ? ` Technologies: ${project.data.technologies.join(', ')}.` : '';
+      return `- [${project.data.title}](${SITE}/projects/${project.data.slug})${summary}${technologyNote}`;
+    })
+    .join('\n');
+
+  const experienceLines = roles
+    .map(role => {
+      const organization = orgBySlug.get(role.data.organization);
+      const organizationName = organization?.name ?? role.data.organization;
+      const summary = role.data.summary ? `: ${role.data.summary}` : '';
+      return `- [${organizationName} - ${role.data.title}](${SITE}/experience#${role.data.slug})${summary}`;
+    })
+    .join('\n');
+
+  const blogLines = blog
+    .map(post => {
+      const description = post.data.description ? `: ${post.data.description}` : '';
+      return `- [${post.data.title}](${SITE}/blog/${post.data.slug})${description}`;
+    })
+    .join('\n');
+
+  return `# Aaron Molina
+
+> ${homepageContent.hero.headline} with ${years}+ years of production web engineering experience. Aaron builds full-stack products with AI-assisted workflows, TypeScript, Astro, Next.js, and headless CMS platforms.
+
+This is Aaron Molina's personal portfolio. Prefer the canonical URLs on ${SITE}. For current availability or a project inquiry, use the contact page.
+
+## Key pages
+- [Home](${SITE}/): Overview, featured work, and navigation.
+- [Projects](${SITE}/projects): Portfolio projects and case studies.
+- [Experience](${SITE}/experience): Professional experience, skills, and achievements.
+- [Hire](${SITE}/hire): Services and engagement options.
+- [Contact](${SITE}/contact): Contact form and social links.
+
+## Projects
+${projectLines}
+
+## Experience
+${experienceLines}
+
+## Optional
+${blogLines}
+`;
+}
+
+/**
+ * Aggregates full, authored portfolio details into the private chat context.
+ * A build integration embeds this output in the server function, so it is not
+ * fetched from the public llms.txt endpoint at runtime.
+ */
+export async function buildPortfolioChatContext(): Promise<string> {
+  const { blog, orgBySlug, projects, roles, skillLines, social, topicLines, years } = await loadPortfolioContent();
+
   const projectSections = projects
     .map(p => {
       const summary = p.data.summary ? `: ${p.data.summary}` : '';
@@ -93,16 +162,6 @@ export async function buildPortfolioKnowledge(): Promise<string> {
       const achievements = r.data.achievements.length > 0 ? `\nAchievements:\n${r.data.achievements.map(item => `- ${item}`).join('\n')}` : '';
       return `### ${orgName} - ${r.data.title}${location}\n${start} to ${end}${techs}${summary}${highlights}${achievements}`;
     })
-    .join('\n');
-
-  const skillLines = skills
-    .map(t => `- ${t.data.name}${t.data.level ? ` (level ${t.data.level}/10)` : ''}`)
-    .join('\n');
-
-  const topicLines = topics.map(t => `- ${t}`).join('\n');
-
-  const social = siteSettings.author.socialLinks
-    .map(s => `- ${s.label}: ${s.url}`)
     .join('\n');
 
   return `# Aaron Molina - Agentic Software Engineer

@@ -71,6 +71,18 @@ const blog = defineCollection({
     }),
 });
 
+const legal = defineCollection({
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/legal',
+  }),
+  schema: z.object({
+    title: z.string().min(1),
+    description: z.string().min(1),
+    lastUpdated: z.coerce.date(),
+  }),
+});
+
 const technologies = defineCollection({
   loader: glob({
     pattern: '**/*.json',
@@ -315,6 +327,7 @@ const emailSignatureProfiles = defineCollection({
 
 export const collections = {
   blog,
+  legal,
   // entity model:
   technologies,
   organizations,

@@ -194,6 +194,15 @@ export default function PortfolioChat() {
           </button>
         </form>
       </div>
+
+      <p className="text-graphite mt-3 text-center text-xs leading-relaxed">
+        Do not submit private or sensitive information. Chat messages are processed by OpenAI and may be logged to operate and secure this chat. By using the chat, you acknowledge
+        and agree to the{' '}
+        <a href="/privacy" className="text-signal-deep hover:text-ink font-semibold underline underline-offset-2">
+          Privacy Notice
+        </a>
+        .
+      </p>
     </div>
   );
 }

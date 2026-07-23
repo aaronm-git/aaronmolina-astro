@@ -1,13 +1,9 @@
 import { z } from 'zod';
-import {
-  ChatRequestSchema,
-  ChatStreamEventSchema,
-  type ChatRequest,
-  type ChatStreamEvent,
-} from '../../src/lib/chat/schemas';
+import { ChatRequestSchema, ChatStreamEventSchema, type ChatRequest, type ChatStreamEvent } from '../../src/lib/chat/schemas';
 import { checkDailyTokenBudget, checkRateLimit, hashIp, recordTokenSpend } from '../../src/lib/chat/rate-limit';
 import { buildSystemPrompt } from '../../src/lib/chat/system-prompt';
 import { type ChatAuditEvent, writeChatAudit } from './_shared/chat-audit';
+import { PORTFOLIO_CHAT_CONTEXT, PORTFOLIO_CHAT_CONTEXT_VERSION } from './_generated/portfolio-chat-context';
 import type { Config, Context } from '@netlify/functions';
 
 const MODEL_ID = 'gpt-5.4-nano';
@@ -27,11 +23,14 @@ const OpenAITextDeltaSchema = z.object({
 const OpenAICompletedSchema = z.object({
   type: z.literal('response.completed'),
   response: z.object({
-    usage: z.object({
-      input_tokens: z.number().int().nonnegative().optional(),
-      output_tokens: z.number().int().nonnegative().optional(),
-      total_tokens: z.number().int().nonnegative(),
-    }).nullable().optional(),
+    usage: z
+      .object({
+        input_tokens: z.number().int().nonnegative().optional(),
+        output_tokens: z.number().int().nonnegative().optional(),
+        total_tokens: z.number().int().nonnegative(),
+      })
+      .nullable()
+      .optional(),
   }),
 });
 
@@ -50,26 +49,12 @@ const OpenAIErrorResponseSchema = z.object({
 
 let cachedSystemPrompt: string | null = null;
 
-/** Fetches the public portfolio knowledge once for each warm function instance. */
-async function loadSystemPrompt(req: Request): Promise<string> {
-  if (cachedSystemPrompt) return cachedSystemPrompt;
-
-  const requestUrl = new URL(req.url);
-  const base = process.env.URL || requestUrl.origin;
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5_000);
-
-  try {
-    const response = await fetch(`${base.replace(/\/$/, '')}/llms.txt`, {
-      signal: controller.signal,
-    });
-    if (!response.ok) throw new Error(`Knowledge request returned ${response.status}`);
-
-    cachedSystemPrompt = buildSystemPrompt(await response.text());
-    return cachedSystemPrompt;
-  } finally {
-    clearTimeout(timeout);
+/** Builds the static prompt once per warm function instance. */
+function loadSystemPrompt(): string {
+  if (!cachedSystemPrompt) {
+    cachedSystemPrompt = buildSystemPrompt(PORTFOLIO_CHAT_CONTEXT);
   }
+  return cachedSystemPrompt;
 }
 
 /** Returns a JSON error response with browser-safe cache and MIME headers. */
@@ -94,10 +79,10 @@ function getClientIp(req: Request): string {
 function isAdminIp(ip: string): boolean {
   if (LOCAL_ADMIN_IPS.has(ip)) return true;
 
-  const configuredIps = process.env.CHAT_ADMIN_IPS
-    ?.split(',')
-    .map(value => value.trim())
-    .filter(Boolean) ?? [];
+  const configuredIps =
+    process.env.CHAT_ADMIN_IPS?.split(',')
+      .map(value => value.trim())
+      .filter(Boolean) ?? [];
   const parsedIps = AdminIpListSchema.safeParse(configuredIps);
 
   if (!parsedIps.success) {
@@ -344,7 +329,7 @@ export default async (req: Request, context: Context): Promise<Response> => {
 
   let systemPrompt: string;
   try {
-    systemPrompt = await loadSystemPrompt(req);
+    systemPrompt = loadSystemPrompt();
   } catch (error) {
     console.error('[chat] knowledge load failed', error);
     audit({
@@ -377,6 +362,7 @@ export default async (req: Request, context: Context): Promise<Response> => {
         instructions: systemPrompt,
         input: createOpenAIInput(parsedRequest.data.messages),
         max_output_tokens: MAX_OUTPUT_TOKENS,
+        prompt_cache_key: `portfolio-chat:${PORTFOLIO_CHAT_CONTEXT_VERSION}`,
         safety_identifier: hashIp(ip),
         store: false,
         stream: true,

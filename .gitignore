@@ -30,5 +30,8 @@ netlify/functions/_generated/
 
 .claude/
 
+# Local application materials (resumes, cover letters, and PDFs)
+.local/
+
 # Subagent-driven-development scratch state (progress ledger, briefs, reports)
 .superpowers/

@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
+import { developmentTools } from './src/integrations/development-tools';
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,5 +20,5 @@ export default defineConfig({
     domains: ['placehold.co'],
   },
 
-  integrations: [mdx(), react()],
+  integrations: [mdx(), react(), developmentTools()],
 });

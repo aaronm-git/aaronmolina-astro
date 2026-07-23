@@ -1,0 +1,25 @@
+---
+/**
+ * Compact utility button used by development tools for clipboard actions.
+ */
+interface Props {
+  /** Clipboard action handled by the parent development tool */
+  action: 'copy-rich' | 'copy-html';
+  /** Visible button label */
+  label: string;
+  /** Accessible description for the clipboard action */
+  ariaLabel: string;
+}
+
+const { action, label, ariaLabel } = Astro.props;
+---
+
+<button
+  type="button"
+  class="border-ink bg-signal text-ink shadow-hard-sm hover:bg-ink hover:text-signal inline-flex min-h-10 items-center justify-center border-2 px-4 py-2 font-mono text-xs font-bold tracking-wider uppercase transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+  data-copy-action={action}
+  data-default-label={label}
+  aria-label={ariaLabel}
+>
+  {label}
+</button>

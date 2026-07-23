@@ -288,6 +288,31 @@ const services = defineCollection({
   }),
 });
 
+const emailSignatureProfiles = defineCollection({
+  loader: glob({
+    pattern: '**/*.json',
+    base: './src/content/email-signature-profiles',
+  }),
+  schema: z.object({
+    fullName: z.string().min(1),
+    title: z.string().min(1),
+    specialization: z.string().min(1),
+    email: z.string().email(),
+    phone: z.string().min(1),
+    location: z.string().min(1),
+    website: z.string().url(),
+    socials: z
+      .array(
+        z.object({
+          platform: z.enum(['linkedin', 'github', 'twitter', 'instagram', 'facebook', 'youtube', 'bluesky', 'threads', 'mastodon', 'dribbble', 'behance']),
+          url: z.string().url(),
+        }),
+      )
+      .max(10),
+    disclaimer: z.string().min(1),
+  }),
+});
+
 export const collections = {
   blog,
   // entity model:
@@ -302,4 +327,6 @@ export const collections = {
   awards,
   testimonials,
   services,
+  // local development tools:
+  emailSignatureProfiles,
 };

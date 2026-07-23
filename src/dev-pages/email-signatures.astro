@@ -1,0 +1,76 @@
+---
+import { getEntry } from 'astro:content';
+
+import EmailSignatureCard from '@/components/molecules/EmailSignatureCard.astro';
+import EmailSignatureEditor from '@/components/organisms/forms/EmailSignatureEditor.astro';
+import { createEmailSignatures } from '@/lib/email-signatures';
+import { emailSignatureProfileSchema } from '@/schemas/email-signature';
+import '@/styles/global.css';
+
+const profileEntry = await getEntry('emailSignatureProfiles', 'job-search');
+
+if (!profileEntry) {
+  throw new Error('The job-search email signature profile is missing.');
+}
+
+const profile = emailSignatureProfileSchema.parse(profileEntry.data);
+const signatures = createEmailSignatures(profile);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Local Gmail signature workshop for Aaron Molina." />
+    <title>Email Signature Workshop | Development Only</title>
+  </head>
+  <body class="bg-concrete text-ink">
+    <main>
+      <section class="bg-ink text-concrete border-signal border-b-8">
+        <div class="container py-12 md:py-16">
+          <div class="border-signal text-signal mb-6 inline-flex border-2 px-3 py-1 font-mono text-xs font-bold tracking-[0.18em] uppercase">
+            Development only · /dev/email-signatures
+          </div>
+          <h1 class="font-display max-w-5xl text-4xl leading-[0.92] uppercase sm:text-6xl lg:text-7xl">
+            Gmail Signature<br /><span class="text-signal">Workshop</span>
+          </h1>
+          <p class="text-concrete-2 mt-6 max-w-3xl text-base leading-relaxed sm:text-lg">
+            Ten job-search signatures built with table layouts, inline styles, and email-safe fonts. Use “Copy for Gmail” for the best result, then paste directly into Gmail’s
+            signature editor.
+          </p>
+        </div>
+      </section>
+
+      <section class="border-ink bg-signal border-b-2">
+        <div class="container grid gap-4 py-5 font-mono text-xs font-bold uppercase sm:grid-cols-2 lg:grid-cols-4">
+          <div><span class="block opacity-60">Name</span><span data-profile-output="fullName">{profile.fullName}</span></div>
+          <div><span class="block opacity-60">Email</span><span data-profile-output="email">{profile.email}</span></div>
+          <div><span class="block opacity-60">Phone</span><span data-profile-output="phone">{profile.phone}</span></div>
+          <div><span class="block opacity-60">Location</span><span data-profile-output="location">{profile.location}</span></div>
+        </div>
+      </section>
+
+      <section class="section-py">
+        <div class="container">
+          <EmailSignatureEditor profile={profile} />
+
+          <div class="border-ink bg-paper shadow-hard mb-10 grid gap-6 border-2 p-6 md:grid-cols-[1fr_auto] md:items-center">
+            <div>
+              <h2 class="font-display text-xl uppercase">How to install in Gmail</h2>
+              <p class="text-graphite mt-2 text-sm leading-relaxed">
+                Open Gmail → Settings → See all settings → General → Signature. Create a new signature, click “Copy for Gmail” here, paste into the editor, and save your changes.
+              </p>
+            </div>
+            <div class="border-ink bg-concrete-2 border-2 px-4 py-3 font-mono text-xs font-bold uppercase">10 options · Gmail safe</div>
+          </div>
+
+          <div class="grid gap-10">
+            {signatures.map(signature => <EmailSignatureCard signature={signature} />)}
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

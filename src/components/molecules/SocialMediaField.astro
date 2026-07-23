@@ -1,0 +1,57 @@
+---
+import { socialPlatformOptions, type SocialPlatform } from '@/schemas/email-signature';
+
+/**
+ * Selectable social-network and URL pair used by the signature editor.
+ */
+interface Props {
+  /** Initially selected social network */
+  platform?: SocialPlatform;
+  /** Initial social profile URL */
+  url?: string;
+}
+
+const { platform = 'linkedin', url = '' } = Astro.props;
+const selectedLabel = socialPlatformOptions.find(option => option.value === platform)?.label ?? 'social media';
+---
+
+<div class="border-ink bg-concrete-2 grid gap-3 border-2 p-3 sm:grid-cols-[minmax(9rem,0.7fr)_minmax(14rem,1.5fr)_auto] sm:items-end" data-social-row>
+  <label>
+    <span class="text-ink mb-2 block font-mono text-xs font-bold tracking-[0.1em] uppercase">Network</span>
+    <select
+      name="socialPlatform"
+      class="border-ink bg-paper text-ink focus-visible:outline-signal w-full rounded-sm border-2 px-3 py-2.5 text-sm focus-visible:outline-3 focus-visible:outline-offset-2"
+      data-social-platform
+    >
+      {
+        socialPlatformOptions.map(option => (
+          <option value={option.value} selected={option.value === platform}>
+            {option.label}
+          </option>
+        ))
+      }
+    </select>
+  </label>
+
+  <label>
+    <span class="text-ink mb-2 block font-mono text-xs font-bold tracking-[0.1em] uppercase">Profile URL</span>
+    <input
+      name="socialUrl"
+      type="url"
+      value={url}
+      placeholder="https://..."
+      class="border-ink bg-paper text-ink placeholder:text-graphite focus-visible:outline-signal w-full rounded-sm border-2 px-3 py-2.5 text-sm focus-visible:outline-3 focus-visible:outline-offset-2"
+      data-social-url
+      required
+    />
+  </label>
+
+  <button
+    type="button"
+    class="border-ink bg-paper text-ink hover:bg-ink hover:text-signal min-h-11 border-2 px-4 py-2 font-mono text-xs font-bold uppercase transition-colors"
+    data-remove-social
+    aria-label={`Remove ${selectedLabel} social field`}
+  >
+    Remove
+  </button>
+</div>

@@ -1,0 +1,215 @@
+---
+import FormField from '@/components/molecules/FormField.astro';
+import SocialMediaField from '@/components/molecules/SocialMediaField.astro';
+import type { EmailSignatureProfile } from '@/schemas/email-signature';
+
+/**
+ * Live profile editor that regenerates every email signature preview.
+ */
+interface Props {
+  /** Default profile loaded from the email-signature content collection */
+  profile: EmailSignatureProfile;
+}
+
+const { profile } = Astro.props;
+---
+
+<section class="border-ink bg-paper shadow-hard mb-10 border-2" aria-labelledby="signature-editor-heading">
+  <div class="border-ink bg-ink text-concrete flex flex-col gap-3 border-b-2 p-5 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="text-signal font-mono text-xs font-bold tracking-[0.18em] uppercase">Live profile data</p>
+      <h2 id="signature-editor-heading" class="font-display mt-1 text-2xl leading-none uppercase sm:text-3xl">Customize all signatures</h2>
+      <p class="text-steel mt-2 max-w-2xl text-sm">Changes update every preview and its copyable HTML. Reset restores the defaults stored in the content collection.</p>
+    </div>
+    <div class="border-signal text-signal border-2 px-3 py-2 font-mono text-xs font-bold uppercase">Local session only</div>
+  </div>
+
+  <form class="grid gap-5 p-5 sm:grid-cols-2 lg:grid-cols-3" data-signature-editor novalidate>
+    <FormField label="Full name" name="fullName" value={profile.fullName} required />
+    <FormField label="Professional title" name="title" value={profile.title} required />
+    <FormField label="Location" name="location" value={profile.location} required />
+    <FormField label="Job-search email" name="email" type="email" value={profile.email} required />
+    <FormField label="Phone" name="phone" value={profile.phone} required />
+    <FormField label="Portfolio URL" name="website" type="url" value={profile.website} required />
+    <FormField label="Specialization" name="specialization" value={profile.specialization} class="sm:col-span-2" required />
+
+    <fieldset class="border-ink grid gap-3 border-t-2 pt-5 sm:col-span-2 lg:col-span-3">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <legend class="font-display text-lg uppercase">Social profiles</legend>
+          <p class="text-graphite mt-1 text-xs leading-relaxed">Add only the networks you want displayed. Every selected profile appears in all ten signatures.</p>
+        </div>
+        <button
+          type="button"
+          class="border-ink bg-signal text-ink hover:bg-ink hover:text-signal disabled:bg-steel inline-flex min-h-10 items-center justify-center border-2 px-4 py-2 font-mono text-xs font-bold tracking-wider uppercase transition-colors disabled:cursor-not-allowed"
+          data-add-social
+        >
+          Add social
+        </button>
+      </div>
+
+      <div class="grid gap-3" data-social-fields>
+        {profile.socials.map(social => <SocialMediaField platform={social.platform} url={social.url} />)}
+      </div>
+
+      <template data-social-row-template>
+        <SocialMediaField />
+      </template>
+    </fieldset>
+
+    <FormField label="Confidentiality notice" name="disclaimer" type="textarea" value={profile.disclaimer} rows={4} class="sm:col-span-2 lg:col-span-3" required />
+
+    <div class="border-ink flex flex-col gap-4 border-t-2 pt-5 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between lg:col-span-3">
+      <p class="text-graphite font-mono text-xs leading-relaxed" aria-live="polite" data-editor-status>All ten previews are using the defaults shown above.</p>
+      <button
+        type="reset"
+        class="border-ink bg-concrete-2 text-ink hover:bg-signal inline-flex min-h-10 items-center justify-center border-2 px-4 py-2 font-mono text-xs font-bold tracking-wider uppercase transition-colors"
+      >
+        Reset defaults
+      </button>
+    </div>
+  </form>
+</section>
+
+<script>
+  import { createEmailSignatures } from '@/lib/email-signatures';
+  import { emailSignatureProfileSchema, type EmailSignatureProfile } from '@/schemas/email-signature';
+
+  const editor = document.querySelector<HTMLFormElement>('[data-signature-editor]');
+  const editorStatus = editor?.querySelector<HTMLElement>('[data-editor-status]');
+  const socialFields = editor?.querySelector<HTMLElement>('[data-social-fields]');
+  const socialRowTemplate = editor?.querySelector<HTMLTemplateElement>('[data-social-row-template]');
+  const addSocialButton = editor?.querySelector<HTMLButtonElement>('[data-add-social]');
+  const defaultSocialMarkup = socialFields?.innerHTML ?? '';
+
+  function updateProfileSummary(profile: EmailSignatureProfile): void {
+    const summaryFields = {
+      fullName: profile.fullName,
+      email: profile.email,
+      phone: profile.phone,
+      location: profile.location,
+    };
+
+    Object.entries(summaryFields).forEach(([field, value]) => {
+      document.querySelectorAll<HTMLElement>(`[data-profile-output="${field}"]`).forEach(output => {
+        output.textContent = value;
+      });
+    });
+  }
+
+  function collectEditorData(): unknown {
+    if (!editor) {
+      return {};
+    }
+
+    const formData = new FormData(editor);
+    const socials = Array.from(editor.querySelectorAll<HTMLElement>('[data-social-row]')).map(row => ({
+      platform: row.querySelector<HTMLSelectElement>('[data-social-platform]')?.value ?? '',
+      url: row.querySelector<HTMLInputElement>('[data-social-url]')?.value.trim() ?? '',
+    }));
+
+    return {
+      fullName: formData.get('fullName'),
+      title: formData.get('title'),
+      specialization: formData.get('specialization'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      location: formData.get('location'),
+      website: formData.get('website'),
+      socials,
+      disclaimer: formData.get('disclaimer'),
+    };
+  }
+
+  function updateAddSocialButton(): void {
+    if (!addSocialButton || !socialFields) {
+      return;
+    }
+
+    addSocialButton.disabled = socialFields.querySelectorAll('[data-social-row]').length >= 10;
+  }
+
+  function updateSocialRowLabels(): void {
+    editor?.querySelectorAll<HTMLElement>('[data-social-row]').forEach(row => {
+      const select = row.querySelector<HTMLSelectElement>('[data-social-platform]');
+      const removeButton = row.querySelector<HTMLButtonElement>('[data-remove-social]');
+      const selectedLabel = select?.selectedOptions.item(0)?.textContent?.trim() || 'social media';
+
+      if (removeButton) {
+        removeButton.setAttribute('aria-label', `Remove ${selectedLabel} social field`);
+      }
+    });
+  }
+
+  function updateSignatures(): void {
+    if (!editor || !editorStatus) {
+      return;
+    }
+
+    updateSocialRowLabels();
+    const result = emailSignatureProfileSchema.safeParse(collectEditorData());
+
+    if (!result.success) {
+      const issue = result.error.issues[0];
+      const field = issue?.path.join('.') || 'A field';
+      editorStatus.textContent = `${field}: ${issue?.message ?? 'Enter a valid value.'}`;
+      editorStatus.classList.add('text-red-700');
+      updateAddSocialButton();
+      return;
+    }
+
+    const signatures = createEmailSignatures(result.data);
+    const cards = document.querySelectorAll<HTMLElement>('[data-signature-card]');
+
+    signatures.forEach((signature, index) => {
+      const card = cards.item(index);
+      const preview = card?.querySelector<HTMLElement>('[data-signature-preview]');
+      const source = card?.querySelector<HTMLElement>('[data-signature-html]');
+
+      if (preview && source) {
+        preview.innerHTML = signature.html;
+        source.textContent = signature.html;
+      }
+    });
+
+    updateProfileSummary(result.data);
+    editorStatus.textContent = 'All ten previews and HTML sources are updated.';
+    editorStatus.classList.remove('text-red-700');
+    updateAddSocialButton();
+  }
+
+  editor?.addEventListener('input', updateSignatures);
+  editor?.addEventListener('click', event => {
+    if (!(event.target instanceof Element)) {
+      return;
+    }
+
+    const removeButton = event.target.closest<HTMLButtonElement>('[data-remove-social]');
+    if (!removeButton) {
+      return;
+    }
+
+    removeButton.closest<HTMLElement>('[data-social-row]')?.remove();
+    updateSignatures();
+  });
+
+  addSocialButton?.addEventListener('click', () => {
+    if (!socialFields || !socialRowTemplate || socialFields.querySelectorAll('[data-social-row]').length >= 10) {
+      return;
+    }
+
+    socialFields.append(socialRowTemplate.content.cloneNode(true));
+    updateSignatures();
+  });
+
+  editor?.addEventListener('reset', () => {
+    window.requestAnimationFrame(() => {
+      if (socialFields) {
+        socialFields.innerHTML = defaultSocialMarkup;
+      }
+      updateSignatures();
+    });
+  });
+
+  updateAddSocialButton();
+</script>

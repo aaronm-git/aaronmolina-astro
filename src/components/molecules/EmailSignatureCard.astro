@@ -1,0 +1,108 @@
+---
+import CopyButton from '@/components/atoms/CopyButton.astro';
+import type { EmailSignatureTemplate } from '@/lib/email-signatures';
+
+/**
+ * Preview, source viewer, and clipboard controls for one email signature.
+ */
+interface Props {
+  /** Validated Gmail-safe signature template */
+  signature: EmailSignatureTemplate;
+}
+
+const { signature } = Astro.props;
+---
+
+<article class="border-ink bg-paper shadow-hard overflow-hidden border-2" data-signature-card>
+  <header class="border-ink bg-ink text-concrete flex flex-col gap-3 border-b-2 p-5 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="text-signal font-mono text-xs font-bold tracking-[0.18em] uppercase">Option {String(signature.number).padStart(2, '0')}</p>
+      <h2 class="font-display mt-1 text-2xl leading-none uppercase">{signature.name}</h2>
+      <p class="text-steel mt-2 max-w-2xl text-sm">{signature.description}</p>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      <CopyButton action="copy-rich" label="Copy for Gmail" ariaLabel={`Copy ${signature.name} as a formatted Gmail signature`} />
+      <CopyButton action="copy-html" label="Copy HTML" ariaLabel={`Copy the HTML source for ${signature.name}`} />
+    </div>
+  </header>
+
+  <div class="email-signature-canvas overflow-x-auto bg-white p-5 sm:p-8" data-signature-preview set:html={signature.html} />
+
+  <details class="border-ink bg-concrete-2 border-t-2">
+    <summary class="hover:bg-signal px-5 py-3 font-mono text-xs font-bold tracking-wider uppercase transition-colors"> View HTML source </summary>
+    <pre
+      class="border-ink bg-ink text-concrete m-4 max-h-80 overflow-auto border-2 p-4 text-xs leading-relaxed whitespace-pre-wrap"><code data-signature-html>{signature.html}</code></pre>
+  </details>
+
+  <p class="sr-only" aria-live="polite" data-copy-status></p>
+</article>
+
+<script>
+  function restoreButton(button: HTMLButtonElement): void {
+    window.setTimeout(() => {
+      button.textContent = button.dataset.defaultLabel ?? 'Copy';
+    }, 1800);
+  }
+
+  function setSuccess(button: HTMLButtonElement, status: HTMLElement, message: string): void {
+    button.textContent = 'Copied';
+    status.textContent = message;
+    restoreButton(button);
+  }
+
+  function copyRenderedFallback(preview: HTMLElement): boolean {
+    const selection = window.getSelection();
+    if (!selection) {
+      return false;
+    }
+
+    const range = document.createRange();
+    range.selectNodeContents(preview);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    const didCopy = document.execCommand('copy');
+    selection.removeAllRanges();
+    return didCopy;
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-action]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const card = button.closest<HTMLElement>('[data-signature-card]');
+      const preview = card?.querySelector<HTMLElement>('[data-signature-preview]');
+      const source = card?.querySelector<HTMLElement>('[data-signature-html]');
+      const status = card?.querySelector<HTMLElement>('[data-copy-status]');
+
+      if (!card || !preview || !source || !status) {
+        return;
+      }
+
+      const html = source.textContent ?? '';
+
+      try {
+        if (button.dataset.copyAction === 'copy-html') {
+          await navigator.clipboard.writeText(html);
+          setSuccess(button, status, 'HTML source copied to the clipboard.');
+          return;
+        }
+
+        if ('ClipboardItem' in window && navigator.clipboard?.write) {
+          const clipboardItem = new ClipboardItem({
+            'text/html': new Blob([html], { type: 'text/html' }),
+            'text/plain': new Blob([preview.innerText], { type: 'text/plain' }),
+          });
+          await navigator.clipboard.write([clipboardItem]);
+          setSuccess(button, status, 'Formatted signature copied. Paste it into Gmail settings.');
+          return;
+        }
+
+        if (copyRenderedFallback(preview)) {
+          setSuccess(button, status, 'Formatted signature copied. Paste it into Gmail settings.');
+        }
+      } catch {
+        button.textContent = 'Try selection';
+        status.textContent = 'Clipboard access was blocked. Select the preview and copy it manually.';
+        restoreButton(button);
+      }
+    });
+  });
+</script>

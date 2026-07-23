@@ -1,0 +1,20 @@
+{
+  "fullName": "Aaron Molina",
+  "title": "Senior Frontend & Fullstack Developer",
+  "specialization": "React, Next.js, Astro, TypeScript & Headless CMS",
+  "email": "hire@aaronmolina.me",
+  "phone": "(305) 414-9289",
+  "location": "Miami, Florida",
+  "website": "https://www.aaronmolina.me",
+  "socials": [
+    {
+      "platform": "linkedin",
+      "url": "https://www.linkedin.com/in/aaronmolinag"
+    },
+    {
+      "platform": "github",
+      "url": "https://github.com/aaronm-git"
+    }
+  ],
+  "disclaimer": "CONFIDENTIALITY NOTICE: This email and any attachments are intended only for the person or entity addressed and may contain confidential information. If you received this message in error, please notify the sender, delete it, and do not copy, share, or use it."
+}

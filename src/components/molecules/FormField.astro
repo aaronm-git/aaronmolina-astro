@@ -1,5 +1,5 @@
 ---
-type FieldType = 'text' | 'email' | 'textarea' | 'select';
+type FieldType = 'text' | 'email' | 'url' | 'textarea' | 'select';
 
 /** A single selectable choice rendered as an `<option>` when `type` is `'select'` */
 interface Option {
@@ -24,6 +24,8 @@ interface Props {
   required?: boolean;
   /** Placeholder text for text/email/textarea; used as the blank default option's label when `type` is `'select'` */
   placeholder?: string;
+  /** Initial value shown in the form control */
+  value?: string;
   /** Number of visible rows; only applies when `type` is `'textarea'` */
   rows?: number;
   /** Choices to render; only applies when `type` is `'select'` */
@@ -32,7 +34,7 @@ interface Props {
   class?: string;
 }
 
-const { label, name, type = 'text', required = false, placeholder, rows = 5, options = [], class: className = '' } = Astro.props;
+const { label, name, type = 'text', required = false, placeholder, value = '', rows = 5, options = [], class: className = '' } = Astro.props;
 
 const fieldClasses =
   'w-full rounded-sm border-2 border-ink bg-paper px-3 py-2.5 text-sm text-ink placeholder:text-graphite focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-signal';
@@ -44,7 +46,7 @@ const fieldClasses =
   </label>
   {
     type === 'textarea' ? (
-      <textarea id={name} name={name} required={required} placeholder={placeholder} rows={rows} class={fieldClasses} />
+      <textarea id={name} name={name} required={required} placeholder={placeholder} rows={rows} class={fieldClasses} set:text={value} />
     ) : type === 'select' ? (
       <select id={name} name={name} required={required} class={fieldClasses}>
         {placeholder && <option value="">{placeholder}</option>}
@@ -53,7 +55,7 @@ const fieldClasses =
         ))}
       </select>
     ) : (
-      <input id={name} name={name} type={type} required={required} placeholder={placeholder} class={fieldClasses} />
+      <input id={name} name={name} type={type} required={required} placeholder={placeholder} value={value} class={fieldClasses} />
     )
   }
 </div>

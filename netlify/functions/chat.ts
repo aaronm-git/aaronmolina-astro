@@ -7,6 +7,8 @@ import {
 } from '../../src/lib/chat/schemas';
 import { checkDailyTokenBudget, checkRateLimit, hashIp, recordTokenSpend } from '../../src/lib/chat/rate-limit';
 import { buildSystemPrompt } from '../../src/lib/chat/system-prompt';
+import { type ChatAuditEvent, writeChatAudit } from './_shared/chat-audit';
+import type { Config, Context } from '@netlify/functions';
 
 const MODEL_ID = 'gpt-5.4-nano';
 const MAX_OUTPUT_TOKENS = 240;
@@ -26,6 +28,8 @@ const OpenAICompletedSchema = z.object({
   type: z.literal('response.completed'),
   response: z.object({
     usage: z.object({
+      input_tokens: z.number().int().nonnegative().optional(),
+      output_tokens: z.number().int().nonnegative().optional(),
       total_tokens: z.number().int().nonnegative(),
     }).nullable().optional(),
   }),
@@ -143,10 +147,13 @@ function createOpenAIInput(messages: ChatRequest['messages']) {
 async function forwardOpenAIStream(args: {
   body: ReadableStream<Uint8Array>;
   send: (event: ChatStreamEvent) => void;
-}): Promise<number> {
+}): Promise<{ inputTokens: number | null; outputTokens: number | null; responseText: string; totalTokens: number }> {
   const reader = args.body.getReader();
   const decoder = new TextDecoder();
   let buffer = '';
+  let inputTokens: number | null = null;
+  let outputTokens: number | null = null;
+  let responseText = '';
   let totalTokens = 0;
 
   const processEvent = (rawEvent: string) => {
@@ -167,13 +174,17 @@ async function forwardOpenAIStream(args: {
 
     const textDelta = OpenAITextDeltaSchema.safeParse(eventPayload);
     if (textDelta.success) {
+      responseText += textDelta.data.delta;
       args.send({ type: 'text_delta', text: textDelta.data.delta });
       return;
     }
 
     const completed = OpenAICompletedSchema.safeParse(eventPayload);
     if (completed.success) {
-      totalTokens = completed.data.response.usage?.total_tokens ?? totalTokens;
+      const usage = completed.data.response.usage;
+      inputTokens = usage?.input_tokens ?? inputTokens;
+      outputTokens = usage?.output_tokens ?? outputTokens;
+      totalTokens = usage?.total_tokens ?? totalTokens;
       return;
     }
 
@@ -195,50 +206,29 @@ async function forwardOpenAIStream(args: {
     }
 
     if (buffer.trim()) processEvent(buffer);
-    return totalTokens;
+    return { inputTokens, outputTokens, responseText, totalTokens };
   } finally {
     reader.releaseLock();
   }
 }
 
-export default async (req: Request): Promise<Response> => {
+/** Schedules a safe, validated audit write without delaying the chat response. */
+function queueChatAudit(context: Context, event: ChatAuditEvent): void {
+  context.waitUntil(
+    writeChatAudit(event).catch(error => {
+      console.error('[chat] audit write failed', error);
+    }),
+  );
+}
+
+export default async (req: Request, context: Context): Promise<Response> => {
+  const startedAt = Date.now();
   if (req.method !== 'POST') return jsonError('Method not allowed', 405, { Allow: 'POST' });
   if (!hasAllowedOrigin(req)) return jsonError('Forbidden', 403);
-
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) return jsonError('Chat is temporarily unavailable.', 503);
 
   const contentLength = z.coerce.number().int().nonnegative().safeParse(req.headers.get('content-length'));
   if (contentLength.success && contentLength.data > MAX_REQUEST_BODY_BYTES) {
     return jsonError('Request is too large.', 413);
-  }
-
-  const ip = getClientIp(req);
-  const adminRequest = isAdminIp(ip);
-  let rateLimitRemaining: number | null = null;
-
-  if (!adminRequest) {
-    try {
-      const rateLimit = await checkRateLimit(ip);
-      if (!rateLimit.allowed) {
-        return jsonError('You have reached the chat limit. Please try again later.', 429, {
-          'Retry-After': String(rateLimit.retryAfterSeconds),
-        });
-      }
-      rateLimitRemaining = rateLimit.remaining;
-    } catch (error) {
-      console.error('[chat] rate limit unavailable', error);
-      return jsonError('Chat is temporarily unavailable. Please try again later.', 503);
-    }
-  }
-
-  const maxDailyTokens = getDailyTokenLimit();
-  try {
-    const budget = await checkDailyTokenBudget(maxDailyTokens);
-    if (!budget.allowed) return jsonError('Chat is temporarily unavailable. Please try again tomorrow.', 503);
-  } catch (error) {
-    console.error('[chat] daily budget unavailable', error);
-    return jsonError('Chat is temporarily unavailable. Please try again later.', 503);
   }
 
   let body: unknown;
@@ -255,11 +245,117 @@ export default async (req: Request): Promise<Response> => {
   const parsedRequest = ChatRequestSchema.safeParse(body);
   if (!parsedRequest.success) return jsonError('Invalid request format.', 400);
 
+  const ip = getClientIp(req);
+  const adminRequest = isAdminIp(ip);
+  const lastMessage = parsedRequest.data.messages.at(-1);
+  if (!lastMessage) return jsonError('Invalid request format.', 400);
+
+  const auditBase = {
+    conversationId: parsedRequest.data.conversationId,
+    turnNumber: parsedRequest.data.messages.filter(message => message.role === 'user').length,
+    visitorHash: hashIp(ip),
+    requestId: context.requestId ?? null,
+    deploymentId: context.deploy.id ?? null,
+    model: MODEL_ID,
+    maxOutputTokens: MAX_OUTPUT_TOKENS,
+    inputMessageCount: parsedRequest.data.messages.length,
+    userMessage: lastMessage.content,
+  };
+  const audit = (event: Omit<ChatAuditEvent, keyof typeof auditBase | 'latencyMs'>) => {
+    queueChatAudit(context, { ...auditBase, ...event, latencyMs: Date.now() - startedAt });
+  };
+
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    audit({
+      assistantResponse: null,
+      status: 'configuration_error',
+      errorCode: 'openai_api_key_missing',
+      upstreamStatus: null,
+      inputTokens: null,
+      outputTokens: null,
+      totalTokens: null,
+    });
+    return jsonError('Chat is temporarily unavailable.', 503);
+  }
+
+  let rateLimitRemaining: number | null = null;
+  if (!adminRequest) {
+    try {
+      const rateLimit = await checkRateLimit(ip);
+      if (!rateLimit.allowed) {
+        audit({
+          assistantResponse: null,
+          status: 'rate_limited',
+          errorCode: 'visitor_limit_reached',
+          upstreamStatus: null,
+          inputTokens: null,
+          outputTokens: null,
+          totalTokens: null,
+        });
+        return jsonError('You have reached the chat limit. Please try again later.', 429, {
+          'Retry-After': String(rateLimit.retryAfterSeconds),
+        });
+      }
+      rateLimitRemaining = rateLimit.remaining;
+    } catch (error) {
+      console.error('[chat] rate limit unavailable', error);
+      audit({
+        assistantResponse: null,
+        status: 'rate_limit_unavailable',
+        errorCode: 'rate_limit_store_unavailable',
+        upstreamStatus: null,
+        inputTokens: null,
+        outputTokens: null,
+        totalTokens: null,
+      });
+      return jsonError('Chat is temporarily unavailable. Please try again later.', 503);
+    }
+  }
+
+  const maxDailyTokens = getDailyTokenLimit();
+  try {
+    const budget = await checkDailyTokenBudget(maxDailyTokens);
+    if (!budget.allowed) {
+      audit({
+        assistantResponse: null,
+        status: 'daily_budget_exhausted',
+        errorCode: 'daily_token_budget_reached',
+        upstreamStatus: null,
+        inputTokens: null,
+        outputTokens: null,
+        totalTokens: null,
+      });
+      return jsonError('Chat is temporarily unavailable. Please try again tomorrow.', 503);
+    }
+  } catch (error) {
+    console.error('[chat] daily budget unavailable', error);
+    audit({
+      assistantResponse: null,
+      status: 'daily_budget_unavailable',
+      errorCode: 'daily_token_store_unavailable',
+      upstreamStatus: null,
+      inputTokens: null,
+      outputTokens: null,
+      totalTokens: null,
+    });
+    return jsonError('Chat is temporarily unavailable. Please try again later.', 503);
+  }
+
   let systemPrompt: string;
   try {
     systemPrompt = await loadSystemPrompt(req);
   } catch (error) {
     console.error('[chat] knowledge load failed', error);
+    audit({
+      assistantResponse: null,
+      status: 'knowledge_unavailable',
+      errorCode: 'portfolio_knowledge_unavailable',
+      upstreamStatus: null,
+      inputTokens: null,
+      outputTokens: null,
+      totalTokens: null,
+    });
     return jsonError('Chat is temporarily unavailable. Please try again later.', 503);
   }
 
@@ -289,6 +385,15 @@ export default async (req: Request): Promise<Response> => {
   } catch (error) {
     clearTimeout(openAiTimeout);
     console.error('[chat] OpenAI request failed', error);
+    audit({
+      assistantResponse: null,
+      status: 'openai_unavailable',
+      errorCode: 'openai_request_failed',
+      upstreamStatus: null,
+      inputTokens: null,
+      outputTokens: null,
+      totalTokens: null,
+    });
     return jsonError('Chat service is unavailable. Please try again later.', 502);
   }
 
@@ -307,6 +412,15 @@ export default async (req: Request): Promise<Response> => {
           }
         : 'Unparseable OpenAI error response',
     });
+    audit({
+      assistantResponse: null,
+      status: 'openai_rejected',
+      errorCode: parsedError.success ? parsedError.data.error.type : 'unparseable_openai_error',
+      upstreamStatus: upstream.status,
+      inputTokens: null,
+      outputTokens: null,
+      totalTokens: null,
+    });
     return jsonError('Chat service is unavailable. Please try again later.', 502);
   }
 
@@ -317,9 +431,18 @@ export default async (req: Request): Promise<Response> => {
       const encoder = new TextEncoder();
       const send = (event: ChatStreamEvent) => controller.enqueue(encoder.encode(encodeSse(event)));
       let totalTokens = 0;
+      let completed = false;
+      let inputTokens: number | null = null;
+      let outputTokens: number | null = null;
+      let responseText = '';
 
       try {
-        totalTokens = await forwardOpenAIStream({ body: upstreamBody, send });
+        const result = await forwardOpenAIStream({ body: upstreamBody, send });
+        totalTokens = result.totalTokens;
+        inputTokens = result.inputTokens;
+        outputTokens = result.outputTokens;
+        responseText = result.responseText;
+        completed = true;
         send({ type: 'done' });
       } catch (error) {
         console.error('[chat] OpenAI stream failed', error);
@@ -331,6 +454,15 @@ export default async (req: Request): Promise<Response> => {
         } catch (error) {
           console.error('[chat] token usage recording failed', error);
         }
+        audit({
+          assistantResponse: responseText.trim() || null,
+          status: completed ? 'completed' : 'stream_failed',
+          errorCode: completed ? null : 'openai_stream_failed',
+          upstreamStatus: completed ? 200 : null,
+          inputTokens,
+          outputTokens,
+          totalTokens: totalTokens || null,
+        });
         controller.close();
       }
     },
@@ -347,6 +479,6 @@ export default async (req: Request): Promise<Response> => {
   });
 };
 
-export const config = {
+export const config: Config = {
   path: '/api/chat',
 };

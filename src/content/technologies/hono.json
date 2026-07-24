@@ -1,0 +1,12 @@
+{
+  "name": "Hono",
+  "slug": "hono",
+  "category": "framework",
+  "url": "https://hono.dev",
+  "featured": false,
+  "sortOrder": 0,
+  "level": 8,
+  "projects": [
+    "poolpuma"
+  ]
+}

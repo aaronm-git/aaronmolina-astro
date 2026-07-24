@@ -1,0 +1,12 @@
+{
+  "name": "Bun",
+  "slug": "bun",
+  "category": "platform",
+  "url": "https://bun.sh",
+  "featured": false,
+  "sortOrder": 0,
+  "level": 8,
+  "projects": [
+    "poolpuma"
+  ]
+}

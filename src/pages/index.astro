@@ -118,8 +118,8 @@ const showcaseSkills = technologies
     logoPath: logoOverrides.get(t.data.slug) ?? `${t.data.slug}.svg`,
   }));
 
-// Build Manifest widget: four real shipped flagship projects
-const manifestSlugs = ['clippers-website', 'miami-heat-website', 'typelyft', 'onemusiccrate-spotify-app'];
+// Build Manifest widget: flagship projects, first paid SaaS leads
+const manifestSlugs = ['poolpuma', 'clippers-website', 'miami-heat-website', 'typelyft', 'onemusiccrate-spotify-app'];
 const manifestEntries = manifestSlugs
   .map(slug => projects.find(p => p.data.slug === slug))
   .filter((p): p is NonNullable<typeof p> => Boolean(p))

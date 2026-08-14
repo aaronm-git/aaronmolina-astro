@@ -13,42 +13,58 @@ interface Company {
 }
 
 /**
- * Trust strip banner shown near the top of a page - a guarantee statement
- * with badges, followed by a grid of client/company logos.
+ * Trust strip shown near the top of a page. Client wordmarks sit directly on
+ * the section background rather than inside cards, so the marks themselves
+ * carry the section. Each logo gets a uniform optical height instead of a
+ * uniform box, which keeps wide wordmarks and squarer badges reading at the
+ * same visual weight.
  */
 interface Props {
-  /** Guarantee statement shown next to the checkmark icon */
+  /** Small label above the logo row */
+  eyebrow?: string;
+  /** Guarantee statement shown below the logos */
   guaranteeText: string;
   /** Small badge labels rendered next to the guarantee text */
   badges: string[];
-  /** Company logos to render in the grid below */
+  /** Company logos to render */
   companies: Company[];
   class?: string;
 }
 
-const { guaranteeText, badges, companies, class: className = '' } = Astro.props;
+const { eyebrow = 'Trusted by leading brands', guaranteeText, badges, companies, class: className = '' } = Astro.props;
 ---
 
-<section class={`border-b-2 border-ink bg-concrete-2 py-6 ${className}`}>
-  <div class="container flex flex-wrap items-center justify-between gap-4">
-    <p class="text-ink flex max-w-[46ch] items-center gap-3 text-sm font-bold">
-      <span class="border-ink bg-signal shadow-hard-sm flex h-10 w-10 flex-none items-center justify-center rounded-full border-2">
-        <i class="fa-solid fa-check text-ink text-sm" aria-hidden="true"></i>
-      </span>
-      <span>{guaranteeText}</span>
-    </p>
-    <div class="flex flex-wrap gap-2">
-      {badges.map(badge => <Badge label={badge} variant="default" size="sm" />)}
-    </div>
-  </div>
+<section class={`border-ink bg-concrete-2 border-b-2 py-10 sm:py-12 ${className}`}>
+  <div class="container">
+    <p class="text-graphite text-center font-mono text-xs font-bold tracking-[0.18em] uppercase">{eyebrow}</p>
 
-  <div class="container mt-8 grid grid-cols-2 items-stretch gap-4 sm:gap-5 md:grid-cols-4">
-    {
-      companies.map(company => (
-        <div class="border-ink bg-paper shadow-hard-sm flex h-24 items-center justify-center rounded-sm border-2 px-5 py-4 sm:h-28 sm:px-6">
-          <Image src={company.logo} alt={company.alt} width={320} height={160} class="max-h-14 w-auto max-w-full object-contain sm:max-h-16" loading="lazy" />
-        </div>
-      ))
-    }
+    <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-10 sm:gap-x-16 lg:gap-x-20">
+      {
+        companies.map(company => (
+          <li class="flex items-center justify-center">
+            <Image
+              src={company.logo}
+              alt={company.alt}
+              width={480}
+              height={240}
+              class="h-12 w-auto max-w-[10rem] object-contain sm:h-14 sm:max-w-[13rem] lg:h-16 lg:max-w-[15rem]"
+              loading="lazy"
+            />
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="border-ink/15 mt-10 flex flex-wrap items-center justify-between gap-4 border-t-2 pt-6">
+      <p class="text-ink flex max-w-[46ch] items-center gap-3 text-sm font-bold">
+        <span class="border-ink bg-signal shadow-hard-sm flex h-10 w-10 flex-none items-center justify-center rounded-full border-2">
+          <i class="fa-solid fa-check text-ink text-sm" aria-hidden="true"></i>
+        </span>
+        <span>{guaranteeText}</span>
+      </p>
+      <div class="flex flex-wrap gap-2">
+        {badges.map(badge => <Badge label={badge} variant="default" size="sm" />)}
+      </div>
+    </div>
   </div>
 </section>

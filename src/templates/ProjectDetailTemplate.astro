@@ -8,7 +8,8 @@ import Badge from '@/components/atoms/Badge.astro';
 import TagList from '@/components/molecules/TagList.astro';
 import InfoBox from '@/components/molecules/InfoBox.astro';
 import { Image } from 'astro:assets';
-import { FaGithub } from '@/lib/icons';
+import { getBrandIcon } from '@/lib/icons';
+const githubMark = getBrandIcon('github');
 import type { TechMap } from '@/utils/tech-lookup';
 
 /**
@@ -66,7 +67,7 @@ const completionDate = completedOn?.toLocaleDateString('en-US', { year: 'numeric
         {
           repoUrl && (
             <Button href={repoUrl} variant="ghost-ink" external>
-              <FaGithub className="h-4 w-4" /> View Source
+              {githubMark && <img src={githubMark} alt="" width="16" height="16" class="h-4 w-4" />} View Source
             </Button>
           )
         }

@@ -1,5 +1,5 @@
 ---
-import { FaArrowRight } from '@/lib/icons';
+import { ICON_ARROW_RIGHT } from '@/lib/icons';
 
 type LinkVariant = 'signal' | 'muted' | 'ink';
 
@@ -42,5 +42,5 @@ const sizeClasses: Record<'sm' | 'base', string> = {
   {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
 >
   <slot />
-  {showArrow && <FaArrowRight className="h-3 w-3" />}
+  {showArrow && <i class={` text-xs`} aria-hidden="true" />}
 </a>

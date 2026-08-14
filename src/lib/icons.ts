@@ -1,181 +1,106 @@
-import {
-  FaHouse,
-  FaBriefcase,
-  FaUser,
-  FaBookOpen,
-  FaEnvelope,
-  FaGithub,
-  FaLinkedin,
-  FaInstagram,
-  FaFacebook,
-  FaSun,
-  FaMoon,
-  FaDesktop,
-  FaBars,
-  FaImage,
-  FaArrowRight,
-  FaArrowLeft,
-  FaCheck,
-  FaAward,
-  FaBolt,
-  FaUsers,
-  FaShieldCat,
-  FaClock,
-  FaCalendar,
-  FaGlobe,
-  FaCode,
-  FaStar,
-  FaHeart,
-  FaRocket,
-  FaLightbulb,
-  FaGraduationCap,
-  FaCertificate,
-  FaQuoteLeft,
-  FaChevronRight,
-  FaChevronDown,
-  FaUpRightFromSquare,
-  FaXmark,
-  FaPlay,
-  FaCircleInfo,
-  FaTriangleExclamation,
-  FaCircleCheck,
-  FaCircleXmark,
-  FaHandshake,
-  FaReact,
-} from 'react-icons/fa6';
-import { SiNextdotjs } from 'react-icons/si';
-import type { IconType } from 'react-icons';
+/**
+ * Icon registry.
+ *
+ * Generic UI icons resolve to Font Awesome 7 class strings, loaded from the
+ * CDN in the main layout. Brand marks deliberately do NOT use an icon font:
+ * they resolve to official SVG files under `public/brands`, because vendors
+ * publish their own artwork and an icon font would misrepresent it.
+ */
 
-// Navigation icon mapping
-const navIcons: Record<string, IconType> = {
-  home: FaHouse,
-  briefcase: FaHandshake,
-  projects: FaBriefcase,
-  experience: FaUser,
-  blog: FaBookOpen,
-  contact: FaEnvelope,
+/** Font Awesome class string, e.g. `fa-solid fa-house`. */
+export type IconClass = string;
+
+/** Absolute path to an official brand SVG served from `public/brands`. */
+export type BrandSrc = string;
+
+const navIcons: Record<string, IconClass> = {
+  home: 'fa-solid fa-house',
+  briefcase: 'fa-solid fa-handshake',
+  projects: 'fa-solid fa-briefcase',
+  experience: 'fa-solid fa-user',
+  blog: 'fa-solid fa-book-open',
+  contact: 'fa-solid fa-envelope',
 };
 
-// Social platform icon mapping
-const socialIcons: Record<string, IconType> = {
-  github: FaGithub,
-  linkedin: FaLinkedin,
-  instagram: FaInstagram,
-  facebook: FaFacebook,
+const categoryIcons: Record<string, IconClass> = {
+  briefcase: 'fa-solid fa-briefcase',
+  bolt: 'fa-solid fa-bolt',
+  users: 'fa-solid fa-users',
+  shield: 'fa-solid fa-shield-halved',
+  clock: 'fa-solid fa-clock',
+  calendar: 'fa-solid fa-calendar',
+  globe: 'fa-solid fa-globe',
+  code: 'fa-solid fa-code',
+  star: 'fa-solid fa-star',
+  heart: 'fa-solid fa-heart',
+  rocket: 'fa-solid fa-rocket',
+  lightbulb: 'fa-solid fa-lightbulb',
+  graduation: 'fa-solid fa-graduation-cap',
+  certificate: 'fa-solid fa-certificate',
+  quote: 'fa-solid fa-quote-left',
+  check: 'fa-solid fa-check',
+  award: 'fa-solid fa-award',
+  user: 'fa-solid fa-user',
+  image: 'fa-solid fa-image',
+  info: 'fa-solid fa-circle-info',
+  warning: 'fa-solid fa-triangle-exclamation',
+  success: 'fa-solid fa-circle-check',
+  error: 'fa-solid fa-circle-xmark',
+  tools: 'fa-solid fa-screwdriver-wrench',
+  sparkle: 'fa-solid fa-star',
 };
 
-// Category/feature icon mapping
-const categoryIcons: Record<string, IconType> = {
-  briefcase: FaBriefcase,
-  bolt: FaBolt,
-  users: FaUsers,
-  shield: FaShieldCat,
-  clock: FaClock,
-  calendar: FaCalendar,
-  globe: FaGlobe,
-  code: FaCode,
-  react: FaReact,
-  nextjs: SiNextdotjs,
-  star: FaStar,
-  heart: FaHeart,
-  rocket: FaRocket,
-  lightbulb: FaLightbulb,
-  graduation: FaGraduationCap,
-  certificate: FaCertificate,
-  quote: FaQuoteLeft,
-  check: FaCheck,
-  award: FaAward,
-  user: FaUser,
-  image: FaImage,
-  info: FaCircleInfo,
-  warning: FaTriangleExclamation,
-  success: FaCircleCheck,
-  error: FaCircleXmark,
-};
-
-// UI/action icon mapping
-const uiIcons: Record<string, IconType> = {
-  arrowRight: FaArrowRight,
-  arrowLeft: FaArrowLeft,
-  chevronRight: FaChevronRight,
-  chevronDown: FaChevronDown,
-  externalLink: FaUpRightFromSquare,
-  close: FaXmark,
-  menu: FaBars,
-  play: FaPlay,
-  sun: FaSun,
-  moon: FaMoon,
-  desktop: FaDesktop,
+const uiIcons: Record<string, IconClass> = {
+  arrowRight: 'fa-solid fa-arrow-right',
+  arrowLeft: 'fa-solid fa-arrow-left',
+  chevronRight: 'fa-solid fa-chevron-right',
+  chevronDown: 'fa-solid fa-chevron-down',
+  externalLink: 'fa-solid fa-up-right-from-square',
+  close: 'fa-solid fa-xmark',
+  menu: 'fa-solid fa-bars',
+  play: 'fa-solid fa-play',
+  sun: 'fa-solid fa-sun',
+  moon: 'fa-solid fa-moon',
+  desktop: 'fa-solid fa-desktop',
 };
 
 /**
- * Get navigation icon by key
+ * Official brand artwork, sourced from each vendor and committed to
+ * `public/brands`. Add a file there and register it here; never substitute an
+ * icon font for a brand mark.
  */
-export function getNavIcon(iconKey: string): IconType | null {
-  return navIcons[iconKey.toLowerCase()] || null;
-}
-
-/**
- * Get social platform icon by platform name
- */
-export function getSocialIcon(platform: string): IconType | null {
-  return socialIcons[platform.toLowerCase()] || null;
-}
-
-/**
- * Get category/feature icon by name
- */
-export function getCategoryIcon(category: string): IconType | null {
-  return categoryIcons[category.toLowerCase()] || null;
-}
-
-/**
- * Get UI/action icon by name
- */
-export function getUIIcon(name: string): IconType | null {
-  return uiIcons[name] || null;
-}
-
-/**
- * Get any icon by name (searches all categories)
- */
-export function getIcon(name: string): IconType | null {
-  const lowerName = name.toLowerCase();
-  return (
-    navIcons[lowerName] ||
-    socialIcons[lowerName] ||
-    categoryIcons[lowerName] ||
-    uiIcons[name] || // UI icons use camelCase
-    null
-  );
-}
-
-// Re-export commonly used icons for direct import when needed
-export {
-  FaArrowRight,
-  FaArrowLeft,
-  FaCheck,
-  FaAward,
-  FaBriefcase,
-  FaHandshake,
-  FaImage,
-  FaSun,
-  FaMoon,
-  FaDesktop,
-  FaBars,
-  FaGithub,
-  FaLinkedin,
-  FaInstagram,
-  FaUpRightFromSquare,
-  FaChevronRight,
-  FaChevronDown,
-  FaXmark,
-  FaCalendar,
-  FaHouse,
-  FaClock,
-  FaQuoteLeft,
-  FaStar,
+const brandIcons: Record<string, BrandSrc> = {
+  github: '/brands/github.svg',
+  react: '/brands/react.svg',
+  nextjs: '/brands/nextjs.svg',
 };
 
-// Export icon type for type safety
-export type { IconType };
+export function getNavIcon(iconKey: string): IconClass | null {
+  return navIcons[iconKey] ?? null;
+}
+
+export function getCategoryIcon(category: string): IconClass | null {
+  return categoryIcons[category] ?? null;
+}
+
+export function getUIIcon(name: string): IconClass | null {
+  return uiIcons[name] ?? null;
+}
+
+/** Resolves a brand key to its official SVG path, or null when not yet sourced. */
+export function getBrandIcon(name: string): BrandSrc | null {
+  return brandIcons[name] ?? null;
+}
+
+/** Resolves a name against the UI, category and nav registries, in that order. */
+export function getIcon(name: string): IconClass | null {
+  return uiIcons[name] ?? categoryIcons[name] ?? navIcons[name] ?? null;
+}
+
+export const ICON_ARROW_RIGHT = uiIcons.arrowRight;
+export const ICON_ARROW_LEFT = uiIcons.arrowLeft;
+export const ICON_EXTERNAL_LINK = uiIcons.externalLink;
+export const ICON_IMAGE = categoryIcons.image;
+export const ICON_BRIEFCASE = categoryIcons.briefcase;
+export const ICON_CHECK = categoryIcons.check;
+export const ICON_TOOLS = categoryIcons.tools;

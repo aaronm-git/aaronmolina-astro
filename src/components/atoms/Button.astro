@@ -1,5 +1,5 @@
 ---
-import type { IconType } from '@/lib/icons';
+import type { IconClass } from '@/lib/icons';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ink' | 'ghost-ink';
 type ButtonSize = 'sm' | 'base' | 'lg' | 'xl';
@@ -18,7 +18,7 @@ interface Props {
   /** Size in the type scale */
   size?: ButtonSize;
   /** Icon component rendered alongside the slotted label */
-  icon?: IconType;
+  icon?: IconClass;
   /** Side of the label the icon renders on */
   iconPosition?: 'left' | 'right';
   /** Opens the link in a new tab with `rel="noopener noreferrer"`; only applies when `href` is set */
@@ -36,7 +36,7 @@ const {
   type = 'button',
   variant = 'primary',
   size = 'base',
-  icon: IconComponent,
+  icon: iconClass,
   iconPosition = 'left',
   external = false,
   fullWidth = false,
@@ -66,7 +66,7 @@ const linkProps = href ? { href, ...(external ? { target: '_blank', rel: 'noopen
 ---
 
 <Tag class={classes} {...linkProps}>
-  {IconComponent && iconPosition === 'left' && <IconComponent className="h-4 w-4" />}
+  {iconClass && iconPosition === 'left' && <i class={` text-sm`} aria-hidden="true" />}
   <slot />
-  {IconComponent && iconPosition === 'right' && <IconComponent className="h-4 w-4" />}
+  {iconClass && iconPosition === 'right' && <i class={` text-sm`} aria-hidden="true" />}
 </Tag>

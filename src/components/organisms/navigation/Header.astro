@@ -26,13 +26,13 @@ const barClasses = 'bg-current absolute left-1/2 block h-0.5 w-5 -translate-x-1/
     <nav class="hidden items-center gap-5 xl:flex" aria-label="Main">
       {
         navItems.map(item => {
-          const Icon = getNavIcon(item.icon || '');
+          const iconClass = getNavIcon(item.icon || '');
           return (
             <a
               href={item.href}
               class="text-concrete hover:border-signal hover:text-signal flex items-center gap-2 border-b-2 border-transparent py-1 font-mono text-xs font-bold tracking-[0.14em] whitespace-nowrap uppercase"
             >
-              {Icon ? <Icon className="h-3.5 w-3.5 shrink-0" /> : null} {item.label}
+              {iconClass ? <i class={`${iconClass} w-4 shrink-0 text-center text-xs`} aria-hidden="true" /> : null} {item.label}
             </a>
           );
         })
@@ -86,14 +86,14 @@ const barClasses = 'bg-current absolute left-1/2 block h-0.5 w-5 -translate-x-1/
       <ul class="space-y-1">
         {
           navItems.map(item => {
-            const Icon = getNavIcon(item.icon || '');
+            const iconClass = getNavIcon(item.icon || '');
             return (
               <li>
                 <a
                   href={item.href}
                   class="text-concrete hover:bg-asphalt hover:text-signal flex items-center gap-3 rounded-xs px-3 py-3 font-mono text-sm font-bold tracking-wide uppercase"
                 >
-                  {Icon ? <Icon className="h-4 w-4 shrink-0" /> : null} {item.label}
+                  {iconClass ? <i class={`${iconClass} w-5 shrink-0 text-center text-sm`} aria-hidden="true" /> : null} {item.label}
                 </a>
               </li>
             );

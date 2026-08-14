@@ -9,7 +9,7 @@ import ListItem from '@/components/molecules/ListItem.astro';
 import Heading from '@/components/atoms/Heading.astro';
 import Badge from '@/components/atoms/Badge.astro';
 import Link from '@/components/atoms/Link.astro';
-import { FaBriefcase } from '@/lib/icons';
+import { ICON_BRIEFCASE } from '@/lib/icons';
 
 /**
  * Card rendering a single work experience role - organization logo, title,
@@ -45,7 +45,7 @@ const orgName = organization?.data.name || role.data.organization;
           organization?.data.logo ? (
             <Image src={organization.data.logo} alt={`${orgName} logo`} width={80} height={80} loading="lazy" />
           ) : (
-            <FaBriefcase className="text-graphite h-6 w-6" />
+            <i class={` text-graphite text-2xl`} aria-hidden="true" />
           )
         }
       </div>

@@ -1,22 +1,26 @@
 ---
-import { getSocialIcon } from '@/lib/icons';
+import { getBrandIcon } from '@/lib/icons';
 
-type Tone = 'light' | 'dark';
+type Tone = 'dark' | 'light';
 
 /**
- * Molecule for a single social-platform icon link.
- * Renders nothing if `platform` can't be resolved to a known icon via `getSocialIcon`.
+ * Social platform link rendered as an icon-only anchor.
+ *
+ * Brand marks come from official SVGs in `public/brands`. Platforms whose
+ * artwork has not been sourced yet fall back to the Font Awesome brand glyph
+ * so the link still renders; drop the official SVG into `public/brands` and
+ * register it in the icon module to replace the fallback.
  */
 interface Props {
-  /** Platform key resolved to an icon via `getSocialIcon` (e.g. `'github'`, `'linkedin'`) */
+  /** Platform key, e.g. `'github'`, `'linkedin'` */
   platform: string;
-  /** Destination URL, opened in a new tab */
+  /** Destination URL */
   url: string;
-  /** Accessible label for the link; falls back to `label`, then `platform`, if omitted */
+  /** Accessible label; falls back to `label`, then `platform` */
   ariaLabel?: string;
-  /** Display label used as an `aria-label` fallback when `ariaLabel` isn't provided */
+  /** Human-readable platform label */
   label?: string;
-  /** Tone of the surface this link sits on, controls icon color */
+  /** Surface the link sits on, which drives hover color */
   tone?: Tone;
   /** Additional CSS classes */
   class?: string;
@@ -24,12 +28,20 @@ interface Props {
 
 const { platform, url, ariaLabel, label, tone = 'dark', class: className = '' } = Astro.props;
 
-const IconComponent = getSocialIcon(platform);
+const brandMark = getBrandIcon(platform);
+
+const fallbackGlyphs: Record<string, string> = {
+  linkedin: 'fa-brands fa-linkedin-in',
+  instagram: 'fa-brands fa-instagram',
+  facebook: 'fa-brands fa-facebook-f',
+};
+const fallbackGlyph = fallbackGlyphs[platform] ?? null;
+
 const colorClasses = tone === 'dark' ? 'text-steel hover:text-signal' : 'text-graphite hover:text-ink';
 ---
 
 {
-  IconComponent && (
+  (brandMark || fallbackGlyph) && (
     <a
       href={url}
       target="_blank"
@@ -37,7 +49,7 @@ const colorClasses = tone === 'dark' ? 'text-steel hover:text-signal' : 'text-gr
       class={`inline-flex items-center justify-center rounded-xs p-2 transition-colors ${colorClasses} ${className}`}
       aria-label={ariaLabel || label || platform}
     >
-      <IconComponent className="h-5 w-5" />
+      {brandMark ? <img src={brandMark} alt="" width="20" height="20" class="h-5 w-5 object-contain" loading="lazy" /> : <i class={`${fallbackGlyph} text-xl`} aria-hidden="true" />}
     </a>
   )
 }

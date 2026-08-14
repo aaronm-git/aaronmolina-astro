@@ -21,12 +21,12 @@ interface Props {
 
 const { icon = 'check', size = 'base', tone = 'light', class: className = '' } = Astro.props as Props;
 
-const IconComponent = getCategoryIcon(icon);
+const iconClass = getCategoryIcon(icon);
 const textColor = tone === 'dark' ? 'text-steel' : 'text-graphite';
 const textSize = size === 'sm' ? 'text-sm' : 'text-base';
 ---
 
 <li class={`flex items-start gap-2.5 ${textColor} ${textSize} ${className}`}>
-  {IconComponent && <Icon icon={IconComponent} size="sm" color="signal-deep" class="mt-0.5 flex-shrink-0" />}
+  {iconClass && <Icon icon={iconClass} size="sm" color="signal-deep" class="mt-0.5 flex-shrink-0" />}
   <span><slot /></span>
 </li>

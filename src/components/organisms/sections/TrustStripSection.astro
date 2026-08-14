@@ -32,7 +32,9 @@ const { guaranteeText, badges, companies, class: className = '' } = Astro.props;
 <section class={`border-b-2 border-ink bg-concrete-2 py-6 ${className}`}>
   <div class="container flex flex-wrap items-center justify-between gap-4">
     <p class="text-ink flex max-w-[46ch] items-center gap-3 text-sm font-bold">
-      <span class="border-ink bg-signal shadow-hard-sm flex h-10 w-10 flex-none items-center justify-center rounded-full border-2 font-mono text-sm font-bold"> &check; </span>
+      <span class="border-ink bg-signal shadow-hard-sm flex h-10 w-10 flex-none items-center justify-center rounded-full border-2">
+        <i class="fa-solid fa-check text-ink text-sm" aria-hidden="true"></i>
+      </span>
       <span>{guaranteeText}</span>
     </p>
     <div class="flex flex-wrap gap-2">
@@ -40,11 +42,11 @@ const { guaranteeText, badges, companies, class: className = '' } = Astro.props;
     </div>
   </div>
 
-  <div class="container mt-6 grid grid-cols-2 items-center gap-4 md:grid-cols-4">
+  <div class="container mt-8 grid grid-cols-2 items-stretch gap-4 sm:gap-5 md:grid-cols-4">
     {
       companies.map(company => (
-        <div class="border-ink bg-paper flex items-center justify-center rounded-sm border-2 p-4">
-          <Image src={company.logo} alt={company.alt} width={160} height={64} class="max-h-8 w-auto object-contain" loading="lazy" />
+        <div class="border-ink bg-paper shadow-hard-sm flex h-24 items-center justify-center rounded-sm border-2 px-5 py-4 sm:h-28 sm:px-6">
+          <Image src={company.logo} alt={company.alt} width={320} height={160} class="max-h-14 w-auto max-w-full object-contain sm:max-h-16" loading="lazy" />
         </div>
       ))
     }

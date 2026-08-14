@@ -46,7 +46,7 @@ This application showcases how to build a practical AI-powered SaaS product with
 
 - - -
 
-### 🛠️ Technical Breakdown
+### <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Technical Breakdown
 
 **Tech Stack:**
 I built the PDF Generator using **Next.js 16**, **React 19**, **TypeScript**, **Tailwind CSS**, **Radix UI**, **React PDF**, **AI SDK**, **Better Auth**, **PostgreSQL**, **Zod**, **Zustand**, **SWR**, and **Monaco Editor**.

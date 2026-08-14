@@ -25,7 +25,7 @@ As a **Senior Frontend Developer** working with CORSAIR’s OriginPC division, I
 
 ---
 
-### 🛠️ Technical Breakdown
+### <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Technical Breakdown
 
 ![Screenshot of OriginPC.com homepage showing improved accessibility layout and contrast](../../images/project-corsair-ada.jpg "Screenshot of the redesigned OriginPC.com homepage with accessibility fixes")
 
@@ -42,7 +42,7 @@ As a **Senior Frontend Developer** working with CORSAIR’s OriginPC division, I
 
 ---
 
-### 💡 Senior-Level Contributions
+### <i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Senior-Level Contributions
 
 This project was about more than just fixing code. I focused on building a culture of accessibility:
 
@@ -53,18 +53,18 @@ This project was about more than just fixing code. I focused on building a cultu
 
 ---
 
-### ✅ Outcomes & Impact
+### <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Outcomes & Impact
 
 - Brought the site up to **WCAG 2.1 AA** compliance across all public pages
 - Lowered legal risk and improved CORSAIR’s reputation for inclusivity
 - Made the site easier to use for everyone, including keyboard-only and low-bandwidth users
 - Gave the CORSAIR team the tools and knowledge to keep things accessible without needing outside audits
 
-> 💬 “Making the web more accessible isn't just good engineering. It's responsible, scalable design. I helped CORSAIR build that mindset into their product team.”
+> <i class="fa-solid fa-comment" aria-hidden="true"></i> “Making the web more accessible isn't just good engineering. It's responsible, scalable design. I helped CORSAIR build that mindset into their product team.”
 
 ---
 
-### 📌 Why This Project Matters
+### <i class="fa-solid fa-thumbtack" aria-hidden="true"></i> Why This Project Matters
 
 For a global gaming and PC hardware brand like CORSAIR, accessibility is a must-have. This project shows my ability to:
 

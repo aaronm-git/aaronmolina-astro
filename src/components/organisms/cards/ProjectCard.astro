@@ -8,7 +8,7 @@ import TagList from '@/components/molecules/TagList.astro';
 import Heading from '@/components/atoms/Heading.astro';
 import Link from '@/components/atoms/Link.astro';
 import Card from '@/components/molecules/Card.astro';
-import { FaImage } from '@/lib/icons';
+import { ICON_IMAGE } from '@/lib/icons';
 
 /**
  * Card rendering a single project preview - featured image (or a
@@ -41,7 +41,7 @@ const completionDate = project.data.completedOn?.toLocaleDateString('en-US', {
         <Image src={project.data.featuredImage} alt={project.data.title} class="h-full w-full object-cover" width={600} height={340} loading="lazy" />
       ) : (
         <div class="text-graphite flex h-full w-full items-center justify-center">
-          <FaImage className="h-8 w-8" />
+          <i class={` text-3xl`} aria-hidden="true" />
         </div>
       )
     }

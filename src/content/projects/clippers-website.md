@@ -25,7 +25,7 @@ I led frontend and platform development for three key digital properties under t
 
 - - -
 
-### 🏀 **Clippers.com**
+### <i class="fa-solid fa-basketball" aria-hidden="true"></i> **Clippers.com**
 
 **Tech stack:** Nuxt.js, Vue, TailwindCSS, RESTful APIs, AWS\
 The official team site focused on ticketing, news, video, and merchandise.
@@ -40,7 +40,7 @@ The official team site focused on ticketing, news, video, and merchandise.
 
 - - -
 
-### 💼 **ClippersHQ.com**
+### <i class="fa-solid fa-briefcase" aria-hidden="true"></i> **ClippersHQ.com**
 
 **Tech stack:** Shopify + Liquid (theme updates)\
 The organization's internal and corporate portal used for merchandising and operations.
@@ -54,7 +54,7 @@ The organization's internal and corporate portal used for merchandising and oper
 
 - - -
 
-### 🔥 **FireAidLA.org**
+### <i class="fa-solid fa-fire" aria-hidden="true"></i> **FireAidLA.org**
 
 **Tech stack:** WordPress + Elementor\
 Emergency donation site launched during the devastating 2025 LA wildfires.
@@ -66,11 +66,11 @@ Emergency donation site launched during the devastating 2025 LA wildfires.
 * Implemented performance tuning to scale during peak traffic
 * Contributed to a donation portal that supported the [FireAid](https://www.fireaidla.org/press-releases/fireaid-announces-first-grants-for-wildfire-relief-to-los-angeles-communities) effort, which raised an estimated **$100 million** for wildfire relief and recovery
 
-> 🏆 This site became a critical part of the Clippers' public service outreach and was covered in multiple local press articles for its immediate impact.
+> <i class="fa-solid fa-trophy" aria-hidden="true"></i> This site became a critical part of the Clippers' public service outreach and was covered in multiple local press articles for its immediate impact.
 
 - - -
 
-### 📈 Impact Summary
+### <i class="fa-solid fa-chart-line" aria-hidden="true"></i> Impact Summary
 
 * Delivered **3 distinct digital properties** with full lifecycle ownership
 * Combined Vue/Nuxt frontend expertise with Shopify theming and WordPress architecture

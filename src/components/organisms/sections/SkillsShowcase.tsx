@@ -97,8 +97,9 @@ function spawnStarBurst(container: HTMLElement) {
   const count = 12;
 
   for (let i = 0; i < count; i++) {
-    const star = document.createElement('span');
-    star.textContent = '✦';
+    const star = document.createElement('i');
+    star.className = 'fa-solid fa-star';
+    star.setAttribute('aria-hidden', 'true');
     star.style.cssText = `
       position: absolute;
       right: 0;
@@ -137,7 +138,7 @@ function spawnStarBurst(container: HTMLElement) {
  * Stars drift upward and fade, creating an ambient sparkle effect.
  */
 function spawnFloatingStars(container: HTMLElement) {
-  const symbols = ['✦', '✧', '⭑', '★'];
+  const symbols = ['fa-solid fa-star', 'fa-regular fa-star', 'fa-solid fa-star-of-life', 'fa-solid fa-certificate'];
   let intervalId: number;
 
   const spawn = () => {
@@ -146,8 +147,9 @@ function spawnFloatingStars(container: HTMLElement) {
       return;
     }
 
-    const star = document.createElement('span');
-    star.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    const star = document.createElement('i');
+    star.className = symbols[Math.floor(Math.random() * symbols.length)];
+    star.setAttribute('aria-hidden', 'true');
 
     const side = Math.floor(Math.random() * 4);
     let x: string, y: string;
@@ -533,7 +535,7 @@ export default function SkillsShowcase({ skills }: Props) {
               className="border-ink bg-concrete-2 text-graphite absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-xs border-2 text-lg font-bold transition-colors"
               aria-label="Close"
             >
-              &times;
+              <i className="fa-solid fa-xmark" aria-hidden="true" />
             </button>
 
             <div className="mb-6 flex items-center gap-4">

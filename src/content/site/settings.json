@@ -1,6 +1,6 @@
 {
-  "siteTitle": "Aaron Molina | Full Stack Jamstack Developer & AI-Powered Web Consultant",
-  "siteDescription": "Full stack Jamstack developer and consultant with 14+ years experience. I build high-performance websites and AI-powered applications with Astro, Next.js, Sanity, and Claude Code. Available for hire, remote US or Miami.",
+  "siteTitle": "Aaron Molina | Full Stack Developer, Composable Web & AI Consultant",
+  "siteDescription": "Full stack developer and consultant with 14+ years experience building composable, high-performance websites and AI-powered applications with Astro, Next.js, Sanity, and Claude Code. Available for hire, remote US or Miami.",
   "siteUrl": "https://www.aaronmolina.me",
   "keywords": [
     "Full Stack Developer",
@@ -32,8 +32,8 @@
     "name": "Aaron Molina",
     "email": "aaron@aaronmolina.me",
     "url": "https://aaronmolina.me",
-    "bio": "Full stack Jamstack developer and consultant specializing in Astro, Next.js, Sanity, and AI-powered development. I build high-performance, content-driven websites and full stack applications using modern AI tools like Claude Code, OpenAI, and MCP servers. Available for hire.",
-    "jobTitle": "Full Stack Jamstack Developer & AI Web Consultant",
+    "bio": "Full stack developer and consultant specializing in Astro, Next.js, Sanity, and AI-powered development. I build high-performance, composable, content-driven websites and full stack applications using modern AI tools like Claude Code, OpenAI, and MCP servers. Available for hire.",
+    "jobTitle": "Full Stack Developer & AI Web Consultant",
     "location": "Miami, FL",
     "socialLinks": [
       {

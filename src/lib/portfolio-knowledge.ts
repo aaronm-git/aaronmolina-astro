@@ -185,7 +185,7 @@ Important notes:
 ## Services and specialties
 - Agentic engineering: shipping production software end-to-end alongside AI agents (Claude Code, OpenAI Codex, Cursor) with custom MCP servers and skills
 - Full-stack web delivery: Next.js App Router, Server Actions, TypeScript, PostgreSQL, Drizzle, better-auth
-- Jamstack and headless CMS: Astro, Sanity, Contentful, Storyblok, Decap, content modeling and migrations
+- Composable and headless CMS architecture: Astro, Sanity, Contentful, Storyblok, Decap, content modeling and migrations
 - Frontend engineering: React, Vue, modern UI architecture, design systems
 - Performance optimization: Core Web Vitals, Lighthouse-driven improvements
 - Accessibility: WCAG 2.1 audits and remediation
@@ -206,8 +206,7 @@ ${skillLines}
 ${topicLines}
 
 ## Hire
-- [Hire Me](${SITE}/hire): Service overview and engagement options
-- [Jamstack Developer](${SITE}/hire/jamstack): Astro and headless stack work
+- [Hire Me](${SITE}/hire): Service overview and engagement options, including Jamstack and composable architecture work
 - [Headless CMS Developer](${SITE}/hire/headless-cms): Sanity, Contentful, Storyblok, and similar platforms
 - [Next.js Developer](${SITE}/hire/nextjs-developer): App Router, Server Actions, full-stack apps
 - [React Developer](${SITE}/hire/react-developer): Component architecture and frontend systems

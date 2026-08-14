@@ -1,8 +1,8 @@
 {
   "yearsOfExperienceStartYear": 2012,
   "meta": {
-    "title": "Aaron Molina | Full Stack Jamstack Developer & AI-Powered Web Consultant",
-    "description": "Full stack Jamstack developer and consultant with {yearsOfExperience}+ years experience. I build high-performance websites and AI-powered applications with Astro, Next.js, Sanity, and Claude Code. Available for hire, remote US or Miami."
+    "title": "Aaron Molina | Full Stack Developer, Composable Web & AI Consultant",
+    "description": "Full stack developer and consultant with {yearsOfExperience}+ years experience building composable, high-performance websites and AI-powered applications with Astro, Next.js, Sanity, and Claude Code. Available for hire, remote US or Miami."
   },
   "hero": {
     "name": "Aaron Molina",
@@ -99,7 +99,7 @@
     "items": [
       {
         "icon": "rocket",
-        "title": "Jamstack & Full Stack Development",
+        "title": "Composable & Full Stack Development",
         "description": "High-performance static, hybrid, and full stack applications built with Astro, Next.js, TanStack Start, or your framework of choice. Fast load times, strong SEO, and production-grade architecture."
       },
       {
@@ -180,7 +180,7 @@
   },
   "blog": {
     "title": "Latest Articles",
-    "subtitle": "Thoughts on web development, AI-powered workflows, Jamstack, and frontend architecture",
+    "subtitle": "Thoughts on web development, AI-powered workflows, composable architecture, and frontend engineering",
     "viewAllLabel": "Read the blog",
     "viewAllHref": "/blog"
   },

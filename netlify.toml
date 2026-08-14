@@ -19,3 +19,15 @@
   #  publish = "dist" # Folder with the static content for _redirect file
 
   ## more info on configuring this file: https://ntl.fyi/file-based-build-config
+
+[[redirects]]
+  from = "/hire/jamstack"
+  to = "/hire"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/2025-07-07-building-a-modern-portfolio-with-astro-and-decapcms"
+  to = "/blog/2025-07-07-building-a-modern-portfolio-with-astro"
+  status = 301
+  force = true

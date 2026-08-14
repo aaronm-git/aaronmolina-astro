@@ -265,12 +265,12 @@
   },
   "nextjs": {
     "meta": {
-      "title": "Hire a Next.js Developer | Aaron Molina - React & Jamstack Expert",
+      "title": "Hire a Next.js Developer | Aaron Molina - React & Composable Web Expert",
       "description": "Need to hire a Next.js developer? I specialize in building fast, SEO-friendly sites with Next.js, React, headless CMS, and AI integrations. W2 or freelance. Remote US / Miami."
     },
     "hero": {
       "headline": "Hire a Next.js Developer",
-      "subheadline": "React & Jamstack Expert",
+      "subheadline": "React & Composable Web Expert",
       "description": "Need a Next.js developer who understands both the frontend and the full stack? I build fast, SEO-optimized Next.js applications with {yearsOfExperience}+ years of React experience. I also integrate AI capabilities and ship with an AI-augmented workflow.",
       "badges": ["Next.js Expert", "App Router", "AI-Powered", "Remote US"],
       "primaryCta": {

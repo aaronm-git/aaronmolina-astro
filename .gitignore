@@ -32,6 +32,7 @@ netlify/functions/_generated/
 
 # Local application materials (resumes, cover letters, and PDFs)
 .local/
+tmp/
 
 # Subagent-driven-development scratch state (progress ledger, briefs, reports)
 .superpowers/

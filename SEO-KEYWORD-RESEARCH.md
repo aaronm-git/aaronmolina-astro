@@ -5,6 +5,8 @@
 **Target Market:** USA (Remote US + Miami)
 **Goal:** Attract recruiters, hiring managers, and marketing leadership looking for Jamstack/headless CMS developers
 
+> ⚠️ **See the [July 30, 2026 addendum](#addendum-live-verification--july-30-2026) below.** The "hire jamstack developer" thesis in this document has partly decayed: volume dropped 50→10/mo and the one individual competitor (David Fox) that proved a solo dev could rank is gone from the SERP. The broad "jamstack" term is still healthy. Read the addendum before acting on the original numbers below.
+
 ---
 
 ## Executive Summary
@@ -436,3 +438,60 @@ Keywords jamstacky.com ranks for that you could target:
 ---
 
 *Research conducted using Ahrefs MCP API. Data as of February 2026.*
+
+---
+
+## Addendum: Live Verification — July 30, 2026
+
+Triggered by a content audit that questioned whether "Jamstack" still reads as current terminology. Re-pulled live via DataForSEO (US/en) to check whether the original thesis in this document still holds before rewriting any site copy.
+
+### What changed
+
+| Keyword | Volume (Feb 2026) | Volume (Jul 2026) | KD (Feb 2026) | KD (Jul 2026) | Change |
+|---|---|---|---|---|---|
+| hire jamstack developer | 50 | 10 | 1 | 0 | Volume **-80%** |
+| jamstack | 2,100 | 1,000 | 31 | 36 | Volume -52%, KD +5 |
+| jamstack developer | 80 | 20 | 32 | 34 | Volume -75% |
+| jamstack development agency | 200 | 70 | 1 | 0 | Volume -65% |
+| composable web developer | — | no measurable volume | — | — | Not a real search term |
+| composable architecture developer | — | no measurable volume | — | — | Not a real search term |
+
+### SERP check: "hire jamstack developer" (US, desktop, live)
+
+The Feb 2026 table above (Part 3) showed David Fox ranking #9 as the only individual in the top 10, which was this document's central proof point ("an individual CAN rank here"). As of July 30, 2026:
+
+- **davidfox.io is gone from the results entirely** (checked to depth 20).
+- **Position 1 is now a Google AI Overview**, pushing every organic result down a slot.
+- Top 10 organic is **100% agencies and marketplaces**: bacancytechnology.com, arc.dev, uplers.com, concettolabs.com, alt-team.com, ziprecruiter.com (job board), fabstudio.co, virtueinfo.com, freelancer.com.
+- **Zero individual freelance developers visible**, where before there was exactly one.
+
+### Real traffic check (Umami, site analytics)
+
+Cross-checked against actual visits, not just projected search demand. Umami Cloud, website `065ec9e6-3b6b-4868-a29b-6d9538c525a6`, lifetime since tracking began Jul 16, 2025:
+
+| Page | Lifetime pageviews |
+|---|---|
+| `/hire/jamstack` | **2** |
+| `/blog/tag/jamstack` | 2 |
+| `/hire` (hub) | 12 |
+| `/blog/what-is-jamstack` | 20 |
+| `/blog/vercel-vs-render-vs-netlify` (context) | 111 |
+| `/blog/best-headless-cms-marketing-sites` (context) | 161 |
+
+Referrer breakdown is Google-dominated (191 of the tracked referrer sessions) with no AI-assistant referrers (ChatGPT, Perplexity, Gemini) detected anywhere in the history.
+
+This confirms the keyword-decay finding independently: `/hire/jamstack` hasn't just gotten harder to rank, it has driven almost no real visits in its entire tracked lifetime, regardless of ranking. `/blog/what-is-jamstack` has picked up a modest but real 20 views and should stay.
+
+Also surfaced, unrelated to jamstack specifically: several URLs including `/hire` and `/projects` are tracked as two separate pages (with/without trailing slash), splitting their pageview totals. Worth a redirect/canonicalization pass separately.
+
+### Revised recommendation
+
+**Reconsider the `/hire/jamstack` bet — don't hold it as the Feb 2026 numbers described it.** Both axes that made it a "high priority" keyword have moved against it: real search volume for the "hire" term collapsed 80% to 10/mo, and the one individual competitor that validated the whole positioning strategy is gone, replaced by an all-agency SERP with an AI Overview eating the top slot. Options:
+- Keep the page live (it costs nothing to host and still nets some traffic at effectively zero difficulty) but stop treating it as a flagship opportunity.
+- Fold it into `/hire` and redirect, consolidating link equity now that the dedicated-page rationale has weakened.
+
+**The broad "jamstack" term (1,000/mo) still has real, if shrinking, demand** and got slightly harder (KD 31→36) — the `/blog/what-is-jamstack` pillar post is still a reasonable content investment and should keep the keyword.
+
+**Do not rewrite site copy toward "composable" as an SEO move.** Neither "composable web developer" nor "composable architecture developer" returns measurable search volume. If the language changes anywhere, it's a brand/readability call for humans, not a keyword swap — it captures zero additional search demand either way.
+
+*Data source: DataForSEO (live), US/en, pulled July 30, 2026.*

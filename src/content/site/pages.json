@@ -14,25 +14,25 @@
     }
   },
   "projectsIndex": {
-    "metaTitle": "Projects | Full Stack, Jamstack & AI-Powered Applications - Aaron Molina",
-    "metaDescription": "Explore my portfolio of Jamstack, React, Next.js, and AI-powered projects. See real-world examples of high-performance websites and full stack applications built with Astro, Sanity, OpenAI, and modern web technologies.",
+    "metaTitle": "Projects | Full Stack, Composable & AI-Powered Applications - Aaron Molina",
+    "metaDescription": "Explore my portfolio of composable, React, Next.js, and AI-powered projects. See real-world examples of high-performance websites and full stack applications built with Astro, Sanity, OpenAI, and modern web technologies.",
     "heading": "Projects",
-    "intro": "Explore my portfolio of Jamstack, React, Next.js, and AI-powered projects built with modern technologies like Astro, Sanity, TanStack Start, and Tailwind CSS.",
+    "intro": "Explore my portfolio of composable, React, Next.js, and AI-powered projects built with modern technologies like Astro, Sanity, TanStack Start, and Tailwind CSS.",
     "emptyState": "No projects yet. Check back soon!"
   },
   "blogIndex": {
-    "metaTitle": "Blog | Full Stack Development, AI Workflows & Jamstack Insights - Aaron Molina",
-    "metaDescription": "Insights on full stack development, AI-powered workflows, Jamstack best practices, and modern web performance. Tips from a senior developer with 14+ years of experience.",
+    "metaTitle": "Blog | Full Stack Development, AI Workflows & Composable Architecture - Aaron Molina",
+    "metaDescription": "Insights on full stack development, AI-powered workflows, composable architecture, and modern web performance. Tips from a senior developer with 14+ years of experience.",
     "heading": "Blog",
-    "intro": "Insights on full stack development, AI-powered workflows, Jamstack architecture, and modern web performance from a senior developer and consultant.",
+    "intro": "Insights on full stack development, AI-powered workflows, composable architecture, and modern web performance from a senior developer and consultant.",
     "emptyState": "No blog posts yet. Check back soon!"
   },
   "experience": {
     "metaTitle": "Experience | Senior Full Stack Developer & AI Consultant - Aaron Molina",
-    "metaDescription": "Senior full stack developer with 14+ years building React, Next.js, Jamstack, and AI-powered applications. Professional experience at companies including the LA Clippers, Miami Heat, Azamara, and Corsair.",
+    "metaDescription": "Senior full stack developer with 14+ years building React, Next.js, composable architecture, and AI-powered applications. Professional experience at companies including the LA Clippers, Miami Heat, Azamara, and Corsair.",
     "heading": "Professional Experience",
     "subheadingTemplate": "{yearsOfExperience}+ years as a senior full stack developer building production web experiences and AI-powered applications",
-    "intro": "My career spans React, Next.js, Jamstack, headless CMS, and now AI-powered development. I have shipped production code for sports teams, cruise lines, and technology companies. Here is a look at where I have been and what I have built.",
+    "intro": "My career spans React, Next.js, composable architecture, headless CMS, and now AI-powered development. I have shipped production code for sports teams, cruise lines, and technology companies. Here is a look at where I have been and what I have built.",
     "workExperienceTitle": "Work Experience",
     "careerHighlightsTitle": "Career Highlights",
     "keyAchievementsTitle": "Key Achievements",
@@ -65,13 +65,13 @@
     ]
   },
   "contact": {
-    "metaTitle": "Contact | Hire a Full Stack Jamstack Developer - Aaron Molina",
+    "metaTitle": "Contact | Hire a Full Stack Developer - Aaron Molina",
     "metaDescription": "Looking to hire a full stack developer? Get in touch to discuss your React, Next.js, Astro, or AI-powered project. Remote US or Miami, FL based. Open to work.",
     "heading": "Get In Touch",
     "intro": "Looking for a full stack developer who can build with AI, ship fast, and deliver production-grade results? I would love to hear about your project and explore how we can work together.",
     "hireCta": {
-      "title": "Looking to Hire a Full Stack Jamstack Developer?",
-      "description": "Learn more about my services in Jamstack development, headless CMS, AI-powered applications, and frontend architecture.",
+      "title": "Looking to Hire a Full Stack Developer?",
+      "description": "Learn more about my services in composable web development, headless CMS, AI-powered applications, and frontend architecture.",
       "buttonLabel": "View Hire Page",
       "buttonHref": "/hire"
     },

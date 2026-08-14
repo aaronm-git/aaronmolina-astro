@@ -41,3 +41,14 @@
 - Avoid using complex words or phrases. Use simpler words or phrases instead.
 - Check SEO best practices for content writing and our GOALS for proper content writing.
 - Check AHREFS MCP but keep your content aligned with our Keyword Research and SEO Goals already defined in the SEO-KEYWORD-RESEARCH.md file.
+
+## Response Format
+
+- Answer the task in plain prose with real detail. Do not wrap the main answer in a group or put it under a "Done" heading.
+- Only side material gets grouped, and only when there is genuinely something to put in it. Most replies have neither group.
+- **Recommended, not urgent**: things noticed while working that were deliberately not acted on.
+- **Needs your call**: steps not taken, or anything that needs confirmation first, especially outward-facing or hard-to-reverse actions.
+- Never add a group to satisfy the format. A group earns its place only when something actually surfaced during this task.
+- Do not restate an open item that was already raised. Mention it once, then let it go unless something changes.
+- No horizontal rules between groups. The bold headers do the separating.
+- No `result:` line.

@@ -28,6 +28,12 @@
 
 [[redirects]]
   from = "/blog/2025-07-07-building-a-modern-portfolio-with-astro-and-decapcms"
-  to = "/blog/2025-07-07-building-a-modern-portfolio-with-astro"
+  to = "/blog/building-a-modern-portfolio-with-astro"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/2025-07-07-building-a-modern-portfolio-with-astro"
+  to = "/blog/building-a-modern-portfolio-with-astro"
   status = 301
   force = true

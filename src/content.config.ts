@@ -62,7 +62,9 @@ const blog = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      slug: z.string(),
+      slug: z
+        .string()
+        .refine(value => !/^(\d{4}-\d{2}-\d{2}|\d{6})-/.test(value), 'Blog slugs must not start with a date; blog URLs are /blog/<slug>.'),
       publishDate: z.date().or(z.null()),
       updatedDate: z.date().optional().default(new Date()),
       description: z.string().optional(),

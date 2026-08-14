@@ -35,15 +35,22 @@ const techMap = createTechMap(technologies);
 const duration = calculateDuration(role.data.startDate, role.data.endDate);
 const dateRange = formatDateRange(role.data.startDate, role.data.endDate, role.data.current);
 const orgName = organization?.data.name || role.data.organization;
+
+// Square badges and very wide wordmark lockups cannot share one size box: a
+// single height shrinks the wordmarks to a sliver, and a single width shrinks
+// the badges. Each mark is sized against the axis that actually constrains it.
+const orgLogo = organization?.data.logo;
+const isBadgeLogo = orgLogo ? orgLogo.width / orgLogo.height < 1.6 : false;
+const logoSizeClass = isBadgeLogo ? 'h-20 w-auto max-w-full' : 'w-full max-h-16 object-left';
 ---
 
 <div id={role.data.slug} class="border-ink bg-paper shadow-hard rounded-md border-2 p-6">
   <div class="mb-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
     <div class="flex flex-col items-start gap-4 md:flex-row">
-      <div class="border-ink bg-paper flex h-16 w-28 flex-none items-center justify-center overflow-hidden rounded-xs border-2 p-2">
+      <div class="flex h-20 w-52 flex-none items-center justify-start">
         {
           organization?.data.logo ? (
-            <Image src={organization.data.logo} alt={`${orgName} logo`} width={240} height={120} class="max-h-full w-auto max-w-full object-contain" loading="lazy" />
+            <Image src={organization.data.logo} alt={`${orgName} logo`} width={480} height={240} class={`${logoSizeClass} object-contain`} loading="lazy" />
           ) : (
             <i class={`${ICON_BRIEFCASE} text-graphite text-2xl`} aria-hidden="true" />
           )

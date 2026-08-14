@@ -4,83 +4,165 @@ import Button from '@/components/atoms/Button.astro';
 import navigation from '@/content/site/navigation.json';
 
 /**
- * Sticky site header — renders the brand mark, desktop navigation (with
- * optional per-item icons) and primary CTA buttons, plus a mobile menu
- * toggle button and dropdown panel. Brand text and nav items come from
- * the site navigation JSON, so this component takes no props. The inline
- * script below wires up opening/closing the mobile menu.
+ * Sticky site header. From `xl` up it renders the brand mark, the full
+ * navigation and the CTA pair inline. Below `xl` those collapse into a single
+ * hamburger button that opens a right-hand slide-in drawer, which doubles as
+ * the mobile menu. Brand text and nav items come from the site navigation
+ * JSON, so this component takes no props. The inline script wires up opening,
+ * closing, Escape handling, focus movement and body scroll locking.
  */
 const { brandText, navItems } = navigation;
+
+const barClasses = 'bg-current absolute left-1/2 block h-0.5 w-5 -translate-x-1/2';
 ---
 
 <header class="border-signal bg-ink sticky top-0 z-50 border-b-2">
   <div class="container flex items-center justify-between gap-4 py-3">
-    <a href="/" class="font-display text-concrete flex items-center gap-2 text-lg font-black tracking-tight uppercase">
+    <a href="/" class="font-display text-concrete flex shrink-0 items-center gap-2 text-lg font-black tracking-tight whitespace-nowrap uppercase">
       <span class="bg-signal text-ink flex h-7 w-7 items-center justify-center rounded-xs font-mono text-xs font-bold">AM</span>
       {brandText}
     </a>
 
-    <nav class="hidden items-center gap-5 lg:flex" aria-label="Main">
+    <nav class="hidden items-center gap-5 xl:flex" aria-label="Main">
       {
         navItems.map(item => {
           const Icon = getNavIcon(item.icon || '');
           return (
             <a
               href={item.href}
-              class="text-concrete hover:border-signal hover:text-signal flex items-center gap-2 border-b-2 border-transparent py-1 font-mono text-xs font-bold tracking-[0.14em] uppercase"
+              class="text-concrete hover:border-signal hover:text-signal flex items-center gap-2 border-b-2 border-transparent py-1 font-mono text-xs font-bold tracking-[0.14em] whitespace-nowrap uppercase"
             >
-              {Icon ? <Icon className="h-3.5 w-3.5" /> : null} {item.label}
+              {Icon ? <Icon className="h-3.5 w-3.5 shrink-0" /> : null} {item.label}
             </a>
           );
         })
       }
     </nav>
 
-    <div class="hidden items-center gap-3 lg:flex">
-      <Button href="/projects" variant="secondary" size="sm">Projects</Button>
-      <Button href="/contact" variant="primary" size="sm">Get in Touch</Button>
+    <div class="hidden shrink-0 items-center gap-3 xl:flex">
+      <Button href="/projects" variant="secondary" size="sm" class="whitespace-nowrap">Projects</Button>
+      <Button href="/contact" variant="primary" size="sm" class="whitespace-nowrap">Get in Touch</Button>
     </div>
 
     <button
       type="button"
-      data-mobile-menu-toggle
-      class="text-concrete hover:bg-asphalt rounded-xs p-2 lg:hidden"
-      aria-label="Toggle menu"
+      data-drawer-toggle
+      class="text-concrete hover:bg-asphalt hover:text-signal relative h-11 w-11 shrink-0 rounded-xs xl:hidden"
+      aria-label="Open menu"
       aria-expanded="false"
-      aria-controls="mobile-menu"
+      aria-controls="site-drawer"
     >
-      <span class="bg-concrete block h-0.5 w-5"></span>
-      <span class="bg-concrete mt-1 block h-0.5 w-5"></span>
-      <span class="bg-concrete mt-1 block h-0.5 w-5"></span>
+      <span class={`${barClasses} top-[15px]`}></span>
+      <span class={`${barClasses} top-1/2 -translate-y-1/2`}></span>
+      <span class={`${barClasses} bottom-[15px]`}></span>
     </button>
   </div>
-
-  <nav id="mobile-menu" class="border-seam hidden border-t-2 lg:hidden" aria-label="Mobile">
-    <div class="space-y-1 px-4 py-3">
-      {
-        navItems.map(item => (
-          <a href={item.href} class="text-concrete hover:bg-asphalt hover:text-signal block rounded-xs px-3 py-2 font-mono text-sm font-bold tracking-wide uppercase">
-            {item.label}
-          </a>
-        ))
-      }
-      <div class="pt-2">
-        <Button href="/contact" variant="primary" size="sm" fullWidth>Get in Touch</Button>
-      </div>
-    </div>
-  </nav>
 </header>
 
+<div id="site-drawer" data-drawer-root class="fixed inset-0 z-60 hidden xl:hidden">
+  <div data-drawer-backdrop class="bg-ink/80 absolute inset-0 opacity-0 transition-opacity duration-200"></div>
+
+  <aside
+    data-drawer-panel
+    role="dialog"
+    aria-modal="true"
+    aria-label="Site menu"
+    class="border-signal bg-ink absolute top-0 right-0 flex h-full w-[min(20rem,85vw)] translate-x-full flex-col border-l-2 transition-transform duration-200 ease-out"
+  >
+    <div class="border-seam flex items-center justify-between border-b-2 px-4 py-3">
+      <span class="text-concrete font-mono text-xs font-bold tracking-[0.14em] uppercase">Menu</span>
+      <button
+        type="button"
+        data-drawer-close
+        class="text-concrete hover:bg-asphalt hover:text-signal relative h-11 w-11 shrink-0 rounded-xs"
+        aria-label="Close menu"
+      >
+        <span class={`${barClasses} top-1/2 -translate-y-1/2 rotate-45`}></span>
+        <span class={`${barClasses} top-1/2 -translate-y-1/2 -rotate-45`}></span>
+      </button>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto px-4 py-4" aria-label="Mobile">
+      <ul class="space-y-1">
+        {
+          navItems.map(item => {
+            const Icon = getNavIcon(item.icon || '');
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-concrete hover:bg-asphalt hover:text-signal flex items-center gap-3 rounded-xs px-3 py-3 font-mono text-sm font-bold tracking-wide uppercase"
+                >
+                  {Icon ? <Icon className="h-4 w-4 shrink-0" /> : null} {item.label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+
+    <div class="border-seam space-y-3 border-t-2 px-4 py-4">
+      <Button href="/projects" variant="secondary" size="sm" fullWidth>Projects</Button>
+      <Button href="/contact" variant="primary" size="sm" fullWidth>Get in Touch</Button>
+    </div>
+  </aside>
+</div>
+
 <script>
-  const toggle = document.querySelector('[data-mobile-menu-toggle]');
-  const menu = document.getElementById('mobile-menu');
+  const root = document.querySelector<HTMLElement>('[data-drawer-root]');
+  const panel = document.querySelector<HTMLElement>('[data-drawer-panel]');
+  const backdrop = document.querySelector<HTMLElement>('[data-drawer-backdrop]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-drawer-toggle]');
+  const closeButton = document.querySelector<HTMLButtonElement>('[data-drawer-close]');
 
-  toggle?.addEventListener('click', () => {
-    const isHidden = menu?.classList.toggle('hidden');
-    toggle.setAttribute('aria-expanded', String(!isHidden));
-  });
+  if (root && panel && backdrop && toggle && closeButton) {
+    let isOpen = false;
 
-  menu?.querySelectorAll('a[href]').forEach(link => {
-    link.addEventListener('click', () => menu.classList.add('hidden'));
-  });
+    const openDrawer = () => {
+      isOpen = true;
+      root.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        panel.classList.remove('translate-x-full');
+        backdrop.classList.remove('opacity-0');
+      });
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      closeButton.focus();
+    };
+
+    const closeDrawer = ({ restoreFocus = true } = {}) => {
+      if (!isOpen) return;
+      isOpen = false;
+      panel.classList.add('translate-x-full');
+      backdrop.classList.add('opacity-0');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+
+      const finish = () => {
+        if (!isOpen) root.classList.add('hidden');
+        panel.removeEventListener('transitionend', finish);
+      };
+      panel.addEventListener('transitionend', finish);
+
+      if (restoreFocus) toggle.focus();
+    };
+
+    toggle.addEventListener('click', openDrawer);
+    closeButton.addEventListener('click', () => closeDrawer());
+    backdrop.addEventListener('click', () => closeDrawer());
+
+    panel.querySelectorAll('a[href]').forEach(link => {
+      link.addEventListener('click', () => closeDrawer({ restoreFocus: false }));
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeDrawer();
+    });
+
+    const desktop = window.matchMedia('(min-width: 80rem)');
+    desktop.addEventListener('change', event => {
+      if (event.matches) closeDrawer({ restoreFocus: false });
+    });
+  }
 </script>

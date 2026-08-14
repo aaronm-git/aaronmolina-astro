@@ -42,5 +42,5 @@ const sizeClasses: Record<'sm' | 'base', string> = {
   {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
 >
   <slot />
-  {showArrow && <i class={` text-xs`} aria-hidden="true" />}
+  {showArrow && <i class={`${ICON_ARROW_RIGHT} text-xs`} aria-hidden="true" />}
 </a>

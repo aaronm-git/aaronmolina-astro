@@ -66,7 +66,7 @@ const linkProps = href ? { href, ...(external ? { target: '_blank', rel: 'noopen
 ---
 
 <Tag class={classes} {...linkProps}>
-  {iconClass && iconPosition === 'left' && <i class={` text-sm`} aria-hidden="true" />}
+  {iconClass && iconPosition === 'left' && <i class={`${iconClass} text-sm`} aria-hidden="true" />}
   <slot />
-  {iconClass && iconPosition === 'right' && <i class={` text-sm`} aria-hidden="true" />}
+  {iconClass && iconPosition === 'right' && <i class={`${iconClass} text-sm`} aria-hidden="true" />}
 </Tag>

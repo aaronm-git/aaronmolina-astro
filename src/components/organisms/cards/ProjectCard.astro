@@ -41,7 +41,7 @@ const completionDate = project.data.completedOn?.toLocaleDateString('en-US', {
         <Image src={project.data.featuredImage} alt={project.data.title} class="h-full w-full object-cover" width={600} height={340} loading="lazy" />
       ) : (
         <div class="text-graphite flex h-full w-full items-center justify-center">
-          <i class={` text-3xl`} aria-hidden="true" />
+          <i class={`${ICON_IMAGE} text-3xl`} aria-hidden="true" />
         </div>
       )
     }

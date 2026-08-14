@@ -40,12 +40,12 @@ const orgName = organization?.data.name || role.data.organization;
 <div id={role.data.slug} class="border-ink bg-paper shadow-hard rounded-md border-2 p-6">
   <div class="mb-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
     <div class="flex flex-col items-start gap-4 md:flex-row">
-      <div class="border-ink bg-concrete-2 flex aspect-square w-16 flex-none items-center justify-center overflow-hidden rounded-xs border-2">
+      <div class="border-ink bg-paper flex h-16 w-28 flex-none items-center justify-center overflow-hidden rounded-xs border-2 p-2">
         {
           organization?.data.logo ? (
-            <Image src={organization.data.logo} alt={`${orgName} logo`} width={80} height={80} loading="lazy" />
+            <Image src={organization.data.logo} alt={`${orgName} logo`} width={240} height={120} class="max-h-full w-auto max-w-full object-contain" loading="lazy" />
           ) : (
-            <i class={` text-graphite text-2xl`} aria-hidden="true" />
+            <i class={`${ICON_BRIEFCASE} text-graphite text-2xl`} aria-hidden="true" />
           )
         }
       </div>

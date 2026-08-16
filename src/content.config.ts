@@ -115,6 +115,8 @@ const organizations = defineCollection({
       website: z.string().optional(),
       location: z.string().optional(),
       logo: image().optional(),
+      /** Optical size correction so logos of differing ink density read at equal weight. */
+      logoScale: z.number().min(0.1).max(1).default(1),
       industry: z.string().optional(),
       summary: z.string().optional(),
       featured: z.boolean().default(false),

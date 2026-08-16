@@ -39,18 +39,28 @@ const orgName = organization?.data.name || role.data.organization;
 // Square badges and very wide wordmark lockups cannot share one size box: a
 // single height shrinks the wordmarks to a sliver, and a single width shrinks
 // the badges. Each mark is sized against the axis that actually constrains it.
-const orgLogo = organization?.data.logo;
-const isBadgeLogo = orgLogo ? orgLogo.width / orgLogo.height < 1.6 : false;
-const logoSizeClass = isBadgeLogo ? 'h-20 w-auto max-w-full' : 'w-full max-h-16 object-left';
+// Logos differ far more in ink density than in bounding box: a filled badge and
+// a hairline wordmark can share a size and still look nothing alike. Each org
+// carries a logoScale derived from how much of the slot its ink actually fills,
+// so every mark lands at comparable visual weight. The slot itself is invisible.
+const logoScalePercent = (organization?.data.logoScale ?? 1) * 100;
 ---
 
 <div id={role.data.slug} class="border-ink bg-paper shadow-hard rounded-md border-2 p-6">
   <div class="mb-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
     <div class="flex flex-col items-start gap-4 md:flex-row">
-      <div class="flex h-20 w-52 flex-none items-center justify-start">
+      <div class="flex h-24 w-60 flex-none items-center justify-center">
         {
           organization?.data.logo ? (
-            <Image src={organization.data.logo} alt={`${orgName} logo`} width={480} height={240} class={`${logoSizeClass} object-contain`} loading="lazy" />
+            <Image
+              src={organization.data.logo}
+              alt={`${orgName} logo`}
+              width={520}
+              height={208}
+              class="object-contain"
+              style={`max-width:${logoScalePercent}%;max-height:${logoScalePercent}%`}
+              loading="lazy"
+            />
           ) : (
             <i class={`${ICON_BRIEFCASE} text-graphite text-2xl`} aria-hidden="true" />
           )

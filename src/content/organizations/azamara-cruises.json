@@ -3,10 +3,10 @@
   "slug": "azamara-cruises",
   "website": "",
   "location": "Miami, Florida, United States",
-  "logo": "../../images/experience-azamara.svg",
+  "logo": "../../images/experience-azamara-cruises.svg",
   "industry": "",
   "summary": "",
   "featured": false,
   "sortOrder": 0,
-  "logoScale": 1
+  "logoScale": 1.0
 }

@@ -3,10 +3,10 @@
   "slug": "la-clippers",
   "website": "",
   "location": "Miami, Florida, United States",
-  "logo": "../../images/experience-clippers.svg",
+  "logo": "../../images/experience-la-clippers.svg",
   "industry": "",
   "summary": "",
   "featured": false,
   "sortOrder": 0,
-  "logoScale": 0.83
+  "logoScale": 1.0
 }

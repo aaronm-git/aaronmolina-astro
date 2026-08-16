@@ -3,10 +3,10 @@
   "slug": "miami-heat",
   "website": "",
   "location": "Miami, Florida, United States",
-  "logo": "../../images/experience-heat.svg",
+  "logo": "../../images/experience-miami-heat.svg",
   "industry": "",
   "summary": "",
   "featured": false,
   "sortOrder": 0,
-  "logoScale": 1
+  "logoScale": 0.77
 }

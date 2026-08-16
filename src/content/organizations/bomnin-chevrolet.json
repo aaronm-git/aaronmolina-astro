@@ -3,10 +3,11 @@
   "slug": "bomnin-chevrolet",
   "website": "",
   "location": "Miami, Florida, United States",
-  "logo": "../../images/experience-bomnin.png",
+  "logo": "../../images/experience-bomnin-chevrolet.png",
   "industry": "",
   "summary": "",
   "featured": false,
   "sortOrder": 0,
-  "logoScale": 0.72
+  "logoScale": 0.72,
+  "logoHasBackdrop": true
 }

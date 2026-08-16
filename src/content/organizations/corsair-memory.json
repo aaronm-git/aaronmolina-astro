@@ -3,10 +3,10 @@
   "slug": "corsair-memory",
   "website": "",
   "location": "Miami, Florida, United States",
-  "logo": "../../images/experience-corsair.svg",
+  "logo": "../../images/experience-corsair-memory.svg",
   "industry": "",
   "summary": "",
   "featured": false,
   "sortOrder": 0,
-  "logoScale": 1
+  "logoScale": 1.0
 }

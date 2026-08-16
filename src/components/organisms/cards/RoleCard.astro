@@ -12,8 +12,9 @@ import Link from '@/components/atoms/Link.astro';
 import { ICON_BRIEFCASE } from '@/lib/icons';
 
 /**
- * Card rendering a single work experience role - organization logo, title,
- * org name/site link, location, date range and duration, optional summary,
+ * Card rendering a single work experience role in a split-rail layout - a dark
+ * left rail carrying the organization logo, date range and duration, beside a
+ * light panel with the title, org name/site link, location, optional summary,
  * a highlights list (capped unless expanded), a technology tag list, and
  * optional achievements. Composes Heading, Badge, Link, TagList, and
  * ListItem.
@@ -43,94 +44,99 @@ const orgName = organization?.data.name || role.data.organization;
 // a hairline wordmark can share a size and still look nothing alike. Each org
 // carries a logoScale derived from how much of the slot its ink actually fills,
 // so every mark lands at comparable visual weight. The slot itself is invisible.
-const logoScalePercent = (organization?.data.logoScale ?? 1) * 100;
+const logoScale = organization?.data.logoScale ?? 1;
+const logoSizing = `max-width:${logoScale * 100}%;max-height:${logoScale * 3}rem`;
+
+// The rail normalizes line-art marks to one color by flooding them white. A logo
+// painted on its own opaque plate has to opt out, since the same fill would wash
+// the plate to a blank rectangle and take the mark with it.
+const knockOutLogo = !organization?.data.logoHasBackdrop;
 ---
 
-<div id={role.data.slug} class="border-ink bg-paper shadow-hard rounded-md border-2 p-6">
-  <div class="mb-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-    <div class="flex flex-col items-start gap-4 md:flex-row">
-      <div class="flex h-24 w-60 flex-none items-center justify-center">
+<article id={role.data.slug} class="border-ink bg-paper shadow-hard flex flex-col overflow-hidden rounded-md border-2 md:flex-row">
+  <div class="bg-ink flex w-full shrink-0 flex-col justify-between gap-6 p-5 md:w-56">
+    <div class="flex h-12 items-center">
+      {
+        organization?.data.logo ? (
+          <Image
+            src={organization.data.logo}
+            alt={`${orgName} logo`}
+            width={520}
+            height={208}
+            class:list={['object-contain object-left', knockOutLogo && '[filter:brightness(0)_invert(1)]']}
+            style={logoSizing}
+            loading="lazy"
+          />
+        ) : (
+          <i class={`${ICON_BRIEFCASE} text-steel text-2xl`} aria-hidden="true" />
+        )
+      }
+    </div>
+    <div class="font-mono text-xs font-bold">
+      <p class="text-signal">{dateRange}</p>
+      <p class="text-steel mt-1">{duration}</p>
+      {role.data.current && <Badge label="Current" variant="phase" size="sm" class="mt-2" />}
+    </div>
+  </div>
+
+  <div class="min-w-0 flex-1 p-6">
+    <Heading level={3} size="sm">{role.data.title}</Heading>
+    <p class="text-signal-deep font-bold">
+      {orgName}
+      {
+        organization?.data.website && (
+          <a href={organization.data.website} target="_blank" rel="noopener noreferrer" class="ml-1">
+            <span class="sr-only">Visit site</span>
+          </a>
+        )
+      }
+    </p>
+    {role.data.location && <p class="text-graphite text-sm">{role.data.location}</p>}
+
+    {
+      showAllDetails && role.data.summary && (
+        <div class="border-concrete-2 mt-4 max-w-2xl rounded-sm border-2 p-4">
+          <p class="text-graphite text-sm">{role.data.summary}</p>
+        </div>
+      )
+    }
+
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
+      <div>
+        <h4 class="text-ink mb-3 font-mono text-xs font-bold tracking-[0.1em] uppercase">Highlights</h4>
+        <ul class="space-y-2">
+          {role.data.highlights.slice(0, showAllDetails ? undefined : 3).map(highlight => <ListItem icon="check">{highlight}</ListItem>)}
+        </ul>
         {
-          organization?.data.logo ? (
-            <Image
-              src={organization.data.logo}
-              alt={`${orgName} logo`}
-              width={520}
-              height={208}
-              class="object-contain"
-              style={`max-width:${logoScalePercent}%;max-height:${logoScalePercent}%`}
-              loading="lazy"
-            />
-          ) : (
-            <i class={`${ICON_BRIEFCASE} text-graphite text-2xl`} aria-hidden="true" />
+          !showAllDetails && (
+            <div class="mt-4">
+              <Link href={`/experience#${role.data.slug}`} variant="signal" size="sm" showArrow>
+                See more details
+              </Link>
+            </div>
           )
         }
       </div>
+
       <div>
-        <Heading level={3} size="sm">{role.data.title}</Heading>
-        <p class="text-signal-deep font-bold">
-          {orgName}
-          {
-            organization?.data.website && (
-              <a href={organization.data.website} target="_blank" rel="noopener noreferrer" class="ml-1">
-                <span class="sr-only">Visit site</span>
-              </a>
-            )
-          }
-        </p>
-        {role.data.location && <p class="text-graphite text-sm">{role.data.location}</p>}
+        <h4 class="text-ink mb-3 font-mono text-xs font-bold tracking-[0.1em] uppercase">Technologies</h4>
+        <TagList tags={role.data.technologies} techMap={techMap} limit={showAllDetails ? undefined : 10} size="sm" />
+
+        {
+          role.data.achievements.length > 0 && (
+            <div class="mt-4">
+              <h4 class="text-ink mb-2 font-mono text-xs font-bold tracking-[0.1em] uppercase">Key Achievements</h4>
+              <ul class="space-y-1">
+                {role.data.achievements.map(achievement => (
+                  <ListItem icon="award" size="sm">
+                    {achievement}
+                  </ListItem>
+                ))}
+              </ul>
+            </div>
+          )
+        }
       </div>
     </div>
-    <div class="md:text-right">
-      <p class="text-ink font-mono text-sm font-bold">{dateRange}</p>
-      <p class="text-graphite mt-1 font-mono text-xs">{duration}</p>
-      {role.data.current && <Badge label="Current" variant="phase" size="sm" class="mt-1" />}
-    </div>
   </div>
-
-  {
-    showAllDetails && role.data.summary && (
-      <div class="border-concrete-2 mb-6 max-w-2xl rounded-sm border-2 p-4">
-        <p class="text-graphite text-sm">{role.data.summary}</p>
-      </div>
-    )
-  }
-
-  <div class="grid gap-6 md:grid-cols-2">
-    <div>
-      <h4 class="text-ink mb-3 font-mono text-xs font-bold tracking-[0.1em] uppercase">Highlights</h4>
-      <ul class="space-y-2">
-        {role.data.highlights.slice(0, showAllDetails ? undefined : 3).map(highlight => <ListItem icon="check">{highlight}</ListItem>)}
-      </ul>
-      {
-        !showAllDetails && (
-          <div class="mt-4">
-            <Link href={`/experience#${role.data.slug}`} variant="signal" size="sm" showArrow>
-              See more details
-            </Link>
-          </div>
-        )
-      }
-    </div>
-
-    <div>
-      <h4 class="text-ink mb-3 font-mono text-xs font-bold tracking-[0.1em] uppercase">Technologies</h4>
-      <TagList tags={role.data.technologies} techMap={techMap} limit={showAllDetails ? undefined : 10} size="sm" />
-
-      {
-        role.data.achievements.length > 0 && (
-          <div class="mt-4">
-            <h4 class="text-ink mb-2 font-mono text-xs font-bold tracking-[0.1em] uppercase">Key Achievements</h4>
-            <ul class="space-y-1">
-              {role.data.achievements.map(achievement => (
-                <ListItem icon="award" size="sm">
-                  {achievement}
-                </ListItem>
-              ))}
-            </ul>
-          </div>
-        )
-      }
-    </div>
-  </div>
-</div>
+</article>

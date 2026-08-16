@@ -8,5 +8,6 @@
   "summary": "",
   "featured": false,
   "sortOrder": 0,
-  "logoScale": 0.55
+  "logoScale": 0.96,
+  "logoHasBackdrop": true
 }

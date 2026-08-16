@@ -3,10 +3,10 @@
   "slug": "avintiv-media",
   "website": "",
   "location": "Miami, Florida, United States",
-  "logo": "../../images/experience-avintiv.svg",
+  "logo": "../../images/experience-avintiv-media.svg",
   "industry": "",
   "summary": "",
   "featured": false,
   "sortOrder": 0,
-  "logoScale": 1
+  "logoScale": 1.0
 }

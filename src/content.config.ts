@@ -62,9 +62,7 @@ const blog = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      slug: z
-        .string()
-        .refine(value => !/^(\d{4}-\d{2}-\d{2}|\d{6})-/.test(value), 'Blog slugs must not start with a date; blog URLs are /blog/<slug>.'),
+      slug: z.string().refine(value => !/^(\d{4}-\d{2}-\d{2}|\d{6})-/.test(value), 'Blog slugs must not start with a date; blog URLs are /blog/<slug>.'),
       publishDate: z.date().or(z.null()),
       updatedDate: z.date().optional().default(new Date()),
       description: z.string().optional(),
@@ -117,6 +115,8 @@ const organizations = defineCollection({
       logo: image().optional(),
       /** Optical size correction so logos of differing ink density read at equal weight. */
       logoScale: z.number().min(0.1).max(1).default(1),
+      /** True when the mark is painted on its own opaque plate. Such logos cannot be knocked out to white on a dark rail, since the fill floods the plate and erases the mark inside it. */
+      logoHasBackdrop: z.boolean().default(false),
       industry: z.string().optional(),
       summary: z.string().optional(),
       featured: z.boolean().default(false),

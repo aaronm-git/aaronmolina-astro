@@ -20,16 +20,16 @@ import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
 import homepageContent from '@/content/site/homepage.json';
 import hireContent from '@/content/site/hire.json';
-import ClippersLogo from '@/assets/images/clippers-logo.svg';
+import LaClippersLogo from '@/assets/images/la-clippers-logo.svg';
 import MiamiHeatLogo from '@/assets/images/miami-heat-logo.svg';
-import AzamaraLogo from '@/assets/images/azamara-logo.svg';
-import CorsairLogo from '@/assets/images/corsair-logo.svg';
+import AzamaraCruisesLogo from '@/assets/images/azamara-cruises-logo.svg';
+import CorsairMemoryLogo from '@/assets/images/corsair-memory-logo.svg';
 
 const trustedByLogos = new Map<string, ImageMetadata>([
-  ['LA Clippers', ClippersLogo],
+  ['LA Clippers', LaClippersLogo],
   ['Miami Heat', MiamiHeatLogo],
-  ['Azamara', AzamaraLogo],
-  ['Corsair', CorsairLogo],
+  ['Azamara', AzamaraCruisesLogo],
+  ['Corsair', CorsairMemoryLogo],
 ]);
 
 // Only render companies that actually have a logo asset registered above.

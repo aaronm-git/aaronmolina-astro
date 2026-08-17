@@ -21,18 +21,22 @@ interface Props {
   eyebrow?: string;
   /** Section title; when omitted, the header block is not rendered */
   title?: string;
+  /** Supporting copy below the title */
+  description?: string;
   /** Project entries to render as cards */
   projects: CollectionEntry<'projects'>[];
   /** Number of grid columns at desktop width; defaults to 3 */
   columns?: 2 | 3;
   /** Whether to show each project's completion date */
   showCompletedDate?: boolean;
+  /** Renders the first card with the dark ink treatment */
+  highlightFirst?: boolean;
   /** Optional link rendered below the grid (e.g. "View all projects") */
   cta?: CTA;
   class?: string;
 }
 
-const { eyebrow, title, projects, columns = 3, showCompletedDate = false, cta, class: className = '' } = Astro.props;
+const { eyebrow, title, description, projects, columns = 3, showCompletedDate = false, highlightFirst = false, cta, class: className = '' } = Astro.props;
 
 const colClasses: Record<2 | 3, string> = {
   2: 'md:grid-cols-2',
@@ -42,10 +46,10 @@ const colClasses: Record<2 | 3, string> = {
 
 <section class={`section-py ${className}`}>
   <div class="container">
-    {title && <SectionHeader eyebrow={eyebrow} title={title} class="mb-10" />}
+    {title && <SectionHeader eyebrow={eyebrow} title={title} description={description} class="mb-10" />}
 
     <div class={`grid grid-cols-1 gap-6 ${colClasses[columns]}`}>
-      {projects.map(project => <ProjectCard project={project} showCompletedDate={showCompletedDate} />)}
+      {projects.map((project, index) => <ProjectCard project={project} showCompletedDate={showCompletedDate} tone={highlightFirst && index === 0 ? 'dark' : 'light'} />)}
     </div>
 
     {

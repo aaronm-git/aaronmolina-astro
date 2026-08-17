@@ -2,7 +2,6 @@
 import MainLayout from '@/layouts/main-layout.astro';
 import HeroSection from '@/components/organisms/sections/HeroSection.astro';
 import TrustStripSection from '@/components/organisms/sections/TrustStripSection.astro';
-import FeaturesSection from '@/components/organisms/sections/FeaturesSection.astro';
 import SkillsShowcase from '@/components/organisms/sections/SkillsShowcase';
 import { PortfolioChat } from '@/components/organisms/ai-portfolio-chat';
 import ProjectsSection from '@/components/organisms/sections/ProjectsSection.astro';
@@ -11,7 +10,7 @@ import HireLinksSection from '@/components/organisms/sections/HireLinksSection.a
 import BlogSection from '@/components/organisms/sections/BlogSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntries } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
 import { getSiteEntry } from '@/lib/site-content';
 import HeroDeck from '@/components/organisms/sections/HeroDeck/HeroDeck.astro';
@@ -83,15 +82,7 @@ const showcaseSkills = technologies
     shortLabel: t.data.shortLabel,
   }));
 
-const aiShowcaseSpans = [12, 7, 5] as const;
-
-const aiShowcaseCards = homepageContent.aiShowcase.items.map((item, i) => ({
-  phase: item.phase,
-  title: item.title,
-  description: item.description,
-  span: aiShowcaseSpans[i] ?? 12,
-  dark: i === 0,
-}));
+const aiShowcaseProjects = await getEntries(homepageContent.aiShowcase.projects);
 ---
 
 <MainLayout title={homepageContent.meta.title} description={homepageContent.meta.description.replaceAll('{yearsOfExperience}', String(yearsOfExperience))}>
@@ -127,11 +118,13 @@ const aiShowcaseCards = homepageContent.aiShowcase.items.map((item, i) => ({
 
   <SkillsShowcase content={homepageContent.skillsShowcase} skills={showcaseSkills} client:visible />
 
-  <FeaturesSection
+  <ProjectsSection
     eyebrow={homepageContent.aiShowcase.eyebrow}
     title={homepageContent.aiShowcase.title}
     description={homepageContent.aiShowcase.subtitle}
-    cards={aiShowcaseCards}
+    projects={aiShowcaseProjects}
+    columns={2}
+    highlightFirst
   />
 
   <section class="section-py">

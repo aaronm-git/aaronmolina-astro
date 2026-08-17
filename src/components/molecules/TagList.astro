@@ -19,11 +19,15 @@ interface Props {
   size?: 'sm' | 'base';
   /** Wraps each tag badge in a link to `/blog/tag/[tag]` */
   linkToTagPage?: boolean;
+  /** Use `dark` on ink backgrounds so the outline badges stay legible */
+  tone?: 'light' | 'dark';
   /** Additional CSS classes */
   class?: string;
 }
 
-const { tags, techMap, limit, size = 'base', linkToTagPage = false, class: className = '' } = Astro.props;
+const { tags, techMap, limit, size = 'base', linkToTagPage = false, tone = 'light', class: className = '' } = Astro.props;
+
+const badgeVariant = tone === 'dark' ? 'outline-inverse' : 'outline';
 
 const visibleTags = limit ? tags.slice(0, limit) : tags;
 const remaining = limit && tags.length > limit ? tags.length - limit : 0;
@@ -34,12 +38,12 @@ const remaining = limit && tags.length > limit ? tags.length - limit : 0;
     visibleTags.map(tag =>
       linkToTagPage ? (
         <a href={`/blog/tag/${tag}`}>
-          <Badge label={getTechName(tag, techMap)} variant="outline" size={size} />
+          <Badge label={getTechName(tag, techMap)} variant={badgeVariant} size={size} />
         </a>
       ) : (
-        <Badge label={getTechName(tag, techMap)} variant="outline" size={size} />
+        <Badge label={getTechName(tag, techMap)} variant={badgeVariant} size={size} />
       ),
     )
   }
-  {remaining > 0 && <Badge label={`+${remaining}`} variant="outline" size={size} />}
+  {remaining > 0 && <Badge label={`+${remaining}`} variant={badgeVariant} size={size} />}
 </div>

@@ -21,9 +21,13 @@ interface Props {
   project: CollectionEntry<'projects'>;
   /** Whether to show the project's completion date */
   showCompletedDate?: boolean;
+  /** Ink-background treatment for a highlighted card */
+  tone?: 'light' | 'dark';
 }
 
-const { project, showCompletedDate = false } = Astro.props;
+const { project, showCompletedDate = false, tone = 'light' } = Astro.props;
+
+const dark = tone === 'dark';
 
 const technologies = await getCollection('technologies');
 const techMap = createTechMap(technologies);
@@ -34,13 +38,13 @@ const completionDate = project.data.completedOn?.toLocaleDateString('en-US', {
 });
 ---
 
-<Card variant="light" padding="none" class="flex h-full flex-col overflow-hidden">
-  <div class="border-ink bg-concrete-2 relative aspect-video overflow-hidden border-b-2">
+<Card variant={tone} padding="none" class="flex h-full flex-col overflow-hidden">
+  <div class={`relative aspect-video overflow-hidden border-b-2 ${dark ? 'border-seam bg-asphalt' : 'border-ink bg-concrete-2'}`}>
     {
       project.data.featuredImage ? (
         <Image src={project.data.featuredImage} alt={project.data.title} class="h-full w-full object-cover" width={600} height={340} loading="lazy" />
       ) : (
-        <div class="text-graphite flex h-full w-full items-center justify-center">
+        <div class={`flex h-full w-full items-center justify-center ${dark ? 'text-steel' : 'text-graphite'}`}>
           <i class={`${ICON_IMAGE} text-3xl`} aria-hidden="true" />
         </div>
       )
@@ -49,21 +53,21 @@ const completionDate = project.data.completedOn?.toLocaleDateString('en-US', {
   </div>
 
   <div class="flex flex-1 flex-col gap-3 p-6">
-    <Heading level={3} size="sm">
+    <Heading level={3} size="sm" class={dark ? 'text-concrete' : ''}>
       <a href={`/projects/${project.data.slug}`}>{project.data.title}</a>
     </Heading>
 
-    {showCompletedDate && completionDate && <p class="text-graphite font-mono text-xs uppercase">{completionDate}</p>}
+    {showCompletedDate && completionDate && <p class={`font-mono text-xs uppercase ${dark ? 'text-steel' : 'text-graphite'}`}>{completionDate}</p>}
 
-    {project.data.summary && <p class="text-graphite text-sm">{project.data.summary}</p>}
+    {project.data.summary && <p class={`text-sm ${dark ? 'text-steel' : 'text-graphite'}`}>{project.data.summary}</p>}
 
-    <TagList tags={project.data.technologies} techMap={techMap} limit={3} size="sm" />
+    <TagList tags={project.data.technologies} techMap={techMap} limit={3} size="sm" tone={tone} />
 
-    <div class="border-concrete-2 mt-auto flex items-center justify-between border-t-2 pt-4">
-      <Link href={`/projects/${project.data.slug}`} variant="signal" size="sm" showArrow>Learn more</Link>
+    <div class={`mt-auto flex items-center justify-between border-t-2 pt-4 ${dark ? 'border-seam' : 'border-concrete-2'}`}>
+      <Link href={`/projects/${project.data.slug}`} variant={dark ? 'signal-inverse' : 'signal'} size="sm" showArrow>Learn more</Link>
       {
         project.data.liveUrl && (
-          <Link href={project.data.liveUrl} variant="muted" size="sm" external showArrow>
+          <Link href={project.data.liveUrl} variant={dark ? 'muted-inverse' : 'muted'} size="sm" external showArrow>
             View project
           </Link>
         )

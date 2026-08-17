@@ -38,24 +38,8 @@
   "aiShowcase": {
     "eyebrow": "Agentic engineering",
     "title": "Built with agents in the loop",
-    "subtitle": "AI agents are part of my daily workflow, and I work to make them smarter by building their tooling myself, from custom skills to deployed MCP servers.",
-    "items": [
-      {
-        "phase": "Agents",
-        "title": "Agentic Engineering",
-        "description": "I build production software alongside AI agents end to end, from architecture to deployment. I drive Claude Code, OpenAI Codex, and Cursor with custom MCP servers, skills, and review loops to ship full stack apps like TypeLyft, OneMusicCrate, and ToodyLoo at a pace solo engineers could not hit before. Agents do not replace engineering judgment, they multiply it."
-      },
-      {
-        "phase": "This site",
-        "title": "This Website",
-        "description": "aaronmolina.me itself was built with AI assistance using Claude Code. Astro, Tailwind CSS v4, content collections, GSAP animations, and SEO-optimized architecture, all developed using an AI-augmented workflow."
-      },
-      {
-        "phase": "Tooling",
-        "title": "MCP Server Integrations",
-        "description": "I build and configure Model Context Protocol servers that connect AI coding assistants to external tools. From database queries to API integrations, MCP servers supercharge development workflows."
-      }
-    ]
+    "subtitle": "AI agents are part of my daily workflow, and I work to make them smarter by building their tooling myself, from custom skills to deployed MCP servers. These are the projects where that work ships.",
+    "projects": ["pagelyft-seo-agent", "poolpuma", "toodyloo-ai-todo-app", "pdf-generator-web-app"]
   },
   "portfolioChat": {
     "eyebrow": "Live demo",

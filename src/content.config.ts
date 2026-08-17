@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url';
 
 import fg from 'fast-glob';
 
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, reference, z } from 'astro:content';
 import { glob, type Loader } from 'astro/loaders';
 
 type GlobOptions = Parameters<typeof glob>[0];
@@ -283,15 +283,7 @@ export const homepageAiShowcaseSchema = z.object({
   eyebrow: z.string().min(1),
   title: z.string().min(1),
   subtitle: z.string().min(1),
-  items: z
-    .array(
-      z.object({
-        phase: z.string().min(1),
-        title: z.string().min(1),
-        description: z.string().min(1),
-      }),
-    )
-    .min(1),
+  projects: z.array(reference('projects')).min(1),
 });
 
 export const homepagePortfolioChatSchema = z.object({

@@ -13,5 +13,6 @@
     "originpc-accessibility",
     "pdf-generator-web-app",
     "toodyloo-ai-todo-app"
-  ]
+  ],
+  "logo": "html5.svg"
 }

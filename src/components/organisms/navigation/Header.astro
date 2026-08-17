@@ -1,7 +1,8 @@
 ---
 import { getNavIcon } from '@/lib/icons';
 import Button from '@/components/atoms/Button.astro';
-import navigation from '@/content/site/navigation.json';
+import { getSiteEntry } from '@/lib/site-content';
+const navigation = await getSiteEntry('siteNavigation', 'navigation');
 
 /**
  * Sticky site header. From `xl` up it renders the brand mark, the full
@@ -11,7 +12,9 @@ import navigation from '@/content/site/navigation.json';
  * JSON, so this component takes no props. The inline script wires up opening,
  * closing, Escape handling, focus movement and body scroll locking.
  */
-const { brandText, navItems } = navigation;
+const { brandText, navItems, monogram, menuLabel, openMenuLabel, closeMenuLabel, siteMenuLabel, headerCtas } = navigation;
+
+const ctaVariants = ['secondary', 'primary'] as const;
 
 const barClasses = 'bg-current absolute left-1/2 block h-0.5 w-5 -translate-x-1/2';
 ---
@@ -19,7 +22,7 @@ const barClasses = 'bg-current absolute left-1/2 block h-0.5 w-5 -translate-x-1/
 <header class="border-signal bg-ink sticky top-0 z-50 border-b-2">
   <div class="container flex items-center justify-between gap-4 py-3">
     <a href="/" class="font-display text-concrete flex shrink-0 items-center gap-2 text-lg font-black tracking-tight whitespace-nowrap uppercase">
-      <span class="bg-signal text-ink flex h-7 w-7 items-center justify-center rounded-xs font-mono text-xs font-bold">AM</span>
+      <span class="bg-signal text-ink flex h-7 w-7 items-center justify-center rounded-xs font-mono text-xs font-bold">{monogram}</span>
       {brandText}
     </a>
 
@@ -40,15 +43,20 @@ const barClasses = 'bg-current absolute left-1/2 block h-0.5 w-5 -translate-x-1/
     </nav>
 
     <div class="hidden shrink-0 items-center gap-3 xl:flex">
-      <Button href="/projects" variant="secondary" size="sm" class="whitespace-nowrap">Projects</Button>
-      <Button href="/contact" variant="primary" size="sm" class="whitespace-nowrap">Get in Touch</Button>
+      {
+        headerCtas.map((cta, index) => (
+          <Button href={cta.href} variant={ctaVariants[index] ?? 'primary'} size="sm" class="whitespace-nowrap">
+            {cta.label}
+          </Button>
+        ))
+      }
     </div>
 
     <button
       type="button"
       data-drawer-toggle
       class="text-concrete hover:bg-asphalt hover:text-signal relative h-11 w-11 shrink-0 rounded-xs xl:hidden"
-      aria-label="Open menu"
+      aria-label={openMenuLabel}
       aria-expanded="false"
       aria-controls="site-drawer"
     >
@@ -66,16 +74,16 @@ const barClasses = 'bg-current absolute left-1/2 block h-0.5 w-5 -translate-x-1/
     data-drawer-panel
     role="dialog"
     aria-modal="true"
-    aria-label="Site menu"
+    aria-label={siteMenuLabel}
     class="border-signal bg-ink absolute top-0 right-0 flex h-full w-[min(20rem,85vw)] translate-x-full flex-col border-l-2 transition-transform duration-200 ease-out"
   >
     <div class="border-seam flex items-center justify-between border-b-2 px-4 py-3">
-      <span class="text-concrete font-mono text-xs font-bold tracking-[0.14em] uppercase">Menu</span>
+      <span class="text-concrete font-mono text-xs font-bold tracking-[0.14em] uppercase">{menuLabel}</span>
       <button
         type="button"
         data-drawer-close
         class="text-concrete hover:bg-asphalt hover:text-signal relative h-11 w-11 shrink-0 rounded-xs"
-        aria-label="Close menu"
+        aria-label={closeMenuLabel}
       >
         <span class={`${barClasses} top-1/2 -translate-y-1/2 rotate-45`}></span>
         <span class={`${barClasses} top-1/2 -translate-y-1/2 -rotate-45`}></span>
@@ -103,8 +111,13 @@ const barClasses = 'bg-current absolute left-1/2 block h-0.5 w-5 -translate-x-1/
     </nav>
 
     <div class="border-seam space-y-3 border-t-2 px-4 py-4">
-      <Button href="/projects" variant="secondary" size="sm" fullWidth>Projects</Button>
-      <Button href="/contact" variant="primary" size="sm" fullWidth>Get in Touch</Button>
+      {
+        headerCtas.map((cta, index) => (
+          <Button href={cta.href} variant={ctaVariants[index] ?? 'primary'} size="sm" fullWidth>
+            {cta.label}
+          </Button>
+        ))
+      }
     </div>
   </aside>
 </div>

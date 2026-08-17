@@ -9,5 +9,6 @@
   "projects": [
     "miami-heat-website",
     "clippers-website"
-  ]
+  ],
+  "logo": "wordpress.svg"
 }

@@ -11,5 +11,6 @@
     "pdf-generator-web-app",
     "typelyft",
     "onemusiccrate-spotify-app"
-  ]
+  ],
+  "logo": "claude.svg"
 }

@@ -1,6 +1,11 @@
 {
   "brandText": "AaronMolina.me",
   "brandAlt": "Aaron Molina - Full Stack Developer",
+  "monogram": "AM",
+  "menuLabel": "Menu",
+  "openMenuLabel": "Open menu",
+  "closeMenuLabel": "Close menu",
+  "siteMenuLabel": "Site menu",
   "navItems": [
     { "label": "Home", "href": "/", "icon": "home" },
     { "label": "Hire Me", "href": "/hire", "icon": "briefcase" },
@@ -8,7 +13,15 @@
     { "label": "Experience", "href": "/experience", "icon": "experience" },
     { "label": "Blog", "href": "/blog", "icon": "blog" },
     { "label": "Contact", "href": "/contact", "icon": "contact" }
+  ],
+  "headerCtas": [
+    { "label": "Projects", "href": "/projects" },
+    { "label": "Get in Touch", "href": "/contact" }
+  ],
+  "hireLinks": [
+    { "label": "Overview", "tabLabel": "Overview", "href": "/hire" },
+    { "label": "React Developer", "tabLabel": "React", "href": "/hire/react-developer" },
+    { "label": "Next.js Developer", "tabLabel": "Next.js", "href": "/hire/nextjs-developer" },
+    { "label": "Headless CMS", "tabLabel": "Headless CMS", "href": "/hire/headless-cms" }
   ]
 }
-
-

@@ -1,7 +1,8 @@
 {
   "copyrightOwnerName": "Aaron Molina",
   "copyrightSuffix": "All rights reserved.",
-  "showSocialLinks": true
+  "showSocialLinks": true,
+  "siteHeading": "Site",
+  "hireHeading": "Hire Me",
+  "privacyLink": { "label": "Privacy", "href": "/privacy" }
 }
-
-

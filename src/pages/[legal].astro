@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection, render } from 'astro:content';
 import MainLayout from '@/layouts/main-layout.astro';
+import { getSiteEntry } from '@/lib/site-content';
 
 export async function getStaticPaths() {
   const legalPages = await getCollection('legal');
@@ -23,14 +24,17 @@ const lastUpdated = legalPage.data.lastUpdated.toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric',
 });
+
+const pages = await getSiteEntry('sitePages', 'pages');
+const legal = pages.legal;
 ---
 
-<MainLayout title={`${legalPage.data.title} | Aaron Molina`} description={legalPage.data.description}>
+<MainLayout title={`${legalPage.data.title}${legal.titleSuffix}`} description={legalPage.data.description}>
   <article class="section-py container max-w-3xl">
     <header class="border-ink mb-10 border-b-2 pb-6">
-      <p class="text-signal-deep mb-3 font-mono text-xs font-bold tracking-[0.18em] uppercase">Legal</p>
+      <p class="text-signal-deep mb-3 font-mono text-xs font-bold tracking-[0.18em] uppercase">{legal.eyebrow}</p>
       <h1 class="font-display text-ink text-3xl font-black tracking-tight uppercase md:text-4xl">{legalPage.data.title}</h1>
-      <p class="text-graphite mt-4 text-sm">Last updated: {lastUpdated}</p>
+      <p class="text-graphite mt-4 text-sm">{legal.lastUpdatedLabel} {lastUpdated}</p>
     </header>
 
     <div class="typography max-w-none">

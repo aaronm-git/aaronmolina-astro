@@ -8,5 +8,6 @@
   "level": 10,
   "projects": [
     "aaronmolina-astro"
-  ]
+  ],
+  "logo": "sanity.svg"
 }

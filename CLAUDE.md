@@ -34,6 +34,15 @@
 
 - Always use Pnpm as the package manager.
 
+## Comments
+
+- Do not comment by default. A note on every change pollutes the codebase.
+- If code needs a comment to be readable, the approach is wrong. Rename, extract, or restructure first.
+- Never narrate a change: no "renamed for clarity", no restating the line, no labeling a regex or constant, no `TODO`/`FIXME` breadcrumbs, no commented-out code. That belongs in the chat reply or the commit message.
+- Write one only when it states a hard constraint a future developer would otherwise break, such as a browser behavior or a third-party ordering requirement. Keep it to a line or two.
+- JSDoc on an exported component, function, or type is fine when it tells a caller something the signature does not.
+- Leave existing comments alone. This governs what you write, not a cleanup mandate.
+
 ## Content
 
 - When writing content do not use em dashes. Rephrase or use other punctuation marks instead.

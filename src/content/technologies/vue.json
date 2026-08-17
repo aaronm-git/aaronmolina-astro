@@ -8,5 +8,6 @@
   "level": 7,
   "projects": [
     "clippers-website"
-  ]
+  ],
+  "logo": "vue.svg"
 }

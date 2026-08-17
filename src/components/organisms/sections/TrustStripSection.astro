@@ -1,7 +1,6 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
-import Badge from '@/components/atoms/Badge.astro';
 
 interface Company {
   /** Company name */
@@ -13,25 +12,21 @@ interface Company {
 }
 
 /**
- * Trust strip shown near the top of a page. Client wordmarks sit directly on
- * the section background rather than inside cards, so the marks themselves
- * carry the section. Each logo gets a uniform optical height instead of a
- * uniform box, which keeps wide wordmarks and squarer badges reading at the
- * same visual weight.
+ * Trust strip shown near the top of a page: a label and a row of employer
+ * wordmarks. The marks sit directly on the section background rather than
+ * inside cards, so they carry the section on their own. Each logo gets a
+ * uniform optical height instead of a uniform box, which keeps wide
+ * wordmarks and squarer badges reading at the same visual weight.
  */
 interface Props {
   /** Small label above the logo row */
   eyebrow?: string;
-  /** Guarantee statement shown below the logos */
-  guaranteeText: string;
-  /** Small badge labels rendered next to the guarantee text */
-  badges: string[];
   /** Company logos to render */
   companies: Company[];
   class?: string;
 }
 
-const { eyebrow = 'Trusted by leading brands', guaranteeText, badges, companies, class: className = '' } = Astro.props;
+const { eyebrow, companies, class: className = '' } = Astro.props;
 
 // Wordmark lockups are wide; team badges are roughly square. Sizing every mark
 // to one height makes the badges read as half the weight of the wordmarks, so
@@ -42,35 +37,59 @@ const sizedCompanies = companies.map(company => {
   const isBadge = company.logo.width / company.logo.height < BADGE_MAX_RATIO;
   return {
     ...company,
-    sizeClass: isBadge ? 'h-20 w-auto sm:h-24' : 'h-10 w-auto max-w-[11rem] sm:h-12 sm:max-w-[13rem] lg:max-w-[15rem]',
+    sizeClass: isBadge ? 'h-14 w-auto max-w-full object-contain sm:h-20 lg:h-24' : 'h-8 w-auto max-w-full object-contain sm:h-10 lg:h-12',
   };
 });
+
+/** Picks a column count that never leaves exactly one logo alone on the last row. */
+const columnsFor = (count: number, preferred: number): number => {
+  for (let columns = Math.min(preferred, count); columns >= 2; columns--) {
+    if (count % columns !== 1) return columns;
+  }
+  for (let columns = preferred + 1; columns <= count; columns++) {
+    if (count % columns !== 1) return columns;
+  }
+  return 1;
+};
+
+// Tailwind only emits classes it can see as literal strings, so these are
+// looked up rather than interpolated.
+const SM_COLUMNS: Record<number, string> = {
+  1: 'sm:grid-cols-[repeat(1,auto)]',
+  2: 'sm:grid-cols-[repeat(2,auto)]',
+  3: 'sm:grid-cols-[repeat(3,auto)]',
+  4: 'sm:grid-cols-[repeat(4,auto)]',
+};
+const LG_COLUMNS: Record<number, string> = {
+  1: 'lg:grid-cols-[repeat(1,auto)]',
+  2: 'lg:grid-cols-[repeat(2,auto)]',
+  3: 'lg:grid-cols-[repeat(3,auto)]',
+  4: 'lg:grid-cols-[repeat(4,auto)]',
+  5: 'lg:grid-cols-[repeat(5,auto)]',
+  6: 'lg:grid-cols-[repeat(6,auto)]',
+  7: 'lg:grid-cols-[repeat(7,auto)]',
+};
+
+const smColumnClass = SM_COLUMNS[columnsFor(companies.length, 3)] ?? 'sm:grid-cols-[repeat(3,auto)]';
+const lgColumnClass = LG_COLUMNS[columnsFor(companies.length, 5)] ?? 'lg:grid-cols-[repeat(5,auto)]';
+
+const orphanSpan = '[&>li:last-child:nth-child(odd)]:col-span-2 sm:[&>li:last-child:nth-child(odd)]:col-span-1';
 ---
 
-<section class={`border-ink bg-concrete-2 border-b-2 py-10 sm:py-12 ${className}`}>
+<section class={`border-ink bg-concrete-2 border-y-2 py-10 sm:py-12 ${className}`}>
   <div class="container">
-    <p class="text-graphite text-center font-mono text-xs font-bold tracking-[0.18em] uppercase">{eyebrow}</p>
+    {eyebrow && <p class="text-graphite text-center font-mono text-xs font-bold tracking-[0.18em] uppercase">{eyebrow}</p>}
 
-    <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-10 sm:gap-x-16 lg:gap-x-20">
+    <ul
+      class={`mt-8 grid grid-cols-[repeat(2,auto)] place-items-center justify-center gap-x-6 gap-y-8 sm:gap-x-10 sm:gap-y-10 lg:gap-x-14 ${smColumnClass} ${lgColumnClass} ${orphanSpan}`}
+    >
       {
         sizedCompanies.map(company => (
-          <li class="flex items-center justify-center">
-            <Image src={company.logo} alt={company.alt} width={480} height={240} class={`${company.sizeClass} object-contain`} loading="lazy" />
+          <li class="flex min-w-0 items-center justify-center">
+            <Image src={company.logo} alt={company.alt} width={company.logo.width} height={company.logo.height} class={company.sizeClass} loading="lazy" />
           </li>
         ))
       }
     </ul>
-
-    <div class="border-ink/15 mt-10 flex flex-wrap items-center justify-between gap-4 border-t-2 pt-6">
-      <p class="text-ink flex max-w-[46ch] items-center gap-3 text-sm font-bold">
-        <span class="border-ink bg-signal shadow-hard-sm flex h-10 w-10 flex-none items-center justify-center rounded-full border-2">
-          <i class="fa-solid fa-check text-ink text-sm" aria-hidden="true"></i>
-        </span>
-        <span>{guaranteeText}</span>
-      </p>
-      <div class="flex flex-wrap gap-2">
-        {badges.map(badge => <Badge label={badge} variant="default" size="sm" />)}
-      </div>
-    </div>
   </div>
 </section>

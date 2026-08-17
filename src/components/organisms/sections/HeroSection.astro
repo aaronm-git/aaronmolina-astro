@@ -15,12 +15,11 @@ interface CTA {
 }
 
 /**
- * Page hero section with two layout modes: `split` is a dark, two-column
- * hero (GSAP-animated entrance via data-hero-animate attributes, StencilGrid
- * background, optional "right" slot for supporting content like
- * BuildManifestCard) used on the homepage; `minimal` is a simpler light
- * hero for interior pages. Composes Heading, Text, Button, Badge, and
- * StencilGrid.
+ * Page hero section with two layout modes: `split` is a dark hero with a
+ * GSAP-animated entrance (via data-hero-animate attributes) over a
+ * StencilGrid background, used on the homepage and hire pages; `minimal`
+ * is a simpler light hero for interior pages. Composes Heading, Text,
+ * Button, Badge, and StencilGrid.
  */
 interface Props {
   /** Layout mode; defaults to 'minimal' */
@@ -51,7 +50,7 @@ const hasRightSlot = Astro.slots.has('right');
   variant === 'split' && (
     <section class={`bg-ink text-concrete relative overflow-hidden py-18 ${className}`}>
       <StencilGrid />
-      <div class={`relative z-10 container grid items-center gap-12 ${hasRightSlot ? 'lg:grid-cols-[7fr_5fr]' : ''}`}>
+      <div class={`relative z-10 container ${hasRightSlot ? 'grid items-center gap-14 lg:grid-cols-[6fr_5fr] lg:gap-12' : ''}`}>
         <div class={hasRightSlot ? '' : 'max-w-3xl'}>
           {eyebrow && (
             <span
@@ -105,11 +104,13 @@ const hasRightSlot = Astro.slots.has('right');
           <slot />
         </div>
 
-        {hasRightSlot && (
-          <div class="justify-self-center lg:justify-self-end" data-hero-animate data-hero-order="5">
-            <slot name="right" />
-          </div>
-        )}
+        {
+          hasRightSlot && (
+            <div class="flex w-full justify-center lg:justify-end" data-hero-animate data-hero-order="5">
+              <slot name="right" />
+            </div>
+          )
+        }
       </div>
     </section>
   )

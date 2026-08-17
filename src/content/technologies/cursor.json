@@ -14,5 +14,6 @@
     "pdf-generator-web-app",
     "toodyloo-ai-todo-app",
     "typelyft"
-  ]
+  ],
+  "logo": "cursor.svg"
 }

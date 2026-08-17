@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
+import DeckCarousel, { type DeckSlide } from './DeckCarousel';
+
+/**
+ * Hero showpiece: a cycling deck of site screenshots with a cutout figure
+ * reacting to it. The screenshots are optimized here so the React island
+ * receives plain URLs rather than Astro image assets.
+ */
+interface Props {
+  /** Hero deck content block from the homepage collection */
+  content: CollectionEntry<'siteHomepage'>['data']['heroDeck'];
+  class?: string;
+}
+
+const { content, class: className = '' } = Astro.props;
+const { cutout, cutoutAlt, bubbleText, slides: slideSources } = content;
+
+const slides: DeckSlide[] = await Promise.all(
+  slideSources.map(async source => {
+    const optimized = await getImage({ src: source.image, width: 1200, height: 750, format: 'webp' });
+    return { src: optimized.src, alt: source.alt, label: source.label };
+  })
+);
+---
+
+<div class={`relative w-[600px] max-w-full ${className}`}>
+  <DeckCarousel slides={slides} client:load />
+
+  <figure class="pointer-events-none absolute right-0 -bottom-4 z-20 w-[40%] max-w-[250px]">
+    <div class="border-ink bg-signal shadow-hard-sm absolute -top-10 -left-6 z-10 max-w-[10rem] rotate-[-4deg] rounded-md border-2 px-3 py-2 sm:-left-16">
+      <p class="font-display text-ink text-xs leading-tight font-black sm:text-sm">{bubbleText}</p>
+      <span class="border-ink bg-signal absolute -bottom-[7px] left-8 h-3 w-3 rotate-45 border-r-2 border-b-2"></span>
+    </div>
+
+    <Image
+      src={cutout}
+      alt={cutoutAlt}
+      width={cutout.width}
+      height={cutout.height}
+      class="h-auto w-full"
+      style="filter:drop-shadow(3px 0 0 var(--color-ink)) drop-shadow(-3px 0 0 var(--color-ink)) drop-shadow(0 3px 0 var(--color-ink)) drop-shadow(0 -3px 0 var(--color-ink))"
+      loading="eager"
+    />
+  </figure>
+</div>

@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '@/utils/date-format';
+import { getSiteEntry } from '@/lib/site-content';
 
 /**
  * Molecule that surfaces related blog posts based on shared tags, ranked by
@@ -40,10 +41,12 @@ const relatedPosts = posts
 if (relatedPosts.length === 0) {
   return null;
 }
+
+const pages = await getSiteEntry('sitePages', 'pages');
 ---
 
 <aside class={`border-t-2 border-seam pt-8 ${className}`}>
-  <h2 class="font-display text-ink mb-6 text-xl font-black tracking-tight uppercase">Related Articles</h2>
+  <h2 class="font-display text-ink mb-6 text-xl font-black tracking-tight uppercase">{pages.relatedPosts.title}</h2>
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {
       relatedPosts.map(post => (

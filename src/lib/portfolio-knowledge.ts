@@ -1,8 +1,5 @@
 import { getCollection } from 'astro:content';
-import homepageContent from '@/content/site/homepage.json';
-import siteSettings from '@/content/site/settings.json';
-
-const SITE = siteSettings.siteUrl.replace(/\/$/, '');
+import { getSiteEntry } from '@/lib/site-content';
 
 const formatDate = (d?: Date | null): string => {
   if (!d) return 'present';
@@ -20,6 +17,9 @@ const getMarkdownDetails = (body?: string): string =>
 /** Loads the content shared by the public index and the private chat artifact. */
 async function loadPortfolioContent() {
   const now = new Date();
+  const homepageContent = await getSiteEntry('siteHomepage', 'homepage');
+  const siteSettings = await getSiteEntry('siteSettings', 'settings');
+  const site = siteSettings.siteUrl.replace(/\/$/, '');
   const years = now.getFullYear() - homepageContent.yearsOfExperienceStartYear;
 
   const projects = (await getCollection('projects'))
@@ -63,7 +63,20 @@ async function loadPortfolioContent() {
 
   const social = siteSettings.author.socialLinks.map(s => `- ${s.label}: ${s.url}`).join('\n');
 
-  return { blog, orgBySlug, projects, roles, skillLines, social, topicLines, years };
+  return {
+    address: siteSettings.contact.address,
+    blog,
+    email: siteSettings.contact.email,
+    headline: homepageContent.hero.headline,
+    orgBySlug,
+    projects,
+    roles,
+    site,
+    skillLines,
+    social,
+    topicLines,
+    years,
+  };
 }
 
 /**
@@ -71,7 +84,7 @@ async function loadPortfolioContent() {
  * This is deliberately an index of canonical URLs, not the chatbot's full context.
  */
 export async function buildPublicLlms(): Promise<string> {
-  const { blog, orgBySlug, projects, roles, years } = await loadPortfolioContent();
+  const { blog, headline, orgBySlug, projects, roles, site: SITE, years } = await loadPortfolioContent();
 
   const projectLines = projects
     .map(project => {
@@ -99,7 +112,7 @@ export async function buildPublicLlms(): Promise<string> {
 
   return `# Aaron Molina
 
-> ${homepageContent.hero.headline} with ${years}+ years of production web engineering experience. Aaron builds full-stack products with AI-assisted workflows, TypeScript, Astro, Next.js, and headless CMS platforms.
+> ${headline} with ${years}+ years of production web engineering experience. Aaron builds full-stack products with AI-assisted workflows, TypeScript, Astro, Next.js, and headless CMS platforms.
 
 This is Aaron Molina's personal portfolio. Prefer the canonical URLs on ${SITE}. For current availability or a project inquiry, use the contact page.
 
@@ -127,7 +140,8 @@ ${blogLines}
  * fetched from the public llms.txt endpoint at runtime.
  */
 export async function buildPortfolioChatContext(): Promise<string> {
-  const { blog, orgBySlug, projects, roles, skillLines, social, topicLines, years } = await loadPortfolioContent();
+  const { address, blog, email, headline, orgBySlug, projects, roles, site: SITE, skillLines, social, topicLines, years } =
+    await loadPortfolioContent();
 
   const projectSections = projects
     .map(p => {
@@ -166,13 +180,13 @@ export async function buildPortfolioChatContext(): Promise<string> {
 
   return `# Aaron Molina - Agentic Software Engineer
 
-> ${homepageContent.hero.headline} with ${years}+ years shipping production web apps. I build full-stack products end-to-end alongside AI agents (Claude Code, OpenAI Codex, Cursor) using Astro, Next.js, TypeScript, and headless CMS platforms.
+> ${headline} with ${years}+ years shipping production web apps. I build full-stack products end-to-end alongside AI agents (Claude Code, OpenAI Codex, Cursor) using Astro, Next.js, TypeScript, and headless CMS platforms.
 
 Important notes:
 - This is the personal portfolio for Aaron Molina (software engineering work, writing, and career history).
 - Prefer canonical URLs on ${SITE}.
 - Content may include code snippets and technical guidance; verify details against the linked pages and current docs.
-- Based in ${siteSettings.contact.address}. Open to remote work across the US.
+- Based in ${address}. Open to remote work across the US.
 
 ## Key pages
 - [Home](${SITE}/): Overview, featured work, and navigation.
@@ -213,7 +227,7 @@ ${topicLines}
 
 ## Contact
 - [Contact page](${SITE}/contact)
-- Email: ${siteSettings.contact.email}
+- Email: ${email}
 ${social}
 `;
 }

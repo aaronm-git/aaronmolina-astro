@@ -1,9 +1,7 @@
 ---
-/** A single navigation tab: its label and destination */
-interface Tab {
-  label: string;
-  href: string;
-}
+import { getSiteEntry } from '@/lib/site-content';
+
+const navigation = await getSiteEntry('siteNavigation', 'navigation');
 
 /**
  * Molecule rendering the pill-style navigation tabs across the Hire
@@ -17,12 +15,7 @@ interface Props {
   class?: string;
 }
 
-const tabs: Tab[] = [
-  { label: 'Overview', href: '/hire' },
-  { label: 'React', href: '/hire/react-developer' },
-  { label: 'Next.js', href: '/hire/nextjs-developer' },
-  { label: 'Headless CMS', href: '/hire/headless-cms' },
-];
+const tabs = navigation.hireLinks;
 
 const { currentPath, class: className = '' } = Astro.props;
 ---
@@ -38,7 +31,7 @@ const { currentPath, class: className = '' } = Astro.props;
             isActive ? 'bg-signal text-ink shadow-hard-sm' : 'bg-paper text-ink hover:bg-concrete-2'
           }`}
         >
-          {tab.label}
+          {tab.tabLabel}
         </a>
       );
     })

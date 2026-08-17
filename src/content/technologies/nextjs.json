@@ -8,5 +8,6 @@
   "level": 10,
   "projects": [
     "pdf-generator-web-app"
-  ]
+  ],
+  "logo": "nextjs.svg"
 }

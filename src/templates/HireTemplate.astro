@@ -8,6 +8,10 @@ import SkillsSection from '@/components/organisms/sections/SkillsSection.astro';
 import ProjectsSection from '@/components/organisms/sections/ProjectsSection.astro';
 import FAQSection from '@/components/organisms/sections/FAQSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
+import HowItWorksSection from '@/components/organisms/sections/HowItWorksSection.astro';
+import EngagementSection from '@/components/organisms/sections/EngagementSection.astro';
+import ComparisonSection from '@/components/organisms/sections/ComparisonSection.astro';
+import QuoteSection from '@/components/organisms/sections/QuoteSection.astro';
 import HireNavigationTabs from '@/components/molecules/HireNavigationTabs.astro';
 import type { TechMap } from '@/utils/tech-lookup';
 
@@ -28,11 +32,7 @@ interface StatItem {
   label: string;
 }
 
-/** A service offering rendered as one bento card in the "How I can help" grid */
-interface ServiceItem {
-  title: string;
-  description: string;
-}
+type HireData = CollectionEntry<'siteHire'>['data'];
 
 /** A single feature/benefit card in the two-column features grid */
 interface FeatureItem {
@@ -46,12 +46,6 @@ interface SkillCategory {
   skills: string[];
 }
 
-/** A single question/answer pair in the FAQ accordion */
-interface FAQItem {
-  question: string;
-  answer: string;
-}
-
 /** Content for the closing call-to-action section */
 interface CTAProps {
   title: string;
@@ -60,11 +54,23 @@ interface CTAProps {
   buttonHref: string;
 }
 
+/** A numbered step in the "how it works" process section */
+interface ProcessStep {
+  number: string;
+  tag: string;
+  title: string;
+  description: string;
+}
+
 /**
- * Shared template for all `/hire/*` landing pages — composes the hire-page
+ * Shared template for all `/hire/*` landing pages. Composes the hire-page
  * navigation tabs, hero, stats strip, services bento grid, a two-column
  * features grid, skills section, optional featured-projects section, FAQ
  * accordion, and closing CTA section.
+ *
+ * The `howItWorks`, `engagement`, and `comparison` sections are optional and
+ * render only when passed. They are reserved for the `/hire` hub so the
+ * narrower sub-pages do not repeat the same blocks across four URLs.
  */
 interface Props {
   /** Page `<title>` */
@@ -78,9 +84,9 @@ interface Props {
   /** Figures shown in the stats strip */
   stats: StatItem[];
   /** Services section heading, subheading, and bento card items */
-  services: { title: string; subtitle?: string; items: ServiceItem[] };
-  /** Phase label applied to each service bento card, matched by index */
-  servicePhaseTags: string[];
+  services: HireData['main']['services'];
+  /** Eyebrow labels for the services, skills, and FAQ sections */
+  eyebrows: HireData['shared']['eyebrows'];
   /** Features section heading and card items */
   features: { title: string; items: FeatureItem[] };
   /** Skills section heading, subheading, categories, and tag lookup */
@@ -88,15 +94,40 @@ interface Props {
   /** Featured projects section heading, items, and "view all" link */
   projects: { title: string; items: CollectionEntry<'projects'>[]; viewAllHref: string; viewAllLabel: string };
   /** FAQ section heading and items */
-  faq: { title: string; items: FAQItem[] };
+  faq: { title: string; items: HireData['shared']['faq'] };
   /** Closing CTA section content */
   cta: CTAProps;
+  /** Process walkthrough; omit to hide the section */
+  howItWorks?: { eyebrow?: string; title: string; steps: ProcessStep[] };
+  /** Engagement models; omit to hide the section */
+  engagement?: HireData['main']['engagement'];
+  /** Side-by-side comparison table; omit to hide the section */
+  comparison?: HireData['main']['comparison'];
+  /** Render the pull-quote about AI-assisted workflow */
+  showQuote?: boolean;
 }
 
-const { title, description, currentPath, hero, stats, services, servicePhaseTags, features, skills, projects, faq, cta } = Astro.props as Props;
+const {
+  title,
+  description,
+  currentPath,
+  hero,
+  stats,
+  services,
+  eyebrows,
+  features,
+  skills,
+  projects,
+  faq,
+  cta,
+  howItWorks,
+  engagement,
+  comparison,
+  showQuote = false,
+} = Astro.props as Props;
 
 const bentoCards = services.items.map((item, i) => ({
-  phase: servicePhaseTags[i] ?? 'Build',
+  phase: item.phase,
   title: item.title,
   description: item.description,
   span: (i % 2 === 0 ? 5 : 7) as 5 | 7,
@@ -118,7 +149,7 @@ const bentoCards = services.items.map((item, i) => ({
 
   <StatsSection stats={stats} tone="light" />
 
-  <FeaturesSection eyebrow="How I can help" title={services.title} description={services.subtitle} cards={bentoCards} />
+  <FeaturesSection eyebrow={eyebrows.services} title={services.title} description={services.subtitle} cards={bentoCards} />
 
   <section class="section-py">
     <div class="container">
@@ -136,11 +167,40 @@ const bentoCards = services.items.map((item, i) => ({
     </div>
   </section>
 
-  <SkillsSection eyebrow="Tools" title={skills.title} description={skills.subtitle} categories={skills.categories} techMap={skills.techMap} />
+  <SkillsSection eyebrow={eyebrows.skills} title={skills.title} description={skills.subtitle} categories={skills.categories} techMap={skills.techMap} />
 
   {projects.items.length > 0 && <ProjectsSection title={projects.title} projects={projects.items} cta={{ label: projects.viewAllLabel, href: projects.viewAllHref }} />}
 
-  <FAQSection eyebrow="Before you reach out" title={faq.title} faqs={faq.items} />
+  {howItWorks && <HowItWorksSection eyebrow={howItWorks.eyebrow} title={howItWorks.title} steps={howItWorks.steps} />}
+
+  {
+    engagement && (
+      <EngagementSection
+        eyebrow={engagement.eyebrow}
+        title={engagement.title}
+        plans={engagement.plans}
+        customNote={engagement.customNote}
+        customCta={engagement.customCta}
+      />
+    )
+  }
+
+  {
+    comparison && (
+      <ComparisonSection
+        eyebrow={comparison.eyebrow}
+        title={comparison.title}
+        description={comparison.description}
+        columns={comparison.columns}
+        rows={comparison.rows}
+        criterionHeader={comparison.criterionHeader}
+      />
+    )
+  }
+
+  {showQuote && <QuoteSection />}
+
+  <FAQSection eyebrow={eyebrows.faq} title={faq.title} faqs={faq.items} />
 
   <CTASection title={cta.title} description={cta.description} buttonLabel={cta.buttonLabel} buttonHref={cta.buttonHref} />
 </MainLayout>

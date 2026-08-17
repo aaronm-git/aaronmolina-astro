@@ -9,5 +9,6 @@
   "projects": [
     "clippers-website",
     "miami-heat-website"
-  ]
+  ],
+  "shortLabel": "API"
 }

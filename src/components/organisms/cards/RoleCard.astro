@@ -44,8 +44,16 @@ const orgName = organization?.data.name || role.data.organization;
 // a hairline wordmark can share a size and still look nothing alike. Each org
 // carries a logoScale derived from how much of the slot its ink actually fills,
 // so every mark lands at comparable visual weight. The slot itself is invisible.
+//
+// These logos are SVGs with a viewBox but no intrinsic size, so CSS `auto`
+// sizing collapses them to zero. The fit must be resolved to a pixel height.
+const LOGO_SLOT_WIDTH = 176;
+const LOGO_SLOT_HEIGHT = 48;
+
 const logoScale = organization?.data.logoScale ?? 1;
-const logoSizing = `max-width:${logoScale * 100}%;max-height:${logoScale * 3}rem`;
+const logoRatio = organization?.data.logo ? organization.data.logo.width / organization.data.logo.height : 1;
+const logoHeight = Math.min(LOGO_SLOT_HEIGHT, LOGO_SLOT_WIDTH / logoRatio) * logoScale;
+const logoSizing = `height:${logoHeight.toFixed(1)}px`;
 
 // The rail normalizes line-art marks to one color by flooding them white. A logo
 // painted on its own opaque plate has to opt out, since the same fill would wash
@@ -55,15 +63,15 @@ const knockOutLogo = !organization?.data.logoHasBackdrop;
 
 <article id={role.data.slug} class="border-ink bg-paper shadow-hard flex flex-col overflow-hidden rounded-md border-2 md:flex-row">
   <div class="bg-ink flex w-full shrink-0 flex-col justify-between gap-6 p-5 md:w-56">
-    <div class="flex h-12 items-center">
+    <div class="flex h-12 max-w-[11rem] items-center">
       {
         organization?.data.logo ? (
           <Image
             src={organization.data.logo}
             alt={`${orgName} logo`}
-            width={520}
-            height={208}
-            class:list={['object-contain object-left', knockOutLogo && '[filter:brightness(0)_invert(1)]']}
+            width={organization.data.logo.width}
+            height={organization.data.logo.height}
+            class:list={['w-auto max-w-full object-contain object-left', knockOutLogo && '[filter:brightness(0)_invert(1)]']}
             style={logoSizing}
             loading="lazy"
           />

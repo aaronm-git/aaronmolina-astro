@@ -10,5 +10,6 @@
     "pdf-generator-web-app",
     "toodyloo-ai-todo-app",
     "aaronmolina-astro"
-  ]
+  ],
+  "logo": "tailwindcss.svg"
 }

@@ -7,7 +7,8 @@
 import { HireTemplate } from '@/templates';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
-import hireContent from '@/content/site/hire.json';
+import { getSiteEntry } from '@/lib/site-content';
+const hireContent = await getSiteEntry('siteHire', 'hire');
 
 // Fetch data
 const technologies = await getCollection('technologies');
@@ -48,12 +49,8 @@ const stats = hireContent.shared.stats.map(stat => ({
     secondaryCta: hireContent.headlessCms.hero.secondaryCta,
   }}
   stats={stats}
-  services={{
-    title: hireContent.headlessCms.services.title,
-    subtitle: hireContent.headlessCms.services.subtitle,
-    items: hireContent.headlessCms.services.items,
-  }}
-  servicePhaseTags={['Build', 'Migrate', 'Extend', 'Scale']}
+  services={hireContent.headlessCms.services}
+  eyebrows={hireContent.shared.eyebrows}
   features={{
     title: hireContent.headlessCms.features.title,
     items: hireContent.headlessCms.features.items,
@@ -65,13 +62,13 @@ const stats = hireContent.shared.stats.map(stat => ({
     techMap: techMap,
   }}
   projects={{
-    title: 'Headless CMS Projects',
+    title: hireContent.headlessCms.projects.title,
     items: cmsProjects,
-    viewAllHref: '/projects',
-    viewAllLabel: 'View all projects',
+    viewAllHref: hireContent.headlessCms.projects.viewAllHref,
+    viewAllLabel: hireContent.headlessCms.projects.viewAllLabel,
   }}
   faq={{
-    title: 'Frequently Asked Questions',
+    title: hireContent.shared.faqTitle,
     items: hireContent.shared.faq,
   }}
   cta={hireContent.shared.cta}

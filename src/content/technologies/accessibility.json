@@ -8,5 +8,6 @@
   "level": 7,
   "projects": [
     "originpc-accessibility"
-  ]
+  ],
+  "shortLabel": "A11Y"
 }

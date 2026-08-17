@@ -32,8 +32,8 @@
     "name": "Aaron Molina",
     "email": "aaron@aaronmolina.me",
     "url": "https://aaronmolina.me",
-    "bio": "Full stack developer and consultant specializing in Astro, Next.js, Sanity, and AI-powered development. I build high-performance, composable, content-driven websites and full stack applications using modern AI tools like Claude Code, OpenAI, and MCP servers. Available for hire.",
-    "jobTitle": "Full Stack Developer & AI Web Consultant",
+    "bio": "Senior full stack developer with production experience in React, Next.js, Astro, and headless CMS platforms. I led frontend delivery for Clippers.com, migrated HEAT.com from Drupal, and built PoolPuma on my own. Available for new projects, remote US or Miami.",
+    "jobTitle": "Senior React & Next.js Developer",
     "location": "Miami, FL",
     "socialLinks": [
       {
@@ -60,6 +60,24 @@
         "url": "https://www.facebook.com/aaronm91",
         "ariaLabel": "Facebook @aaronm91"
       }
+    ],
+    "address": {
+      "locality": "Miami",
+      "region": "FL",
+      "country": "US"
+    },
+    "knowsAbout": [
+      "Jamstack Development",
+      "Composable Web Architecture",
+      "React",
+      "Next.js",
+      "Astro",
+      "TypeScript",
+      "Sanity CMS",
+      "Headless CMS",
+      "Frontend Development",
+      "Web Performance",
+      "Tailwind CSS"
     ]
   },
   "contact": {

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
+import type { HomepageSkillsShowcase } from '@/content.config';
 
 /**
  * Skill data structure for the interactive showcase
@@ -9,50 +10,19 @@ interface SkillData {
   name: string;
   level: number;
   projects: { slug: string; title: string }[];
-  logoPath: string;
+  logo?: string;
+  shortLabel?: string;
 }
 
 interface Props {
+  /** Skills showcase copy block from the homepage collection */
+  content: HomepageSkillsShowcase;
   /** Array of skill data */
   skills: SkillData[];
 }
 
 /** Logo path mapping for skills with SVG logos */
 const LOGO_BASE = '/images/tech-logos/';
-
-/** Concept skills that use text-based icons instead of SVG logos */
-const CONCEPT_SKILLS = new Set([
-  'rest-api',
-  'seo',
-  'accessibility',
-  'ga4',
-  'gtm',
-  'frontend',
-  'fullstack',
-  'architecture',
-  'core-web-vitals',
-  'qa-testing',
-  'wcag-testing',
-  'structured-content',
-  'nba',
-  'plugins',
-  'uncategorized',
-  'content-layer',
-  'oauth',
-  'oauth2',
-  'serverless',
-]);
-
-/** Short labels for concept skills */
-const CONCEPT_LABELS: Record<string, string> = {
-  'rest-api': 'API',
-  seo: 'SEO',
-  accessibility: 'A11Y',
-  ga4: 'GA4',
-  gtm: 'GTM',
-  frontend: 'FE',
-  fullstack: 'FS',
-};
 
 /**
  * Full color ramp from red (low) to emerald (max), used for the health bar.
@@ -224,7 +194,7 @@ function spawnFloatingStars(container: HTMLElement) {
  * - Video game style health bar (red to green)
  * - GSAP signal/amber glow effect for 10/10 skills
  */
-export default function SkillsShowcase({ skills }: Props) {
+export default function SkillsShowcase({ content, skills }: Props) {
   const [activeSkill, setActiveSkill] = useState<SkillData | null>(null);
   const [isClosing, setIsClosing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -237,6 +207,9 @@ export default function SkillsShowcase({ skills }: Props) {
   const iconsRevealedRef = useRef(false);
   /** The skill-icon button that opened the dialog, so focus can return to it on close. */
   const lastFocusedElementRef = useRef<HTMLElement | null>(null);
+
+  const tierLabelFor = (level: number) => content.tiers.find(tier => level >= tier.min)?.label;
+  const withSkillName = (template: string, name: string) => template.replaceAll('{name}', name);
 
   useEffect(() => {
     if (!containerRef.current || iconsRevealedRef.current) return;
@@ -430,16 +403,13 @@ export default function SkillsShowcase({ skills }: Props) {
     <section className="section-py" id="skills">
       <div className="container">
         <div className="mb-10 text-center">
-          <h2 className="font-display text-ink mb-3 text-3xl font-black tracking-tight uppercase md:text-4xl lg:text-5xl">Skills I Know</h2>
-          <p className="text-graphite mx-auto max-w-2xl text-base md:text-lg">
-            Over a decade of hands-on experience across the modern web stack. Click any skill to see my proficiency and the projects where I put it to work.
-          </p>
+          <h2 className="font-display text-ink mb-3 text-3xl font-black tracking-tight uppercase md:text-4xl lg:text-5xl">{content.title}</h2>
+          <p className="text-graphite mx-auto max-w-2xl text-base md:text-lg">{content.intro}</p>
         </div>
 
         <div ref={containerRef} className="mx-auto flex max-w-5xl flex-wrap justify-center gap-4 md:gap-5 lg:gap-6">
           {skills.map(skill => {
             const isExpert = skill.level === 10;
-            const isConcept = CONCEPT_SKILLS.has(skill.slug);
 
             return (
               <button
@@ -455,7 +425,7 @@ export default function SkillsShowcase({ skills }: Props) {
                   cursor: 'pointer',
                 }}
                 title={skill.name}
-                aria-label={`View ${skill.name} skill details`}
+                aria-label={withSkillName(content.viewDetailsLabel, skill.name)}
               >
                 {isExpert && (
                   <div
@@ -490,10 +460,10 @@ export default function SkillsShowcase({ skills }: Props) {
                   </div>
                 )}
 
-                {isConcept ? (
-                  <span className="text-ink font-mono text-xs font-black tracking-tight uppercase md:text-sm">{CONCEPT_LABELS[skill.slug] || skill.name.slice(0, 3)}</span>
+                {skill.logo ? (
+                  <img src={`${LOGO_BASE}${skill.logo}`} alt={skill.name} className="h-8 w-8 object-contain md:h-10 md:w-10" loading="lazy" />
                 ) : (
-                  <img src={`${LOGO_BASE}${skill.logoPath}`} alt={skill.name} className="h-8 w-8 object-contain md:h-10 md:w-10" loading="lazy" />
+                  skill.shortLabel && <span className="text-ink font-mono text-xs font-black tracking-tight uppercase md:text-sm">{skill.shortLabel}</span>
                 )}
               </button>
             );
@@ -510,7 +480,7 @@ export default function SkillsShowcase({ skills }: Props) {
           }}
           role="dialog"
           aria-modal="true"
-          aria-label={`${activeSkill.name} skill details`}
+          aria-label={withSkillName(content.detailsLabel, activeSkill.name)}
         >
           <div
             ref={popupRef}
@@ -533,7 +503,7 @@ export default function SkillsShowcase({ skills }: Props) {
             <button
               onClick={closePopup}
               className="border-ink bg-concrete-2 text-graphite absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-xs border-2 text-lg font-bold transition-colors"
-              aria-label="Close"
+              aria-label={content.closeLabel}
             >
               <i className="fa-solid fa-xmark" aria-hidden="true" />
             </button>
@@ -543,31 +513,21 @@ export default function SkillsShowcase({ skills }: Props) {
                 className="border-ink bg-concrete-2 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-md border-2"
                 style={{ boxShadow: '0 3px 0 0 var(--color-ink)' }}
               >
-                {CONCEPT_SKILLS.has(activeSkill.slug) ? (
-                  <span className="text-ink font-mono text-sm font-black uppercase">{CONCEPT_LABELS[activeSkill.slug] || activeSkill.name.slice(0, 3)}</span>
+                {activeSkill.logo ? (
+                  <img src={`${LOGO_BASE}${activeSkill.logo}`} alt={activeSkill.name} className="h-10 w-10 object-contain" />
                 ) : (
-                  <img src={`${LOGO_BASE}${activeSkill.logoPath}`} alt={activeSkill.name} className="h-10 w-10 object-contain" />
+                  activeSkill.shortLabel && <span className="text-ink font-mono text-sm font-black uppercase">{activeSkill.shortLabel}</span>
                 )}
               </div>
               <div>
                 <h3 className="font-display text-ink text-xl font-black uppercase md:text-2xl">{activeSkill.name}</h3>
-                <p className="text-graphite font-mono text-sm font-bold tracking-wider uppercase">
-                  {activeSkill.level === 10
-                    ? 'EXPERT'
-                    : activeSkill.level >= 8
-                      ? 'ADVANCED'
-                      : activeSkill.level >= 6
-                        ? 'PROFICIENT'
-                        : activeSkill.level >= 4
-                          ? 'INTERMEDIATE'
-                          : 'LEARNING'}
-                </p>
+                <p className="text-graphite font-mono text-sm font-bold tracking-wider uppercase">{tierLabelFor(activeSkill.level)}</p>
               </div>
             </div>
 
             <div className="mb-6">
               <div className="mb-2 flex items-center justify-between">
-                <span className="text-graphite font-mono text-xs font-bold tracking-widest uppercase">Proficiency</span>
+                <span className="text-graphite font-mono text-xs font-bold tracking-widest uppercase">{content.proficiencyLabel}</span>
                 <span className="font-display text-ink text-sm font-black tabular-nums">{activeSkill.level}/10</span>
               </div>
 
@@ -594,7 +554,7 @@ export default function SkillsShowcase({ skills }: Props) {
 
             {activeSkill.projects.length > 0 && (
               <div>
-                <h4 className="text-graphite mb-3 font-mono text-xs font-bold tracking-widest uppercase">Projects</h4>
+                <h4 className="text-graphite mb-3 font-mono text-xs font-bold tracking-widest uppercase">{content.projectsLabel}</h4>
                 <div className="flex flex-wrap gap-2">
                   {activeSkill.projects.map(project => (
                     <span
@@ -616,7 +576,7 @@ export default function SkillsShowcase({ skills }: Props) {
               >
                 <span className="text-amber text-xl drop-shadow-[0_0_6px_rgba(250,204,21,0.8)]">&#10022;</span>
                 <span className="text-concrete font-mono text-sm font-black tracking-widest uppercase" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
-                  Mastered
+                  {content.masteredLabel}
                 </span>
                 <span className="text-amber text-xl drop-shadow-[0_0_6px_rgba(250,204,21,0.8)]">&#10022;</span>
               </div>

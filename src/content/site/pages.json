@@ -108,6 +108,117 @@
       "viewExperienceLabel": "My Experience"
     },
     "socialSectionTitle": "Connect With Me",
-    "socialSectionDescription": "Prefer social media? Find me on these platforms or check out my latest projects and articles."
+    "socialSectionDescription": "Prefer social media? Find me on these platforms or check out my latest projects and articles.",
+    "form": {
+      "nameLabel": "Full Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "your@email.com",
+      "companyLabel": "Company (Optional)",
+      "companyPlaceholder": "Your company",
+      "projectTypeLabel": "Project Type",
+      "projectTypePlaceholder": "Select a project type",
+      "budgetLabel": "Budget Range (Optional)",
+      "budgetPlaceholder": "Select budget range",
+      "detailsLabel": "Project Details",
+      "detailsPlaceholder": "Tell me about your project, timeline, and any specific requirements...",
+      "submitLabel": "Send Message",
+      "projectTypeOptions": [
+        {
+          "value": "frontend",
+          "label": "Frontend Development"
+        },
+        {
+          "value": "fullstack",
+          "label": "Full-Stack Application"
+        },
+        {
+          "value": "website",
+          "label": "Website Development"
+        },
+        {
+          "value": "consultation",
+          "label": "Technical Consultation"
+        },
+        {
+          "value": "optimization",
+          "label": "Performance Optimization"
+        },
+        {
+          "value": "other",
+          "label": "Other"
+        }
+      ],
+      "budgetOptions": [
+        {
+          "value": "under-5k",
+          "label": "Under $5,000"
+        },
+        {
+          "value": "5k-15k",
+          "label": "$5,000 - $15,000"
+        },
+        {
+          "value": "15k-30k",
+          "label": "$15,000 - $30,000"
+        },
+        {
+          "value": "30k-plus",
+          "label": "$30,000+"
+        },
+        {
+          "value": "discuss",
+          "label": "Let's discuss"
+        }
+      ]
+    }
+  },
+  "blogTag": {
+    "metaTitleTemplate": "{tag} Articles | Aaron Molina",
+    "metaDescriptionTemplate": "Read my articles about {tag}. Insights and tutorials from a senior full stack developer with 14+ years of experience.",
+    "backLabel": "Back to Blog",
+    "countSuffixSingular": "article tagged with",
+    "countSuffixPlural": "articles tagged with",
+    "emptyState": "No posts found with this tag."
+  },
+  "legal": {
+    "eyebrow": "Legal",
+    "lastUpdatedLabel": "Last updated:",
+    "titleSuffix": " | Aaron Molina"
+  },
+  "blogPost": {
+    "backLabel": "Back to Blog",
+    "updatedLabel": "Updated",
+    "topicsLabel": "Topics"
+  },
+  "projectDetail": {
+    "backLabel": "Back to Projects",
+    "featuredBadge": "Featured",
+    "liveLabel": "Visit Live Project",
+    "sourceLabel": "View Source",
+    "detailsHeading": "Project Details",
+    "quickFactsLabel": "Quick facts",
+    "completionLabel": "Completion Date",
+    "urlLabel": "Project URL",
+    "repoLabel": "Repository",
+    "technologiesLabel": "Technologies"
+  },
+  "relatedPosts": {
+    "title": "Related Articles"
+  },
+  "authorBio": {
+    "hireCta": {
+      "label": "Hire Me",
+      "href": "/hire"
+    },
+    "workCta": {
+      "label": "Work With Me",
+      "href": "/hire"
+    },
+    "contactCta": {
+      "label": "Get in Touch",
+      "href": "/contact"
+    },
+    "basedInConnector": "based in"
   }
 }

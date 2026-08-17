@@ -11,6 +11,7 @@ import { Image } from 'astro:assets';
 import { getBrandIcon } from '@/lib/icons';
 const githubMark = getBrandIcon('github');
 import type { TechMap } from '@/utils/tech-lookup';
+import { getSiteEntry } from '@/lib/site-content';
 
 /**
  * Shared template for individual project detail pages — renders the project
@@ -24,18 +25,14 @@ interface Props {
   project: CollectionEntry<'projects'>;
   /** Tag slug-to-label/icon lookup used by `TagList` */
   techMap?: TechMap;
-  /** Heading for the closing CTA section */
-  ctaTitle?: string;
-  /** Supporting copy for the closing CTA section */
-  ctaDescription?: string;
 }
 
-const {
-  project,
-  techMap,
-  ctaTitle = 'Interested in working together?',
-  ctaDescription = "I build high-performance websites with modern, composable architecture. Let's discuss your next project.",
-} = Astro.props as Props;
+const { project, techMap } = Astro.props as Props;
+
+const pages = await getSiteEntry('sitePages', 'pages');
+const cta = await getSiteEntry('siteCta', 'cta');
+const copy = pages.projectDetail;
+const ctaCopy = cta.projectDetail;
 
 const { title, summary, featured, completedOn, liveUrl, repoUrl, technologies, featuredImage } = project.data;
 
@@ -45,12 +42,12 @@ const completionDate = completedOn?.toLocaleDateString('en-US', { year: 'numeric
 <MainLayout title={title} description={summary}>
   <article class="mx-auto max-w-screen-lg">
     <nav class="mb-4 px-6">
-      <Button href="/projects" variant="ghost-ink" size="sm">Back to Projects</Button>
+      <Button href="/projects" variant="ghost-ink" size="sm">{copy.backLabel}</Button>
     </nav>
 
     <HeroSection variant="minimal" headline={title} description={summary} class="py-4">
       <div class="mt-4 flex flex-wrap items-center gap-3">
-        {featured && <Badge label="Featured" variant="phase" size="sm" />}
+        {featured && <Badge label={copy.featuredBadge} variant="phase" size="sm" />}
         {completionDate && <Badge label={completionDate} variant="outline" size="sm" />}
       </div>
 
@@ -60,14 +57,14 @@ const completionDate = completedOn?.toLocaleDateString('en-US', { year: 'numeric
         {
           liveUrl && (
             <Button href={liveUrl} variant="primary" external>
-              Visit Live Project
+              {copy.liveLabel}
             </Button>
           )
         }
         {
           repoUrl && (
             <Button href={repoUrl} variant="ghost-ink" external>
-              {githubMark && <img src={githubMark} alt="" width="16" height="16" class="h-4 w-4" />} View Source
+              {githubMark && <img src={githubMark} alt="" width="16" height="16" class="h-4 w-4" />} {copy.sourceLabel}
             </Button>
           )
         }
@@ -93,15 +90,15 @@ const completionDate = completedOn?.toLocaleDateString('en-US', { year: 'numeric
     <section class="px-6 py-8">
       <InfoBox variant="muted">
         <div class="mb-4 flex items-end justify-between gap-4">
-          <h2 class="font-display text-ink text-lg font-black uppercase">Project Details</h2>
-          <span class="text-graphite text-sm">Quick facts</span>
+          <h2 class="font-display text-ink text-lg font-black uppercase">{copy.detailsHeading}</h2>
+          <span class="text-graphite text-sm">{copy.quickFactsLabel}</span>
         </div>
 
         <dl class="grid gap-4 md:grid-cols-2">
           {
             completionDate && (
               <div class="border-ink bg-paper rounded-sm border-2 p-4">
-                <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">Completion Date</dt>
+                <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">{copy.completionLabel}</dt>
                 <dd class="text-ink text-base font-medium">{completionDate}</dd>
               </div>
             )
@@ -109,7 +106,7 @@ const completionDate = completedOn?.toLocaleDateString('en-US', { year: 'numeric
           {
             liveUrl && (
               <div class="border-ink bg-paper rounded-sm border-2 p-4">
-                <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">Project URL</dt>
+                <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">{copy.urlLabel}</dt>
                 <dd class="text-base">
                   <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="text-signal-deep font-medium break-all underline underline-offset-2">
                     {liveUrl}
@@ -121,7 +118,7 @@ const completionDate = completedOn?.toLocaleDateString('en-US', { year: 'numeric
           {
             repoUrl && (
               <div class="border-ink bg-paper rounded-sm border-2 p-4 md:col-span-2">
-                <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">Repository</dt>
+                <dt class="text-graphite mb-1 text-xs font-semibold tracking-wide uppercase">{copy.repoLabel}</dt>
                 <dd class="text-base">
                   <a href={repoUrl} target="_blank" rel="noopener noreferrer" class="text-signal-deep font-medium break-all underline underline-offset-2">
                     {repoUrl}
@@ -133,7 +130,7 @@ const completionDate = completedOn?.toLocaleDateString('en-US', { year: 'numeric
           {
             technologies && technologies.length > 0 && techMap && (
               <div class="border-ink bg-paper rounded-sm border-2 p-4 md:col-span-2">
-                <dt class="text-graphite mb-3 text-xs font-semibold tracking-wide uppercase">Technologies</dt>
+                <dt class="text-graphite mb-3 text-xs font-semibold tracking-wide uppercase">{copy.technologiesLabel}</dt>
                 <dd>
                   <TagList tags={technologies} techMap={techMap} />
                 </dd>
@@ -144,6 +141,6 @@ const completionDate = completedOn?.toLocaleDateString('en-US', { year: 'numeric
       </InfoBox>
     </section>
 
-    <CTASection title={ctaTitle} description={ctaDescription} buttonLabel="Get in Touch" buttonHref="/contact" class="mt-8" />
+    <CTASection title={ctaCopy.title} description={ctaCopy.description} buttonLabel={ctaCopy.buttonLabel} buttonHref={ctaCopy.buttonHref} class="mt-8" />
   </article>
 </MainLayout>

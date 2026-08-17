@@ -4,8 +4,9 @@ import HeroSection from '@/components/organisms/sections/HeroSection.astro';
 import ProjectsSection from '@/components/organisms/sections/ProjectsSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
 import { getCollection } from 'astro:content';
-import pages from '@/content/site/pages.json';
-import cta from '@/content/site/cta.json';
+import { getSiteEntry } from '@/lib/site-content';
+const pages = await getSiteEntry('sitePages', 'pages');
+const cta = await getSiteEntry('siteCta', 'cta');
 
 const projects = await getCollection('projects');
 

@@ -2,5 +2,17 @@
   "title": "Let's Work Together",
   "description": "I'm always interested in new opportunities and challenging projects. Whether you need a frontend developer, fullstack solution, or a technical consultation, let's connect.",
   "buttonLabel": "Get In Touch",
-  "buttonHref": "/contact"
+  "buttonHref": "/contact",
+  "blogPost": {
+    "title": "Want to work together?",
+    "description": "I'm available for composable web development, headless CMS integration, and frontend architecture consulting.",
+    "buttonLabel": "Get in Touch",
+    "buttonHref": "/contact"
+  },
+  "projectDetail": {
+    "title": "Interested in working together?",
+    "description": "I build high-performance websites with modern, composable architecture. Let's discuss your next project.",
+    "buttonLabel": "Get in Touch",
+    "buttonHref": "/contact"
+  }
 }

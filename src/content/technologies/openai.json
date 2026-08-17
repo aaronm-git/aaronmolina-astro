@@ -9,5 +9,6 @@
   "projects": [
     "toodyloo-ai-todo-app",
     "pdf-generator-web-app"
-  ]
+  ],
+  "logo": "openai.svg"
 }

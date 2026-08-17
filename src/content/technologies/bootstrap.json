@@ -9,5 +9,6 @@
   "projects": [
     "miami-heat-website",
     "originpc-accessibility"
-  ]
+  ],
+  "logo": "bootstrap.svg"
 }

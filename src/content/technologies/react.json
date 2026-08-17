@@ -10,5 +10,6 @@
     "pdf-generator-web-app",
     "toodyloo-ai-todo-app",
     "miami-heat-website"
-  ]
+  ],
+  "logo": "react.svg"
 }

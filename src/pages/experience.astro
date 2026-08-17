@@ -6,9 +6,10 @@ import CTASection from '@/components/organisms/sections/CTASection.astro';
 import InfoBox from '@/components/molecules/InfoBox.astro';
 import ListItem from '@/components/molecules/ListItem.astro';
 import { getCollection } from 'astro:content';
-import homepageContent from '@/content/site/homepage.json';
-import pages from '@/content/site/pages.json';
-import cta from '@/content/site/cta.json';
+import { getSiteEntry } from '@/lib/site-content';
+const homepageContent = await getSiteEntry('siteHomepage', 'homepage');
+const pages = await getSiteEntry('sitePages', 'pages');
+const cta = await getSiteEntry('siteCta', 'cta');
 
 const roles = await getCollection('roles');
 const organizations = await getCollection('organizations');

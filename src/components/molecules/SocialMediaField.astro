@@ -12,7 +12,8 @@ interface Props {
 }
 
 const { platform = 'linkedin', url = '' } = Astro.props;
-const selectedLabel = socialPlatformOptions.find(option => option.value === platform)?.label ?? 'social media';
+const selectedLabel = socialPlatformOptions.find(option => option.value === platform)?.label;
+const removeLabel = selectedLabel ? `Remove ${selectedLabel} social field` : 'Remove social field';
 ---
 
 <div class="border-ink bg-concrete-2 grid gap-3 border-2 p-3 sm:grid-cols-[minmax(9rem,0.7fr)_minmax(14rem,1.5fr)_auto] sm:items-end" data-social-row>
@@ -50,7 +51,7 @@ const selectedLabel = socialPlatformOptions.find(option => option.value === plat
     type="button"
     class="border-ink bg-paper text-ink hover:bg-ink hover:text-signal min-h-11 border-2 px-4 py-2 font-mono text-xs font-bold uppercase transition-colors"
     data-remove-social
-    aria-label={`Remove ${selectedLabel} social field`}
+    aria-label={removeLabel}
   >
     Remove
   </button>

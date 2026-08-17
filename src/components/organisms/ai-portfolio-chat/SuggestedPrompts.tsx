@@ -1,18 +1,18 @@
 interface Props {
+  /** Prompt chip labels from the homepage portfolio chat content block */
+  prompts: string[];
   /** Called with the chip's prompt text when it is clicked */
   onPick: (prompt: string) => void;
 }
-
-const PROMPTS = ['What did you ship for the LA Clippers?', 'Tell me about TypeLyft', 'Are you available for contract work?', "What's your stack?"];
 
 /**
  * Suggested-prompt chips shown when the conversation is empty.
  * Clicking a chip prefills and submits the input.
  */
-export default function SuggestedPrompts({ onPick }: Props) {
+export default function SuggestedPrompts({ prompts, onPick }: Props) {
   return (
     <div className="flex flex-wrap gap-2">
-      {PROMPTS.map(prompt => (
+      {prompts.map(prompt => (
         <button
           key={prompt}
           type="button"

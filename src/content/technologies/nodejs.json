@@ -9,5 +9,6 @@
   "projects": [
     "pdf-generator-web-app",
     "toodyloo-ai-todo-app"
-  ]
+  ],
+  "logo": "nodejs.svg"
 }

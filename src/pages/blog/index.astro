@@ -5,8 +5,9 @@ import BlogSection from '@/components/organisms/sections/BlogSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
-import pages from '@/content/site/pages.json';
-import cta from '@/content/site/cta.json';
+import { getSiteEntry } from '@/lib/site-content';
+const pages = await getSiteEntry('sitePages', 'pages');
+const cta = await getSiteEntry('siteCta', 'cta');
 
 const posts = await getCollection('blog');
 const technologies = await getCollection('technologies');

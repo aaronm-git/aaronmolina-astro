@@ -1,5 +1,5 @@
 ---
-type BadgeVariant = 'default' | 'phase' | 'outline' | 'outline-inverse' | 'stamp-done' | 'stamp-pending' | 'stamp-review';
+type BadgeVariant = 'default' | 'phase' | 'outline' | 'outline-inverse';
 
 /**
  * Small pill-shaped label atom for status, category, and phase tags across the site.
@@ -28,9 +28,6 @@ const variantClasses: Record<BadgeVariant, string> = {
   phase: 'bg-signal text-ink border-2 border-ink',
   outline: 'bg-transparent text-ink border-2 border-ink',
   'outline-inverse': 'bg-transparent text-concrete border-2 border-seam',
-  'stamp-done': 'bg-signal text-ink border-2 border-ink',
-  'stamp-pending': 'bg-paper text-ink border-2 border-dashed border-ink',
-  'stamp-review': 'bg-amber text-ink border-2 border-ink',
 };
 ---
 

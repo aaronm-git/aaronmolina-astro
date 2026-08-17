@@ -1,47 +1,22 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
 import HeroSection from '@/components/organisms/sections/HeroSection.astro';
-import BuildManifestCard from '@/components/organisms/sections/BuildManifestCard.astro';
 import TrustStripSection from '@/components/organisms/sections/TrustStripSection.astro';
 import FeaturesSection from '@/components/organisms/sections/FeaturesSection.astro';
-import HowItWorksSection from '@/components/organisms/sections/HowItWorksSection.astro';
 import SkillsShowcase from '@/components/organisms/sections/SkillsShowcase';
 import { PortfolioChat } from '@/components/organisms/ai-portfolio-chat';
 import ProjectsSection from '@/components/organisms/sections/ProjectsSection.astro';
-import EngagementSection from '@/components/organisms/sections/EngagementSection.astro';
-import ComparisonSection from '@/components/organisms/sections/ComparisonSection.astro';
 import ExperienceSection from '@/components/organisms/sections/ExperienceSection.astro';
-import QuoteSection from '@/components/organisms/sections/QuoteSection.astro';
+import HireLinksSection from '@/components/organisms/sections/HireLinksSection.astro';
 import BlogSection from '@/components/organisms/sections/BlogSection.astro';
-import FAQSection from '@/components/organisms/sections/FAQSection.astro';
 import CTASection from '@/components/organisms/sections/CTASection.astro';
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
-import homepageContent from '@/content/site/homepage.json';
-import hireContent from '@/content/site/hire.json';
-import LaClippersLogo from '@/assets/images/la-clippers-logo.svg';
-import MiamiHeatLogo from '@/assets/images/miami-heat-logo.svg';
-import AzamaraCruisesLogo from '@/assets/images/azamara-cruises-logo.svg';
-import CorsairMemoryLogo from '@/assets/images/corsair-memory-logo.svg';
+import { getSiteEntry } from '@/lib/site-content';
+import HeroDeck from '@/components/organisms/sections/HeroDeck/HeroDeck.astro';
 
-const trustedByLogos = new Map<string, ImageMetadata>([
-  ['LA Clippers', LaClippersLogo],
-  ['Miami Heat', MiamiHeatLogo],
-  ['Azamara', AzamaraCruisesLogo],
-  ['Corsair', CorsairMemoryLogo],
-]);
-
-// Only render companies that actually have a logo asset registered above.
-// A future content edit could add a company name that isn't in the map yet,
-// so we filter defensively rather than asserting non-null.
-const trustedByCompanies = homepageContent.trustedBy.companies
-  .map(company => ({
-    name: company.name,
-    alt: company.alt,
-    logo: trustedByLogos.get(company.name),
-  }))
-  .filter((company): company is { name: string; alt: string; logo: ImageMetadata } => company.logo !== undefined);
+const homepageContent = await getSiteEntry('siteHomepage', 'homepage');
 
 const posts = await getCollection('blog');
 const technologies = await getCollection('technologies');
@@ -93,17 +68,6 @@ const featuredProjects = projects
 const yearsOfExperience = new Date().getFullYear() - homepageContent.yearsOfExperienceStartYear;
 const heroDescription = homepageContent.hero.description.replaceAll('{yearsOfExperience}', String(yearsOfExperience));
 
-const statsItems = homepageContent.stats.items.map(item => ({
-  ...item,
-  value: String(item.value).replaceAll('{yearsOfExperience}', String(yearsOfExperience)),
-}));
-
-const logoOverrides = new Map<string, string>([
-  ['claude-code', 'claude.svg'],
-  ['mcp-servers', 'model-context-protocol.svg'],
-  ['sass', 'sass.svg'],
-]);
-
 const showcaseSkills = technologies
   .filter(t => t.data.featured && t.data.level)
   .sort((a, b) => a.data.name.localeCompare(b.data.name))
@@ -111,173 +75,89 @@ const showcaseSkills = technologies
     slug: t.data.slug,
     name: t.data.name,
     level: t.data.level ?? 0,
-    projects: (t.data.projects ?? []).map(pSlug => ({
-      slug: pSlug,
-      title: projects.find(p => p.data.slug === pSlug)?.data.title ?? pSlug,
-    })),
-    logoPath: logoOverrides.get(t.data.slug) ?? `${t.data.slug}.svg`,
+    projects: (t.data.projects ?? []).flatMap(pSlug => {
+      const project = projects.find(p => p.data.slug === pSlug);
+      return project ? [{ slug: pSlug, title: project.data.title }] : [];
+    }),
+    logo: t.data.logo,
+    shortLabel: t.data.shortLabel,
   }));
 
-// Build Manifest widget: flagship projects, first paid SaaS leads
-const manifestSlugs = ['poolpuma', 'clippers-website', 'miami-heat-website', 'typelyft', 'onemusiccrate-spotify-app'];
-const manifestEntries = manifestSlugs
-  .map(slug => projects.find(p => p.data.slug === slug))
-  .filter((p): p is NonNullable<typeof p> => Boolean(p))
-  .map(p => {
-    const org = p.data.organization ? orgBySlug.get(p.data.organization)?.data.name : undefined;
-    const primaryTech = p.data.technologies[0] ? techMap.get(p.data.technologies[0]) : undefined;
-    return {
-      title: p.data.title,
-      meta: [org, primaryTech].filter(Boolean).join(' · ') || 'Production build',
-      stamp: 'done' as const,
-    };
-  });
+const aiShowcaseSpans = [12, 7, 5] as const;
 
-// Bento phase cards: services + AI showcase + a mini stat board
-const bentoCards = [
-  { phase: 'Build', title: homepageContent.services.items[0].title, description: homepageContent.services.items[0].description, span: 5 as const },
-  { phase: 'Integrate', title: homepageContent.services.items[1].title, description: homepageContent.services.items[1].description, span: 7 as const },
-  {
-    phase: 'Ship',
-    title: 'By the numbers',
-    dark: true,
-    span: 7 as const,
-    statBoard: statsItems.slice(0, 3).map(s => ({ value: s.value, suffix: s.suffix, label: s.label })),
-  },
-  {
-    phase: 'Architect',
-    title: homepageContent.services.items[3].title,
-    description: homepageContent.services.items[3].description,
-    span: 5 as const,
-    tags: ['TypeScript', 'CI/CD', 'Testing', 'A11y'],
-  },
-  { phase: 'Assist', title: homepageContent.services.items[2].title, description: homepageContent.services.items[2].description, span: 5 as const },
-  { phase: 'Extend', title: homepageContent.aiShowcase.items[2].title, description: homepageContent.aiShowcase.items[2].description, span: 7 as const },
-];
-
-const howItWorksSteps = [
-  { number: '01', tag: 'Discovery', title: 'Discover & propose', description: 'A discovery call to understand your goals, followed by a proposal with timeline and deliverables.' },
-  {
-    number: '02',
-    tag: 'Build',
-    title: 'Build & communicate',
-    description: 'Regular communication through your preferred channels, with demos at key milestones as the build progresses.',
-  },
-  { number: '03', tag: 'Launch', title: 'Ship & support', description: 'Production deployment, then ongoing support so the handoff never feels like the end of the conversation.' },
-];
-
-const engagementPlans = [
-  {
-    eyebrow: 'Fixed-scope builds',
-    name: 'Project-Based',
-    description: 'For a defined website, app, or migration with a clear start and finish.',
-    features: ['Fixed-scope proposal', 'Milestone demos', 'Single point of contact', 'Post-launch handoff notes'],
-  },
-  {
-    eyebrow: 'Ongoing partnership',
-    name: 'Retainer',
-    description: 'For teams that need continuous frontend, AI, or composable architecture support month over month.',
-    features: ['Priority response time', 'Recurring roadmap check-ins', 'Flexible scope month to month', 'Direct Slack or email access'],
-    highlighted: true,
-  },
-  {
-    eyebrow: 'Deeper integration',
-    name: 'Fractional / Embedded',
-    description: 'For teams that want senior full stack coverage inside their own sprint process.',
-    features: ['Joins existing standups', 'Code review participation', 'Architecture ownership', 'AI-augmented delivery speed'],
-  },
-];
-
-const comparisonRows = [
-  { criterion: 'Direct senior-level communication', values: ['Always', 'Rarely', 'Varies'] },
-  { criterion: 'AI-augmented delivery speed', values: ['Built in', 'Varies', 'Varies'] },
-  { criterion: 'Fixed point of contact', values: ['Always', 'Rarely', 'Sometimes'] },
-  { criterion: 'Enterprise-tested code quality', values: ['Clippers, Heat, Azamara, Corsair', 'Unverified', 'Varies'] },
-];
+const aiShowcaseCards = homepageContent.aiShowcase.items.map((item, i) => ({
+  phase: item.phase,
+  title: item.title,
+  description: item.description,
+  span: aiShowcaseSpans[i] ?? 12,
+  dark: i === 0,
+}));
 ---
 
 <MainLayout title={homepageContent.meta.title} description={homepageContent.meta.description.replaceAll('{yearsOfExperience}', String(yearsOfExperience))}>
   <HeroSection
     variant="split"
-    eyebrow={homepageContent.hero.headline}
-    headline={homepageContent.hero.name}
+    eyebrow={homepageContent.hero.name}
+    headline={homepageContent.hero.headline}
     subheadline={homepageContent.hero.subheadline}
     description={heroDescription}
     badges={[homepageContent.hero.location, homepageContent.hero.availability]}
     primaryCta={{ label: homepageContent.buttons.hireMeLabel, href: '/contact' }}
     secondaryCta={{ label: homepageContent.buttons.viewWorkLabel, href: '/projects' }}
   >
-    <BuildManifestCard
-      slot="right"
-      entries={manifestEntries}
-      progressLabel="Shown above"
-      progressFraction={`${manifestEntries.length}/${manifestEntries.length}`}
-      progressPercent={100}
-    />
+    <HeroDeck slot="right" content={homepageContent.heroDeck} />
   </HeroSection>
 
-  <section class="section-py">
-    <div class="container">
-      <SectionHeader
-        eyebrow="Live demo"
-        title="Ask my portfolio anything"
-        description="A working AI demo. The bot itself is the proof of work, grounded in this site's content."
-        align="center"
-        class="mx-auto mb-8"
-      />
-      <PortfolioChat client:idle />
-    </div>
-  </section>
-
-  <TrustStripSection
-    guaranteeText="Free discovery call on every project. No obligation, no sales pitch."
-    badges={['TypeScript everywhere', 'AI-augmented workflow', '24hr Response Time', 'Remote US / Miami']}
-    companies={trustedByCompanies}
-  />
-
-  <FeaturesSection eyebrow="Core capabilities" title="Built around how production web work actually happens." description={homepageContent.services.subtitle} cards={bentoCards} />
-
-  <HowItWorksSection eyebrow="The project, in order" title="One workflow from discovery call to shipped code." steps={howItWorksSteps} />
-
-  <SkillsShowcase skills={showcaseSkills} client:visible />
-
-  <ProjectsSection
-    eyebrow="Recent work"
-    title={homepageContent.featuredProjects.title}
-    projects={featuredProjects}
-    cta={{ label: homepageContent.featuredProjects.viewAllLabel, href: homepageContent.featuredProjects.viewAllHref }}
-  />
-
-  <EngagementSection
-    eyebrow="How we can work together"
-    title="Simple engagement models for teams that need production-ready work."
-    plans={engagementPlans}
-    customNote="Need something outside these three shapes? Let's talk about scope and terms."
-    customCta={{ label: 'Contact Me', href: '/contact' }}
-  />
-
-  <ComparisonSection
-    eyebrow="Side by side"
-    title="A focused alternative to a marketplace freelancer or a large agency."
-    description="Here is where working with a senior full stack developer directly earns its keep."
-    columns={['Working with me', 'Marketplace freelancer', 'Traditional agency']}
-    rows={comparisonRows}
-  />
+  <TrustStripSection eyebrow={homepageContent.trustedBy.title} companies={homepageContent.trustedBy.companies} />
 
   <ExperienceSection
-    eyebrow="Where I've shipped"
+    eyebrow={homepageContent.experience.eyebrow}
     title={homepageContent.experience.title}
     roles={featuredRoles}
     organizations={orgBySlug}
     cta={{ label: homepageContent.experience.viewAllLabel, href: homepageContent.experience.viewAllHref }}
   />
 
-  <QuoteSection />
+  <ProjectsSection
+    eyebrow={homepageContent.featuredProjects.eyebrow}
+    title={homepageContent.featuredProjects.title}
+    projects={featuredProjects}
+    cta={{ label: homepageContent.featuredProjects.viewAllLabel, href: homepageContent.featuredProjects.viewAllHref }}
+  />
+
+  <SkillsShowcase content={homepageContent.skillsShowcase} skills={showcaseSkills} client:visible />
+
+  <FeaturesSection
+    eyebrow={homepageContent.aiShowcase.eyebrow}
+    title={homepageContent.aiShowcase.title}
+    description={homepageContent.aiShowcase.subtitle}
+    cards={aiShowcaseCards}
+  />
+
+  <section class="section-py">
+    <div class="container">
+      <SectionHeader
+        eyebrow={homepageContent.portfolioChat.eyebrow}
+        title={homepageContent.portfolioChat.title}
+        description={homepageContent.portfolioChat.description}
+        align="center"
+        class="mx-auto mb-8"
+      />
+      <PortfolioChat content={homepageContent.portfolioChat} client:idle />
+    </div>
+  </section>
+
+  <HireLinksSection
+    eyebrow={homepageContent.hireLinks.eyebrow}
+    title={homepageContent.hireLinks.title}
+    description={homepageContent.hireLinks.description}
+    links={homepageContent.hireLinks.links}
+  />
 
   {
     recentPosts.length > 0 && (
       <BlogSection
-        eyebrow="From the blog"
+        eyebrow={homepageContent.blog.eyebrow}
         title={homepageContent.blog.title}
         posts={recentPosts}
         techMap={techMap}
@@ -285,8 +165,6 @@ const comparisonRows = [
       />
     )
   }
-
-  <FAQSection eyebrow="Before you reach out" title="Common questions" faqs={hireContent.shared.faq} />
 
   <CTASection
     title={homepageContent.cta.title}

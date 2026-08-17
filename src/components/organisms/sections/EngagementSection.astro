@@ -2,19 +2,9 @@
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
 import Button from '@/components/atoms/Button.astro';
 import ListItem from '@/components/molecules/ListItem.astro';
+import type { CollectionEntry } from 'astro:content';
 
-interface Plan {
-  /** Small label shown above the plan name */
-  eyebrow: string;
-  /** Plan name */
-  name: string;
-  /** Short description of the plan */
-  description: string;
-  /** Bullet list of included features */
-  features: string[];
-  /** Whether to render this plan as the visually emphasized option */
-  highlighted?: boolean;
-}
+type Plan = CollectionEntry<'siteHire'>['data']['main']['engagement']['plans'][number];
 
 /**
  * Engagement models / pricing tiers section - a row of plan cards plus a
@@ -60,8 +50,8 @@ const { eyebrow, title, description, plans, customNote, customCta, class: classN
                 ))}
               </ul>
               <div class="mt-auto pt-2 text-center">
-                <Button href="/contact" variant={plan.highlighted ? 'primary' : 'ghost-ink'} size="sm" fullWidth>
-                  Discuss {plan.name}
+                <Button href={plan.cta.href} variant={plan.highlighted ? 'primary' : 'ghost-ink'} size="sm" fullWidth>
+                  {plan.cta.label}
                 </Button>
               </div>
             </div>

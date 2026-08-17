@@ -8,5 +8,6 @@
   "level": 7,
   "projects": [
     "azamara-website"
-  ]
+  ],
+  "logo": "graphql.svg"
 }

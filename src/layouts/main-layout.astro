@@ -4,7 +4,8 @@ import Header from '@/components/organisms/navigation/Header.astro';
 import Footer from '@/components/organisms/navigation/Footer.astro';
 import Breadcrumbs from '@/components/molecules/Breadcrumbs.astro';
 import { generateBreadcrumbs } from '@/utils/breadcrumbs';
-import settings from '@/content/site/settings.json';
+import { getSiteEntry } from '@/lib/site-content';
+const settings = await getSiteEntry('siteSettings', 'settings');
 
 import favicon from '@/favicon_io/android-chrome-512x512.png';
 
@@ -82,12 +83,12 @@ const breadcrumbs = generateBreadcrumbs(Astro.url.pathname);
         description: settings.author.bio,
         address: {
           '@type': 'PostalAddress',
-          addressLocality: 'Miami',
-          addressRegion: 'FL',
-          addressCountry: 'US',
+          addressLocality: settings.author.address.locality,
+          addressRegion: settings.author.address.region,
+          addressCountry: settings.author.address.country,
         },
         sameAs: settings.author.socialLinks?.map((link: { url: string }) => link.url) || [],
-        knowsAbout: ['Jamstack Development', 'Composable Web Architecture', 'React', 'Next.js', 'Astro', 'TypeScript', 'Sanity CMS', 'Headless CMS', 'Frontend Development', 'Web Performance', 'Tailwind CSS'],
+        knowsAbout: settings.author.knowsAbout,
       })}
     />
 

@@ -6,7 +6,9 @@ import CTASection from '@/components/organisms/sections/CTASection.astro';
 import Button from '@/components/atoms/Button.astro';
 import { getCollection } from 'astro:content';
 import { createTechMap } from '@/utils/tech-lookup';
-import cta from '@/content/site/cta.json';
+import { getSiteEntry } from '@/lib/site-content';
+const cta = await getSiteEntry('siteCta', 'cta');
+const pages = await getSiteEntry('sitePages', 'pages');
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -41,27 +43,25 @@ const tagDisplayName =
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 
-const metaTitle = `${tagDisplayName} Articles | Aaron Molina`;
-const metaDescription = `Read my articles about ${tagDisplayName}. Insights and tutorials from a senior full stack developer with 14+ years of experience.`;
+const blogTag = pages.blogTag;
+const metaTitle = blogTag.metaTitleTemplate.replaceAll('{tag}', tagDisplayName);
+const metaDescription = blogTag.metaDescriptionTemplate.replaceAll('{tag}', tagDisplayName);
+const countSuffix = taggedPosts.length === 1 ? blogTag.countSuffixSingular : blogTag.countSuffixPlural;
 ---
 
 <MainLayout title={metaTitle} description={metaDescription}>
   <nav class="container mb-4 pt-6">
-    <Button href="/blog" variant="ghost-ink" size="sm">Back to Blog</Button>
+    <Button href="/blog" variant="ghost-ink" size="sm">{blogTag.backLabel}</Button>
   </nav>
 
-  <HeroSection
-    variant="minimal"
-    headline={tagDisplayName}
-    description={`${taggedPosts.length} article${taggedPosts.length !== 1 ? 's' : ''} tagged with ${tagDisplayName.toLowerCase()}`}
-  />
+  <HeroSection variant="minimal" headline={tagDisplayName} description={`${taggedPosts.length} ${countSuffix} ${tagDisplayName.toLowerCase()}`} />
 
   {
     taggedPosts.length > 0 ? (
       <BlogSection posts={taggedPosts} techMap={techMap} showTags class="pt-0" />
     ) : (
       <div class="container py-12 text-center">
-        <p class="text-graphite">No posts found with this tag.</p>
+        <p class="text-graphite">{blogTag.emptyState}</p>
       </div>
     )
   }

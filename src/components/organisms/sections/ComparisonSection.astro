@@ -1,14 +1,8 @@
 ---
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import type { CollectionEntry } from 'astro:content';
 
-interface Row {
-  /** Row label describing what is being compared (leftmost cell) */
-  criterion: string;
-  /** One value per column, in the same order as Props.columns */
-  values: string[];
-  /** Optional footnote for this row */
-  note?: string;
-}
+type Row = CollectionEntry<'siteHire'>['data']['main']['comparison']['rows'][number];
 
 /**
  * "Why work with me" style comparison table - dark section comparing the
@@ -26,10 +20,12 @@ interface Props {
   columns: string[];
   /** Table rows, one per comparison criterion */
   rows: Row[];
+  /** Header for the leftmost criterion column */
+  criterionHeader: string;
   class?: string;
 }
 
-const { eyebrow, title, description, columns, rows, class: className = '' } = Astro.props;
+const { eyebrow, title, description, columns, rows, criterionHeader, class: className = '' } = Astro.props;
 ---
 
 <section class={`section-py bg-ink text-concrete ${className}`}>
@@ -40,7 +36,7 @@ const { eyebrow, title, description, columns, rows, class: className = '' } = As
       <table class="border-seam bg-asphalt w-full min-w-[640px] border-collapse border-2">
         <thead>
           <tr>
-            <th class="border-seam text-steel border p-4 text-left font-mono text-xs tracking-[0.14em] uppercase">What to compare</th>
+            <th class="border-seam text-steel border p-4 text-left font-mono text-xs tracking-[0.14em] uppercase">{criterionHeader}</th>
             {
               columns.map((col, i) => (
                 <th class={`border-seam border p-4 text-left font-mono text-xs tracking-[0.14em] uppercase ${i === 0 ? 'bg-signal text-ink' : 'text-steel'}`}>{col}</th>

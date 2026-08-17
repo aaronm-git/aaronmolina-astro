@@ -3,6 +3,7 @@ import { ChatErrorResponseSchema, ChatStreamEventSchema } from '@/lib/chat/schem
 import ChatMessage from './ChatMessage';
 import SuggestedPrompts from './SuggestedPrompts';
 import type { ChatMessage as ChatMessageType } from './types';
+import type { HomepagePortfolioChat } from '@/content.config';
 
 const MAX_USER_TURNS = 6;
 const MAX_INPUT_LENGTH = 600;
@@ -18,7 +19,12 @@ function makeId(): string {
  * Root chat island that owns local conversation state, sends chat requests,
  * renders streamed responses, and caps a browser conversation at six turns.
  */
-export default function PortfolioChat() {
+interface Props {
+  /** Portfolio chat copy block from the homepage collection */
+  content: HomepagePortfolioChat;
+}
+
+export default function PortfolioChat({ content }: Props) {
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [input, setInput] = useState('');
   const [streaming, setStreaming] = useState(false);
@@ -76,12 +82,12 @@ export default function PortfolioChat() {
         if (!res.ok) {
           const responseBody: unknown = await res.json().catch(() => null);
           const parsedError = ChatErrorResponseSchema.safeParse(responseBody);
-          setError(parsedError.success ? parsedError.data.error : 'Chat is unavailable. Please try again later.');
+          setError(parsedError.success ? parsedError.data.error : content.errors.generic);
           setMessages(prev => prev.filter(m => m.id !== assistantId));
           return;
         }
         if (!res.body) {
-          setError('Streaming not supported in this browser.');
+          setError(content.errors.unsupported);
           return;
         }
 
@@ -121,12 +127,12 @@ export default function PortfolioChat() {
         }
       } catch (err) {
         console.error(err);
-        setError('Connection lost. Please try again.');
+        setError(content.errors.connection);
       } finally {
         setStreaming(false);
       }
     },
-    [messages, streaming, limitReached],
+    [messages, streaming, limitReached, content],
   );
 
   function startNewChat() {
@@ -148,17 +154,17 @@ export default function PortfolioChat() {
         <div className="border-ink bg-concrete-2 flex items-center justify-between border-b-2 px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="bg-signal inline-block h-2 w-2 rounded-full" aria-hidden />
-            <p className="text-ink font-mono text-xs font-bold tracking-wide uppercase">Ask my portfolio anything</p>
+            <p className="text-ink font-mono text-xs font-bold tracking-wide uppercase">{content.header}</p>
           </div>
           <div className="text-graphite flex items-center gap-3 text-xs">
-            <span>Powered by OpenAI</span>
+            <span>{content.poweredBy}</span>
             <button
               type="button"
               onClick={startNewChat}
               disabled={streaming || messages.length === 0}
               className="text-signal-deep font-semibold underline-offset-2 hover:underline disabled:cursor-not-allowed disabled:opacity-50"
             >
-              New chat
+              {content.newChatLabel}
             </button>
           </div>
         </div>
@@ -166,8 +172,8 @@ export default function PortfolioChat() {
         <div ref={scrollRef} className="max-h-[420px] min-h-[280px] space-y-3 overflow-y-auto p-4">
           {messages.length === 0 ? (
             <div className="space-y-4">
-              <p className="text-graphite text-sm">Hi, I'm Aaron's portfolio assistant. Ask about his projects, experience, stack, or availability.</p>
-              <SuggestedPrompts onPick={prompt => sendMessage(prompt)} />
+              <p className="text-graphite text-sm">{content.greeting}</p>
+              <SuggestedPrompts prompts={content.prompts} onPick={prompt => sendMessage(prompt)} />
             </div>
           ) : (
             messages.map(m => <ChatMessage key={m.id} message={m} />)
@@ -180,7 +186,7 @@ export default function PortfolioChat() {
             type="text"
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder={limitReached ? 'Conversation limit reached. Start a new chat to continue.' : 'Type your question...'}
+            placeholder={limitReached ? content.limitPlaceholder : content.inputPlaceholder}
             disabled={streaming || limitReached}
             maxLength={MAX_INPUT_LENGTH}
             className="border-ink bg-paper text-ink placeholder:text-graphite focus-visible:outline-signal flex-1 rounded-sm border-2 px-4 py-2 text-sm focus-visible:outline-3 focus-visible:outline-offset-2 disabled:opacity-50"
@@ -190,16 +196,15 @@ export default function PortfolioChat() {
             disabled={streaming || limitReached || !input.trim()}
             className="border-ink bg-signal text-ink shadow-hard-sm rounded-sm border-2 px-5 py-2 text-sm font-bold transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_var(--color-ink)] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {streaming ? '...' : 'Send'}
+            {streaming ? '...' : content.sendLabel}
           </button>
         </form>
       </div>
 
       <p className="text-graphite mt-3 text-center text-xs leading-relaxed">
-        Do not submit private or sensitive information. Chat messages are processed by OpenAI and may be logged to operate and secure this chat. By using the chat, you acknowledge
-        and agree to the{' '}
-        <a href="/privacy" className="text-signal-deep hover:text-ink font-semibold underline underline-offset-2">
-          Privacy Notice
+        {content.disclaimer.text}
+        <a href={content.disclaimer.linkHref} className="text-signal-deep hover:text-ink font-semibold underline underline-offset-2">
+          {content.disclaimer.linkLabel}
         </a>
         .
       </p>

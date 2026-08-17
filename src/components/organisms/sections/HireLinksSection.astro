@@ -1,0 +1,53 @@
+---
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+
+interface HireLink {
+  /** Anchor text; doubles as the card heading */
+  label: string;
+  /** Destination route */
+  href: string;
+  /** Short line describing what the destination page covers */
+  description: string;
+}
+
+/**
+ * Routing block that hands visitors off to the stack-specific `/hire/*`
+ * pages. The link labels are written as the search phrases those pages
+ * target, so the anchor text itself carries the ranking signal.
+ */
+interface Props {
+  /** Small label shown above the title */
+  eyebrow?: string;
+  /** Section title */
+  title: string;
+  /** Optional supporting copy below the title */
+  description?: string;
+  /** Destination cards rendered in order */
+  links: HireLink[];
+  class?: string;
+}
+
+const { eyebrow, title, description, links, class: className = '' } = Astro.props;
+---
+
+<section class={`bg-ink text-concrete section-py ${className}`}>
+  <div class="container">
+    <SectionHeader eyebrow={eyebrow} title={title} description={description} tone="dark" class="mb-10" />
+
+    <ul class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      {
+        links.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class="border-seam bg-asphalt hover:border-signal group flex h-full flex-col gap-2 rounded-md border-2 p-6 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5"
+            >
+              <span class="font-display text-concrete group-hover:text-signal text-lg font-black tracking-tight">{link.label}</span>
+              <span class="text-steel text-sm">{link.description}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

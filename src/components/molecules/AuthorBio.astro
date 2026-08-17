@@ -1,7 +1,9 @@
 ---
 import Avatar from '@/components/atoms/Avatar.astro';
 import Button from '@/components/atoms/Button.astro';
-import settings from '@/content/site/settings.json';
+import { getSiteEntry } from '@/lib/site-content';
+const settings = await getSiteEntry('siteSettings', 'settings');
+const pages = await getSiteEntry('sitePages', 'pages');
 
 /**
  * Molecule that composes the Avatar and Button atoms into the site author's
@@ -18,6 +20,7 @@ interface Props {
 
 const { variant = 'default', class: className = '' } = Astro.props;
 const { author } = settings;
+const { authorBio } = pages;
 const isCompact = variant === 'compact';
 ---
 
@@ -30,8 +33,8 @@ const isCompact = variant === 'compact';
           <p class="text-ink truncate font-bold">{author.name}</p>
           <p class="text-graphite text-sm">{author.jobTitle}</p>
         </div>
-        <Button href="/hire" variant="ghost-ink" size="sm">
-          Hire Me
+        <Button href={authorBio.hireCta.href} variant="ghost-ink" size="sm">
+          {authorBio.hireCta.label}
         </Button>
       </>
     ) : (
@@ -40,15 +43,15 @@ const isCompact = variant === 'compact';
         <div class="flex-1 text-center sm:text-left">
           <p class="text-ink text-lg font-bold">{author.name}</p>
           <p class="text-graphite mb-3 text-sm">
-            {author.jobTitle} based in {author.location}
+            {author.jobTitle} {authorBio.basedInConnector} {author.location}
           </p>
           <p class="text-graphite mb-4 text-sm">{author.bio}</p>
           <div class="flex flex-wrap justify-center gap-3 sm:justify-start">
-            <Button href="/hire" variant="primary" size="sm">
-              Work With Me
+            <Button href={authorBio.workCta.href} variant="primary" size="sm">
+              {authorBio.workCta.label}
             </Button>
-            <Button href="/contact" variant="ghost-ink" size="sm">
-              Get in Touch
+            <Button href={authorBio.contactCta.href} variant="ghost-ink" size="sm">
+              {authorBio.contactCta.label}
             </Button>
           </div>
         </div>

@@ -15,7 +15,7 @@
   "heroDeck": {
     "cutout": "../../images/hero-cutout.png",
     "cutoutAlt": "Man giving a thumbs up at the screenshots",
-    "bubbleText": "Get a load of this...",
+    "bubbleText": "Get a load of this",
     "slides": [
       { "image": "../../images/project-la-clippers.jpg", "alt": "Clippers.com homepage", "label": "clippers.com" },
       { "image": "../../images/project-heat-new.jpg", "alt": "HEAT.com homepage", "label": "heat.com" },

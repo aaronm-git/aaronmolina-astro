@@ -1,7 +1,7 @@
 ---
 import type { IconClass } from '@/lib/icons';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ink' | 'ghost-ink';
+type ButtonVariant = 'primary' | 'secondary' | 'ghost-ink';
 type ButtonSize = 'sm' | 'base' | 'lg' | 'xl';
 
 /**
@@ -55,7 +55,6 @@ const variantClasses: Record<ButtonVariant, string> = {
   primary:
     'bg-signal text-ink border-2 border-signal shadow-hard-sm hover:shadow-[7px_7px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-0.5 active:translate-y-0.5',
   secondary: 'bg-transparent text-signal border-2 border-signal hover:bg-asphalt',
-  ink: 'bg-ink text-signal border-2 border-ink shadow-hard-sm hover:shadow-[5px_5px_0_var(--color-ink)] active:shadow-[1px_1px_0_var(--color-ink)] active:translate-x-0.5 active:translate-y-0.5',
   'ghost-ink': 'bg-transparent text-ink border-2 border-ink hover:bg-concrete-2',
 };
 

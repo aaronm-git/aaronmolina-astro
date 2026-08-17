@@ -15,18 +15,17 @@ interface Props {
   /** Full name used to derive the initials shown when no `src` is provided */
   name?: string;
   /** Size in the type scale */
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'sm' | 'md' | 'lg';
   /** Additional CSS classes */
   class?: string;
 }
 
 const { src, alt = '', name = '', size = 'md', class: className = '' } = Astro.props as Props;
 
-const sizeClasses: Record<'sm' | 'md' | 'lg' | 'xl', string> = {
+const sizeClasses: Record<'sm' | 'md' | 'lg', string> = {
   sm: 'h-10 w-10 text-sm',
   md: 'h-16 w-16 text-lg',
   lg: 'h-24 w-24 text-2xl',
-  xl: 'h-32 w-32 text-3xl',
 };
 
 const initials = name

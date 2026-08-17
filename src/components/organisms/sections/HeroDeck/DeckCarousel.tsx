@@ -15,8 +15,6 @@ export interface DeckSlide {
 interface DeckCarouselProps {
   /** Screenshots to cycle through */
   slides: DeckSlide[];
-  /** Milliseconds each slide holds before advancing */
-  intervalMs?: number;
 }
 
 /** How many upcoming cards peek out from behind the front card. */
@@ -55,8 +53,8 @@ function CardChrome({ label }: { label: string }) {
  * the front card out of frame and settling it at the back while every card
  * behind it steps forward.
  */
-export default function DeckCarousel({ slides, intervalMs = 3600 }: DeckCarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: intervalMs, stopOnInteraction: false, stopOnMouseEnter: true })]);
+export default function DeckCarousel({ slides }: DeckCarouselProps) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 3600, stopOnInteraction: false, stopOnMouseEnter: true })]);
   const [selected, setSelected] = useState(0);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const previous = useRef(0);

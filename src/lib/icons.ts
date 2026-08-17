@@ -52,16 +52,6 @@ const categoryIcons: Record<string, IconClass> = {
 
 const uiIcons: Record<string, IconClass> = {
   arrowRight: 'fa-solid fa-arrow-right',
-  arrowLeft: 'fa-solid fa-arrow-left',
-  chevronRight: 'fa-solid fa-chevron-right',
-  chevronDown: 'fa-solid fa-chevron-down',
-  externalLink: 'fa-solid fa-up-right-from-square',
-  close: 'fa-solid fa-xmark',
-  menu: 'fa-solid fa-bars',
-  play: 'fa-solid fa-play',
-  sun: 'fa-solid fa-sun',
-  moon: 'fa-solid fa-moon',
-  desktop: 'fa-solid fa-desktop',
 };
 
 /**
@@ -71,8 +61,6 @@ const uiIcons: Record<string, IconClass> = {
  */
 const brandIcons: Record<string, BrandSrc> = {
   github: '/brands/github.svg',
-  react: '/brands/react.svg',
-  nextjs: '/brands/nextjs.svg',
 };
 
 export function getNavIcon(iconKey: string): IconClass | null {
@@ -83,24 +71,11 @@ export function getCategoryIcon(category: string): IconClass | null {
   return categoryIcons[category] ?? null;
 }
 
-export function getUIIcon(name: string): IconClass | null {
-  return uiIcons[name] ?? null;
-}
-
 /** Resolves a brand key to its official SVG path, or null when not yet sourced. */
 export function getBrandIcon(name: string): BrandSrc | null {
   return brandIcons[name] ?? null;
 }
 
-/** Resolves a name against the UI, category and nav registries, in that order. */
-export function getIcon(name: string): IconClass | null {
-  return uiIcons[name] ?? categoryIcons[name] ?? navIcons[name] ?? null;
-}
-
 export const ICON_ARROW_RIGHT = uiIcons.arrowRight;
-export const ICON_ARROW_LEFT = uiIcons.arrowLeft;
-export const ICON_EXTERNAL_LINK = uiIcons.externalLink;
 export const ICON_IMAGE = categoryIcons.image;
 export const ICON_BRIEFCASE = categoryIcons.briefcase;
-export const ICON_CHECK = categoryIcons.check;
-export const ICON_TOOLS = categoryIcons.tools;

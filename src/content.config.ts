@@ -217,60 +217,6 @@ const projects = defineCollection({
     }),
 });
 
-const education = defineCollection({
-  loader: optionalGlob({
-    pattern: '**/*.json',
-    base: './src/content/education',
-  }),
-  schema: z.object({
-    school: z.string(),
-    slug: z.string(),
-    degree: z.string().optional(),
-    field: z.string().optional(),
-    startDate: z.union([z.string(), z.date(), z.null()]).optional(),
-    endDate: z.union([z.string(), z.date(), z.null()]).optional(),
-    location: z.string().optional(),
-    highlights: z.array(z.string()).default([]),
-    sortOrder: z.number().int().default(0),
-    isActive: z.boolean().default(true),
-  }),
-});
-
-const certifications = defineCollection({
-  loader: optionalGlob({
-    pattern: '**/*.json',
-    base: './src/content/certifications',
-  }),
-  schema: z.object({
-    name: z.string(),
-    slug: z.string(),
-    issuer: z.string().optional(),
-    issueDate: z.union([z.string(), z.date(), z.null()]).optional(),
-    expirationDate: z.union([z.string(), z.date(), z.null()]).optional(),
-    url: z.string().optional(),
-    technologies: z.array(z.string()).default([]),
-    sortOrder: z.number().int().default(0),
-    isActive: z.boolean().default(true),
-  }),
-});
-
-const awards = defineCollection({
-  loader: optionalGlob({
-    pattern: '**/*.json',
-    base: './src/content/awards',
-  }),
-  schema: z.object({
-    title: z.string(),
-    slug: z.string(),
-    issuer: z.string().optional(),
-    date: z.union([z.string(), z.date(), z.null()]).optional(),
-    description: z.string().optional(),
-    url: z.string().optional(),
-    sortOrder: z.number().int().default(0),
-    isActive: z.boolean().default(true),
-  }),
-});
-
 const testimonials = defineCollection({
   loader: optionalGlob({
     pattern: '**/*.json',
@@ -284,23 +230,6 @@ const testimonials = defineCollection({
     quote: z.string(),
     highlight: z.string().optional(),
     url: z.string().optional(),
-    featured: z.boolean().default(false),
-    sortOrder: z.number().int().default(0),
-    isActive: z.boolean().default(true),
-  }),
-});
-
-const services = defineCollection({
-  loader: optionalGlob({
-    pattern: '**/*.json',
-    base: './src/content/services',
-  }),
-  schema: z.object({
-    title: z.string(),
-    slug: z.string(),
-    summary: z.string(),
-    deliverables: z.array(z.string()).default([]),
-    technologies: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     sortOrder: z.number().int().default(0),
     isActive: z.boolean().default(true),
@@ -910,11 +839,7 @@ export const collections = {
   projects,
   profile,
   // resume-adjacent:
-  education,
-  certifications,
-  awards,
   testimonials,
-  services,
   // local development tools:
   emailSignatureProfiles,
   // site singletons:

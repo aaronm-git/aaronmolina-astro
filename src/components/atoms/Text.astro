@@ -1,6 +1,6 @@
 ---
 type TextTag = 'p' | 'span' | 'div' | 'label' | 'time';
-type TextColor = 'ink' | 'graphite' | 'steel' | 'signal' | 'signal-deep';
+type TextColor = 'graphite' | 'steel';
 
 /**
  * General-purpose body text atom for the IBM Plex Mono/body type scale.
@@ -39,11 +39,8 @@ const weightClasses: Record<'normal' | 'medium' | 'semibold' | 'bold', string> =
 };
 
 const colorClasses: Record<TextColor, string> = {
-  ink: 'text-ink',
   graphite: 'text-graphite',
   steel: 'text-steel',
-  signal: 'text-signal',
-  'signal-deep': 'text-signal-deep',
 };
 ---
 

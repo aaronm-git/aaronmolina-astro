@@ -8,54 +8,34 @@ const pages = await getSiteEntry('sitePages', 'pages');
 /**
  * Molecule that composes the Avatar and Button atoms into the site author's
  * bio card, sourcing copy from `content/site/settings.json`.
- * `default` shows the full bio with two CTAs; `compact` is a condensed
- * inline row (avatar, name/title, single CTA) for tighter layouts.
  */
 interface Props {
-  /** Layout variant: full bio card or condensed inline row */
-  variant?: 'default' | 'compact';
   /** Additional CSS classes */
   class?: string;
 }
 
-const { variant = 'default', class: className = '' } = Astro.props;
+const { class: className = '' } = Astro.props;
 const { author } = settings;
 const { authorBio } = pages;
-const isCompact = variant === 'compact';
 ---
 
-<aside class={`rounded-md border-2 border-ink bg-paper p-6 ${isCompact ? 'flex items-center gap-4' : ''} ${className}`}>
-  {
-    isCompact ? (
-      <>
-        <Avatar name={author.name} size="sm" class="flex-shrink-0" />
-        <div class="min-w-0 flex-1">
-          <p class="text-ink truncate font-bold">{author.name}</p>
-          <p class="text-graphite text-sm">{author.jobTitle}</p>
-        </div>
-        <Button href={authorBio.hireCta.href} variant="ghost-ink" size="sm">
-          {authorBio.hireCta.label}
+<aside class={`rounded-md border-2 border-ink bg-paper p-6 ${className}`}>
+  <div class="flex flex-col gap-6 sm:flex-row">
+    <Avatar name={author.name} size="lg" class="mx-auto flex-shrink-0 sm:mx-0" />
+    <div class="flex-1 text-center sm:text-left">
+      <p class="text-ink text-lg font-bold">{author.name}</p>
+      <p class="text-graphite mb-3 text-sm">
+        {author.jobTitle} {authorBio.basedInConnector} {author.location}
+      </p>
+      <p class="text-graphite mb-4 text-sm">{author.bio}</p>
+      <div class="flex flex-wrap justify-center gap-3 sm:justify-start">
+        <Button href={authorBio.workCta.href} variant="primary" size="sm">
+          {authorBio.workCta.label}
         </Button>
-      </>
-    ) : (
-      <div class="flex flex-col gap-6 sm:flex-row">
-        <Avatar name={author.name} size="lg" class="mx-auto flex-shrink-0 sm:mx-0" />
-        <div class="flex-1 text-center sm:text-left">
-          <p class="text-ink text-lg font-bold">{author.name}</p>
-          <p class="text-graphite mb-3 text-sm">
-            {author.jobTitle} {authorBio.basedInConnector} {author.location}
-          </p>
-          <p class="text-graphite mb-4 text-sm">{author.bio}</p>
-          <div class="flex flex-wrap justify-center gap-3 sm:justify-start">
-            <Button href={authorBio.workCta.href} variant="primary" size="sm">
-              {authorBio.workCta.label}
-            </Button>
-            <Button href={authorBio.contactCta.href} variant="ghost-ink" size="sm">
-              {authorBio.contactCta.label}
-            </Button>
-          </div>
-        </div>
+        <Button href={authorBio.contactCta.href} variant="ghost-ink" size="sm">
+          {authorBio.contactCta.label}
+        </Button>
       </div>
-    )
-  }
+    </div>
+  </div>
 </aside>

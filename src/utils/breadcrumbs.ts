@@ -63,11 +63,3 @@ function formatSegment(segment: string): string {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 }
-
-/**
- * Create a breadcrumb item with custom label
- * Useful for dynamic pages where you want to override the auto-generated label
- */
-export function createBreadcrumbItem(label: string, href: string): BreadcrumbItem {
-  return { label, href };
-}

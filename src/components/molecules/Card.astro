@@ -1,31 +1,25 @@
 ---
 type CardVariant = 'light' | 'dark';
-type CardPadding = 'none' | 'sm' | 'base' | 'lg';
+type CardPadding = 'none' | 'base';
 
 /**
  * Generic content-container molecule with the hard-shadow neo-brutalist
- * card styling. Renders as an `<a>` when `href` is passed, otherwise a `<div>`.
+ * card styling.
  */
 interface Props {
   /** Visual style variant */
   variant?: CardVariant;
   /** Inner padding size */
   padding?: CardPadding;
-  /** Destination URL; when set, the component renders as an `<a>` instead of a `<div>` */
-  href?: string;
-  /** Applies the hover lift/shadow transition */
-  hoverable?: boolean;
   /** Additional CSS classes */
   class?: string;
 }
 
-const { variant = 'light', padding = 'base', href, hoverable = true, class: className = '' } = Astro.props as Props;
+const { variant = 'light', padding = 'base', class: className = '' } = Astro.props as Props;
 
 const paddingClasses: Record<CardPadding, string> = {
   none: 'p-0',
-  sm: 'p-4',
   base: 'p-6',
-  lg: 'p-8',
 };
 
 const variantClasses: Record<CardVariant, string> = {
@@ -33,13 +27,11 @@ const variantClasses: Record<CardVariant, string> = {
   dark: 'bg-ink border-ink text-concrete',
 };
 
-const hoverClasses = hoverable ? 'transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--color-ink)]' : '';
+const hoverClasses = 'transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--color-ink)]';
 
 const classes = `flex flex-col gap-3 rounded-md border-2 shadow-hard ${paddingClasses[padding]} ${variantClasses[variant]} ${hoverClasses} ${className}`;
-
-const Tag = href ? 'a' : 'div';
 ---
 
-<Tag class={classes} {...href ? { href } : {}}>
+<div class={classes}>
   <slot />
-</Tag>
+</div>

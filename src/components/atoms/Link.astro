@@ -1,7 +1,7 @@
 ---
 import { ICON_ARROW_RIGHT } from '@/lib/icons';
 
-type LinkVariant = 'signal' | 'muted' | 'ink';
+type LinkVariant = 'signal' | 'muted';
 
 /**
  * Inline text link atom, styled as an underlined uppercase mono link.
@@ -27,7 +27,6 @@ const { href, variant = 'signal', size = 'base', showArrow = false, external = f
 const variantClasses: Record<LinkVariant, string> = {
   signal: 'text-signal-deep hover:text-ink',
   muted: 'text-graphite hover:text-ink',
-  ink: 'text-ink hover:text-signal-deep',
 };
 
 const sizeClasses: Record<'sm' | 'base', string> = {
